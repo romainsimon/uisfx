@@ -1,0 +1,62 @@
+{
+  "name": "uisfx",
+  "version": "0.1.0",
+  "description": "Open-source semantic UI sound effects for web, mobile, SaaS, and games.",
+  "type": "module",
+  "sideEffects": false,
+  "license": "MIT",
+  "author": "Yuki Capital",
+  "homepage": "https://github.com/romainsimon/uisfx#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romainsimon/uisfx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/romainsimon/uisfx/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "dist",
+    "sounds",
+    "manifest.json",
+    "README.md",
+    "LICENSE",
+    "LICENSE-AUDIO"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./manifest": "./manifest.json",
+    "./sounds/*": "./sounds/*"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10"
+  },
+  "keywords": [
+    "sound-effects",
+    "interface-sound-effects",
+    "ui-sound-design",
+    "ui-sounds",
+    "ui-sfx",
+    "ux-sound-design",
+    "web-audio",
+    "earcons",
+    "accessibility",
+    "game-audio"
+  ]
+}
