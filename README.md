@@ -24,7 +24,7 @@ UI SFX is a tiny semantic sound system for web apps, mobile apps, SaaS, educatio
 - 72 brief one-shots and 6 seamless state loops
 - 4.33 MB for every MP3 or 1.86 MB for every Ogg
 - 8.9 kB compressed Web Audio runtime with zero dependencies
-- MIT code, CC0 audio, and CC0 category art
+- MIT code, CC0 audio, and CC0 sound-pack art
 
 ## Install
 
@@ -159,4 +159,4 @@ Issues and focused pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTIN
 
 ## License
 
-The TypeScript code is [MIT licensed](LICENSE). The procedurally generated audio library is dedicated to the public domain under [CC0 1.0](LICENSE-AUDIO), as are the [category illustrations](LICENSE-ART).
+The TypeScript code is [MIT licensed](LICENSE). The procedurally generated audio library is dedicated to the public domain under [CC0 1.0](LICENSE-AUDIO), as are the [sound-pack illustrations](LICENSE-ART).

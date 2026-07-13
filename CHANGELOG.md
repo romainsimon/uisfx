@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Consolidate the category gallery and filter rail into one responsive, keyboard-friendly category grid.
+- Remove category illustrations so visual artwork remains exclusive to sound feels.
+
 ## 0.2.0
 
 - Add the Studio feel for film, audio, and AI creative tools.

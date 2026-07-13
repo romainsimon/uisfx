@@ -235,6 +235,7 @@ const demoOneShotGroups = CATEGORIES.map((item) => ({
 })).filter((item) => item.cues.length > 0)
 const demoLoopCues = CUES.filter((cue) => getPlaybackMode(cue.name) === 'loop')
 const packTheme = (pack: PackName) => PACK_THEMES[pack]
+const categoryCueCount = (categoryName: CategoryName) => CUES.filter((cue) => cue.category === categoryName).length
 const filteredCues = computed(() => {
   const needle = query.value.trim().toLowerCase()
   return CUES.filter((cue) => {
@@ -246,7 +247,6 @@ const filteredCues = computed(() => {
 })
 
 const cueDuration = (pack: PackName, cue: CueName) => createRecipe(pack, cue).duration.toFixed(2)
-const categoryArtwork = (categoryName: CategoryName) => `/categories/${categoryName}.webp`
 const isLoop = (cue: CueName) => getPlaybackMode(cue) === 'loop'
 const isLooping = (cue: CueName, pack: PackName) => loopingCue.value === cue && loopingPack.value === pack
 const playLabel = (cue: CueName, pack: PackName) => isLooping(cue, pack)
@@ -847,48 +847,58 @@ onBeforeUnmount(() => {
       <section id="sound-library" class="library-section" aria-labelledby="library-title">
         <div class="library-heading" data-reveal>
           <div>
-            <p class="eyebrow">858 open-source sounds</p>
+            <p class="eyebrow">78 cues · 11 feels · 858 sounds</p>
             <h2 id="library-title">Interface sound effects for every product state.</h2>
           </div>
           <p>{{ selectedPackData.description }} <strong>{{ selectedPackData.bestFor }}.</strong></p>
         </div>
 
-        <div class="category-showcase" aria-label="Illustrated interaction categories" data-reveal data-reveal-group>
-          <button
-            v-for="item in CATEGORIES"
-            :key="item.id"
-            type="button"
-            class="category-card"
-            data-reveal-item
-            :class="{ active: category === item.id }"
-            :aria-pressed="category === item.id"
-            data-sfx="select"
-            :style="{ backgroundImage: `url(${categoryArtwork(item.id)})` }"
-            @click="category = item.id"
-          >
-            <span class="category-card__number">{{ String(CATEGORIES.findIndex((candidate) => candidate.id === item.id) + 1).padStart(2, '0') }}</span>
-            <span class="category-card__copy">
-              <strong>{{ item.label }}</strong>
-              <small>{{ item.description }}</small>
-            </span>
-            <span class="category-card__count">6 cues</span>
-          </button>
-        </div>
+        <fieldset class="category-showcase" data-reveal data-reveal-group>
+          <legend class="sr-only">Filter sounds by interaction category</legend>
+          <span class="category-option" data-reveal-item>
+            <input
+              id="category-all"
+              v-model="category"
+              class="category-option__input"
+              type="radio"
+              name="sound-category"
+              value="all"
+              @change="play('select')"
+            >
+            <label class="category-card" for="category-all">
+              <span class="category-card__number">All</span>
+              <span class="category-card__copy">
+                <strong>All sounds</strong>
+                <small>Every interaction category in one view.</small>
+              </span>
+              <span class="category-card__count">{{ CUES.length }} cues</span>
+            </label>
+          </span>
+          <span v-for="(item, index) in CATEGORIES" :key="item.id" class="category-option" data-reveal-item>
+            <input
+              :id="`category-${item.id}`"
+              v-model="category"
+              class="category-option__input"
+              type="radio"
+              name="sound-category"
+              :value="item.id"
+              @change="play('select')"
+            >
+            <label class="category-card" :for="`category-${item.id}`">
+              <span class="category-card__number">{{ String(index + 1).padStart(2, '0') }}</span>
+              <span class="category-card__copy">
+                <strong>{{ item.label }}</strong>
+                <small>{{ item.description }}</small>
+              </span>
+              <span class="category-card__count">{{ categoryCueCount(item.id) }} cues</span>
+            </label>
+          </span>
+        </fieldset>
 
         <div class="library-tools" data-reveal>
-          <div class="category-tabs" aria-label="Filter by interaction category">
-            <button type="button" data-sfx="select" :aria-pressed="category === 'all'" @click="category = 'all'">All <span>{{ CUES.length }}</span></button>
-            <button
-              v-for="item in CATEGORIES"
-              :key="item.id"
-              type="button"
-              data-sfx="select"
-              :aria-pressed="category === item.id"
-              @click="category = item.id"
-            >{{ item.label }} <span>{{ CUES.filter((cue) => cue.category === item.id).length }}</span></button>
-          </div>
+          <p class="sr-only" role="status" aria-live="polite" aria-atomic="true">{{ filteredCues.length }} cues shown</p>
           <div class="library-tools__right">
-            <div class="playback-tabs" aria-label="Filter by playback behavior">
+            <div class="playback-tabs" role="group" aria-label="Filter by playback behavior">
               <button type="button" data-sfx="select" :aria-pressed="playback === 'all'" @click="playback = 'all'">All</button>
               <button type="button" data-sfx="select" :aria-pressed="playback === 'one-shot'" @click="playback = 'one-shot'">One-shots</button>
               <button type="button" data-sfx="select" :aria-pressed="playback === 'loop'" @click="playback = 'loop'">Loops</button>
