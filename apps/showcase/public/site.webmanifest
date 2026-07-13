@@ -1,0 +1,17 @@
+{
+  "name": "UI SFX",
+  "short_name": "UI SFX",
+  "description": "Open-source UI sound design and interface sound effects library.",
+  "start_url": "/ui-sound-design",
+  "display": "standalone",
+  "background_color": "#f5eddd",
+  "theme_color": "#e84d2a",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
