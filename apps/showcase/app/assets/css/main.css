@@ -881,6 +881,11 @@ select:focus-visible {
   gap: 0.4rem;
 }
 
+.hero-agent-block {
+  display: grid;
+  gap: 0.4rem;
+}
+
 .hero-tool-label {
   min-width: 0;
   display: flex;
@@ -3469,7 +3474,7 @@ select:focus-visible {
     align-items: start;
   }
 
-  .hero-agent-handoff .hero-tool-label small {
+  .hero-agent-block .hero-tool-label small {
     display: none;
   }
 

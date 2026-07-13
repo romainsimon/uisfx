@@ -1206,28 +1206,30 @@ onBeforeUnmount(() => {
                 </button>
               </div>
 
-              <div class="hero-agent-handoff">
-                <div class="hero-agent-handoff__mark" aria-hidden="true"><i /><i /><i /></div>
-                <div class="hero-agent-handoff__copy">
-                  <p class="hero-tool-label"><span>02</span> Hand to your coding agent <small>{{ selectedPackData.label }} feel</small></p>
-                  <strong>Instrument the whole product, tastefully.</strong>
-                  <span>Copies a production-ready {{ selectedPackData.label }} prompt for every meaningful interaction and state.</span>
-                </div>
-                <div class="hero-agent-handoff__actions">
-                  <button
-                    class="hero-agent-copy"
-                    :class="{ copied: agentPromptCopied, failed: agentPromptCopyFailed }"
-                    type="button"
-                    data-sfx-managed
-                    :aria-label="agentPromptCopyFailed ? 'Copy failed. Try again.' : agentPromptCopied ? 'Implementation prompt copied' : `Copy UI SFX implementation prompt using the ${selectedPackData.label} feel`"
-                    @click="copyAgentPrompt"
-                  >
-                    <span v-if="agentPromptCopyFailed" class="copy-status-icon" aria-hidden="true">!</span>
-                    <Check v-else-if="agentPromptCopied" aria-hidden="true" />
-                    <CopyIcon v-else aria-hidden="true" />
-                    <span>{{ agentPromptCopyFailed ? 'Copy failed' : agentPromptCopied ? 'Prompt copied' : 'Copy agent prompt' }}</span>
-                  </button>
-                  <a :href="agentPromptUrl" target="_blank" rel="noopener noreferrer">Open prompt <span aria-hidden="true">↗</span></a>
+              <div class="hero-agent-block">
+                <p class="hero-tool-label"><span>02</span> Hand to your coding agent <small>{{ selectedPackData.label }} feel</small></p>
+                <div class="hero-agent-handoff">
+                  <div class="hero-agent-handoff__mark" aria-hidden="true"><i /><i /><i /></div>
+                  <div class="hero-agent-handoff__copy">
+                    <strong>Instrument the whole product, tastefully.</strong>
+                    <span>Copies a production-ready {{ selectedPackData.label }} prompt for every meaningful interaction and state.</span>
+                  </div>
+                  <div class="hero-agent-handoff__actions">
+                    <button
+                      class="hero-agent-copy"
+                      :class="{ copied: agentPromptCopied, failed: agentPromptCopyFailed }"
+                      type="button"
+                      data-sfx-managed
+                      :aria-label="agentPromptCopyFailed ? 'Copy failed. Try again.' : agentPromptCopied ? 'Implementation prompt copied' : `Copy UI SFX implementation prompt using the ${selectedPackData.label} feel`"
+                      @click="copyAgentPrompt"
+                    >
+                      <span v-if="agentPromptCopyFailed" class="copy-status-icon" aria-hidden="true">!</span>
+                      <Check v-else-if="agentPromptCopied" aria-hidden="true" />
+                      <CopyIcon v-else aria-hidden="true" />
+                      <span>{{ agentPromptCopyFailed ? 'Copy failed' : agentPromptCopied ? 'Prompt copied' : 'Copy agent prompt' }}</span>
+                    </button>
+                    <a :href="agentPromptUrl" target="_blank" rel="noopener noreferrer">Open prompt <span aria-hidden="true">↗</span></a>
+                  </div>
                 </div>
               </div>
 
