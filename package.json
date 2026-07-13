@@ -1,0 +1,29 @@
+{
+  "name": "uisfx-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --filter=@uisfx/showcase",
+    "generate": "tsx scripts/generate-library.ts",
+    "report:audio": "tsx scripts/audio-report.ts",
+    "test": "turbo run test",
+    "typecheck": "tsc -p tsconfig.json --noEmit && turbo run typecheck",
+    "check": "npm run generate && npm run typecheck && npm run test && npm run build && npm run report:audio"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "turbo": "^2.10.4",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": "^22.20.0 || ^24.11.0 || >=26.0.0"
+  },
+  "packageManager": "npm@11.4.2"
+}

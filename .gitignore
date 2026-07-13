@@ -1,0 +1,14 @@
+node_modules
+.nuxt
+.output
+.turbo
+dist
+coverage
+.generated
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+.gstack/
+.seo-cache/
