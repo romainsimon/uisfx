@@ -23,6 +23,9 @@ export interface SoundRecipe {
   panTo: number
   loop: boolean
   defaultVolume: number
+  fmRatio: number
+  fmDepth: number
+  elasticity: number
 }
 
 function midiToFrequency(midi: number) {
@@ -42,18 +45,56 @@ const STUDIO_MILESTONE_CUES = new Set<CueName>([
   'success', 'complete', 'checkpoint', 'reward', 'level-up', 'achievement', 'bonus',
 ])
 
+const MECHANICAL_DETENT_CUES = new Set<CueName>([
+  ...STUDIO_DETENT_CUES,
+  'typing', 'blocked', 'progress-step', 'stop', 'invalid-drop',
+])
+
+const ORGANIC_BODY_CUES = new Set<CueName>([
+  'press', 'release', 'long-press', 'delete', 'paste',
+  'drag-start', 'drop', 'reorder', 'invalid-drop',
+  'send', 'receive', 'notification', 'success', 'error', 'warning', 'blocked',
+  'start', 'stop', 'complete', 'connect', 'disconnect', 'lock',
+  'reward', 'level-up', 'achievement', 'bonus', 'purchase', 'refund',
+])
+
+const SHIMMER_CUES = new Set<CueName>([
+  'open', 'expand', 'copy',
+  'send', 'receive', 'notification', 'mention', 'reaction',
+  'success', 'info', 'complete', 'checkpoint', 'connect', 'unlock', 'wake',
+  'reward', 'level-up', 'achievement', 'streak', 'badge', 'bonus',
+  'checkout', 'purchase', 'coupon',
+])
+
+const CINEMATIC_WEIGHT_CUES = new Set<CueName>([
+  'long-press', 'delete', 'cancel', 'drop', 'invalid-drop',
+  'send', 'receive', 'success', 'error', 'warning', 'blocked',
+  'start', 'stop', 'complete', 'connect', 'disconnect', 'lock', 'sleep',
+  'reward', 'level-up', 'achievement', 'badge', 'bonus', 'purchase', 'refund',
+])
+
+const RUBBER_EXPRESSIVE_CUES = new Set<CueName>([
+  'press', 'release', 'double-click', 'long-press',
+  'toggle-on', 'toggle-off', 'check', 'uncheck',
+  'drag-start', 'drop', 'snap', 'reorder', 'invalid-drop',
+  'reaction', 'success', 'blocked', 'retry',
+  'play', 'pause', 'lock', 'unlock',
+  'reward', 'level-up', 'achievement', 'streak', 'badge', 'bonus',
+  'add-to-cart', 'remove-from-cart', 'purchase',
+])
+
 function arrangeNotes(pack: PackName, cue: CueName, source: readonly PatternNote[], loop: boolean): PatternNote[] {
   const notes = source.map((note) => ({ ...note }))
   switch (pack) {
     case 'soft':
       return notes.map((note, index) => ({
         ...note,
-        at: note.at * 1.06 + index * 0.006,
+        at: loop ? note.at : note.at * 1.06 + index * 0.006,
         length: note.length * 1.13,
         semitone: note.semitone * 0.94,
       }))
     case 'glass': {
-      if (loop || notes.length === 0) return notes
+      if (loop || notes.length === 0 || !SHIMMER_CUES.has(cue)) return notes
       const last = notes[notes.length - 1]
       return last ? [...notes, {
         ...last,
@@ -66,23 +107,23 @@ function arrangeNotes(pack: PackName, cue: CueName, source: readonly PatternNote
     case 'arcade':
       return notes.map((note, index) => ({
         ...note,
-        at: Math.round(note.at / 0.04) * 0.04,
+        at: loop ? note.at : Math.round(note.at / 0.04) * 0.04,
         length: Math.max(0.06, Math.round(note.length / 0.04) * 0.04) * 0.82,
         semitone: Math.round(note.semitone) + (index % 2 === 1 ? 0.25 : 0),
       }))
     case 'mechanical':
       return [
-        { at: 0, semitone: -12, length: 0.055, glide: -3, gain: 0.28 },
+        ...(loop || !MECHANICAL_DETENT_CUES.has(cue) ? [] : [{ at: 0, semitone: -12, length: 0.055, glide: -3, gain: 0.28 }]),
         ...notes.map((note) => ({ ...note, length: note.length * 0.62, gain: (note.gain ?? 1) * 0.82 })),
       ]
     case 'organic':
       return notes.flatMap((note, index) => {
         const body = {
           ...note,
-          at: note.at + index * 0.009,
+          at: loop ? note.at : note.at + index * 0.009,
           semitone: note.semitone + (index % 2 === 0 ? -0.16 : 0.11),
         }
-        if (loop || index !== 0) return [body]
+        if (loop || index !== 0 || !ORGANIC_BODY_CUES.has(cue)) return [body]
         return [body, {
           ...note,
           at: note.at + 0.018,
@@ -93,34 +134,36 @@ function arrangeNotes(pack: PackName, cue: CueName, source: readonly PatternNote
       })
     case 'dreamy':
       return notes.flatMap((note, index) => [
-        { ...note, at: note.at * 1.08, length: note.length * 1.18, gain: (note.gain ?? 1) * 0.78 },
-        ...(loop ? [] : [{ ...note, at: note.at * 1.08 + 0.07 + index * 0.012, semitone: note.semitone + 12.02, length: note.length * 0.82, gain: (note.gain ?? 1) * 0.13 }]),
+        { ...note, at: loop ? note.at : note.at * 1.08, length: note.length * 1.18, gain: (note.gain ?? 1) * 0.78 },
+        ...(loop || !SHIMMER_CUES.has(cue) ? [] : [{ ...note, at: note.at * 1.08 + 0.07 + index * 0.012, semitone: note.semitone + 12.02, length: note.length * 0.82, gain: (note.gain ?? 1) * 0.13 }]),
       ])
     case 'scifi':
       return notes.map((note, index) => ({
         ...note,
-        at: Math.round(note.at / 0.03) * 0.03,
-        length: note.length * 0.74,
-        semitone: note.semitone + (index % 2 === 0 ? 0 : 6),
-        glide: (note.glide ?? 0) + (index % 2 === 0 ? 5 : -4),
+        at: loop ? note.at : Math.round(note.at / 0.01) * 0.01,
+        length: note.length * 0.72,
+        semitone: note.semitone + (index % 2 === 0 ? -0.04 : 0.16),
+        glide: (note.glide ?? 0) * 0.58 + (note.glide === undefined ? (index % 2 === 0 ? 0.45 : -0.25) : 0),
+        gain: (note.gain ?? 1) * (index === 0 ? 1 : 0.9),
       }))
     case 'rubber':
       return notes.map((note, index) => ({
         ...note,
-        at: note.at * 1.04 + index * 0.012,
-        length: note.length * 1.05,
-        semitone: note.semitone - (index % 2 === 0 ? 0.5 : 2),
-        glide: (note.glide ?? 0) + (index % 2 === 0 ? 7 : -3),
+        at: loop ? note.at : note.at * 0.98 + index * 0.004,
+        length: note.length * 0.84,
+        semitone: note.semitone + (index % 2 === 0 ? -0.18 : 0.08),
+        glide: (note.glide ?? 0) * 0.52,
+        gain: (note.gain ?? 1) * (index === 0 ? 1 : 0.88),
       }))
     case 'cinematic':
       return [
         ...notes.map((note) => ({ ...note, length: note.length * 1.16, gain: (note.gain ?? 1) * 0.72 })),
-        ...(loop || notes.length === 0 ? [] : [{ at: 0, semitone: -24, length: Math.min(0.38, Math.max(...notes.map((note) => note.length))), glide: -2, gain: 0.28 }]),
+        ...(loop || notes.length === 0 || !CINEMATIC_WEIGHT_CUES.has(cue) ? [] : [{ at: 0, semitone: -24, length: Math.min(0.38, Math.max(...notes.map((note) => note.length))), glide: -2, gain: 0.28 }]),
       ]
     case 'studio': {
       const body = notes.map((note) => ({
         ...note,
-        at: note.at * 0.92,
+        at: loop ? note.at : note.at * 0.92,
         length: note.length * 0.82,
         gain: (note.gain ?? 1) * (loop ? 0.55 : 0.8),
       }))
@@ -161,6 +204,12 @@ export function createRecipe(packName: PackName, cueName: CueName): SoundRecipe 
       endFrequency: midiToFrequency(endMidi),
     }
   })
+  const packTexture = pack.noise
+  const cueTexture = cue.noise ?? 0
+  const transient = Math.min(1, (cue.transient ?? 0) * (0.7 + pack.transient * 0.3) + pack.transient * 0.45)
+    * (cue.loop ? 0.58 : 1)
+  const fmDepth = (pack.fmDepth ?? 0) * (cue.loop ? 0.58 : cue.category === 'reward' ? 1.12 : 1)
+  const elasticity = (pack.elasticity ?? 0) * (cue.loop ? 0.18 : RUBBER_EXPRESSIVE_CUES.has(cueName) ? 1 : 0.36)
 
   return {
     cue: cueName,
@@ -173,8 +222,10 @@ export function createRecipe(packName: PackName, cueName: CueName): SoundRecipe 
     harmonics: pack.harmonics,
     attack: pack.attack,
     decay: pack.decay,
-    noise: Math.min(0.58, (cue.noise ?? 0) + pack.noise),
-    transient: Math.min(1, (cue.transient ?? 0) + pack.transient),
+    // Texture is event-bound in the renderer. Pack character modulates a cue's
+    // intentional texture instead of adding a permanent ambient noise floor.
+    noise: Math.min(0.42, cueTexture * (0.55 + packTexture) + packTexture * 0.025),
+    transient,
     brightness: pack.brightness,
     echo: pack.echo,
     bitDepth: pack.bitDepth,
@@ -182,5 +233,8 @@ export function createRecipe(packName: PackName, cueName: CueName): SoundRecipe 
     panTo: cue.panTo ?? cue.panFrom ?? 0,
     loop: cue.loop ?? false,
     defaultVolume: cue.defaultVolume,
+    fmRatio: pack.fmRatio ?? 1,
+    fmDepth,
+    elasticity,
   }
 }

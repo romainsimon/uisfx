@@ -10,12 +10,13 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --filter=@uisfx/showcase",
-    "generate": "tsx scripts/generate-library.ts",
+    "generate": "node --import tsx scripts/generate-library.ts",
     "privacy:check": "node scripts/privacy-check.mjs",
-    "report:audio": "tsx scripts/audio-report.ts",
+    "report:audio": "node --import tsx scripts/audio-report.ts",
+    "report:quality": "node --import tsx scripts/audio-quality.ts",
     "test": "turbo run test",
     "typecheck": "tsc -p tsconfig.json --noEmit && turbo run typecheck",
-    "check": "npm run privacy:check && npm run generate && npm run typecheck && npm run test && npm run build && npm run report:audio"
+    "check": "npm run privacy:check && npm run generate && npm run report:quality && npm run typecheck && npm run test && npm run build && npm run report:audio"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

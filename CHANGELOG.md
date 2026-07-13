@@ -1,9 +1,16 @@
 # Changelog
 
-## Unreleased
+## 0.3.0 - 2026-07-13
 
 - Consolidate the category gallery and filter rail into one responsive, keyboard-friendly category grid.
 - Remove category illustrations so visual artwork remains exclusive to sound feels.
+- Rebuild Sci-fi as clean, restrained FM shimmer and Rubber as short tactile elasticity.
+- Replace continuous pack noise with dry, note-gated texture and sample-rate-aware filtering.
+- Recompose the library's most similar semantic cues so actions retain distinct identities across packs.
+- Correct pitch-glide phase, band-limit bright oscillators, and give one-shots clean digital-black tails.
+- Make all 66 rendered loops clock-even, seam-continuous, cyclically panned, and click-free when stopped.
+- Increase portable asset fidelity, using mono where spatial information is unnecessary and preserving stereo motion where it matters.
+- Add automated gates for tail cleanliness, loop continuity, loop timing, and pairwise perceptual similarity across all 858 renders.
 
 ## 0.2.0
 

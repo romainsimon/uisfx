@@ -51,7 +51,8 @@ The `AudioContext` is created lazily. Sounds are synthesized and cached locally 
 - 11 interchangeable sound packs
 - 858 portable sounds in both MP3 and Ogg
 - 72 brief one-shots and 6 seamless state loops
-- An 8.9 kB compressed Web Audio runtime
+- Dry, event-bound textures with clean silent tails
+- A 10.2 kB compressed Web Audio runtime
 - Zero runtime dependencies
 - MIT code and CC0 audio
 
@@ -75,8 +76,8 @@ ui.play('complete') // Same meaning, entirely different feel.
 | `mechanical` | Switches, relays, firm detents | Devtools, hardware, industrial UI |
 | `organic` | Wood, water, breath, small stones | Education, kids, calm games |
 | `dreamy` | Airy blooms and slow sparkle | Creative tools, wellness, ambient apps |
-| `scifi` | Holographic scans and data chirps | AI tools, spatial UI, futuristic games |
-| `rubber` | Elastic pops and friendly squish | Kids, playful mobile, casual games |
+| `scifi` | Clean holographic pings and restrained digital shimmer | AI tools, spatial UI, futuristic games |
+| `rubber` | Tactile elastic taps with a quick friendly rebound | Kids, playful mobile, casual games |
 | `cinematic` | Deep impacts and polished tails | Premium media and dramatic moments |
 | `studio` | Tactile precision with warm restraint | Film, audio, and AI creative tools |
 
@@ -153,7 +154,7 @@ const success = new Audio(successUrl)
 await success.play()
 ```
 
-Asset paths follow `sounds/{pack}/{cue}.{mp3|ogg}`. The `uisfx/manifest` export describes each path, size, duration, loop flag, default volume, cue, category, and pack.
+Asset paths follow `sounds/{pack}/{cue}.{mp3|ogg}`. The `uisfx/manifest` export describes each path, size, rendered duration, channel count, loop flag, default volume, cue, category, and pack.
 
 ## API at a glance
 

@@ -1,6 +1,17 @@
 import { describe, expect, it } from 'vitest'
 import { CATEGORIES, CUES, PACKS, createRecipe, getPlaybackMode, renderRecipe } from '../src'
 
+function rms(samples: Float32Array, from: number, to: number) {
+  let sum = 0
+  let count = 0
+  for (let index = Math.max(0, from); index < Math.min(samples.length, to); index += 1) {
+    const sample = samples[index] ?? 0
+    sum += sample * sample
+    count += 1
+  }
+  return count > 0 ? Math.sqrt(sum / count) : 0
+}
+
 describe('UI SFX catalog', () => {
   it('covers thirteen semantic categories with 78 cues', () => {
     expect(CATEGORIES).toHaveLength(13)
@@ -55,18 +66,89 @@ describe('deterministic renderer', () => {
     })
     expect(new Set(signatures).size).toBe(PACKS.length)
     expect(createRecipe('glass', 'achievement').notes.length).toBeGreaterThan(createRecipe('minimal', 'achievement').notes.length)
-    expect(createRecipe('mechanical', 'achievement').notes.length).toBeGreaterThan(createRecipe('minimal', 'achievement').notes.length)
+    expect(createRecipe('mechanical', 'press').notes.length).toBeGreaterThan(createRecipe('minimal', 'press').notes.length)
   })
 
-  it('renders loop buffers with quiet, click-free seams', () => {
+  it('renders loop buffers with click-free samples and slopes at the seam', () => {
     for (const cue of ['loading', 'processing', 'recording', 'connecting', 'scanning', 'streaming'] as const) {
       for (const pack of PACKS) {
         const rendered = renderRecipe(createRecipe(pack.name, cue), 16_000)
         const finalFrame = rendered.left.length - 1
-        expect(Math.abs(rendered.left[0] ?? 1)).toBeLessThan(0.001)
-        expect(Math.abs(rendered.right[0] ?? 1)).toBeLessThan(0.001)
-        expect(Math.abs(rendered.left[finalFrame] ?? 1)).toBeLessThan(0.01)
-        expect(Math.abs(rendered.right[finalFrame] ?? 1)).toBeLessThan(0.01)
+        const leftJump = Math.abs((rendered.left[0] ?? 0) - (rendered.left[finalFrame] ?? 0))
+        const rightJump = Math.abs((rendered.right[0] ?? 0) - (rendered.right[finalFrame] ?? 0))
+        const leftSlopeJump = Math.abs(
+          ((rendered.left[1] ?? 0) - (rendered.left[0] ?? 0))
+          - ((rendered.left[finalFrame] ?? 0) - (rendered.left[finalFrame - 1] ?? 0)),
+        )
+        const rightSlopeJump = Math.abs(
+          ((rendered.right[1] ?? 0) - (rendered.right[0] ?? 0))
+          - ((rendered.right[finalFrame] ?? 0) - (rendered.right[finalFrame - 1] ?? 0)),
+        )
+        expect(leftJump).toBeLessThan(0.012)
+        expect(rightJump).toBeLessThan(0.012)
+        expect(leftSlopeJump).toBeLessThan(0.02)
+        expect(rightSlopeJump).toBeLessThan(0.02)
+      }
+    }
+  })
+
+  it('does not mute the first pulse of a loop at the mastering boundary', () => {
+    for (const pack of PACKS) {
+      const rendered = renderRecipe(createRecipe(pack.name, 'loading'), 16_000)
+      const firstPulse = rms(rendered.left, 48, 192)
+      const secondPulse = rms(rendered.left, 4_848, 4_992)
+      expect(firstPulse / Math.max(secondPulse, 0.000_001)).toBeGreaterThan(0.62)
+    }
+  })
+
+  it('preserves an even musical clock across every loop boundary and feel', () => {
+    for (const cue of CUES.filter((candidate) => 'loop' in candidate && candidate.loop)) {
+      const baseOnsets = cue.notes.map((note) => note.at)
+      const cyclicGaps = baseOnsets.map((onset, index) => {
+        const next = baseOnsets[(index + 1) % baseOnsets.length] ?? 0
+        return (next > onset ? next : next + cue.duration) - onset
+      })
+      const targetGap = cue.duration / baseOnsets.length
+      expect(Math.max(...cyclicGaps.map((gap) => Math.abs(gap - targetGap)))).toBeLessThan(0.000_001)
+
+      for (const pack of PACKS) {
+        const recipe = createRecipe(pack.name, cue.name)
+        expect(recipe.notes.map((note) => note.at)).toEqual(baseOnsets)
+      }
+    }
+  })
+
+  it('keeps texture attached to sound events instead of leaving an ambient noise bed', () => {
+    for (const pack of PACKS) {
+      const recipe = createRecipe(pack.name, 'hover')
+      const rendered = renderRecipe({ ...recipe, echo: 0 }, 16_000)
+      const afterLastNote = Math.ceil(Math.max(...recipe.notes.map((note) => note.at + note.length)) * 16_000)
+      const residue = rms(rendered.left, afterLastNote + 32, afterLastNote + 192)
+      expect(residue).toBeLessThan(0.000_08)
+    }
+  })
+
+  it('ends every one-shot on a clean digital-black tail', () => {
+    for (const pack of PACKS) {
+      for (const cue of CUES.filter((candidate) => !('loop' in candidate) || !candidate.loop)) {
+        const rendered = renderRecipe(createRecipe(pack.name, cue.name), 8_000)
+        const onsetThreshold = Math.max(0.000_01, rendered.peak * 0.001)
+        const firstActiveFrame = rendered.left.findIndex((sample, index) => (
+          Math.max(Math.abs(sample), Math.abs(rendered.right[index] ?? 0)) >= onsetThreshold
+        ))
+        const finalTwentyMs = rms(rendered.left, rendered.left.length - 160, rendered.left.length)
+        expect(firstActiveFrame).toBeGreaterThanOrEqual(0)
+        expect(firstActiveFrame / 8_000).toBeLessThan(0.08)
+        expect(finalTwentyMs).toBeLessThan(0.000_32)
+      }
+    }
+  })
+
+  it('keeps the playful packs expressive without forcing a large glide onto every cue', () => {
+    for (const cue of ['hover', 'select', 'notification', 'info', 'progress-step'] as const) {
+      for (const pack of ['scifi', 'rubber'] as const) {
+        const recipe = createRecipe(pack, cue)
+        expect(Math.max(...recipe.notes.map((note) => Math.abs(note.glide ?? 0)))).toBeLessThanOrEqual(3)
       }
     }
   })
