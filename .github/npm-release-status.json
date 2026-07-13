@@ -1,7 +1,8 @@
 {
   "package": "uisfx",
   "version": "0.3.0",
-  "sourceSha": "d5100a8c483395a84633e8a7c7e0ebbcc8439e6b",
+  "sourceSha": "72f78e8314055f8dc0a0fa49ad2d60a8ec68b806",
   "result": "failed",
-  "verifiedAt": "2026-07-13T17:59:04.151Z"
+  "failureCode": null,
+  "verifiedAt": "2026-07-13T18:00:44.706Z"
 }
