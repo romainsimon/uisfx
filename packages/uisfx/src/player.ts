@@ -45,13 +45,20 @@ export function createUISFX(options: UISFXOptions = {}): UISFXPlayer {
   let enabled = options.enabled ?? true
   let context = options.context
   const buffers = new Map<string, AudioBuffer>()
-  const activeSources = new Set<AudioBufferSourceNode>()
+  const activeSources = new Map<AudioBufferSourceNode, GainNode>()
   const stoppedSources = new WeakSet<AudioBufferSourceNode>()
 
   function stopSource(source: AudioBufferSourceNode) {
-    if (!activeSources.has(source) || stoppedSources.has(source)) return
+    const gain = activeSources.get(source)
+    if (!gain || stoppedSources.has(source)) return
     stoppedSources.add(source)
-    try { source.stop() } catch { /* The source may already have ended between frames. */ }
+    const now = context?.currentTime ?? 0
+    try {
+      gain.gain.cancelScheduledValues(now)
+      gain.gain.setValueAtTime(gain.gain.value, now)
+      gain.gain.linearRampToValueAtTime(0, now + 0.015)
+      source.stop(now + 0.018)
+    } catch { /* The source may already have ended between frames. */ }
   }
 
   function ensureContext() {
@@ -110,7 +117,7 @@ export function createUISFX(options: UISFXOptions = {}): UISFXPlayer {
       resolveEnded()
     }, { once: true })
 
-    activeSources.add(source)
+    activeSources.set(source, gain)
     source.start()
     return { stop, ended }
   }
@@ -122,7 +129,7 @@ export function createUISFX(options: UISFXOptions = {}): UISFXPlayer {
   }
 
   function stopAll() {
-    for (const source of [...activeSources]) stopSource(source)
+    for (const source of [...activeSources.keys()]) stopSource(source)
   }
 
   return {

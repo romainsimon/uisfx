@@ -34,7 +34,7 @@ Use Node 22.20 (`nvm use`) for Nuxt 4.4 compatibility.
 - Any new cue must exist in all eleven packs and be documented in `docs/taxonomy.md`.
 - Runtime synthesis and rendered assets must derive from the same recipe.
 - Code is MIT. Procedurally generated assets are CC0. Never add generated assets whose provider terms prevent commercial redistribution.
-- Keep the minified + compressed core under 20 kB and the Ogg library under 2 MB.
+- Keep the minified + compressed core under 20 kB and the higher-fidelity Ogg library under 4 MB.
 - Audio previews must respect mute, reduced motion, and browser autoplay rules.
 - No em dashes in public copy.
 
@@ -43,5 +43,6 @@ Use Node 22.20 (`nvm use`) for Nuxt 4.4 compatibility.
 - `npm run check` passes.
 - 858 MP3 and 858 Ogg files exist.
 - No asset clips above -1 dBFS or contains more than 80 ms leading silence.
+- Every audio release passes tail-silence, loop-seam, cyclic-timing, and perceptual-similarity checks across all 858 renders.
 - All interactive showcase controls have accessible names and visible focus.
 - No hardcoded credentials.

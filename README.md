@@ -22,8 +22,9 @@ UI SFX is a tiny semantic sound system for web apps, mobile apps, SaaS, educatio
 - 11 complete sound packs
 - 858 original sounds in both MP3 and Ogg
 - 72 brief one-shots and 6 seamless state loops
-- 4.33 MB for every MP3 or 1.86 MB for every Ogg
-- 8.9 kB compressed Web Audio runtime with zero dependencies
+- 4.76 MB for every MP3 or 3.71 MB for every higher-fidelity Ogg
+- Dry event-bound textures, clean silent tails, and automated similarity checks
+- 10.2 kB compressed Web Audio runtime with zero dependencies
 - MIT code, CC0 audio, and CC0 sound-pack art
 
 ## Install
@@ -62,8 +63,8 @@ UI SFX creates its `AudioContext` after the first interaction, synthesizes from 
 | `mechanical` | Switches, relays, firm detents | Devtools, hardware, industrial UI |
 | `organic` | Wood, water, breath, small stones | Education, kids, calm games |
 | `dreamy` | Airy blooms and slow sparkle | Creative tools, wellness, ambient apps |
-| `scifi` | Holographic scans and data chirps | AI tools, spatial UI, futuristic games |
-| `rubber` | Elastic pops and friendly squish | Kids, playful mobile, casual games |
+| `scifi` | Clean holographic pings and restrained digital shimmer | AI tools, spatial UI, futuristic games |
+| `rubber` | Tactile elastic taps with a quick friendly rebound | Kids, playful mobile, casual games |
 | `cinematic` | Deep impacts and polished tails | Premium media and dramatic moments |
 | `studio` | Tactile editing precision with warm restraint | Film, audio, and AI creative tools |
 
@@ -111,7 +112,7 @@ const success = new Audio(successUrl)
 await success.play()
 ```
 
-The `uisfx/manifest` export describes each exact path, byte size, duration, loop flag, default volume, cue, category, and pack.
+The `uisfx/manifest` export describes each exact path, byte size, rendered duration, channel count, loop flag, default volume, cue, category, and pack.
 
 ## Accessibility
 
@@ -139,7 +140,7 @@ npm run generate
 npm run check
 ```
 
-Node 22.20 or later and `ffmpeg` are required. The full quality gate regenerates every file, typechecks, tests, builds the package and showcase, and validates audio size, peaks, silence, and asset counts.
+Node 22.20 or later and `ffmpeg` are required. The full quality gate regenerates every file, typechecks, tests, builds the package and showcase, and validates audio size, decoded peaks, tail silence, loop timing, seam continuity, and pairwise similarity.
 
 ## Why semantic cues?
 

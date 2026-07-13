@@ -114,13 +114,13 @@ useHead({
           applicationCategory: 'DeveloperApplication',
           applicationSubCategory: 'UI sound design library',
           operatingSystem: 'Web, iOS, Android, desktop, and game engines',
-          softwareVersion: '0.2.0',
+          softwareVersion: '0.3.0',
           downloadUrl: 'https://www.npmjs.com/package/uisfx',
           sameAs: [
             'https://github.com/romainsimon/uisfx',
             'https://www.npmjs.com/package/uisfx',
           ],
-          releaseNotes: '858 interface sound effects across 11 interchangeable sound personalities.',
+          releaseNotes: 'A cleaner 858-sound library with redesigned Sci-fi and Rubber feels, distinct semantic gestures, and truly seamless loops.',
           featureList: [
             '78 semantic UI sound cues',
             '11 interchangeable sound styles',
