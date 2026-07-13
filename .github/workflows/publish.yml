@@ -24,7 +24,9 @@ jobs:
         run: npm install --global npm@11.5.1
       - name: Read package version
         id: package
-        run: echo "version=$(node -p \"require('./packages/uisfx/package.json').version\")" >> "$GITHUB_OUTPUT"
+        run: |
+          package_version=$(node -p "require('./packages/uisfx/package.json').version")
+          echo "version=$package_version" >> "$GITHUB_OUTPUT"
       - name: Verify release tag matches package version
         if: startsWith(github.ref, 'refs/tags/')
         run: |
@@ -43,15 +45,17 @@ jobs:
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
       - name: Publish package
+        id: publish
         if: steps.registry.outputs.exists != 'true'
+        continue-on-error: true
         run: npm publish --workspace=uisfx --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Record verified release
-        if: success() && github.ref == 'refs/heads/release/npm'
+        if: always() && github.ref == 'refs/heads/release/npm'
         env:
           PACKAGE_VERSION: ${{ steps.package.outputs.version }}
-          RELEASE_RESULT: ${{ steps.registry.outputs.exists == 'true' && 'already-published' || 'published' }}
+          RELEASE_RESULT: ${{ steps.registry.outputs.exists == 'true' && 'already-published' || (steps.publish.outcome == 'success' && 'published' || 'failed') }}
         run: |
           node --input-type=module <<'NODE'
           import { writeFileSync } from 'node:fs'
@@ -71,3 +75,6 @@ jobs:
           git add .github/npm-release-status.json
           git commit -m "chore: record npm release [skip publish]"
           git push
+      - name: Fail unsuccessful publication
+        if: steps.registry.outputs.exists != 'true' && steps.publish.outcome != 'success'
+        run: exit 1
