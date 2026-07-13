@@ -205,15 +205,18 @@ const announcement = ref('Sound previews are ready')
 const copied = ref(false)
 const reducedMotion = ref(false)
 const motionReady = ref(false)
+const showPackDock = ref(false)
 const loopingCue = ref<CueName | null>(null)
 const loopingPack = ref<PackName | null>(null)
 const player = shallowRef<UISFXPlayer>()
 const siteShell = ref<HTMLElement>()
+const soundConsole = ref<HTMLElement>()
 let loopingSound: PlayingSFX | null = null
 let activeTimer: ReturnType<typeof setTimeout> | undefined
 let motionPreference: MediaQueryList | undefined
 let syncMotionPreference: (() => void) | undefined
 let revealObserver: IntersectionObserver | undefined
+let consoleObserver: IntersectionObserver | undefined
 let scrollFrame: number | undefined
 let searchSoundTimer: ReturnType<typeof setTimeout> | undefined
 let previousQuery = ''
@@ -296,6 +299,12 @@ function setPackWithTransition(pack: PackName) {
 function choosePack(pack: PackName) {
   setPackWithTransition(pack)
   play('select', pack)
+}
+
+function choosePackFromSelect(event: Event) {
+  const value = event.target instanceof HTMLSelectElement ? event.target.value : ''
+  const pack = PACKS.find((item) => item.name === value)
+  if (pack) choosePack(pack.name)
 }
 
 function previewPack(pack: PackName) {
@@ -441,6 +450,12 @@ onMounted(() => {
     })
   }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' })
   document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((element) => revealObserver?.observe(element))
+
+  consoleObserver = new IntersectionObserver(([entry]) => {
+    if (!entry) return
+    showPackDock.value = !entry.isIntersecting && entry.boundingClientRect.bottom <= 96
+  }, { threshold: 0, rootMargin: '-96px 0px 0px 0px' })
+  if (soundConsole.value) consoleObserver.observe(soundConsole.value)
   window.requestAnimationFrame(() => { motionReady.value = true })
 })
 
@@ -451,6 +466,7 @@ onBeforeUnmount(() => {
   if (syncMotionPreference) motionPreference?.removeEventListener('change', syncMotionPreference)
   window.removeEventListener('scroll', updateScrollProgress)
   revealObserver?.disconnect()
+  consoleObserver?.disconnect()
   if (scrollFrame) window.cancelAnimationFrame(scrollFrame)
   stopLoop()
   if (activeTimer) clearTimeout(activeTimer)
@@ -507,6 +523,58 @@ onBeforeUnmount(() => {
       </div>
     </header>
 
+    <Transition name="pack-dock">
+      <aside
+        v-if="showPackDock"
+        class="pack-dock"
+        :style="{
+          '--dock-accent': selectedPackTheme.accent,
+          '--dock-bg': selectedPackTheme.background,
+          '--dock-ink': selectedPackTheme.ink,
+        }"
+        aria-label="Persistent sound feel selector"
+      >
+        <img
+          class="pack-dock__artwork"
+          :src="selectedPackTheme.image"
+          alt=""
+          width="1200"
+          height="800"
+          aria-hidden="true"
+        >
+        <span class="pack-dock__veil" aria-hidden="true" />
+        <div class="pack-dock__current">
+          <span aria-hidden="true" />
+          <small>Feel</small>
+          <strong>{{ selectedPackData.label }}</strong>
+        </div>
+        <div class="pack-dock__keys" role="group" aria-label="Choose a sound feel">
+          <button
+            v-for="(pack, index) in PACKS"
+            :key="`dock-${pack.name}`"
+            type="button"
+            data-sfx-managed
+            :class="{ active: selectedPack === pack.name }"
+            :aria-label="`Use ${pack.label} sound feel`"
+            :aria-pressed="selectedPack === pack.name"
+            :title="pack.label"
+            :style="{
+              '--dock-key': packTheme(pack.name).accent,
+              '--dock-key-bg': packTheme(pack.name).background,
+              '--dock-key-ink': packTheme(pack.name).ink,
+            }"
+            @click="choosePack(pack.name)"
+          >{{ index + 1 }}</button>
+        </div>
+        <label class="pack-dock__select">
+          <span class="sr-only">Choose a sound feel</span>
+          <select :value="selectedPack" aria-label="Choose a sound feel" @change="choosePackFromSelect">
+            <option v-for="pack in PACKS" :key="`dock-option-${pack.name}`" :value="pack.name">{{ pack.label }}</option>
+          </select>
+        </label>
+      </aside>
+    </Transition>
+
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
@@ -520,24 +588,28 @@ onBeforeUnmount(() => {
         </div>
 
         <div
+          ref="soundConsole"
           class="sound-console"
           :style="{ '--pack-color': selectedPackData.color }"
           @pointermove="onConsolePointerMove"
           @pointerleave="resetConsoleTilt"
         >
+          <img
+            class="sound-console__backdrop"
+            :src="selectedPackTheme.image"
+            alt=""
+            width="1200"
+            height="800"
+            fetchpriority="high"
+            aria-hidden="true"
+          >
+          <span class="sound-console__veil" aria-hidden="true" />
           <div class="console-head">
             <span>UI SFX / FEEL SELECTOR</span>
             <span>01–10</span>
           </div>
           <button class="main-pad" type="button" data-sfx-managed aria-label="Play success preview" @click="play('success')">
-            <span class="main-pad__art">
-              <img
-                :src="selectedPackTheme.image"
-                :alt="`${selectedPackData.label} sound personality artwork`"
-                width="1200"
-                height="800"
-                fetchpriority="high"
-              >
+            <span class="main-pad__art" aria-hidden="true">
               <i aria-hidden="true">▶</i>
             </span>
             <span class="main-pad__copy">

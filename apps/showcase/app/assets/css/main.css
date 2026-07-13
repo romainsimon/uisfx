@@ -252,6 +252,141 @@ select:focus-visible {
   82% { box-shadow: 0 0 0 8px color-mix(in oklch, oklch(0.72 0.17 140), transparent 90%); }
 }
 
+.pack-dock {
+  position: fixed;
+  z-index: 46;
+  inset: auto auto max(1rem, env(safe-area-inset-bottom)) 50%;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  border: 1px solid var(--dock-ink, var(--ink));
+  background: var(--dock-bg, var(--paper-light));
+  color: var(--dock-ink, var(--ink));
+  box-shadow: 0.38rem 0.38rem 0 var(--dock-accent, var(--accent));
+  isolation: isolate;
+  transform: translateX(-50%);
+}
+
+.pack-dock__artwork,
+.pack-dock__veil {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.pack-dock__artwork {
+  object-fit: cover;
+  object-position: center 54%;
+  scale: 1.04;
+}
+
+.pack-dock__veil {
+  z-index: -1;
+  background: color-mix(in oklch, var(--dock-bg, var(--paper-light)), transparent 24%);
+}
+
+.pack-dock__current {
+  min-width: 7.5rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  align-content: center;
+  column-gap: var(--space-xs);
+  padding-inline: var(--space-sm);
+  border-inline-end: 1px solid color-mix(in oklch, var(--dock-ink, var(--ink)), transparent 70%);
+  background: color-mix(in oklch, var(--dock-bg, var(--paper-light)), transparent 28%);
+}
+
+.pack-dock__current > span {
+  grid-row: 1 / -1;
+  align-self: center;
+  width: 0.55rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--dock-accent, var(--accent));
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--dock-accent, var(--accent)), transparent 78%);
+}
+
+.pack-dock__current small {
+  color: color-mix(in oklch, var(--dock-ink, var(--ink)), transparent 38%);
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.pack-dock__current strong {
+  font-size: 0.82rem;
+  line-height: 1.2;
+}
+
+.pack-dock__keys {
+  display: flex;
+}
+
+.pack-dock__keys button {
+  position: relative;
+  width: 2.65rem;
+  min-height: 3.25rem;
+  border: 0;
+  border-inline-end: 1px solid color-mix(in oklch, var(--dock-ink, var(--ink)), transparent 78%);
+  background: color-mix(in oklch, var(--dock-bg, var(--paper-light)), transparent 30%);
+  color: color-mix(in oklch, var(--dock-ink, var(--ink)), transparent 30%);
+  cursor: pointer;
+  font-size: 0.62rem;
+  font-variant-numeric: tabular-nums;
+  transition: background-color 180ms var(--ease-out-quart), color 180ms var(--ease-out-quart), transform 120ms ease-out;
+}
+
+.pack-dock__keys button::after {
+  content: '';
+  position: absolute;
+  inset: auto 50% 0.38rem auto;
+  width: 0.35rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--dock-key);
+  transform: translateX(50%) scale(0.72);
+  transition: transform 180ms var(--ease-out-quart);
+}
+
+.pack-dock__keys button:hover {
+  background: color-mix(in oklch, var(--dock-key), var(--dock-bg, var(--paper-light)) 72%);
+  color: var(--dock-ink, var(--ink));
+}
+
+.pack-dock__keys button:active {
+  transform: translateY(1px);
+}
+
+.pack-dock__keys button.active {
+  background: var(--dock-key-bg);
+  color: var(--dock-key-ink);
+}
+
+.pack-dock__keys button.active::after {
+  transform: translateX(50%) scale(1);
+}
+
+.pack-dock__select {
+  display: none;
+}
+
+.pack-dock-enter-active,
+.pack-dock-leave-active {
+  transition: opacity 220ms var(--ease-out-quart), transform 300ms var(--ease-out-expo);
+}
+
+.pack-dock-enter-from,
+.pack-dock-leave-to {
+  opacity: 0;
+  transform: translate(-50%, 0.8rem) scale(0.96);
+}
+
 .uisfx-mark {
   display: inline-flex;
   align-items: baseline;
@@ -390,6 +525,7 @@ select:focus-visible {
   position: relative;
   display: grid;
   gap: var(--space-lg);
+  overflow: hidden;
   padding: clamp(1.25rem, 3vw, 2rem);
   border: 1px solid var(--ink);
   background: var(--active-ink, var(--ink));
@@ -400,6 +536,37 @@ select:focus-visible {
   transition: transform 360ms var(--ease-out-quart), background-color 360ms var(--ease-out-quart), color 360ms var(--ease-out-quart);
   will-change: transform;
   view-transition-name: sound-console;
+}
+
+.sound-console__backdrop,
+.sound-console__veil {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.sound-console__backdrop {
+  z-index: 0;
+  object-fit: cover;
+  object-position: center;
+  scale: 1.015;
+}
+
+.sound-console__veil {
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklch, var(--active-ink, var(--ink)), transparent 28%) 0%,
+    color-mix(in oklch, var(--active-ink, var(--ink)), transparent 48%) 52%,
+    color-mix(in oklch, var(--active-ink, var(--ink)), transparent 20%) 100%
+  );
+}
+
+.sound-console > :not(.sound-console__backdrop, .sound-console__veil) {
+  position: relative;
+  z-index: 2;
 }
 
 ::view-transition-old(root),
@@ -431,6 +598,7 @@ select:focus-visible {
   aspect-ratio: 1;
   border: 1px solid color-mix(in oklch, var(--active-bg, var(--paper-light)), transparent 45%);
   border-radius: 50%;
+  z-index: 3;
 }
 
 .sound-console::before {
@@ -465,7 +633,7 @@ select:focus-visible {
   gap: var(--space-xl);
   padding: var(--space-xl);
   border: 1px solid color-mix(in oklch, var(--active-bg, var(--paper-light)), transparent 58%);
-  background: color-mix(in oklch, var(--active-ink, var(--ink)), var(--active-bg, var(--paper-light)) 7%);
+  background: color-mix(in oklch, var(--active-ink, var(--ink)), transparent 20%);
   color: var(--active-bg, var(--paper-light));
   cursor: pointer;
   text-align: left;
@@ -479,7 +647,7 @@ select:focus-visible {
   place-items: center;
   overflow: hidden;
   border: 1px solid color-mix(in oklch, var(--active-bg, var(--paper-light)), transparent 45%);
-  background: var(--active-bg, var(--paper-light));
+  background: color-mix(in oklch, var(--active-bg, var(--paper-light)), transparent 14%);
   box-shadow: 0.35rem 0.35rem 0 var(--active-accent, var(--pack-color));
   rotate: -2deg;
   animation: artwork-drift 5.4s ease-in-out infinite alternate;
@@ -488,13 +656,6 @@ select:focus-visible {
 @keyframes artwork-drift {
   from { translate: 0 -0.1rem; }
   to { translate: 0 0.18rem; }
-}
-
-.main-pad__art img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
 }
 
 .main-pad__art i {
@@ -586,7 +747,7 @@ select:focus-visible {
   gap: var(--space-xs);
   padding-inline: var(--space-sm);
   border: 0;
-  background: var(--active-ink, var(--ink));
+  background: color-mix(in oklch, var(--active-ink, var(--ink)), transparent 8%);
   color: color-mix(in oklch, var(--active-bg, var(--paper-light)), transparent 24%);
   cursor: pointer;
   font-size: 0.73rem;
@@ -1995,6 +2156,43 @@ footer p {
 
   .footer-links {
     justify-content: flex-start;
+  }
+}
+
+@media (max-width: 42rem) {
+  .pack-dock {
+    width: min(calc(100% - 2rem), 24rem);
+    min-height: 3.5rem;
+    justify-content: space-between;
+  }
+
+  .pack-dock__current {
+    min-width: 0;
+    flex: 1;
+    border-inline-end: 0;
+  }
+
+  .pack-dock__keys {
+    display: none;
+  }
+
+  .pack-dock__select {
+    min-width: 9rem;
+    display: block;
+    border-inline-start: 1px solid color-mix(in oklch, var(--dock-ink, var(--ink)), transparent 70%);
+  }
+
+  .pack-dock__select select {
+    width: 100%;
+    min-height: 100%;
+    padding: 0 var(--space-lg) 0 var(--space-sm);
+    border: 0;
+    border-radius: 0;
+    background: color-mix(in oklch, var(--dock-bg), transparent 12%);
+    color: var(--dock-ink);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
   }
 }
 
