@@ -14,6 +14,6 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - uses: FedericoCarboni/setup-ffmpeg@v3
+      - run: ffmpeg -version
       - run: npm ci
       - run: npm run check
