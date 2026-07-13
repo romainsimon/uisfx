@@ -20,8 +20,8 @@ The figures above come from the Ahrefs screenshot supplied on July 12, 2026. The
 ## On-page target
 
 - URL: `/ui-sound-design`
-- Title: `UI Sound Design & Interface Sound Effects Library | UI SFX`
-- Description: `Explore 780 open-source UI sound effects for web, mobile, SaaS, and games. Preview 10 styles, compare one-shots and loops, then install UI SFX.`
+- Title: `UI Sound Design: 780 Interface Sound Effects | UI SFX`
+- Description: `Preview 780 open-source UI sound effects for web, mobile, SaaS, and games. Compare 10 sonic styles, one-shots, and seamless loops.`
 - H1: `UI sound design, ready to ship.`
 - Search promise: preview 780 original interface sounds, understand when to use them, and install or download an open-source library.
 
@@ -37,15 +37,16 @@ SoundCN was reviewed as a product reference. Its useful patterns include fast pr
 - H2 sections cover the library, definition, product use cases, common questions, and installation.
 - The page separates 72 one-shots from six ongoing state loops.
 - Educational copy covers semantic naming, appropriate frequency, loudness, accessibility, licensing, and loop lifecycle.
-- `SoftwareSourceCode` JSON-LD describes the open-source package. FAQ schema is intentionally omitted because FAQ rich results are restricted and the visible questions are sufficient for users.
-- Canonical and absolute social URLs activate when `NUXT_PUBLIC_SITE_URL` is configured.
-- `/robots.txt` allows crawling. A sitemap should be added when the final public host and publishing location are chosen.
+- A Schema.org graph describes the website, publisher, free software application, source code, and visible FAQ content.
+- Canonical and absolute social URLs resolve to `https://uisfx.com/ui-sound-design`, with `NUXT_PUBLIC_SITE_URL` available as a deployment override.
+- `/` redirects permanently to the canonical route to avoid duplicate indexing.
+- `/robots.txt` allows crawling and references `/sitemap.xml`.
+- The 1200×630 PNG social card is declared for Open Graph and Twitter with explicit dimensions and alt text.
 
 ## Launch checklist
 
-1. Choose whether the showcase lives on a dedicated host, `/dev/yuki`, or `/dev/blog`.
-2. Set `NUXT_PUBLIC_SITE_URL` to the final origin and verify the canonical resolves to the preferred URL.
-3. Add the final route to the host site's XML sitemap.
-4. Submit the URL in Google Search Console and request indexing.
-5. Link to it from the relevant Yuki or blog navigation and from future UI sound design articles.
-6. Recheck title, description, canonical, structured data, Core Web Vitals, and indexability after deployment.
+1. Deploy `uisfx.com` with `NUXT_PUBLIC_SITE_URL=https://uisfx.com`.
+2. Verify the canonical route, OG image, robots file, sitemap, and structured data on production.
+3. Submit `https://uisfx.com/sitemap.xml` in Google Search Console and request indexing for the canonical URL.
+4. Link to the page from Yuki Capital, relevant product documentation, GitHub, npm, and future UI sound design articles.
+5. Recheck title, description, structured data, Core Web Vitals, and indexability after deployment.

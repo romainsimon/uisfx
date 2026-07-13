@@ -8,5 +8,6 @@
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
     "noEmit": true
-  }
+  },
+  "include": ["scripts/**/*.ts"]
 }

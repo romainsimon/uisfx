@@ -1,2 +1,5 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://uisfx.com/sitemap.xml
+Host: https://uisfx.com
