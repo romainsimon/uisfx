@@ -24,7 +24,9 @@ jobs:
         run: npm install --global npm@11.5.1
       - name: Read package version
         id: package
-        run: echo "version=$(node -p \"require('./packages/uisfx/package.json').version\")" >> "$GITHUB_OUTPUT"
+        run: |
+          package_version=$(node -p "require('./packages/uisfx/package.json').version")
+          echo "version=$package_version" >> "$GITHUB_OUTPUT"
       - name: Verify release tag matches package version
         if: startsWith(github.ref, 'refs/tags/')
         run: |
