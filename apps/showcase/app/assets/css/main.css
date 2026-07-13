@@ -1906,7 +1906,7 @@ select:focus-visible {
 
 @media (min-width: 75rem) {
   .comparison-board {
-    grid-template-columns: repeat(11, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: var(--space-xs);
   }
 
