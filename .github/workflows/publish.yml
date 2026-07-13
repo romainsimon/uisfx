@@ -48,7 +48,9 @@ jobs:
         id: publish
         if: steps.registry.outputs.exists != 'true'
         continue-on-error: true
-        run: npm publish --workspace=uisfx --access public --provenance
+        run: |
+          set -o pipefail
+          npm publish --workspace=uisfx --access public --provenance 2>&1 | tee /tmp/npm-publish.log
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Record verified release
@@ -58,13 +60,21 @@ jobs:
           RELEASE_RESULT: ${{ steps.registry.outputs.exists == 'true' && 'already-published' || (steps.publish.outcome == 'success' && 'published' || 'failed') }}
         run: |
           node --input-type=module <<'NODE'
-          import { writeFileSync } from 'node:fs'
+          import { readFileSync, writeFileSync } from 'node:fs'
+
+          let publishLog = ''
+          try {
+            publishLog = readFileSync('/tmp/npm-publish.log', 'utf8')
+          } catch {
+            // No publish command ran when the version already existed.
+          }
 
           const record = {
             package: 'uisfx',
             version: process.env.PACKAGE_VERSION,
             sourceSha: process.env.GITHUB_SHA,
             result: process.env.RELEASE_RESULT,
+            failureCode: publishLog.match(/npm error code\\s+([A-Z0-9]+)/i)?.[1] ?? null,
             verifiedAt: new Date().toISOString(),
           }
 
