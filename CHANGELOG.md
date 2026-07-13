@@ -2,6 +2,13 @@
 
 ## 0.3.0 - 2026-07-13
 
+- Add a live master gain so volume changes immediately affect one-shots and loops already playing.
+- Preserve active semantic loops when switching feels by restarting the same loop in the newly selected pack.
+- Add a persistent volume control, improved header, clearer install and agent-integration actions, richer product demos, and feel-aware category styling to the showcase.
+- Make the primary and compact feel selectors transition as one continuous control across desktop and mobile scrolling.
+- Add public agent documentation, a copy-ready implementation prompt, `llms.txt`, Markdown documentation, and machine-readable cue and asset catalogs.
+- Serve the homepage directly, strengthen social-card metadata and cache busting, and add crawler-safe Open Graph headers.
+- Add GitHub Sponsors metadata, automated sponsor tiers, and sponsor links to the repository and npm documentation.
 - Consolidate the category gallery and filter rail into one responsive, keyboard-friendly category grid.
 - Remove category illustrations so visual artwork remains exclusive to sound feels.
 - Rebuild Sci-fi as clean, restrained FM shimmer and Rubber as short tactile elasticity.
