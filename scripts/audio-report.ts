@@ -20,8 +20,8 @@ const packageRoot = resolve(root, 'packages/uisfx')
 const manifest = JSON.parse(await readFile(resolve(packageRoot, 'manifest.json'), 'utf8')) as Manifest
 const expectedAssets = manifest.summary.packs * manifest.summary.cues
 
-if (manifest.assets.length !== expectedAssets || expectedAssets !== 858) {
-  throw new Error(`Expected 858 rendered assets, found ${manifest.assets.length}`)
+if (manifest.assets.length !== expectedAssets) {
+  throw new Error(`Expected ${expectedAssets} rendered assets, found ${manifest.assets.length}`)
 }
 
 for (const asset of manifest.assets) {

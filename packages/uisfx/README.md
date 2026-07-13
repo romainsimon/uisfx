@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://uisfx.com"><strong>Preview all 858 sounds</strong></a>
+  <a href="https://uisfx.com"><strong>Preview all 936 sounds</strong></a>
   ·
   <a href="https://github.com/romainsimon/uisfx">GitHub</a>
   ·
@@ -50,15 +50,15 @@ The `AudioContext` is created lazily. Sounds are synthesized and cached locally 
 ## What ships
 
 - 78 semantic cues across 13 interaction categories
-- 11 interchangeable sound packs
-- 858 portable sounds in both MP3 and Ogg
+- 12 interchangeable sound packs
+- 936 portable sounds in both MP3 and Ogg
 - 72 brief one-shots and 6 seamless state loops
 - Dry, event-bound textures with clean silent tails
 - A 10.2 kB compressed Web Audio runtime
 - Zero runtime dependencies
 - MIT code and CC0 audio
 
-## One API, eleven sonic personalities
+## One API, twelve sonic personalities
 
 Every pack implements every cue. Product logic stays stable while the sound design changes instantly.
 
@@ -82,6 +82,7 @@ ui.play('complete') // Same meaning, entirely different feel.
 | `rubber` | Tactile elastic taps with a quick friendly rebound | Kids, playful mobile, casual games |
 | `cinematic` | Deep impacts and polished tails | Premium media and dramatic moments |
 | `studio` | Tactile precision with warm restraint | Film, audio, and AI creative tools |
+| `zen` | Paper folds, soft brush, warm wood, and quiet chimes | Calm tools, wellness, reading, and focus |
 
 [Hear every pack on the interactive website →](https://uisfx.com)
 

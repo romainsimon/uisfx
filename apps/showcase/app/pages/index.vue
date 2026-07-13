@@ -45,19 +45,23 @@ const PACK_THEMES = {
   rubber: { image: '/packs/rubber.webp', color: '#d99a24', background: '#ffd765', ink: '#19367a', accent: '#ed4a2f' },
   cinematic: { image: '/packs/cinematic.webp', color: '#3f5873', background: '#081521', ink: '#f4e5c5', accent: '#c99b45' },
   studio: { image: '/packs/studio.webp', color: '#6261a8', background: '#161724', ink: '#f2eadb', accent: '#9c91e6' },
+  zen: { image: '/packs/zen.webp', color: '#7d8f77', background: '#eee5d2', ink: '#26302b', accent: '#a75a42' },
 } as const satisfies Record<PackName, PackTheme>
 
 definePageMeta({ alias: ['/ui-sound-design'] })
 
-const pageTitle = 'UI Sound Design: 858 Interface Sound Effects | UI SFX'
-const pageDescription = 'Preview 858 open-source UI sound effects for web, mobile, SaaS, and games. Compare 11 sonic styles, one-shots, and seamless loops.'
-const socialTitle = 'UI SFX: 858 Open-Source Interface Sound Effects'
-const socialDescription = '78 semantic UI cues in 11 switchable feels. Preview, install, and ship clean one-shots and seamless loops for web, mobile, SaaS, and games.'
+const soundCount = CUES.length * PACKS.length
+const oneShotCount = CUES.filter(cue => getPlaybackMode(cue.name) === 'one-shot').length
+const loopCount = CUES.length - oneShotCount
+const pageTitle = `UI Sound Design: ${soundCount} Interface Sound Effects | UI SFX`
+const pageDescription = `Preview ${soundCount} open-source UI sound effects for web, mobile, SaaS, and games. Compare ${PACKS.length} sonic styles, one-shots, and seamless loops.`
+const socialTitle = `UI SFX: ${soundCount} Open-Source Interface Sound Effects`
+const socialDescription = `${CUES.length} semantic UI cues in ${PACKS.length} switchable feels. Preview, install, and ship clean one-shots and seamless loops for web, mobile, SaaS, and games.`
 const runtimeConfig = useRuntimeConfig()
 const siteUrl = String(runtimeConfig.public.siteUrl || 'https://uisfx.com').replace(/\/$/, '')
 const canonicalUrl = `${siteUrl}/ui-sound-design`
 // Keep a versioned filename so social crawlers cannot reuse an older broken card.
-const socialImage = `${siteUrl}/og-ui-sound-design.png?v=858-20260713`
+const socialImage = `${siteUrl}/og-ui-sound-design.png?v=${soundCount}-20260713`
 const organizationId = `${siteUrl}/#organization`
 const websiteId = `${siteUrl}/#website`
 const softwareId = `${canonicalUrl}#software`
@@ -79,7 +83,7 @@ useSeoMeta({
   ogImageType: 'image/png',
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: 'UI SFX sound design library with eleven sound styles and waveform previews',
+  ogImageAlt: `UI SFX sound design library with ${PACKS.length} sound styles and waveform previews`,
   twitterCard: 'summary_large_image',
   twitterTitle: socialTitle,
   twitterDescription: socialDescription,
@@ -134,12 +138,12 @@ useHead({
             'https://github.com/romainsimon/uisfx',
             'https://www.npmjs.com/package/uisfx',
           ],
-          releaseNotes: 'A cleaner 858-sound library with redesigned Sci-fi and Rubber feels, distinct semantic gestures, and truly seamless loops.',
+          releaseNotes: `A cleaner ${soundCount}-sound library with a calm Zen feel, redesigned Sci-fi and Rubber feels, distinct semantic gestures, and truly seamless loops.`,
           featureList: [
             '78 semantic UI sound cues',
-            '11 interchangeable sound styles',
-            '72 one-shot interface sounds',
-            '6 seamless UI sound loops',
+            `${PACKS.length} interchangeable sound styles`,
+            `${oneShotCount} one-shot interface sounds`,
+            `${loopCount} seamless UI sound loops`,
             'MP3 and Ogg assets',
             'Web Audio API runtime synthesis',
           ],
@@ -173,7 +177,7 @@ useHead({
           '@id': audioLibraryId,
           name: 'UI SFX interface sound effects library',
           url: `${siteUrl}/uisfx-manifest.json`,
-          description: 'A public-domain library of 858 generated interface sound effects across 78 semantic cues and 11 sonic styles.',
+          description: `A public-domain library of ${soundCount} generated interface sound effects across ${CUES.length} semantic cues and ${PACKS.length} sonic styles.`,
           creator: { '@id': organizationId },
           isPartOf: { '@id': softwareId },
           license: 'https://creativecommons.org/publicdomain/zero/1.0/',
@@ -273,6 +277,7 @@ let installCopyTimer: number | undefined
 let agentPromptCopyTimer: number | undefined
 let searchSoundTimer: ReturnType<typeof setTimeout> | undefined
 let previousQuery = ''
+let lastHoverSoundAt = 0
 let parkedSelectorFocus = false
 let selectorGeometry: {
   sourceWidth: number
@@ -466,6 +471,25 @@ function onShellClick(event: MouseEvent) {
         ? 'forward'
         : 'press'
   play(cue)
+}
+
+function onShellPointerOver(event: PointerEvent) {
+  if (event.pointerType === 'touch' || muted.value || !player.value) return
+  const target = event.target
+  if (!(target instanceof Element)) return
+  const control = target.closest<HTMLElement>('a, button, [role="button"]')
+  if (!control || control.closest('.logo-sound-trigger') || control.hasAttribute('disabled')) return
+  if (event.relatedTarget instanceof Node && control.contains(event.relatedTarget)) return
+  const now = performance.now()
+  if (now - lastHoverSoundAt < 90) return
+  lastHoverSoundAt = now
+  player.value.play('hover', { volume: 0.18 })
+}
+
+function playSponsorCue(cue: 'open' | 'reward') {
+  if (!player.value || muted.value) return
+  player.value.play(cue)
+  announcement.value = cue === 'reward' ? 'Opening GitHub Sponsors' : 'Opening sponsor website'
 }
 
 function onComparisonCueChange() {
@@ -853,7 +877,13 @@ function onDocumentPointerDown(event: PointerEvent) {
 function onKeydown(event: KeyboardEvent) {
   if (event.metaKey || event.ctrlKey || event.altKey || event.isComposing) return
   if (event.target instanceof HTMLElement && (event.target.matches('input, select, textarea') || event.target.isContentEditable)) return
-  const index = event.key === '-' ? 10 : event.key === '0' ? 9 : Number(event.key) - 1
+  const index = event.key === '+' || event.key === '='
+    ? 11
+    : event.key === '-'
+      ? 10
+      : event.key === '0'
+        ? 9
+        : Number(event.key) - 1
   const pack = PACKS[index]
   if (pack) choosePack(pack.name)
 }
@@ -955,6 +985,7 @@ onBeforeUnmount(() => {
       '--active-artwork': `url(${selectedPackTheme.image})`,
     }"
     @click="onShellClick"
+    @pointerover="onShellPointerOver"
   >
     <div class="scroll-progress" aria-hidden="true"><i /></div>
     <a class="skip-link" href="#sound-library" data-sfx="forward">Skip to sound library</a>
@@ -1150,7 +1181,7 @@ onBeforeUnmount(() => {
         <div class="hero-copy">
           <p class="eyebrow">Open-source UI sound design library</p>
           <h1 id="hero-title">UI sound design,<br><em>ready to ship.</em></h1>
-          <p class="hero-intro">A tiny, complete library of interface sound effects for web apps, mobile apps, SaaS, education, media, and games. Preview every UI sound in eleven distinct sonic personalities.</p>
+          <p class="hero-intro">A tiny, complete library of interface sound effects for web apps, mobile apps, SaaS, education, media, and games. Preview every UI sound in {{ PACKS.length }} distinct sonic personalities.</p>
           <div class="hero-actions">
             <a class="primary-link" href="#sound-library">Explore all {{ CUES.length * PACKS.length }} sounds</a>
             <div class="hero-ship">
@@ -1218,6 +1249,7 @@ onBeforeUnmount(() => {
                   npm package <span aria-hidden="true">↗</span>
                 </a>
               </nav>
+              <SponsorButton label="Sponsor UI SFX" @activate="playSponsorCue('reward')" />
             </div>
           </div>
         </div>
@@ -1246,7 +1278,7 @@ onBeforeUnmount(() => {
           <span class="sound-console__veil" aria-hidden="true" />
           <div class="console-head">
             <span>UI SFX / FEEL SELECTOR</span>
-            <span>01–11</span>
+            <span>01–{{ PACKS.length }}</span>
           </div>
           <button class="main-pad" type="button" data-sfx-managed :aria-label="`Play ${selectedPackData.label} success preview`" @click="play('success')">
             <span class="main-pad__art" aria-hidden="true">
@@ -1273,7 +1305,7 @@ onBeforeUnmount(() => {
               {{ pack.label }}
             </button>
           </div>
-          <p class="console-note">Press keys 1–9, 0 or − to switch feel</p>
+          <p class="console-note">Press keys 1–9, 0, − or + to switch feel</p>
         </div>
       </section>
 
@@ -1289,7 +1321,7 @@ onBeforeUnmount(() => {
         <div class="section-heading" data-reveal>
           <div>
             <p class="eyebrow">Compare the feels</p>
-            <h2 id="compare-title">Eleven feels. One sound language.</h2>
+            <h2 id="compare-title">{{ PACKS.length }} feels. One sound language.</h2>
             <p class="section-deck">Choose any cue and hear it across every feel. The event stays the same. Only its sonic character changes.</p>
           </div>
           <label class="cue-select">
@@ -1300,7 +1332,7 @@ onBeforeUnmount(() => {
           </label>
         </div>
 
-        <div class="comparison-board" aria-label="Eleven UI sound feels" data-reveal data-reveal-group>
+        <div class="comparison-board" :aria-label="`${PACKS.length} UI sound feels`" data-reveal data-reveal-group>
           <button
             v-for="(pack, index) in PACKS"
             :key="pack.name"
@@ -1355,7 +1387,7 @@ onBeforeUnmount(() => {
       <section id="sound-library" class="library-section" aria-labelledby="library-title">
         <div class="library-heading" data-reveal>
           <div>
-            <p class="eyebrow">78 cues · 11 feels · 858 sounds</p>
+            <p class="eyebrow">{{ CUES.length }} cues · {{ PACKS.length }} feels · {{ soundCount }} sounds</p>
             <h2 id="library-title">Interface sound effects for every product state.</h2>
           </div>
           <p>{{ selectedPackData.description }} <strong>{{ selectedPackData.bestFor }}.</strong></p>
@@ -1467,7 +1499,7 @@ onBeforeUnmount(() => {
             <div class="guide-card__surface">
               <span>02</span>
               <h3>Use one-shots for outcomes</h3>
-              <p>Brief interface sound effects work best for discrete outcomes: a button activates, a file drops, a payment succeeds, or an action fails. Keep them short enough to preserve momentum. UI SFX includes 72 one-shots, each rendered in eleven styles, so product feedback can stay coherent across an entire flow.</p>
+              <p>Brief interface sound effects work best for discrete outcomes: a button activates, a file drops, a payment succeeds, or an action fails. Keep them short enough to preserve momentum. UI SFX includes {{ oneShotCount }} one-shots, each rendered in {{ PACKS.length }} styles, so product feedback can stay coherent across an entire flow.</p>
             </div>
           </article>
           <article data-reveal-item>
@@ -1518,11 +1550,13 @@ onBeforeUnmount(() => {
         <p class="review-note">Designed and tested in Yuki Capital products. Library updated July 2026.</p>
       </section>
 
+      <SponsorsSection @sound="playSponsorCue" />
+
       <section id="install" class="install-section" aria-labelledby="install-title" data-reveal>
         <div class="install-copy">
           <p class="eyebrow">Zero dependencies</p>
           <h2 id="install-title">Give your product<br>a sound language.</h2>
-          <p>Use live synthesis on the web or copy all 858 tiny MP3 and Ogg files into any native, game, or media project. One-shots end automatically. Loops return a control you stop when the interface state resolves.</p>
+          <p>Use live synthesis on the web or copy all {{ soundCount }} tiny MP3 and Ogg files into any native, game, or media project. One-shots end automatically. Loops return a control you stop when the interface state resolves.</p>
           <button class="install-command" :class="{ copied, failed: installCopyFailed }" type="button" data-sfx-managed @click="copyInstall">
             <span aria-hidden="true">$</span>
             <code>npm install uisfx</code>

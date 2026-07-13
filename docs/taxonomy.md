@@ -153,6 +153,6 @@ A new semantic cue must:
 
 1. Describe a distinct interaction outcome that cannot be expressed by an existing cue.
 2. Have a visible or haptic counterpart. UI SFX never makes audio the only source of meaning.
-3. Work in all eleven packs.
+3. Work in all twelve packs.
 4. Include an intended use and a misuse boundary.
 5. Keep its non-looping duration below 1.5 seconds.

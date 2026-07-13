@@ -36,7 +36,7 @@ function cueSections() {
 export function buildLlmsTxt() {
   return `# UI SFX
 
-> UI SFX is an open-source semantic interface sound system with 78 cues, 11 interchangeable sound packs, 72 one-shots, and 6 seamless loops for web, mobile, SaaS, media, and games.
+> UI SFX is an open-source semantic interface sound system with ${CUES.length} cues, ${PACKS.length} interchangeable sound packs, ${CUES.filter(cue => getPlaybackMode(cue.name) === 'one-shot').length} one-shots, and ${CUES.filter(cue => getPlaybackMode(cue.name) === 'loop').length} seamless loops for web, mobile, SaaS, media, and games.
 
 UI SFX separates interaction meaning from sonic personality: product code calls semantic cues such as \`success\`, \`open\`, or \`processing\`, while a pack controls how the whole interface feels. The TypeScript runtime is MIT licensed and the generated audio library is CC0.
 
@@ -60,7 +60,7 @@ UI SFX separates interaction meaning from sonic personality: product code calls 
 
 ## Optional
 
-- [Complete asset manifest](${SITE_URL}/uisfx-manifest.json): Full 858-asset package manifest with sizes, formats, durations, paths, packs, categories, and licenses. Asset paths are npm-package paths, not website media URLs.
+- [Complete asset manifest](${SITE_URL}/uisfx-manifest.json): Full ${PACKS.length * CUES.length}-asset package manifest with sizes, formats, durations, paths, packs, categories, and licenses. Asset paths are npm-package paths, not website media URLs.
 `
 }
 

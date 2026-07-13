@@ -665,7 +665,7 @@ select:focus-visible {
   background: color-mix(in oklch, var(--dock-bg, var(--paper-light)), transparent 30%);
   color: color-mix(in oklch, var(--dock-ink, var(--ink)), transparent 30%);
   cursor: pointer;
-  transition: background-color 180ms var(--ease-out-quart), color 180ms var(--ease-out-quart), transform 120ms ease-out;
+  transition: background-color 180ms var(--ease-out-quart), color 180ms var(--ease-out-quart), transform 120ms ease-out, box-shadow 180ms var(--ease-out-quart);
 }
 
 .pack-dock__key-label {
@@ -709,12 +709,21 @@ select:focus-visible {
 }
 
 .pack-dock__keys button.active {
-  background: var(--dock-key-bg);
-  color: var(--dock-key-ink);
+  background: var(--dock-key-ink);
+  color: var(--dock-key-bg);
+  box-shadow: inset 0 -0.24rem 0 var(--dock-key);
+  font-weight: 900;
 }
 
 .pack-dock__keys button.active::after {
-  transform: scale(1);
+  box-shadow: 0 0 0 0.2rem color-mix(in oklch, var(--dock-key), transparent 72%);
+  transform: scale(1.18);
+}
+
+.pack-dock__keys button:focus-visible {
+  z-index: 1;
+  outline: 2px solid var(--dock-key);
+  outline-offset: -3px;
 }
 
 .pack-dock__select {
@@ -783,16 +792,16 @@ select:focus-visible {
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__dots i {
-    animation: logo-dot-sequence 1.2s var(--ease-out-quart) infinite;
+    animation: logo-dot-sequence 300ms var(--ease-out-quart) infinite;
     will-change: transform;
   }
 
   .logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__dots i:nth-child(2) {
-    animation-delay: -0.3s;
+    animation-delay: 100ms;
   }
 
   .logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__dots i:nth-child(3) {
-    animation-delay: -0.6s;
+    animation-delay: 200ms;
   }
 }
 
@@ -842,8 +851,9 @@ select:focus-visible {
 }
 
 .hero h1 em {
-  color: var(--accent);
+  color: var(--active-pack, var(--accent));
   font-style: normal;
+  transition: color 300ms var(--ease-out-quart);
 }
 
 .hero-intro {
