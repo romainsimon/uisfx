@@ -6,7 +6,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "test": "nuxt typecheck",
+    "test": "nuxt typecheck && node --import tsx --test app/lib/*.test.ts",
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
