@@ -16,7 +16,7 @@
     "report:audio": "node --import tsx scripts/audio-report.ts",
     "report:quality": "node --import tsx scripts/audio-quality.ts",
     "test": "turbo run test",
-    "typecheck": "tsc -p tsconfig.json --noEmit && turbo run typecheck",
+    "typecheck": "npm run build --workspace=uisfx && tsc -p tsconfig.json --noEmit && turbo run typecheck",
     "check": "npm run privacy:check && npm run generate && npm run report:quality && npm run check:agents && npm run typecheck && npm run test && npm run build && npm run report:audio"
   },
   "devDependencies": {
