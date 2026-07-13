@@ -249,6 +249,7 @@ const copied = ref(false)
 const installCopyFailed = ref(false)
 const agentPromptCopied = ref(false)
 const agentPromptCopyFailed = ref(false)
+const audioUnlocked = ref(false)
 const reducedMotion = ref(false)
 const motionReady = ref(false)
 const selectorControlOwner = ref<'source' | 'dock' | 'none'>('source')
@@ -321,10 +322,22 @@ function stopLogoLoop() {
   logoLoopSound = null
 }
 
+function prewarmHoverSound() {
+  if (!player.value || muted.value) return
+  void player.value.preload(['hover'])
+}
+
+function unlockAudioFromGesture() {
+  if (audioUnlocked.value || muted.value || !player.value) return
+  const probe = player.value.play('hover', { volume: 0 })
+  if (probe) audioUnlocked.value = true
+}
+
 function startLogoLoop(event: PointerEvent) {
   if (
     event.pointerType === 'touch'
     || !window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    || !audioUnlocked.value
     || muted.value
     || reducedMotion.value
     || loopingSound
@@ -474,7 +487,7 @@ function onShellClick(event: MouseEvent) {
 }
 
 function onShellPointerOver(event: PointerEvent) {
-  if (event.pointerType === 'touch' || muted.value || !player.value) return
+  if (event.pointerType === 'touch' || !audioUnlocked.value || muted.value || !player.value) return
   const target = event.target
   if (!(target instanceof Element)) return
   const control = target.closest<HTMLElement>('a, button, [role="button"]')
@@ -852,6 +865,7 @@ function toggleMute() {
   }
 
   setPreviewVolume(lastAudibleVolume.value || DEFAULT_PREVIEW_VOLUME)
+  unlockAudioFromGesture()
   persistAudioPreference()
   announcement.value = `Sound previews enabled at ${volumePercent.value} percent`
   player.value?.play('toggle-on')
@@ -870,11 +884,13 @@ function closeVolumePanel(restoreFocus = false, withSound = true) {
 }
 
 function onDocumentPointerDown(event: PointerEvent) {
+  unlockAudioFromGesture()
   if (!volumeOpen.value || !(event.target instanceof Node) || volumeControl.value?.contains(event.target)) return
   closeVolumePanel(false, false)
 }
 
 function onKeydown(event: KeyboardEvent) {
+  unlockAudioFromGesture()
   if (event.metaKey || event.ctrlKey || event.altKey || event.isComposing) return
   if (event.target instanceof HTMLElement && (event.target.matches('input, select, textarea') || event.target.isContentEditable)) return
   const index = event.key === '+' || event.key === '='
@@ -899,6 +915,7 @@ onMounted(() => {
     volume: volumePercent.value / 100,
     enabled: !muted.value,
   })
+  prewarmHoverSound()
   motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
   syncMotionPreference = () => {
     reducedMotion.value = motionPreference?.matches ?? false
@@ -945,6 +962,7 @@ onMounted(() => {
 watch(selectedPack, (pack) => {
   stopLogoLoop()
   player.value?.setPack(pack)
+  prewarmHoverSound()
   agentPromptCopied.value = false
   agentPromptCopyFailed.value = false
   if (agentPromptCopyTimer) clearTimeout(agentPromptCopyTimer)
