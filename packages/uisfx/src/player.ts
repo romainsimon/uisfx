@@ -39,11 +39,18 @@ function getAudioContextConstructor(): AudioContextConstructor | undefined {
   return window.AudioContext ?? audioWindow.webkitAudioContext
 }
 
+function clampUnit(value: number | undefined, fallback: number) {
+  return typeof value === 'number' && Number.isFinite(value)
+    ? Math.max(0, Math.min(1, value))
+    : fallback
+}
+
 export function createUISFX(options: UISFXOptions = {}): UISFXPlayer {
   let pack: PackName = options.pack ?? 'minimal'
-  let masterVolume = Math.max(0, Math.min(1, options.volume ?? 1))
+  let masterVolume = clampUnit(options.volume, 1)
   let enabled = options.enabled ?? true
   let context = options.context
+  let masterGain: GainNode | undefined
   const buffers = new Map<string, AudioBuffer>()
   const activeSources = new Map<AudioBufferSourceNode, GainNode>()
   const stoppedSources = new WeakSet<AudioBufferSourceNode>()
@@ -67,6 +74,14 @@ export function createUISFX(options: UISFXOptions = {}): UISFXPlayer {
     if (!Context) return undefined
     context = new Context({ latencyHint: 'interactive' })
     return context
+  }
+
+  function ensureMasterGain(audioContext: AudioContext) {
+    if (masterGain) return masterGain
+    masterGain = audioContext.createGain()
+    masterGain.gain.value = masterVolume
+    masterGain.connect(audioContext.destination)
+    return masterGain
   }
 
   function getBuffer(cue: CueName) {
@@ -98,9 +113,9 @@ export function createUISFX(options: UISFXOptions = {}): UISFXPlayer {
     source.buffer = buffer
     source.loop = playOptions.loop ?? recipe.loop
     source.playbackRate.value = Math.max(0.25, Math.min(4, playOptions.playbackRate ?? 1))
-    gain.gain.value = Math.max(0, Math.min(1, playOptions.volume ?? recipe.defaultVolume)) * masterVolume
+    gain.gain.value = clampUnit(playOptions.volume, recipe.defaultVolume)
     source.connect(gain)
-    gain.connect(audioContext.destination)
+    gain.connect(ensureMasterGain(audioContext))
 
     let resolveEnded: () => void = () => undefined
     const ended = new Promise<void>((resolve) => {
@@ -142,7 +157,16 @@ export function createUISFX(options: UISFXOptions = {}): UISFXPlayer {
       return pack
     },
     setVolume(volume) {
-      masterVolume = Math.max(0, Math.min(1, volume))
+      masterVolume = clampUnit(volume, masterVolume)
+      if (!masterGain || !context) return
+      const now = context.currentTime
+      if (typeof masterGain.gain.cancelAndHoldAtTime === 'function') {
+        masterGain.gain.cancelAndHoldAtTime(now)
+      } else {
+        masterGain.gain.cancelScheduledValues(now)
+        masterGain.gain.setValueAtTime(masterGain.gain.value, now)
+      }
+      masterGain.gain.linearRampToValueAtTime(masterVolume, now + 0.02)
     },
     setEnabled(nextEnabled) {
       enabled = nextEnabled
@@ -152,6 +176,8 @@ export function createUISFX(options: UISFXOptions = {}): UISFXPlayer {
     async destroy() {
       stopAll()
       buffers.clear()
+      masterGain?.disconnect()
+      masterGain = undefined
       if (context && context !== options.context) await context.close()
       context = undefined
     },
