@@ -11,7 +11,7 @@ export default defineEventHandler((event) => {
       name: 'UI SFX',
       package: 'uisfx',
       install: 'npm install uisfx',
-      website: 'https://uisfx.com/ui-sound-design',
+      website: 'https://uisfx.com/',
       agentGuide: 'https://uisfx.com/docs/agent-guide.md',
       prompt: 'https://uisfx.com/agent-prompt.txt',
       source: 'https://github.com/romainsimon/uisfx',

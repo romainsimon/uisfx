@@ -1,8 +1,8 @@
-# UI sound design landing page SEO brief
+# UI sound design SEO brief
 
 ## Search intent
 
-The primary intent is mixed informational and asset discovery. Searchers want to understand UI sound design, hear interface sound effects, and find sounds they can use in a product. The showcase answers all three needs on one canonical route: `/ui-sound-design`.
+The primary intent is mixed informational and asset discovery. Searchers want to understand UI sound design, hear interface sound effects, and find sounds they can use in a product. The site answers those needs with two complementary canonical routes: `/ui-sound-design` is the long-form educational guide, while `/` is the interactive product and sound library.
 
 ## Keyword cluster
 
@@ -17,15 +17,21 @@ The primary intent is mixed informational and asset discovery. Searchers want to
 
 The figures above come from the Ahrefs screenshot supplied on July 12, 2026. They are planning inputs, not live API measurements.
 
-## On-page target
+## Guide target
 
 - URL: `/ui-sound-design`
+- Title: `UI Sound Design Guide: Interface Sound Effects | UI SFX`
+- Description: `Learn UI sound design from first principles. Plan, create, test, and implement accessible interface sound effects for web, mobile, SaaS, and games.`
+- Social title: `UI Sound Design: The Complete Guide to Interface Sound Effects`
+- H1: `UI sound design: interface sound effects that make sense.`
+- Search promise: understand when sound belongs, hear semantic examples, build a coherent sound language, and implement it accessibly.
+
+## Product target
+
+- URL: `/`
 - Title: `UI Sound Design: 936 Interface Sound Effects | UI SFX`
 - Description: `Preview 936 open-source UI sound effects for web, mobile, SaaS, and games. Compare 12 sonic styles, one-shots, and seamless loops.`
-- Social title: `UI SFX: 936 Open-Source Interface Sound Effects`
-- Social description: `78 semantic UI cues in 12 switchable feels. Preview, install, and ship clean one-shots and seamless loops for web, mobile, SaaS, and games.`
-- H1: `UI sound design, ready to ship.`
-- Search promise: preview 936 original interface sounds, understand when to use them, and install or download an open-source library.
+- Search promise: preview, compare, install, and download the open-source UI SFX library.
 
 ## Competitor notes
 
@@ -35,20 +41,20 @@ SoundCN was reviewed as a product reference. Its useful patterns include fast pr
 
 ## Content and technical decisions
 
-- One visible H1 contains the primary phrase.
-- H2 sections cover the library, definition, product use cases, common questions, and installation.
-- The page separates 72 one-shots from six ongoing state loops.
-- Educational copy covers semantic naming, appropriate frequency, loudness, accessibility, licensing, and loop lifecycle.
-- A Schema.org graph describes the website, publisher, free software application, source code, and visible FAQ content.
-- Canonical and absolute social URLs resolve to `https://uisfx.com/ui-sound-design`, with `NUXT_PUBLIC_SITE_URL` available as a deployment override.
-- `/` serves the same SSR metadata without a crawler redirect; its canonical still points to `/ui-sound-design` to avoid duplicate indexing.
+- Each route has one visible H1, unique metadata, unique content, and a self-referencing canonical.
+- The guide covers definitions, decision criteria, semantic naming, one-shots, loops, craft, platform conventions, accessibility, implementation, workflow, testing, FAQs, and primary sources.
+- The guide includes live semantic sound examples and links naturally to the full library.
+- The product page keeps the interactive 936-sound playground and links to the guide without duplicating its full copy.
+- The guide Schema.org graph describes the article, publisher, breadcrumb trail, and visible FAQ. The product graph describes the website, software, source code, and audio dataset.
+- Canonical and absolute social URLs resolve to their current route, with `NUXT_PUBLIC_SITE_URL` available as a deployment override.
 - `/robots.txt` allows crawling and references `/sitemap.xml`.
-- The 1200×630 PNG social card is declared for Open Graph and Twitter with explicit dimensions, alt text, and a versioned URL so social crawlers cannot reuse a superseded broken image.
+- The sitemap contains both `/` and `/ui-sound-design`.
+- The opaque 1200×630 JPEG social card is declared for Open Graph and Twitter with explicit dimensions, alt text, and a versioned URL so social crawlers cannot reuse a superseded broken image.
 
 ## Launch checklist
 
 1. Deploy `uisfx.com` with `NUXT_PUBLIC_SITE_URL=https://uisfx.com`.
 2. Verify the canonical route, OG image, robots file, sitemap, and structured data on production.
-3. Submit `https://uisfx.com/sitemap.xml` in Google Search Console and request indexing for the canonical URL.
-4. Link to the page from relevant public product documentation, GitHub, npm, and future UI sound design articles.
+3. Submit `https://uisfx.com/sitemap.xml` in Google Search Console and request indexing for both canonical URLs.
+4. Link to the guide from relevant public product documentation, GitHub, npm, and future UI sound design articles.
 5. Recheck title, description, structured data, Core Web Vitals, and indexability after deployment.

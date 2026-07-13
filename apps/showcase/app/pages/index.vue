@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { definePageMeta, useHead, useRuntimeConfig, useSeoMeta } from '#imports'
+import { useHead, useRuntimeConfig, useSeoMeta } from '#imports'
 import { BookOpen, Check, Copy as CopyIcon, Volume1, Volume2, VolumeX } from '@lucide/vue'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 import { buildAgentImplementationPrompt } from '../lib/agent-prompt'
@@ -48,8 +48,6 @@ const PACK_THEMES = {
   zen: { image: '/packs/zen.webp', color: '#7d8f77', background: '#eee5d2', ink: '#26302b', accent: '#a75a42' },
 } as const satisfies Record<PackName, PackTheme>
 
-definePageMeta({ alias: ['/ui-sound-design'] })
-
 const soundCount = CUES.length * PACKS.length
 const oneShotCount = CUES.filter(cue => getPlaybackMode(cue.name) === 'one-shot').length
 const loopCount = CUES.length - oneShotCount
@@ -59,7 +57,7 @@ const socialTitle = `UI SFX: ${soundCount} Open-Source Interface Sound Effects`
 const socialDescription = `${CUES.length} semantic UI cues in ${PACKS.length} switchable feels. Preview, install, and ship clean one-shots and seamless loops for web, mobile, SaaS, and games.`
 const runtimeConfig = useRuntimeConfig()
 const siteUrl = String(runtimeConfig.public.siteUrl || 'https://uisfx.com').replace(/\/$/, '')
-const canonicalUrl = `${siteUrl}/ui-sound-design`
+const canonicalUrl = siteUrl
 // Use an opaque, versioned JPEG because X's image proxy can retain a failed
 // fetch independently of the page-card cache. A new filename invalidates both.
 const socialImage = `${siteUrl}/og-ui-sound-design-936.jpg`
@@ -189,43 +187,6 @@ useHead({
             encodingFormat: 'application/json',
             contentUrl: `${siteUrl}/uisfx-manifest.json`,
           },
-        },
-        {
-          '@type': 'FAQPage',
-          mainEntity: [
-            {
-              '@type': 'Question',
-              name: 'When should an interface use sound?',
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'Use sound when it confirms a meaningful outcome, calls attention to a time-sensitive change, or makes an ongoing state easier to perceive. Avoid adding audio to routine pointer movement or every decorative animation.',
-              },
-            },
-            {
-              '@type': 'Question',
-              name: 'How loud should UI sound effects be?',
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'UI sound effects should sit below speech, music, and primary media. Test them on laptop speakers, headphones, and phones at low system volume.',
-              },
-            },
-            {
-              '@type': 'Question',
-              name: 'Are UI sounds accessible?',
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'Sound can reinforce feedback, but it must never be the only signal. Pair every cue with visible text, motion, color, or haptics and provide a mute control.',
-              },
-            },
-            {
-              '@type': 'Question',
-              name: 'Can I use these UI sounds commercially?',
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'Yes. The generated audio files are released under CC0, and the TypeScript runtime is MIT licensed. Attribution is appreciated but not required.',
-              },
-            },
-          ],
         },
       ],
     }),
@@ -1024,7 +985,7 @@ onBeforeUnmount(() => {
         <a href="#compare">Compare</a>
         <a href="#patterns">Examples</a>
         <a href="#sound-library">Library</a>
-        <a href="#guide">Guide</a>
+        <a href="/ui-sound-design">Guide</a>
         <a href="#install">Install</a>
       </nav>
       <div class="topbar-actions">
@@ -1504,79 +1465,15 @@ onBeforeUnmount(() => {
         </div>
       </section>
 
-      <section id="guide" class="guide-section" aria-labelledby="guide-title">
-        <header class="guide-intro" data-reveal>
-          <p class="eyebrow">Practical guide</p>
-          <h2 id="guide-title">What is UI sound design?</h2>
-          <p>UI sound design is the practice of giving interface events a clear, consistent audible response. A useful UI sound confirms what happened, communicates urgency, or makes a transition feel physical without competing with the screen. The goal is not to add noise to every tap. It is to build a small sound language that helps people understand a product more quickly.</p>
-        </header>
-
-        <div
-          class="guide-principles"
-          :data-pack="selectedPack"
-          data-reveal
-          data-reveal-group
-        >
-          <article data-reveal-item>
-            <div class="guide-card__surface">
-              <span>01</span>
-              <h3>Start with intent</h3>
-              <p>Name sounds after the product event, not the instrument used to make them. A semantic cue such as <code>success</code>, <code>warning</code>, or <code>message</code> survives a redesign. It also lets one event keep the same meaning while your team switches from a minimalist feel to a gamified one.</p>
-            </div>
-          </article>
-          <article data-reveal-item>
-            <div class="guide-card__surface">
-              <span>02</span>
-              <h3>Use one-shots for outcomes</h3>
-              <p>Brief interface sound effects work best for discrete outcomes: a button activates, a file drops, a payment succeeds, or an action fails. Keep them short enough to preserve momentum. UI SFX includes {{ oneShotCount }} one-shots, each rendered in {{ PACKS.length }} styles, so product feedback can stay coherent across an entire flow.</p>
-            </div>
-          </article>
-          <article data-reveal-item>
-            <div class="guide-card__surface">
-              <span>03</span>
-              <h3>Use loops for ongoing state</h3>
-              <p>A loop communicates that work is still happening. Loading, processing, recording, and connecting sounds continue until the state resolves. Start the loop with the visual state, then stop it immediately on success, failure, or cancellation. Never leave an invisible audio process running in the background.</p>
-            </div>
-          </article>
+      <section id="guide" class="guide-promo" aria-labelledby="guide-title" data-reveal>
+        <div>
+          <p class="eyebrow">The complete field guide</p>
+          <h2 id="guide-title">Design sound people understand.</h2>
         </div>
-
-        <div class="use-cases" data-reveal>
-          <div>
-            <p class="eyebrow">One system, many products</p>
-            <h2>UI sounds for web apps, mobile apps, SaaS, and games</h2>
-          </div>
-          <div class="use-cases__copy">
-            <p>Web and SaaS interfaces benefit from restrained confirmation, navigation, upload, notification, and collaboration sounds. Mobile apps need the same semantic clarity in a smaller attention window, with extra care around silent mode and interruption. Games can use the arcade or organic packs to add reward and personality while keeping menus and system feedback distinct from the soundtrack.</p>
-            <p>UI SFX separates meaning from feel. Your code calls the same cue name everywhere, while a pack controls the sonic character. Minimal stays restrained, Soft feels reassuring, Glass adds polish, Arcade rewards play, Mechanical feels tactile, Organic adds warmth, Dreamy floats, Sci-fi scans, Rubber bounces, and Cinematic gives important moments scale.</p>
-          </div>
+        <div class="guide-promo__copy">
+          <p>Learn how to choose interface moments, build a semantic sound language, design one-shots and loops, respect accessibility, and implement audio reliably across web, mobile, SaaS, and games.</p>
+          <a href="/ui-sound-design" data-sfx="forward">Read the UI sound design guide <span aria-hidden="true">↗</span></a>
         </div>
-
-        <div class="questions" aria-labelledby="questions-title" data-reveal>
-          <div class="questions__heading">
-            <p class="eyebrow">UI sound design questions</p>
-            <h2 id="questions-title">Make sound useful, not noisy.</h2>
-          </div>
-          <div class="questions__list">
-            <article>
-              <h3>When should an interface use sound?</h3>
-              <p>Use sound when it confirms a meaningful outcome, calls attention to a time-sensitive change, or makes an ongoing state easier to perceive. Avoid adding audio to routine pointer movement or every decorative animation. Repetition makes even a pleasant sound tiring, so prioritize moments where audio reduces uncertainty.</p>
-            </article>
-            <article>
-              <h3>How loud should UI sound effects be?</h3>
-              <p>They should sit below speech, music, and primary media. Test on laptop speakers, headphones, and a phone at low system volume. Normalize a library as a family, then adjust warnings and errors by character rather than relying on a large jump in loudness.</p>
-            </article>
-            <article>
-              <h3>Are UI sounds accessible?</h3>
-              <p>Sound can reinforce feedback for some people, but it must never be the only signal. Pair every cue with visible text, motion, color, or haptics as appropriate. Respect reduced motion where sound is synchronized with animation, expose a mute control, and remember the user’s preference.</p>
-            </article>
-            <article>
-              <h3>Can I use these sounds commercially?</h3>
-              <p>Yes. The generated audio files are released under CC0, and the TypeScript runtime is MIT licensed. You can use, edit, export, and redistribute the interface sound effects in personal or commercial products. Attribution is appreciated but not required.</p>
-            </article>
-          </div>
-        </div>
-
-        <p class="review-note">Designed and tested in Yuki Capital products. Library updated July 2026.</p>
       </section>
 
       <SponsorsSection @sound="playSponsorCue" />
@@ -1636,6 +1533,7 @@ task?.stop()</pre>
       ><UISFXMark /></a>
       <p>Sound should reinforce visible feedback, never replace it.</p>
       <div class="footer-links">
+        <a href="/ui-sound-design">UI sound design guide</a>
         <a
           href="https://github.com/romainsimon/uisfx"
           target="_blank"

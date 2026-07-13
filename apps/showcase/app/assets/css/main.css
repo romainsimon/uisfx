@@ -2512,6 +2512,55 @@ select:focus-visible {
   text-align: center;
 }
 
+.guide-promo {
+  width: min(100% - 2 * clamp(1rem, 4vw, 4rem), 90rem);
+  margin-inline: auto;
+  padding-block: clamp(5rem, 9vw, 8rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.72fr);
+  gap: clamp(2rem, 8vw, 8rem);
+  align-items: end;
+}
+
+.guide-promo h2 {
+  max-width: 12ch;
+  margin: var(--space-sm) 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 6.5rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+}
+
+.guide-promo__copy {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.guide-promo__copy p {
+  max-width: 38rem;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.7;
+}
+
+.guide-promo__copy a {
+  width: fit-content;
+  padding: 0.85rem 1.1rem;
+  background: var(--ink);
+  color: var(--paper-light);
+  font-weight: 700;
+  transition: transform 180ms var(--ease-out-quart), background-color 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .guide-promo__copy a:hover {
+    transform: translateY(-3px) rotate(-0.5deg);
+    background: var(--accent-dark);
+  }
+}
+
 .guide-section {
   background: var(--paper-light);
 }
@@ -3204,6 +3253,11 @@ select:focus-visible {
 
   .category-showcase {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .guide-promo {
+    grid-template-columns: 1fr;
+    align-items: start;
   }
 
   .guide-principles {

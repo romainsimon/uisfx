@@ -198,7 +198,7 @@ Last updated: 2026-07-13
 - Playback: ${CUES.filter(cue => getPlaybackMode(cue.name) === 'one-shot').length} one-shots and ${CUES.filter(cue => getPlaybackMode(cue.name) === 'loop').length} seamless loops
 - Code license: MIT
 - Audio license: CC0-1.0
-- Website: ${SITE_URL}/ui-sound-design
+- Website: ${SITE_URL}/
 - npm: https://www.npmjs.com/package/uisfx
 - Source: https://github.com/romainsimon/uisfx
 
@@ -275,7 +275,8 @@ ${packTable()}
 
 ## Documentation
 
-- Interactive showcase: ${SITE_URL}/ui-sound-design
+- Interactive showcase: ${SITE_URL}/
+- UI sound design guide: ${SITE_URL}/ui-sound-design
 - Coding-agent guide: ${SITE_URL}/docs/agent-guide.md
 - Semantic catalog: ${SITE_URL}/uisfx-catalog.json
 - npm package: https://www.npmjs.com/package/uisfx
