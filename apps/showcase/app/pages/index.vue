@@ -60,8 +60,9 @@ const socialDescription = `${CUES.length} semantic UI cues in ${PACKS.length} sw
 const runtimeConfig = useRuntimeConfig()
 const siteUrl = String(runtimeConfig.public.siteUrl || 'https://uisfx.com').replace(/\/$/, '')
 const canonicalUrl = `${siteUrl}/ui-sound-design`
-// Keep a versioned filename so social crawlers cannot reuse an older broken card.
-const socialImage = `${siteUrl}/og-ui-sound-design.png?v=${soundCount}-20260713`
+// Use an opaque, versioned JPEG because X's image proxy can retain a failed
+// fetch independently of the page-card cache. A new filename invalidates both.
+const socialImage = `${siteUrl}/og-ui-sound-design-936.jpg`
 const organizationId = `${siteUrl}/#organization`
 const websiteId = `${siteUrl}/#website`
 const softwareId = `${canonicalUrl}#software`
@@ -80,7 +81,7 @@ useSeoMeta({
   ogLocale: 'en_US',
   ogImage: socialImage,
   ogImageSecureUrl: socialImage,
-  ogImageType: 'image/png',
+  ogImageType: 'image/jpeg',
   ogImageWidth: 1200,
   ogImageHeight: 630,
   ogImageAlt: `UI SFX sound design library with ${PACKS.length} sound styles and waveform previews`,
