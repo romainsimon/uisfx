@@ -1,0 +1,27 @@
+name: Publish npm
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [release/audio-quality-v03]
+    tags: ['v*']
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v') || github.event.head_commit.message == 'Add secure npm release automation'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - run: npm run build --workspace=uisfx
+      - run: npm publish --workspace=uisfx --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN || secrets.AICEO_FULL_NPM_TOKEN }}
