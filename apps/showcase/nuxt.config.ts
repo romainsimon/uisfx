@@ -11,7 +11,23 @@ export default defineNuxtConfig({
   },
   css: ['~/assets/css/main.css'],
   routeRules: {
-    '/': { redirect: { to: '/ui-sound-design', statusCode: 301 } },
+    '/': {
+      headers: {
+        Link: '</llms.txt>; rel="alternate"; type="text/plain", </docs/agent-guide.md>; rel="alternate"; type="text/markdown"',
+      },
+    },
+    '/ui-sound-design': {
+      headers: {
+        Link: '</llms.txt>; rel="alternate"; type="text/plain", </docs/agent-guide.md>; rel="alternate"; type="text/markdown"',
+      },
+    },
+    '/og-ui-sound-design.png': {
+      headers: {
+        'Cache-Control': 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000',
+        'Access-Control-Allow-Origin': '*',
+        'Cross-Origin-Resource-Policy': 'cross-origin',
+      },
+    },
   },
   vite: {
     plugins: [tailwindcss()],
