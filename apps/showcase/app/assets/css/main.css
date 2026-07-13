@@ -488,6 +488,7 @@ select:focus-visible {
 
 .uisfx-mark__dots {
   display: inline-flex;
+  align-items: center;
   gap: 0.1em;
 }
 
@@ -496,6 +497,53 @@ select:focus-visible {
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--accent);
+  transform-origin: 50% 100%;
+  transition: background-color 180ms var(--ease-out-quart), transform 180ms var(--ease-out-quart);
+}
+
+.uisfx-mark__word {
+  display: inline-block;
+  transition: transform 240ms var(--ease-out-quart);
+}
+
+.logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__word {
+  transform: translate3d(0, -0.025em, 0);
+}
+
+.logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__dots i {
+  background: var(--active-accent, var(--accent));
+}
+
+@keyframes logo-dot-sequence {
+  0%, 18%, 58%, 100% {
+    opacity: 0.72;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  32% {
+    opacity: 1;
+    transform: translate3d(0, -0.32em, 0) scale(0.88, 1.22);
+  }
+
+  43% {
+    opacity: 0.9;
+    transform: translate3d(0, 0.07em, 0) scale(1.14, 0.82);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__dots i {
+    animation: logo-dot-sequence 1.2s var(--ease-out-quart) infinite;
+    will-change: transform;
+  }
+
+  .logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__dots i:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+
+  .logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__dots i:nth-child(3) {
+    animation-delay: -0.6s;
+  }
 }
 
 .eyebrow {
@@ -2134,6 +2182,12 @@ footer p {
   margin: 0;
   color: color-mix(in oklch, var(--paper-light), transparent 40%);
   font-size: 0.85rem;
+}
+
+.footer-brand {
+  display: inline-flex;
+  justify-self: start;
+  color: inherit;
 }
 
 .footer-links {

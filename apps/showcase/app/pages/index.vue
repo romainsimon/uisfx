@@ -214,6 +214,7 @@ const player = shallowRef<UISFXPlayer>()
 const siteShell = ref<HTMLElement>()
 const soundConsole = ref<HTMLElement>()
 let loopingSound: PlayingSFX | null = null
+let logoLoopSound: PlayingSFX | null = null
 let activeTimer: ReturnType<typeof setTimeout> | undefined
 let motionPreference: MediaQueryList | undefined
 let syncMotionPreference: (() => void) | undefined
@@ -245,6 +246,31 @@ const playLabel = (cue: CueName, pack: PackName) => isLooping(cue, pack)
   ? `Stop ${cue} loop in the ${pack} feel`
   : `${isLoop(cue) ? 'Start' : 'Play'} ${cue} in the ${pack} feel`
 
+function stopLogoLoop() {
+  logoLoopSound?.stop()
+  logoLoopSound = null
+}
+
+function startLogoLoop(event: PointerEvent) {
+  if (
+    event.pointerType === 'touch'
+    || !window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    || muted.value
+    || reducedMotion.value
+    || loopingSound
+    || logoLoopSound
+    || !player.value
+  ) return
+
+  const sound = player.value.play('loading', { loop: true, volume: 0.045 })
+  if (!sound) return
+
+  logoLoopSound = sound
+  void sound.ended.finally(() => {
+    if (logoLoopSound === sound) logoLoopSound = null
+  })
+}
+
 function stopLoop() {
   loopingSound?.stop()
   loopingSound = null
@@ -256,6 +282,7 @@ function stopLoop() {
 
 function play(cue: CueName, pack: PackName = selectedPack.value) {
   if (!player.value || muted.value) return
+  stopLogoLoop()
   if (isLooping(cue, pack)) {
     stopLoop()
     announcement.value = `Stopped ${cue} loop`
@@ -403,6 +430,7 @@ async function copyInstall() {
 function toggleMute() {
   const transition = ++muteTransition
   if (!muted.value) {
+    stopLogoLoop()
     stopLoop()
     const confirmation = player.value?.play('toggle-off')
     muted.value = true
@@ -431,14 +459,23 @@ function onKeydown(event: KeyboardEvent) {
   if (pack) choosePack(pack.name)
 }
 
+function onVisibilityChange() {
+  if (document.hidden) stopLogoLoop()
+}
+
 onMounted(() => {
   player.value = createUISFX({ pack: selectedPack.value })
   motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
-  syncMotionPreference = () => { reducedMotion.value = motionPreference?.matches ?? false }
+  syncMotionPreference = () => {
+    reducedMotion.value = motionPreference?.matches ?? false
+    if (reducedMotion.value) stopLogoLoop()
+  }
   syncMotionPreference()
   motionPreference.addEventListener('change', syncMotionPreference)
+  window.addEventListener('blur', stopLogoLoop)
   window.addEventListener('keydown', onKeydown)
   window.addEventListener('scroll', updateScrollProgress, { passive: true })
+  document.addEventListener('visibilitychange', onVisibilityChange)
   updateScrollProgress()
 
   revealObserver = new IntersectionObserver((entries) => {
@@ -462,15 +499,21 @@ onMounted(() => {
   window.requestAnimationFrame(() => { motionReady.value = true })
 })
 
-watch(selectedPack, (pack) => player.value?.setPack(pack))
+watch(selectedPack, (pack) => {
+  stopLogoLoop()
+  player.value?.setPack(pack)
+})
 
 onBeforeUnmount(() => {
+  window.removeEventListener('blur', stopLogoLoop)
   window.removeEventListener('keydown', onKeydown)
   if (syncMotionPreference) motionPreference?.removeEventListener('change', syncMotionPreference)
   window.removeEventListener('scroll', updateScrollProgress)
+  document.removeEventListener('visibilitychange', onVisibilityChange)
   revealObserver?.disconnect()
   consoleObserver?.disconnect()
   if (scrollFrame) window.cancelAnimationFrame(scrollFrame)
+  stopLogoLoop()
   stopLoop()
   if (activeTimer) clearTimeout(activeTimer)
   if (searchSoundTimer) clearTimeout(searchSoundTimer)
@@ -496,7 +539,16 @@ onBeforeUnmount(() => {
     <a class="skip-link" href="#sound-library" data-sfx="forward">Skip to sound library</a>
 
     <header class="topbar">
-      <a class="brand-link" href="#top" data-sfx="back" aria-label="UI SFX home"><UISFXMark compact /></a>
+      <a
+        class="brand-link logo-sound-trigger"
+        href="#top"
+        data-sfx="back"
+        aria-label="UI SFX home"
+        @click="stopLogoLoop"
+        @pointercancel="stopLogoLoop"
+        @pointerenter="startLogoLoop"
+        @pointerleave="stopLogoLoop"
+      ><UISFXMark compact /></a>
       <nav aria-label="Primary navigation">
         <a href="#compare">Compare</a>
         <a href="#patterns">Examples</a>
@@ -938,7 +990,16 @@ task?.stop()</pre>
     </main>
 
     <footer>
-      <UISFXMark />
+      <a
+        class="footer-brand logo-sound-trigger"
+        href="#top"
+        data-sfx="back"
+        aria-label="Back to the top of UI SFX"
+        @click="stopLogoLoop"
+        @pointercancel="stopLogoLoop"
+        @pointerenter="startLogoLoop"
+        @pointerleave="stopLogoLoop"
+      ><UISFXMark /></a>
       <p>Sound should reinforce visible feedback, never replace it.</p>
       <div class="footer-links">
         <a
