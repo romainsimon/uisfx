@@ -22,6 +22,8 @@ The figures above come from the Ahrefs screenshot supplied on July 12, 2026. The
 - URL: `/ui-sound-design`
 - Title: `UI Sound Design: 858 Interface Sound Effects | UI SFX`
 - Description: `Preview 858 open-source UI sound effects for web, mobile, SaaS, and games. Compare 11 sonic styles, one-shots, and seamless loops.`
+- Social title: `UI SFX: 858 Open-Source Interface Sound Effects`
+- Social description: `78 semantic UI cues in 11 switchable feels. Preview, install, and ship clean one-shots and seamless loops for web, mobile, SaaS, and games.`
 - H1: `UI sound design, ready to ship.`
 - Search promise: preview 858 original interface sounds, understand when to use them, and install or download an open-source library.
 
@@ -39,9 +41,9 @@ SoundCN was reviewed as a product reference. Its useful patterns include fast pr
 - Educational copy covers semantic naming, appropriate frequency, loudness, accessibility, licensing, and loop lifecycle.
 - A Schema.org graph describes the website, publisher, free software application, source code, and visible FAQ content.
 - Canonical and absolute social URLs resolve to `https://uisfx.com/ui-sound-design`, with `NUXT_PUBLIC_SITE_URL` available as a deployment override.
-- `/` redirects permanently to the canonical route to avoid duplicate indexing.
+- `/` serves the same SSR metadata without a crawler redirect; its canonical still points to `/ui-sound-design` to avoid duplicate indexing.
 - `/robots.txt` allows crawling and references `/sitemap.xml`.
-- The 1200×630 PNG social card is declared for Open Graph and Twitter with explicit dimensions and alt text.
+- The 1200×630 PNG social card is declared for Open Graph and Twitter with explicit dimensions, alt text, and a versioned URL so social crawlers cannot reuse a superseded broken image.
 
 ## Launch checklist
 

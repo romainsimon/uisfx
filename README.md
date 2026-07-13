@@ -34,6 +34,8 @@ UI SFX is a tiny semantic sound system for web apps, mobile apps, SaaS, educatio
 npm install uisfx
 ```
 
+Want a coding agent to wire the whole product? Copy the [production-ready implementation prompt](https://uisfx.com/agent-prompt.txt) or give it the [agent integration guide](https://uisfx.com/docs/agent-guide.md). The prompt covers semantic cue mapping, loop cleanup, autoplay constraints, mute preferences, accessibility, and verification.
+
 ```ts
 import { createUISFX } from 'uisfx'
 

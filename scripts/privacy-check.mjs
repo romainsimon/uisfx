@@ -1,10 +1,10 @@
 import { execFileSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
 
-const trackedFiles = execFileSync('git', ['ls-files', '-z'])
+const publicFiles = [...new Set(execFileSync('git', ['ls-files', '-co', '--exclude-standard', '-z'])
   .toString('utf8')
   .split('\0')
-  .filter(Boolean)
+  .filter(Boolean))]
 
 const sensitiveFileRules = [
   { label: 'environment file', pattern: /(^|\/)\.env(?:\.|$)/i, allow: /(^|\/)\.env\.example$/i },
@@ -41,7 +41,7 @@ function addFinding(file, label) {
   findings.set(file, labels)
 }
 
-for (const file of trackedFiles) {
+for (const file of publicFiles) {
   for (const rule of sensitiveFileRules) {
     if (rule.pattern.test(file) && !rule.allow?.test(file)) addFinding(file, rule.label)
   }
@@ -71,4 +71,4 @@ if (findings.size) {
   process.exit(1)
 }
 
-console.log(`Privacy check passed for ${trackedFiles.length} tracked files.`)
+console.log(`Privacy check passed for ${publicFiles.length} tracked and untracked public files.`)

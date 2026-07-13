@@ -3,6 +3,7 @@ name: Publish npm
 on:
   workflow_dispatch:
   push:
+    branches: [release/npm]
     tags: ['v*']
 
 permissions:
@@ -18,8 +19,18 @@ jobs:
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
+      - name: Enable npm trusted publishing
+        run: npm install --global npm@11.5.1
+      - name: Verify release tag matches package version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          package_version=$(node -p "require('./packages/uisfx/package.json').version")
+          if [ "$GITHUB_REF_NAME" != "v$package_version" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match package version v$package_version"
+            exit 1
+          fi
       - run: npm ci
       - run: npm run build --workspace=uisfx
       - run: npm publish --workspace=uisfx --access public --provenance
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN || secrets.AICEO_FULL_NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

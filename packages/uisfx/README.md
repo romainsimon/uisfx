@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://uisfx.com">
-    <img src="https://raw.githubusercontent.com/romainsimon/uisfx/main/docs/assets/uisfx-banner.webp" alt="UI SFX — open-source interface sound effects" width="100%">
+    <img src="https://raw.githubusercontent.com/romainsimon/uisfx/main/docs/assets/uisfx-banner.webp" alt="UI SFX, open-source interface sound effects" width="100%">
   </a>
 </p>
 
@@ -12,7 +12,7 @@
   <a href="https://uisfx.com/#sound-library">Browse cues</a>
 </p>
 
-# UI SFX — open-source interface sound effects
+# UI SFX: open-source interface sound effects
 
 A zero-dependency semantic sound system for web apps, mobile apps, SaaS, education, media, and games. Call `success` once, then change the whole product's sonic personality without changing its logic.
 
@@ -21,6 +21,8 @@ A zero-dependency semantic sound system for web apps, mobile apps, SaaS, educati
 ```bash
 npm install uisfx
 ```
+
+Want a coding agent to implement it across an existing product? Use the [copy-ready implementation prompt](https://uisfx.com/agent-prompt.txt) or the complete [agent integration guide](https://uisfx.com/docs/agent-guide.md). Machine-readable cue and pack documentation starts at [`/llms.txt`](https://uisfx.com/llms.txt).
 
 ## Try it in 30 seconds
 

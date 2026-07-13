@@ -368,7 +368,7 @@ onBeforeUnmount(() => {
         <p class="eyebrow">Sound in context</p>
         <h2 id="patterns-title">Hear what the interface means.</h2>
       </div>
-      <p>Real shadcn-vue controls wired to semantic cues. Change the sound pack above, then run the same product flows with a completely different personality.</p>
+      <p>Use the interactive product demos below to hear each meaningful state change. Switch the feel above, then repeat the same flow to compare its personality.</p>
     </header>
 
     <div class="patterns-lab">

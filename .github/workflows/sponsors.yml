@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Update Founding Sponsors tier ($2000+)
-        uses: JamesIves/github-sponsors-readme-action@v1
+        uses: JamesIves/github-sponsors-readme-action@2fd9142e765f755780202122261dc85e78459405
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'README.md'
@@ -25,7 +25,7 @@ jobs:
           fallback: '<sub>Become the first <a href="https://github.com/sponsors/romainsimon">Founding Sponsor</a>.</sub>'
 
       - name: Update Premier Sponsors tier ($500-$1999)
-        uses: JamesIves/github-sponsors-readme-action@v1
+        uses: JamesIves/github-sponsors-readme-action@2fd9142e765f755780202122261dc85e78459405
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'README.md'
@@ -36,7 +36,7 @@ jobs:
           fallback: '<sub>Become the first <a href="https://github.com/sponsors/romainsimon">Premier Sponsor</a>.</sub>'
 
       - name: Update Sponsors tier ($100-$499)
-        uses: JamesIves/github-sponsors-readme-action@v1
+        uses: JamesIves/github-sponsors-readme-action@2fd9142e765f755780202122261dc85e78459405
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'README.md'
@@ -47,7 +47,7 @@ jobs:
           fallback: '<sub>Become the first <a href="https://github.com/sponsors/romainsimon">Sponsor</a>.</sub>'
 
       - name: Update Backers tier ($25-$99)
-        uses: JamesIves/github-sponsors-readme-action@v1
+        uses: JamesIves/github-sponsors-readme-action@2fd9142e765f755780202122261dc85e78459405
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'README.md'
@@ -58,7 +58,7 @@ jobs:
           fallback: '<sub>Become the first <a href="https://github.com/sponsors/romainsimon">Backer</a>.</sub>'
 
       - name: Update Supporters tier ($5-$24)
-        uses: JamesIves/github-sponsors-readme-action@v1
+        uses: JamesIves/github-sponsors-readme-action@2fd9142e765f755780202122261dc85e78459405
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'README.md'
