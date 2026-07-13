@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { definePageMeta, useHead, useRuntimeConfig, useSeoMeta } from '#imports'
-import { Check, Copy as CopyIcon, Volume1, Volume2, VolumeX } from '@lucide/vue'
+import { BookOpen, Check, Copy as CopyIcon, Volume1, Volume2, VolumeX } from '@lucide/vue'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 import { buildAgentImplementationPrompt } from '../lib/agent-prompt'
 import { planPackSwitch } from '../lib/pack-switch'
@@ -1231,7 +1231,7 @@ onBeforeUnmount(() => {
                 </div>
               </div>
 
-              <nav class="hero-source-links" aria-label="UI SFX source and package links">
+              <nav class="hero-source-links" aria-label="UI SFX source, package, and agent documentation">
                 <a
                   href="https://github.com/romainsimon/uisfx"
                   target="_blank"
@@ -1247,6 +1247,14 @@ onBeforeUnmount(() => {
                 >
                   <SourceBrandIcon source="npm" />
                   npm package <span aria-hidden="true">↗</span>
+                </a>
+                <a
+                  href="/docs/agent-guide.md"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <BookOpen class="source-brand-icon" aria-hidden="true" />
+                  Agent guide <span aria-hidden="true">↗</span>
                 </a>
               </nav>
               <SponsorButton label="Sponsor UI SFX" @activate="playSponsorCue('reward')" />
