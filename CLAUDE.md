@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-UI SFX is an open-source semantic sound system for interfaces. One typed 78-cue vocabulary maps to eleven interchangeable feel packs and 858 pre-rendered assets. The core package also synthesizes cues at runtime without downloading audio files.
+UI SFX is an open-source semantic sound system for interfaces. One typed 78-cue vocabulary maps to twelve interchangeable feel packs and 936 pre-rendered assets. The core package also synthesizes cues at runtime without downloading audio files.
 
 **Primary metric**: adoption in first-party products and third-party GitHub/npm usage.
 **User profile**: product engineers and designers working across web, mobile, SaaS, education, media, and games.
@@ -31,7 +31,7 @@ Use Node 22.20 (`nvm use`) for Nuxt 4.4 compatibility.
 ## Development Rules
 
 - Keep cue names semantic. App-specific aliases belong in product integrations, not the core taxonomy.
-- Any new cue must exist in all eleven packs and be documented in `docs/taxonomy.md`.
+- Any new cue must exist in all twelve packs and be documented in `docs/taxonomy.md`.
 - Runtime synthesis and rendered assets must derive from the same recipe.
 - Code is MIT. Procedurally generated assets are CC0. Never add generated assets whose provider terms prevent commercial redistribution.
 - Keep the minified + compressed core under 20 kB and the higher-fidelity Ogg library under 4 MB.
@@ -41,8 +41,8 @@ Use Node 22.20 (`nvm use`) for Nuxt 4.4 compatibility.
 ## Quality Gates
 
 - `npm run check` passes.
-- 858 MP3 and 858 Ogg files exist.
+- 936 MP3 and 936 Ogg files exist.
 - No asset clips above -1 dBFS or contains more than 80 ms leading silence.
-- Every audio release passes tail-silence, loop-seam, cyclic-timing, and perceptual-similarity checks across all 858 renders.
+- Every audio release passes tail-silence, loop-seam, cyclic-timing, and perceptual-similarity checks across all 936 renders.
 - All interactive showcase controls have accessible names and visible focus.
 - No hardcoded credentials.

@@ -17,12 +17,14 @@
 - Correct pitch-glide phase, band-limit bright oscillators, and give one-shots clean digital-black tails.
 - Make all 66 rendered loops clock-even, seam-continuous, cyclically panned, and click-free when stopped.
 - Increase portable asset fidelity, using mono where spatial information is unnecessary and preserving stereo motion where it matters.
-- Add automated gates for tail cleanliness, loop continuity, loop timing, and pairwise perceptual similarity across all 858 renders.
+- Add automated gates for tail cleanliness, loop continuity, loop timing, and pairwise perceptual similarity across all 936 renders.
 
 ## 0.2.0
 
 - Add the Studio feel for film, audio, and AI creative tools.
-- Expand the portable library to 858 CC0 sounds in MP3 and Ogg.
+- Expand the portable library to 936 CC0 sounds in MP3 and Ogg, including the calm paper, brush, wood, and chime textures of the new Zen feel.
+- Add a live GitHub Sponsors showcase and a prominent animated sponsor action.
+- Add restrained hover audio and stronger theme-aware states across the showcase.
 - Add Studio artwork and showcase theme.
 
 ## 0.1.0

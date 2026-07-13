@@ -7,11 +7,11 @@
   },
   "source": "Deterministic UI SFX synthesis recipes",
   "summary": {
-    "packs": 11,
+    "packs": 12,
     "cues": 78,
-    "assets": 858,
-    "mp3Bytes": 4996043,
-    "oggBytes": 3920905
+    "assets": 936,
+    "mp3Bytes": 5437708,
+    "oggBytes": 4014593
   },
   "categories": [
     {
@@ -157,6 +157,13 @@
       "description": "Tactile editing precision with warm cinematic restraint.",
       "bestFor": "Film, audio, and AI creative tools",
       "color": "#6261a8"
+    },
+    {
+      "name": "zen",
+      "label": "Zen",
+      "description": "Washi folds, soft brush, and quiet wooden detail.",
+      "bestFor": "Mindfulness, reading, writing, calm productivity",
+      "color": "#7d8f77"
     }
   ],
   "cues": [
@@ -880,7 +887,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/hover.ogg",
-          "bytes": 771
+          "bytes": 735
         }
       }
     },
@@ -900,7 +907,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/press.ogg",
-          "bytes": 1554
+          "bytes": 1493
         }
       }
     },
@@ -920,7 +927,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/release.ogg",
-          "bytes": 1331
+          "bytes": 1280
         }
       }
     },
@@ -940,7 +947,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/double-click.ogg",
-          "bytes": 2420
+          "bytes": 2445
         }
       }
     },
@@ -960,7 +967,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/focus.ogg",
-          "bytes": 1254
+          "bytes": 1217
         }
       }
     },
@@ -980,7 +987,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/long-press.ogg",
-          "bytes": 2311
+          "bytes": 2218
         }
       }
     },
@@ -1000,7 +1007,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/select.ogg",
-          "bytes": 2298
+          "bytes": 2154
         }
       }
     },
@@ -1020,7 +1027,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/deselect.ogg",
-          "bytes": 2157
+          "bytes": 2078
         }
       }
     },
@@ -1040,7 +1047,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/toggle-on.ogg",
-          "bytes": 2214
+          "bytes": 2133
         }
       }
     },
@@ -1060,7 +1067,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/toggle-off.ogg",
-          "bytes": 1364
+          "bytes": 1270
         }
       }
     },
@@ -1080,7 +1087,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/check.ogg",
-          "bytes": 2160
+          "bytes": 2094
         }
       }
     },
@@ -1100,7 +1107,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/uncheck.ogg",
-          "bytes": 1323
+          "bytes": 1267
         }
       }
     },
@@ -1120,7 +1127,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/delete.ogg",
-          "bytes": 2317
+          "bytes": 2214
         }
       }
     },
@@ -1140,7 +1147,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/cancel.ogg",
-          "bytes": 1804
+          "bytes": 1743
         }
       }
     },
@@ -1160,7 +1167,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/undo.ogg",
-          "bytes": 3893
+          "bytes": 3473
         }
       }
     },
@@ -1180,7 +1187,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/redo.ogg",
-          "bytes": 4211
+          "bytes": 4161
         }
       }
     },
@@ -1200,7 +1207,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/copy.ogg",
-          "bytes": 2718
+          "bytes": 2952
         }
       }
     },
@@ -1220,7 +1227,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/paste.ogg",
-          "bytes": 1694
+          "bytes": 1579
         }
       }
     },
@@ -1240,7 +1247,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/open.ogg",
-          "bytes": 1845
+          "bytes": 1792
         }
       }
     },
@@ -1260,7 +1267,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/close.ogg",
-          "bytes": 1800
+          "bytes": 1885
         }
       }
     },
@@ -1280,7 +1287,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/back.ogg",
-          "bytes": 1874
+          "bytes": 2077
         }
       }
     },
@@ -1300,7 +1307,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/forward.ogg",
-          "bytes": 2239
+          "bytes": 2384
         }
       }
     },
@@ -1320,7 +1327,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/expand.ogg",
-          "bytes": 3731
+          "bytes": 3498
         }
       }
     },
@@ -1340,7 +1347,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/collapse.ogg",
-          "bytes": 4098
+          "bytes": 3684
         }
       }
     },
@@ -1360,7 +1367,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/drag-start.ogg",
-          "bytes": 2194
+          "bytes": 2105
         }
       }
     },
@@ -1380,7 +1387,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/drop.ogg",
-          "bytes": 2334
+          "bytes": 2234
         }
       }
     },
@@ -1400,7 +1407,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/snap.ogg",
-          "bytes": 2006
+          "bytes": 1983
         }
       }
     },
@@ -1420,7 +1427,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/swipe.ogg",
-          "bytes": 2346
+          "bytes": 2225
         }
       }
     },
@@ -1440,7 +1447,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/reorder.ogg",
-          "bytes": 2628
+          "bytes": 2517
         }
       }
     },
@@ -1460,7 +1467,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/invalid-drop.ogg",
-          "bytes": 2561
+          "bytes": 2458
         }
       }
     },
@@ -1480,7 +1487,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/send.ogg",
-          "bytes": 2941
+          "bytes": 2799
         }
       }
     },
@@ -1500,7 +1507,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/receive.ogg",
-          "bytes": 3899
+          "bytes": 3720
         }
       }
     },
@@ -1520,7 +1527,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/notification.ogg",
-          "bytes": 3512
+          "bytes": 3307
         }
       }
     },
@@ -1540,7 +1547,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/mention.ogg",
-          "bytes": 4348
+          "bytes": 4097
         }
       }
     },
@@ -1560,7 +1567,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/typing.ogg",
-          "bytes": 3694
+          "bytes": 3258
         }
       }
     },
@@ -1580,7 +1587,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/reaction.ogg",
-          "bytes": 1986
+          "bytes": 1845
         }
       }
     },
@@ -1600,7 +1607,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/success.ogg",
-          "bytes": 4376
+          "bytes": 4178
         }
       }
     },
@@ -1620,7 +1627,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/error.ogg",
-          "bytes": 3032
+          "bytes": 2918
         }
       }
     },
@@ -1640,7 +1647,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/warning.ogg",
-          "bytes": 3480
+          "bytes": 3371
         }
       }
     },
@@ -1660,7 +1667,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/info.ogg",
-          "bytes": 2755
+          "bytes": 2628
         }
       }
     },
@@ -1680,7 +1687,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/blocked.ogg",
-          "bytes": 2804
+          "bytes": 2685
         }
       }
     },
@@ -1700,7 +1707,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/retry.ogg",
-          "bytes": 2272
+          "bytes": 2217
         }
       }
     },
@@ -1720,7 +1727,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/start.ogg",
-          "bytes": 2654
+          "bytes": 2562
         }
       }
     },
@@ -1740,7 +1747,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/stop.ogg",
-          "bytes": 3023
+          "bytes": 2908
         }
       }
     },
@@ -1760,7 +1767,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/progress-step.ogg",
-          "bytes": 1898
+          "bytes": 1823
         }
       }
     },
@@ -1780,7 +1787,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/complete.ogg",
-          "bytes": 4855
+          "bytes": 4687
         }
       }
     },
@@ -1800,7 +1807,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/queued.ogg",
-          "bytes": 2039
+          "bytes": 1997
         }
       }
     },
@@ -1820,7 +1827,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/checkpoint.ogg",
-          "bytes": 3329
+          "bytes": 3153
         }
       }
     },
@@ -1840,7 +1847,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/loading.ogg",
-          "bytes": 6017
+          "bytes": 5714
         }
       }
     },
@@ -1860,7 +1867,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/processing.ogg",
-          "bytes": 6786
+          "bytes": 6592
         }
       }
     },
@@ -1880,7 +1887,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/recording.ogg",
-          "bytes": 3205
+          "bytes": 3100
         }
       }
     },
@@ -1900,7 +1907,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/connecting.ogg",
-          "bytes": 9048
+          "bytes": 9097
         }
       }
     },
@@ -1920,7 +1927,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/scanning.ogg",
-          "bytes": 5938
+          "bytes": 5629
         }
       }
     },
@@ -1940,7 +1947,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/streaming.ogg",
-          "bytes": 8219
+          "bytes": 7746
         }
       }
     },
@@ -1960,7 +1967,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/play.ogg",
-          "bytes": 2516
+          "bytes": 2434
         }
       }
     },
@@ -1980,7 +1987,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/pause.ogg",
-          "bytes": 2315
+          "bytes": 2234
         }
       }
     },
@@ -2000,7 +2007,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/seek.ogg",
-          "bytes": 3172
+          "bytes": 3241
         }
       }
     },
@@ -2020,7 +2027,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/volume-change.ogg",
-          "bytes": 2058
+          "bytes": 1937
         }
       }
     },
@@ -2040,7 +2047,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/skip-next.ogg",
-          "bytes": 3439
+          "bytes": 3471
         }
       }
     },
@@ -2060,7 +2067,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/skip-previous.ogg",
-          "bytes": 3277
+          "bytes": 3286
         }
       }
     },
@@ -2080,7 +2087,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/connect.ogg",
-          "bytes": 3807
+          "bytes": 3550
         }
       }
     },
@@ -2100,7 +2107,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/disconnect.ogg",
-          "bytes": 2637
+          "bytes": 2517
         }
       }
     },
@@ -2120,7 +2127,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/lock.ogg",
-          "bytes": 2533
+          "bytes": 2458
         }
       }
     },
@@ -2140,7 +2147,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/unlock.ogg",
-          "bytes": 3028
+          "bytes": 2890
         }
       }
     },
@@ -2160,7 +2167,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/wake.ogg",
-          "bytes": 2402
+          "bytes": 2278
         }
       }
     },
@@ -2180,7 +2187,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/sleep.ogg",
-          "bytes": 2267
+          "bytes": 2184
         }
       }
     },
@@ -2200,7 +2207,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/reward.ogg",
-          "bytes": 2880
+          "bytes": 2597
         }
       }
     },
@@ -2220,7 +2227,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/level-up.ogg",
-          "bytes": 5656
+          "bytes": 5384
         }
       }
     },
@@ -2240,7 +2247,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/achievement.ogg",
-          "bytes": 7369
+          "bytes": 6978
         }
       }
     },
@@ -2260,7 +2267,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/streak.ogg",
-          "bytes": 4636
+          "bytes": 4472
         }
       }
     },
@@ -2280,7 +2287,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/badge.ogg",
-          "bytes": 5266
+          "bytes": 5057
         }
       }
     },
@@ -2300,7 +2307,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/bonus.ogg",
-          "bytes": 5729
+          "bytes": 5584
         }
       }
     },
@@ -2320,7 +2327,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/add-to-cart.ogg",
-          "bytes": 3271
+          "bytes": 3115
         }
       }
     },
@@ -2340,7 +2347,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/remove-from-cart.ogg",
-          "bytes": 2069
+          "bytes": 1866
         }
       }
     },
@@ -2360,7 +2367,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/checkout.ogg",
-          "bytes": 4031
+          "bytes": 3871
         }
       }
     },
@@ -2380,7 +2387,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/purchase.ogg",
-          "bytes": 3980
+          "bytes": 3847
         }
       }
     },
@@ -2400,7 +2407,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/coupon.ogg",
-          "bytes": 3694
+          "bytes": 3397
         }
       }
     },
@@ -2420,7 +2427,7 @@
         },
         "ogg": {
           "path": "sounds/minimal/refund.ogg",
-          "bytes": 5850
+          "bytes": 5623
         }
       }
     },
@@ -2440,7 +2447,7 @@
         },
         "ogg": {
           "path": "sounds/soft/hover.ogg",
-          "bytes": 1366
+          "bytes": 1311
         }
       }
     },
@@ -2460,7 +2467,7 @@
         },
         "ogg": {
           "path": "sounds/soft/press.ogg",
-          "bytes": 1794
+          "bytes": 1726
         }
       }
     },
@@ -2480,7 +2487,7 @@
         },
         "ogg": {
           "path": "sounds/soft/release.ogg",
-          "bytes": 1967
+          "bytes": 1896
         }
       }
     },
@@ -2500,7 +2507,7 @@
         },
         "ogg": {
           "path": "sounds/soft/double-click.ogg",
-          "bytes": 2086
+          "bytes": 1984
         }
       }
     },
@@ -2520,7 +2527,7 @@
         },
         "ogg": {
           "path": "sounds/soft/focus.ogg",
-          "bytes": 2683
+          "bytes": 2591
         }
       }
     },
@@ -2540,7 +2547,7 @@
         },
         "ogg": {
           "path": "sounds/soft/long-press.ogg",
-          "bytes": 3941
+          "bytes": 3805
         }
       }
     },
@@ -2560,7 +2567,7 @@
         },
         "ogg": {
           "path": "sounds/soft/select.ogg",
-          "bytes": 4085
+          "bytes": 3970
         }
       }
     },
@@ -2580,7 +2587,7 @@
         },
         "ogg": {
           "path": "sounds/soft/deselect.ogg",
-          "bytes": 2351
+          "bytes": 2082
         }
       }
     },
@@ -2600,7 +2607,7 @@
         },
         "ogg": {
           "path": "sounds/soft/toggle-on.ogg",
-          "bytes": 4033
+          "bytes": 3841
         }
       }
     },
@@ -2620,7 +2627,7 @@
         },
         "ogg": {
           "path": "sounds/soft/toggle-off.ogg",
-          "bytes": 2802
+          "bytes": 2613
         }
       }
     },
@@ -2640,7 +2647,7 @@
         },
         "ogg": {
           "path": "sounds/soft/check.ogg",
-          "bytes": 4051
+          "bytes": 3913
         }
       }
     },
@@ -2660,7 +2667,7 @@
         },
         "ogg": {
           "path": "sounds/soft/uncheck.ogg",
-          "bytes": 2338
+          "bytes": 2202
         }
       }
     },
@@ -2680,7 +2687,7 @@
         },
         "ogg": {
           "path": "sounds/soft/delete.ogg",
-          "bytes": 3865
+          "bytes": 3725
         }
       }
     },
@@ -2700,7 +2707,7 @@
         },
         "ogg": {
           "path": "sounds/soft/cancel.ogg",
-          "bytes": 3530
+          "bytes": 3390
         }
       }
     },
@@ -2720,7 +2727,7 @@
         },
         "ogg": {
           "path": "sounds/soft/undo.ogg",
-          "bytes": 6336
+          "bytes": 5945
         }
       }
     },
@@ -2740,7 +2747,7 @@
         },
         "ogg": {
           "path": "sounds/soft/redo.ogg",
-          "bytes": 6968
+          "bytes": 6640
         }
       }
     },
@@ -2760,7 +2767,7 @@
         },
         "ogg": {
           "path": "sounds/soft/copy.ogg",
-          "bytes": 4959
+          "bytes": 4788
         }
       }
     },
@@ -2780,7 +2787,7 @@
         },
         "ogg": {
           "path": "sounds/soft/paste.ogg",
-          "bytes": 2986
+          "bytes": 2845
         }
       }
     },
@@ -2800,7 +2807,7 @@
         },
         "ogg": {
           "path": "sounds/soft/open.ogg",
-          "bytes": 2938
+          "bytes": 2846
         }
       }
     },
@@ -2820,7 +2827,7 @@
         },
         "ogg": {
           "path": "sounds/soft/close.ogg",
-          "bytes": 2478
+          "bytes": 2355
         }
       }
     },
@@ -2840,7 +2847,7 @@
         },
         "ogg": {
           "path": "sounds/soft/back.ogg",
-          "bytes": 2955
+          "bytes": 2799
         }
       }
     },
@@ -2860,7 +2867,7 @@
         },
         "ogg": {
           "path": "sounds/soft/forward.ogg",
-          "bytes": 4536
+          "bytes": 4395
         }
       }
     },
@@ -2880,7 +2887,7 @@
         },
         "ogg": {
           "path": "sounds/soft/expand.ogg",
-          "bytes": 6104
+          "bytes": 5556
         }
       }
     },
@@ -2900,7 +2907,7 @@
         },
         "ogg": {
           "path": "sounds/soft/collapse.ogg",
-          "bytes": 6151
+          "bytes": 5691
         }
       }
     },
@@ -2920,7 +2927,7 @@
         },
         "ogg": {
           "path": "sounds/soft/drag-start.ogg",
-          "bytes": 2140
+          "bytes": 2065
         }
       }
     },
@@ -2940,7 +2947,7 @@
         },
         "ogg": {
           "path": "sounds/soft/drop.ogg",
-          "bytes": 2998
+          "bytes": 2873
         }
       }
     },
@@ -2960,7 +2967,7 @@
         },
         "ogg": {
           "path": "sounds/soft/snap.ogg",
-          "bytes": 1625
+          "bytes": 1542
         }
       }
     },
@@ -2980,7 +2987,7 @@
         },
         "ogg": {
           "path": "sounds/soft/swipe.ogg",
-          "bytes": 4177
+          "bytes": 3975
         }
       }
     },
@@ -3000,7 +3007,7 @@
         },
         "ogg": {
           "path": "sounds/soft/reorder.ogg",
-          "bytes": 3896
+          "bytes": 3767
         }
       }
     },
@@ -3020,7 +3027,7 @@
         },
         "ogg": {
           "path": "sounds/soft/invalid-drop.ogg",
-          "bytes": 3847
+          "bytes": 3707
         }
       }
     },
@@ -3040,7 +3047,7 @@
         },
         "ogg": {
           "path": "sounds/soft/send.ogg",
-          "bytes": 5425
+          "bytes": 5218
         }
       }
     },
@@ -3060,7 +3067,7 @@
         },
         "ogg": {
           "path": "sounds/soft/receive.ogg",
-          "bytes": 6933
+          "bytes": 6642
         }
       }
     },
@@ -3080,7 +3087,7 @@
         },
         "ogg": {
           "path": "sounds/soft/notification.ogg",
-          "bytes": 4297
+          "bytes": 4031
         }
       }
     },
@@ -3100,7 +3107,7 @@
         },
         "ogg": {
           "path": "sounds/soft/mention.ogg",
-          "bytes": 5637
+          "bytes": 5286
         }
       }
     },
@@ -3120,7 +3127,7 @@
         },
         "ogg": {
           "path": "sounds/soft/typing.ogg",
-          "bytes": 3106
+          "bytes": 2925
         }
       }
     },
@@ -3140,7 +3147,7 @@
         },
         "ogg": {
           "path": "sounds/soft/reaction.ogg",
-          "bytes": 3666
+          "bytes": 3463
         }
       }
     },
@@ -3160,7 +3167,7 @@
         },
         "ogg": {
           "path": "sounds/soft/success.ogg",
-          "bytes": 8199
+          "bytes": 7668
         }
       }
     },
@@ -3180,7 +3187,7 @@
         },
         "ogg": {
           "path": "sounds/soft/error.ogg",
-          "bytes": 5648
+          "bytes": 5460
         }
       }
     },
@@ -3200,7 +3207,7 @@
         },
         "ogg": {
           "path": "sounds/soft/warning.ogg",
-          "bytes": 6611
+          "bytes": 6423
         }
       }
     },
@@ -3220,7 +3227,7 @@
         },
         "ogg": {
           "path": "sounds/soft/info.ogg",
-          "bytes": 5310
+          "bytes": 5191
         }
       }
     },
@@ -3240,7 +3247,7 @@
         },
         "ogg": {
           "path": "sounds/soft/blocked.ogg",
-          "bytes": 3730
+          "bytes": 3584
         }
       }
     },
@@ -3260,7 +3267,7 @@
         },
         "ogg": {
           "path": "sounds/soft/retry.ogg",
-          "bytes": 4407
+          "bytes": 4263
         }
       }
     },
@@ -3280,7 +3287,7 @@
         },
         "ogg": {
           "path": "sounds/soft/start.ogg",
-          "bytes": 5064
+          "bytes": 4909
         }
       }
     },
@@ -3300,7 +3307,7 @@
         },
         "ogg": {
           "path": "sounds/soft/stop.ogg",
-          "bytes": 4265
+          "bytes": 4126
         }
       }
     },
@@ -3320,7 +3327,7 @@
         },
         "ogg": {
           "path": "sounds/soft/progress-step.ogg",
-          "bytes": 2052
+          "bytes": 1945
         }
       }
     },
@@ -3340,7 +3347,7 @@
         },
         "ogg": {
           "path": "sounds/soft/complete.ogg",
-          "bytes": 9216
+          "bytes": 8994
         }
       }
     },
@@ -3360,7 +3367,7 @@
         },
         "ogg": {
           "path": "sounds/soft/queued.ogg",
-          "bytes": 3974
+          "bytes": 3852
         }
       }
     },
@@ -3380,7 +3387,7 @@
         },
         "ogg": {
           "path": "sounds/soft/checkpoint.ogg",
-          "bytes": 5912
+          "bytes": 5701
         }
       }
     },
@@ -3400,7 +3407,7 @@
         },
         "ogg": {
           "path": "sounds/soft/loading.ogg",
-          "bytes": 12534
+          "bytes": 10752
         }
       }
     },
@@ -3420,7 +3427,7 @@
         },
         "ogg": {
           "path": "sounds/soft/processing.ogg",
-          "bytes": 11777
+          "bytes": 11343
         }
       }
     },
@@ -3440,7 +3447,7 @@
         },
         "ogg": {
           "path": "sounds/soft/recording.ogg",
-          "bytes": 4772
+          "bytes": 4679
         }
       }
     },
@@ -3460,7 +3467,7 @@
         },
         "ogg": {
           "path": "sounds/soft/connecting.ogg",
-          "bytes": 16731
+          "bytes": 15457
         }
       }
     },
@@ -3480,7 +3487,7 @@
         },
         "ogg": {
           "path": "sounds/soft/scanning.ogg",
-          "bytes": 6812
+          "bytes": 6439
         }
       }
     },
@@ -3500,7 +3507,7 @@
         },
         "ogg": {
           "path": "sounds/soft/streaming.ogg",
-          "bytes": 12556
+          "bytes": 10995
         }
       }
     },
@@ -3520,7 +3527,7 @@
         },
         "ogg": {
           "path": "sounds/soft/play.ogg",
-          "bytes": 4556
+          "bytes": 4318
         }
       }
     },
@@ -3540,7 +3547,7 @@
         },
         "ogg": {
           "path": "sounds/soft/pause.ogg",
-          "bytes": 2920
+          "bytes": 2780
         }
       }
     },
@@ -3560,7 +3567,7 @@
         },
         "ogg": {
           "path": "sounds/soft/seek.ogg",
-          "bytes": 3914
+          "bytes": 3843
         }
       }
     },
@@ -3580,7 +3587,7 @@
         },
         "ogg": {
           "path": "sounds/soft/volume-change.ogg",
-          "bytes": 2198
+          "bytes": 2054
         }
       }
     },
@@ -3600,7 +3607,7 @@
         },
         "ogg": {
           "path": "sounds/soft/skip-next.ogg",
-          "bytes": 5939
+          "bytes": 5416
         }
       }
     },
@@ -3620,7 +3627,7 @@
         },
         "ogg": {
           "path": "sounds/soft/skip-previous.ogg",
-          "bytes": 5511
+          "bytes": 4967
         }
       }
     },
@@ -3640,7 +3647,7 @@
         },
         "ogg": {
           "path": "sounds/soft/connect.ogg",
-          "bytes": 6950
+          "bytes": 6733
         }
       }
     },
@@ -3660,7 +3667,7 @@
         },
         "ogg": {
           "path": "sounds/soft/disconnect.ogg",
-          "bytes": 4410
+          "bytes": 4183
         }
       }
     },
@@ -3680,7 +3687,7 @@
         },
         "ogg": {
           "path": "sounds/soft/lock.ogg",
-          "bytes": 3504
+          "bytes": 3365
         }
       }
     },
@@ -3700,7 +3707,7 @@
         },
         "ogg": {
           "path": "sounds/soft/unlock.ogg",
-          "bytes": 5228
+          "bytes": 5011
         }
       }
     },
@@ -3720,7 +3727,7 @@
         },
         "ogg": {
           "path": "sounds/soft/wake.ogg",
-          "bytes": 3850
+          "bytes": 3709
         }
       }
     },
@@ -3740,7 +3747,7 @@
         },
         "ogg": {
           "path": "sounds/soft/sleep.ogg",
-          "bytes": 3986
+          "bytes": 3775
         }
       }
     },
@@ -3760,7 +3767,7 @@
         },
         "ogg": {
           "path": "sounds/soft/reward.ogg",
-          "bytes": 5444
+          "bytes": 5203
         }
       }
     },
@@ -3780,7 +3787,7 @@
         },
         "ogg": {
           "path": "sounds/soft/level-up.ogg",
-          "bytes": 10055
+          "bytes": 9655
         }
       }
     },
@@ -3800,7 +3807,7 @@
         },
         "ogg": {
           "path": "sounds/soft/achievement.ogg",
-          "bytes": 13212
+          "bytes": 12835
         }
       }
     },
@@ -3820,7 +3827,7 @@
         },
         "ogg": {
           "path": "sounds/soft/streak.ogg",
-          "bytes": 8467
+          "bytes": 8104
         }
       }
     },
@@ -3840,7 +3847,7 @@
         },
         "ogg": {
           "path": "sounds/soft/badge.ogg",
-          "bytes": 6902
+          "bytes": 6567
         }
       }
     },
@@ -3860,7 +3867,7 @@
         },
         "ogg": {
           "path": "sounds/soft/bonus.ogg",
-          "bytes": 10158
+          "bytes": 9832
         }
       }
     },
@@ -3880,7 +3887,7 @@
         },
         "ogg": {
           "path": "sounds/soft/add-to-cart.ogg",
-          "bytes": 5890
+          "bytes": 5714
         }
       }
     },
@@ -3900,7 +3907,7 @@
         },
         "ogg": {
           "path": "sounds/soft/remove-from-cart.ogg",
-          "bytes": 3369
+          "bytes": 3224
         }
       }
     },
@@ -3920,7 +3927,7 @@
         },
         "ogg": {
           "path": "sounds/soft/checkout.ogg",
-          "bytes": 7558
+          "bytes": 7298
         }
       }
     },
@@ -3940,7 +3947,7 @@
         },
         "ogg": {
           "path": "sounds/soft/purchase.ogg",
-          "bytes": 7155
+          "bytes": 6943
         }
       }
     },
@@ -3960,7 +3967,7 @@
         },
         "ogg": {
           "path": "sounds/soft/coupon.ogg",
-          "bytes": 4703
+          "bytes": 4428
         }
       }
     },
@@ -3980,7 +3987,7 @@
         },
         "ogg": {
           "path": "sounds/soft/refund.ogg",
-          "bytes": 9534
+          "bytes": 9164
         }
       }
     },
@@ -4000,7 +4007,7 @@
         },
         "ogg": {
           "path": "sounds/glass/hover.ogg",
-          "bytes": 1885
+          "bytes": 1829
         }
       }
     },
@@ -4020,7 +4027,7 @@
         },
         "ogg": {
           "path": "sounds/glass/press.ogg",
-          "bytes": 2142
+          "bytes": 2084
         }
       }
     },
@@ -4040,7 +4047,7 @@
         },
         "ogg": {
           "path": "sounds/glass/release.ogg",
-          "bytes": 2773
+          "bytes": 2243
         }
       }
     },
@@ -4060,7 +4067,7 @@
         },
         "ogg": {
           "path": "sounds/glass/double-click.ogg",
-          "bytes": 3259
+          "bytes": 3139
         }
       }
     },
@@ -4080,7 +4087,7 @@
         },
         "ogg": {
           "path": "sounds/glass/focus.ogg",
-          "bytes": 2628
+          "bytes": 2546
         }
       }
     },
@@ -4100,7 +4107,7 @@
         },
         "ogg": {
           "path": "sounds/glass/long-press.ogg",
-          "bytes": 5077
+          "bytes": 4886
         }
       }
     },
@@ -4120,7 +4127,7 @@
         },
         "ogg": {
           "path": "sounds/glass/select.ogg",
-          "bytes": 3702
+          "bytes": 3613
         }
       }
     },
@@ -4140,7 +4147,7 @@
         },
         "ogg": {
           "path": "sounds/glass/deselect.ogg",
-          "bytes": 3306
+          "bytes": 3191
         }
       }
     },
@@ -4160,7 +4167,7 @@
         },
         "ogg": {
           "path": "sounds/glass/toggle-on.ogg",
-          "bytes": 5111
+          "bytes": 5229
         }
       }
     },
@@ -4180,7 +4187,7 @@
         },
         "ogg": {
           "path": "sounds/glass/toggle-off.ogg",
-          "bytes": 3077
+          "bytes": 2960
         }
       }
     },
@@ -4200,7 +4207,7 @@
         },
         "ogg": {
           "path": "sounds/glass/check.ogg",
-          "bytes": 3729
+          "bytes": 3518
         }
       }
     },
@@ -4220,7 +4227,7 @@
         },
         "ogg": {
           "path": "sounds/glass/uncheck.ogg",
-          "bytes": 3429
+          "bytes": 3285
         }
       }
     },
@@ -4240,7 +4247,7 @@
         },
         "ogg": {
           "path": "sounds/glass/delete.ogg",
-          "bytes": 4888
+          "bytes": 3994
         }
       }
     },
@@ -4260,7 +4267,7 @@
         },
         "ogg": {
           "path": "sounds/glass/cancel.ogg",
-          "bytes": 3308
+          "bytes": 3176
         }
       }
     },
@@ -4280,7 +4287,7 @@
         },
         "ogg": {
           "path": "sounds/glass/undo.ogg",
-          "bytes": 8474
+          "bytes": 8195
         }
       }
     },
@@ -4300,7 +4307,7 @@
         },
         "ogg": {
           "path": "sounds/glass/redo.ogg",
-          "bytes": 9016
+          "bytes": 8573
         }
       }
     },
@@ -4320,7 +4327,7 @@
         },
         "ogg": {
           "path": "sounds/glass/copy.ogg",
-          "bytes": 7072
+          "bytes": 6828
         }
       }
     },
@@ -4340,7 +4347,7 @@
         },
         "ogg": {
           "path": "sounds/glass/paste.ogg",
-          "bytes": 4168
+          "bytes": 4049
         }
       }
     },
@@ -4360,7 +4367,7 @@
         },
         "ogg": {
           "path": "sounds/glass/open.ogg",
-          "bytes": 4435
+          "bytes": 4286
         }
       }
     },
@@ -4380,7 +4387,7 @@
         },
         "ogg": {
           "path": "sounds/glass/close.ogg",
-          "bytes": 3426
+          "bytes": 3291
         }
       }
     },
@@ -4400,7 +4407,7 @@
         },
         "ogg": {
           "path": "sounds/glass/back.ogg",
-          "bytes": 4443
+          "bytes": 4423
         }
       }
     },
@@ -4420,7 +4427,7 @@
         },
         "ogg": {
           "path": "sounds/glass/forward.ogg",
-          "bytes": 6328
+          "bytes": 6197
         }
       }
     },
@@ -4440,7 +4447,7 @@
         },
         "ogg": {
           "path": "sounds/glass/expand.ogg",
-          "bytes": 8473
+          "bytes": 8030
         }
       }
     },
@@ -4460,7 +4467,7 @@
         },
         "ogg": {
           "path": "sounds/glass/collapse.ogg",
-          "bytes": 8166
+          "bytes": 7668
         }
       }
     },
@@ -4480,7 +4487,7 @@
         },
         "ogg": {
           "path": "sounds/glass/drag-start.ogg",
-          "bytes": 2854
+          "bytes": 2746
         }
       }
     },
@@ -4500,7 +4507,7 @@
         },
         "ogg": {
           "path": "sounds/glass/drop.ogg",
-          "bytes": 3409
+          "bytes": 3289
         }
       }
     },
@@ -4520,7 +4527,7 @@
         },
         "ogg": {
           "path": "sounds/glass/snap.ogg",
-          "bytes": 2421
+          "bytes": 2332
         }
       }
     },
@@ -4540,7 +4547,7 @@
         },
         "ogg": {
           "path": "sounds/glass/swipe.ogg",
-          "bytes": 5696
+          "bytes": 5356
         }
       }
     },
@@ -4560,7 +4567,7 @@
         },
         "ogg": {
           "path": "sounds/glass/reorder.ogg",
-          "bytes": 3637
+          "bytes": 3519
         }
       }
     },
@@ -4580,7 +4587,7 @@
         },
         "ogg": {
           "path": "sounds/glass/invalid-drop.ogg",
-          "bytes": 4846
+          "bytes": 4683
         }
       }
     },
@@ -4600,7 +4607,7 @@
         },
         "ogg": {
           "path": "sounds/glass/send.ogg",
-          "bytes": 7758
+          "bytes": 7388
         }
       }
     },
@@ -4620,7 +4627,7 @@
         },
         "ogg": {
           "path": "sounds/glass/receive.ogg",
-          "bytes": 9357
+          "bytes": 8912
         }
       }
     },
@@ -4640,7 +4647,7 @@
         },
         "ogg": {
           "path": "sounds/glass/notification.ogg",
-          "bytes": 6359
+          "bytes": 6114
         }
       }
     },
@@ -4660,7 +4667,7 @@
         },
         "ogg": {
           "path": "sounds/glass/mention.ogg",
-          "bytes": 7887
+          "bytes": 7664
         }
       }
     },
@@ -4680,7 +4687,7 @@
         },
         "ogg": {
           "path": "sounds/glass/typing.ogg",
-          "bytes": 3865
+          "bytes": 3746
         }
       }
     },
@@ -4700,7 +4707,7 @@
         },
         "ogg": {
           "path": "sounds/glass/reaction.ogg",
-          "bytes": 4430
+          "bytes": 4296
         }
       }
     },
@@ -4720,7 +4727,7 @@
         },
         "ogg": {
           "path": "sounds/glass/success.ogg",
-          "bytes": 8083
+          "bytes": 7837
         }
       }
     },
@@ -4740,7 +4747,7 @@
         },
         "ogg": {
           "path": "sounds/glass/error.ogg",
-          "bytes": 5797
+          "bytes": 5605
         }
       }
     },
@@ -4760,7 +4767,7 @@
         },
         "ogg": {
           "path": "sounds/glass/warning.ogg",
-          "bytes": 6674
+          "bytes": 6182
         }
       }
     },
@@ -4780,7 +4787,7 @@
         },
         "ogg": {
           "path": "sounds/glass/info.ogg",
-          "bytes": 5049
+          "bytes": 4909
         }
       }
     },
@@ -4800,7 +4807,7 @@
         },
         "ogg": {
           "path": "sounds/glass/blocked.ogg",
-          "bytes": 4188
+          "bytes": 4043
         }
       }
     },
@@ -4820,7 +4827,7 @@
         },
         "ogg": {
           "path": "sounds/glass/retry.ogg",
-          "bytes": 5462
+          "bytes": 5275
         }
       }
     },
@@ -4840,7 +4847,7 @@
         },
         "ogg": {
           "path": "sounds/glass/start.ogg",
-          "bytes": 6363
+          "bytes": 6142
         }
       }
     },
@@ -4860,7 +4867,7 @@
         },
         "ogg": {
           "path": "sounds/glass/stop.ogg",
-          "bytes": 4274
+          "bytes": 4125
         }
       }
     },
@@ -4880,7 +4887,7 @@
         },
         "ogg": {
           "path": "sounds/glass/progress-step.ogg",
-          "bytes": 3098
+          "bytes": 2996
         }
       }
     },
@@ -4900,7 +4907,7 @@
         },
         "ogg": {
           "path": "sounds/glass/complete.ogg",
-          "bytes": 11389
+          "bytes": 9569
         }
       }
     },
@@ -4920,7 +4927,7 @@
         },
         "ogg": {
           "path": "sounds/glass/queued.ogg",
-          "bytes": 5296
+          "bytes": 5148
         }
       }
     },
@@ -4940,7 +4947,7 @@
         },
         "ogg": {
           "path": "sounds/glass/checkpoint.ogg",
-          "bytes": 5852
+          "bytes": 5682
         }
       }
     },
@@ -4960,7 +4967,7 @@
         },
         "ogg": {
           "path": "sounds/glass/loading.ogg",
-          "bytes": 7585
+          "bytes": 7083
         }
       }
     },
@@ -4980,7 +4987,7 @@
         },
         "ogg": {
           "path": "sounds/glass/processing.ogg",
-          "bytes": 8847
+          "bytes": 8578
         }
       }
     },
@@ -5000,7 +5007,7 @@
         },
         "ogg": {
           "path": "sounds/glass/recording.ogg",
-          "bytes": 3598
+          "bytes": 3437
         }
       }
     },
@@ -5020,7 +5027,7 @@
         },
         "ogg": {
           "path": "sounds/glass/connecting.ogg",
-          "bytes": 11559
+          "bytes": 11103
         }
       }
     },
@@ -5040,7 +5047,7 @@
         },
         "ogg": {
           "path": "sounds/glass/scanning.ogg",
-          "bytes": 7971
+          "bytes": 7583
         }
       }
     },
@@ -5060,7 +5067,7 @@
         },
         "ogg": {
           "path": "sounds/glass/streaming.ogg",
-          "bytes": 10859
+          "bytes": 10332
         }
       }
     },
@@ -5080,7 +5087,7 @@
         },
         "ogg": {
           "path": "sounds/glass/play.ogg",
-          "bytes": 6108
+          "bytes": 5926
         }
       }
     },
@@ -5100,7 +5107,7 @@
         },
         "ogg": {
           "path": "sounds/glass/pause.ogg",
-          "bytes": 3594
+          "bytes": 3471
         }
       }
     },
@@ -5120,7 +5127,7 @@
         },
         "ogg": {
           "path": "sounds/glass/seek.ogg",
-          "bytes": 5602
+          "bytes": 5400
         }
       }
     },
@@ -5140,7 +5147,7 @@
         },
         "ogg": {
           "path": "sounds/glass/volume-change.ogg",
-          "bytes": 3197
+          "bytes": 3095
         }
       }
     },
@@ -5160,7 +5167,7 @@
         },
         "ogg": {
           "path": "sounds/glass/skip-next.ogg",
-          "bytes": 8022
+          "bytes": 7607
         }
       }
     },
@@ -5180,7 +5187,7 @@
         },
         "ogg": {
           "path": "sounds/glass/skip-previous.ogg",
-          "bytes": 6638
+          "bytes": 6525
         }
       }
     },
@@ -5200,7 +5207,7 @@
         },
         "ogg": {
           "path": "sounds/glass/connect.ogg",
-          "bytes": 8716
+          "bytes": 8466
         }
       }
     },
@@ -5220,7 +5227,7 @@
         },
         "ogg": {
           "path": "sounds/glass/disconnect.ogg",
-          "bytes": 6067
+          "bytes": 5833
         }
       }
     },
@@ -5240,7 +5247,7 @@
         },
         "ogg": {
           "path": "sounds/glass/lock.ogg",
-          "bytes": 4789
+          "bytes": 4534
         }
       }
     },
@@ -5260,7 +5267,7 @@
         },
         "ogg": {
           "path": "sounds/glass/unlock.ogg",
-          "bytes": 6194
+          "bytes": 5960
         }
       }
     },
@@ -5280,7 +5287,7 @@
         },
         "ogg": {
           "path": "sounds/glass/wake.ogg",
-          "bytes": 5671
+          "bytes": 5476
         }
       }
     },
@@ -5300,7 +5307,7 @@
         },
         "ogg": {
           "path": "sounds/glass/sleep.ogg",
-          "bytes": 4104
+          "bytes": 3965
         }
       }
     },
@@ -5320,7 +5327,7 @@
         },
         "ogg": {
           "path": "sounds/glass/reward.ogg",
-          "bytes": 7497
+          "bytes": 6960
         }
       }
     },
@@ -5340,7 +5347,7 @@
         },
         "ogg": {
           "path": "sounds/glass/level-up.ogg",
-          "bytes": 12429
+          "bytes": 12037
         }
       }
     },
@@ -5360,7 +5367,7 @@
         },
         "ogg": {
           "path": "sounds/glass/achievement.ogg",
-          "bytes": 16914
+          "bytes": 16253
         }
       }
     },
@@ -5380,7 +5387,7 @@
         },
         "ogg": {
           "path": "sounds/glass/streak.ogg",
-          "bytes": 8097
+          "bytes": 7877
         }
       }
     },
@@ -5400,7 +5407,7 @@
         },
         "ogg": {
           "path": "sounds/glass/badge.ogg",
-          "bytes": 8979
+          "bytes": 8730
         }
       }
     },
@@ -5420,7 +5427,7 @@
         },
         "ogg": {
           "path": "sounds/glass/bonus.ogg",
-          "bytes": 9836
+          "bytes": 9598
         }
       }
     },
@@ -5440,7 +5447,7 @@
         },
         "ogg": {
           "path": "sounds/glass/add-to-cart.ogg",
-          "bytes": 5324
+          "bytes": 5151
         }
       }
     },
@@ -5460,7 +5467,7 @@
         },
         "ogg": {
           "path": "sounds/glass/remove-from-cart.ogg",
-          "bytes": 4836
+          "bytes": 4693
         }
       }
     },
@@ -5480,7 +5487,7 @@
         },
         "ogg": {
           "path": "sounds/glass/checkout.ogg",
-          "bytes": 9559
+          "bytes": 7421
         }
       }
     },
@@ -5500,7 +5507,7 @@
         },
         "ogg": {
           "path": "sounds/glass/purchase.ogg",
-          "bytes": 9372
+          "bytes": 6942
         }
       }
     },
@@ -5520,7 +5527,7 @@
         },
         "ogg": {
           "path": "sounds/glass/coupon.ogg",
-          "bytes": 6218
+          "bytes": 6001
         }
       }
     },
@@ -5540,7 +5547,7 @@
         },
         "ogg": {
           "path": "sounds/glass/refund.ogg",
-          "bytes": 12761
+          "bytes": 12133
         }
       }
     },
@@ -5560,7 +5567,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/hover.ogg",
-          "bytes": 1151
+          "bytes": 1101
         }
       }
     },
@@ -5580,7 +5587,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/press.ogg",
-          "bytes": 2017
+          "bytes": 1950
         }
       }
     },
@@ -5600,7 +5607,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/release.ogg",
-          "bytes": 1464
+          "bytes": 1372
         }
       }
     },
@@ -5620,7 +5627,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/double-click.ogg",
-          "bytes": 1746
+          "bytes": 1678
         }
       }
     },
@@ -5640,7 +5647,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/focus.ogg",
-          "bytes": 1509
+          "bytes": 1458
         }
       }
     },
@@ -5660,7 +5667,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/long-press.ogg",
-          "bytes": 2435
+          "bytes": 2201
         }
       }
     },
@@ -5680,7 +5687,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/select.ogg",
-          "bytes": 1899
+          "bytes": 1782
         }
       }
     },
@@ -5700,7 +5707,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/deselect.ogg",
-          "bytes": 1772
+          "bytes": 1715
         }
       }
     },
@@ -5720,7 +5727,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/toggle-on.ogg",
-          "bytes": 3283
+          "bytes": 3198
         }
       }
     },
@@ -5740,7 +5747,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/toggle-off.ogg",
-          "bytes": 1858
+          "bytes": 1740
         }
       }
     },
@@ -5760,7 +5767,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/check.ogg",
-          "bytes": 1822
+          "bytes": 1807
         }
       }
     },
@@ -5780,7 +5787,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/uncheck.ogg",
-          "bytes": 1906
+          "bytes": 1768
         }
       }
     },
@@ -5800,7 +5807,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/delete.ogg",
-          "bytes": 4303
+          "bytes": 4181
         }
       }
     },
@@ -5820,7 +5827,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/cancel.ogg",
-          "bytes": 1893
+          "bytes": 1758
         }
       }
     },
@@ -5840,7 +5847,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/undo.ogg",
-          "bytes": 6173
+          "bytes": 6054
         }
       }
     },
@@ -5860,7 +5867,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/redo.ogg",
-          "bytes": 5937
+          "bytes": 5845
         }
       }
     },
@@ -5880,7 +5887,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/copy.ogg",
-          "bytes": 4599
+          "bytes": 4368
         }
       }
     },
@@ -5900,7 +5907,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/paste.ogg",
-          "bytes": 2306
+          "bytes": 2228
         }
       }
     },
@@ -5920,7 +5927,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/open.ogg",
-          "bytes": 2318
+          "bytes": 2163
         }
       }
     },
@@ -5940,7 +5947,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/close.ogg",
-          "bytes": 1894
+          "bytes": 1810
         }
       }
     },
@@ -5960,7 +5967,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/back.ogg",
-          "bytes": 2948
+          "bytes": 2787
         }
       }
     },
@@ -5980,7 +5987,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/forward.ogg",
-          "bytes": 3938
+          "bytes": 3956
         }
       }
     },
@@ -6000,7 +6007,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/expand.ogg",
-          "bytes": 5692
+          "bytes": 5453
         }
       }
     },
@@ -6020,7 +6027,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/collapse.ogg",
-          "bytes": 5758
+          "bytes": 5340
         }
       }
     },
@@ -6040,7 +6047,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/drag-start.ogg",
-          "bytes": 1529
+          "bytes": 1478
         }
       }
     },
@@ -6060,7 +6067,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/drop.ogg",
-          "bytes": 1649
+          "bytes": 1620
         }
       }
     },
@@ -6080,7 +6087,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/snap.ogg",
-          "bytes": 2188
+          "bytes": 2118
         }
       }
     },
@@ -6100,7 +6107,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/swipe.ogg",
-          "bytes": 3645
+          "bytes": 3423
         }
       }
     },
@@ -6120,7 +6127,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/reorder.ogg",
-          "bytes": 1952
+          "bytes": 1865
         }
       }
     },
@@ -6140,7 +6147,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/invalid-drop.ogg",
-          "bytes": 2295
+          "bytes": 2175
         }
       }
     },
@@ -6160,7 +6167,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/send.ogg",
-          "bytes": 4714
+          "bytes": 4776
         }
       }
     },
@@ -6180,7 +6187,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/receive.ogg",
-          "bytes": 5895
+          "bytes": 5569
         }
       }
     },
@@ -6200,7 +6207,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/notification.ogg",
-          "bytes": 3459
+          "bytes": 3271
         }
       }
     },
@@ -6220,7 +6227,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/mention.ogg",
-          "bytes": 3857
+          "bytes": 3748
         }
       }
     },
@@ -6240,7 +6247,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/typing.ogg",
-          "bytes": 3796
+          "bytes": 2227
         }
       }
     },
@@ -6260,7 +6267,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/reaction.ogg",
-          "bytes": 2483
+          "bytes": 2424
         }
       }
     },
@@ -6280,7 +6287,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/success.ogg",
-          "bytes": 4697
+          "bytes": 4465
         }
       }
     },
@@ -6300,7 +6307,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/error.ogg",
-          "bytes": 3536
+          "bytes": 3283
         }
       }
     },
@@ -6320,7 +6327,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/warning.ogg",
-          "bytes": 6151
+          "bytes": 6011
         }
       }
     },
@@ -6340,7 +6347,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/info.ogg",
-          "bytes": 2678
+          "bytes": 2582
         }
       }
     },
@@ -6360,7 +6367,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/blocked.ogg",
-          "bytes": 2584
+          "bytes": 2432
         }
       }
     },
@@ -6380,7 +6387,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/retry.ogg",
-          "bytes": 2337
+          "bytes": 2203
         }
       }
     },
@@ -6400,7 +6407,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/start.ogg",
-          "bytes": 2865
+          "bytes": 2730
         }
       }
     },
@@ -6420,7 +6427,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/stop.ogg",
-          "bytes": 2755
+          "bytes": 2573
         }
       }
     },
@@ -6440,7 +6447,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/progress-step.ogg",
-          "bytes": 1743
+          "bytes": 1639
         }
       }
     },
@@ -6460,7 +6467,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/complete.ogg",
-          "bytes": 7953
+          "bytes": 7671
         }
       }
     },
@@ -6480,7 +6487,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/queued.ogg",
-          "bytes": 3967
+          "bytes": 3787
         }
       }
     },
@@ -6500,7 +6507,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/checkpoint.ogg",
-          "bytes": 2950
+          "bytes": 2832
         }
       }
     },
@@ -6520,7 +6527,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/loading.ogg",
-          "bytes": 7810
+          "bytes": 7529
         }
       }
     },
@@ -6540,7 +6547,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/processing.ogg",
-          "bytes": 9576
+          "bytes": 9240
         }
       }
     },
@@ -6560,7 +6567,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/recording.ogg",
-          "bytes": 3889
+          "bytes": 3802
         }
       }
     },
@@ -6580,7 +6587,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/connecting.ogg",
-          "bytes": 10706
+          "bytes": 10985
         }
       }
     },
@@ -6600,7 +6607,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/scanning.ogg",
-          "bytes": 6529
+          "bytes": 6631
         }
       }
     },
@@ -6620,7 +6627,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/streaming.ogg",
-          "bytes": 11081
+          "bytes": 11745
         }
       }
     },
@@ -6640,7 +6647,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/play.ogg",
-          "bytes": 2021
+          "bytes": 1916
         }
       }
     },
@@ -6660,7 +6667,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/pause.ogg",
-          "bytes": 1788
+          "bytes": 1713
         }
       }
     },
@@ -6680,7 +6687,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/seek.ogg",
-          "bytes": 3593
+          "bytes": 3456
         }
       }
     },
@@ -6700,7 +6707,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/volume-change.ogg",
-          "bytes": 1782
+          "bytes": 1735
         }
       }
     },
@@ -6720,7 +6727,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/skip-next.ogg",
-          "bytes": 4849
+          "bytes": 4646
         }
       }
     },
@@ -6740,7 +6747,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/skip-previous.ogg",
-          "bytes": 4964
+          "bytes": 4708
         }
       }
     },
@@ -6760,7 +6767,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/connect.ogg",
-          "bytes": 6194
+          "bytes": 6010
         }
       }
     },
@@ -6780,7 +6787,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/disconnect.ogg",
-          "bytes": 3846
+          "bytes": 3586
         }
       }
     },
@@ -6800,7 +6807,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/lock.ogg",
-          "bytes": 3695
+          "bytes": 3568
         }
       }
     },
@@ -6820,7 +6827,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/unlock.ogg",
-          "bytes": 2672
+          "bytes": 2555
         }
       }
     },
@@ -6840,7 +6847,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/wake.ogg",
-          "bytes": 2553
+          "bytes": 2319
         }
       }
     },
@@ -6860,7 +6867,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/sleep.ogg",
-          "bytes": 2446
+          "bytes": 2227
         }
       }
     },
@@ -6880,7 +6887,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/reward.ogg",
-          "bytes": 3934
+          "bytes": 3722
         }
       }
     },
@@ -6900,7 +6907,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/level-up.ogg",
-          "bytes": 9005
+          "bytes": 5908
         }
       }
     },
@@ -6920,7 +6927,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/achievement.ogg",
-          "bytes": 8580
+          "bytes": 8210
         }
       }
     },
@@ -6940,7 +6947,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/streak.ogg",
-          "bytes": 4563
+          "bytes": 4407
         }
       }
     },
@@ -6960,7 +6967,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/badge.ogg",
-          "bytes": 4615
+          "bytes": 4467
         }
       }
     },
@@ -6980,7 +6987,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/bonus.ogg",
-          "bytes": 5914
+          "bytes": 5663
         }
       }
     },
@@ -7000,7 +7007,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/add-to-cart.ogg",
-          "bytes": 2987
+          "bytes": 2882
         }
       }
     },
@@ -7020,7 +7027,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/remove-from-cart.ogg",
-          "bytes": 2765
+          "bytes": 2657
         }
       }
     },
@@ -7040,7 +7047,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/checkout.ogg",
-          "bytes": 6590
+          "bytes": 6392
         }
       }
     },
@@ -7060,7 +7067,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/purchase.ogg",
-          "bytes": 6471
+          "bytes": 3831
         }
       }
     },
@@ -7080,7 +7087,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/coupon.ogg",
-          "bytes": 3460
+          "bytes": 3300
         }
       }
     },
@@ -7100,7 +7107,7 @@
         },
         "ogg": {
           "path": "sounds/arcade/refund.ogg",
-          "bytes": 9158
+          "bytes": 8639
         }
       }
     },
@@ -7120,7 +7127,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/hover.ogg",
-          "bytes": 1987
+          "bytes": 817
         }
       }
     },
@@ -7140,7 +7147,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/press.ogg",
-          "bytes": 1774
+          "bytes": 1718
         }
       }
     },
@@ -7160,7 +7167,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/release.ogg",
-          "bytes": 1845
+          "bytes": 1783
         }
       }
     },
@@ -7180,7 +7187,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/double-click.ogg",
-          "bytes": 2683
+          "bytes": 2600
         }
       }
     },
@@ -7200,7 +7207,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/focus.ogg",
-          "bytes": 1883
+          "bytes": 1817
         }
       }
     },
@@ -7220,7 +7227,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/long-press.ogg",
-          "bytes": 2896
+          "bytes": 2775
         }
       }
     },
@@ -7240,7 +7247,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/select.ogg",
-          "bytes": 2563
+          "bytes": 2468
         }
       }
     },
@@ -7260,7 +7267,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/deselect.ogg",
-          "bytes": 2537
+          "bytes": 2445
         }
       }
     },
@@ -7280,7 +7287,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/toggle-on.ogg",
-          "bytes": 2757
+          "bytes": 2674
         }
       }
     },
@@ -7300,7 +7307,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/toggle-off.ogg",
-          "bytes": 2658
+          "bytes": 2532
         }
       }
     },
@@ -7320,7 +7327,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/check.ogg",
-          "bytes": 2924
+          "bytes": 2819
         }
       }
     },
@@ -7340,7 +7347,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/uncheck.ogg",
-          "bytes": 2490
+          "bytes": 2397
         }
       }
     },
@@ -7360,7 +7367,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/delete.ogg",
-          "bytes": 2827
+          "bytes": 2726
         }
       }
     },
@@ -7380,7 +7387,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/cancel.ogg",
-          "bytes": 2334
+          "bytes": 2252
         }
       }
     },
@@ -7400,7 +7407,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/undo.ogg",
-          "bytes": 4829
+          "bytes": 4445
         }
       }
     },
@@ -7420,7 +7427,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/redo.ogg",
-          "bytes": 4419
+          "bytes": 4203
         }
       }
     },
@@ -7440,7 +7447,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/copy.ogg",
-          "bytes": 3522
+          "bytes": 3330
         }
       }
     },
@@ -7460,7 +7467,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/paste.ogg",
-          "bytes": 3013
+          "bytes": 2893
         }
       }
     },
@@ -7480,7 +7487,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/open.ogg",
-          "bytes": 2314
+          "bytes": 2206
         }
       }
     },
@@ -7500,7 +7507,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/close.ogg",
-          "bytes": 2552
+          "bytes": 2223
         }
       }
     },
@@ -7520,7 +7527,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/back.ogg",
-          "bytes": 2345
+          "bytes": 2215
         }
       }
     },
@@ -7540,7 +7547,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/forward.ogg",
-          "bytes": 2902
+          "bytes": 2759
         }
       }
     },
@@ -7560,7 +7567,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/expand.ogg",
-          "bytes": 4193
+          "bytes": 3998
         }
       }
     },
@@ -7580,7 +7587,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/collapse.ogg",
-          "bytes": 4021
+          "bytes": 3767
         }
       }
     },
@@ -7600,7 +7607,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/drag-start.ogg",
-          "bytes": 1927
+          "bytes": 1860
         }
       }
     },
@@ -7620,7 +7627,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/drop.ogg",
-          "bytes": 2348
+          "bytes": 2265
         }
       }
     },
@@ -7640,7 +7647,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/snap.ogg",
-          "bytes": 2035
+          "bytes": 1970
         }
       }
     },
@@ -7660,7 +7667,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/swipe.ogg",
-          "bytes": 2762
+          "bytes": 2539
         }
       }
     },
@@ -7680,7 +7687,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/reorder.ogg",
-          "bytes": 2897
+          "bytes": 2794
         }
       }
     },
@@ -7700,7 +7707,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/invalid-drop.ogg",
-          "bytes": 3293
+          "bytes": 3151
         }
       }
     },
@@ -7720,7 +7727,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/send.ogg",
-          "bytes": 3526
+          "bytes": 3258
         }
       }
     },
@@ -7740,7 +7747,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/receive.ogg",
-          "bytes": 4366
+          "bytes": 4123
         }
       }
     },
@@ -7760,7 +7767,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/notification.ogg",
-          "bytes": 3810
+          "bytes": 3602
         }
       }
     },
@@ -7780,7 +7787,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/mention.ogg",
-          "bytes": 4233
+          "bytes": 4044
         }
       }
     },
@@ -7800,7 +7807,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/typing.ogg",
-          "bytes": 3209
+          "bytes": 3085
         }
       }
     },
@@ -7820,7 +7827,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/reaction.ogg",
-          "bytes": 3376
+          "bytes": 3267
         }
       }
     },
@@ -7840,7 +7847,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/success.ogg",
-          "bytes": 4448
+          "bytes": 4285
         }
       }
     },
@@ -7860,7 +7867,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/error.ogg",
-          "bytes": 3142
+          "bytes": 3035
         }
       }
     },
@@ -7880,7 +7887,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/warning.ogg",
-          "bytes": 4339
+          "bytes": 4096
         }
       }
     },
@@ -7900,7 +7907,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/info.ogg",
-          "bytes": 2896
+          "bytes": 2776
         }
       }
     },
@@ -7920,7 +7927,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/blocked.ogg",
-          "bytes": 2587
+          "bytes": 2514
         }
       }
     },
@@ -7940,7 +7947,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/retry.ogg",
-          "bytes": 2915
+          "bytes": 2796
         }
       }
     },
@@ -7960,7 +7967,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/start.ogg",
-          "bytes": 3859
+          "bytes": 3722
         }
       }
     },
@@ -7980,7 +7987,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/stop.ogg",
-          "bytes": 3160
+          "bytes": 3034
         }
       }
     },
@@ -8000,7 +8007,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/progress-step.ogg",
-          "bytes": 2653
+          "bytes": 2433
         }
       }
     },
@@ -8020,7 +8027,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/complete.ogg",
-          "bytes": 5285
+          "bytes": 5074
         }
       }
     },
@@ -8040,7 +8047,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/queued.ogg",
-          "bytes": 2952
+          "bytes": 2859
         }
       }
     },
@@ -8060,7 +8067,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/checkpoint.ogg",
-          "bytes": 3701
+          "bytes": 3502
         }
       }
     },
@@ -8080,7 +8087,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/loading.ogg",
-          "bytes": 6340
+          "bytes": 6040
         }
       }
     },
@@ -8100,7 +8107,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/processing.ogg",
-          "bytes": 10624
+          "bytes": 10107
         }
       }
     },
@@ -8120,7 +8127,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/recording.ogg",
-          "bytes": 5568
+          "bytes": 5326
         }
       }
     },
@@ -8140,7 +8147,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/connecting.ogg",
-          "bytes": 9761
+          "bytes": 8666
         }
       }
     },
@@ -8160,7 +8167,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/scanning.ogg",
-          "bytes": 5319
+          "bytes": 4748
         }
       }
     },
@@ -8180,7 +8187,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/streaming.ogg",
-          "bytes": 10694
+          "bytes": 9171
         }
       }
     },
@@ -8200,7 +8207,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/play.ogg",
-          "bytes": 3086
+          "bytes": 2966
         }
       }
     },
@@ -8220,7 +8227,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/pause.ogg",
-          "bytes": 2841
+          "bytes": 2731
         }
       }
     },
@@ -8240,7 +8247,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/seek.ogg",
-          "bytes": 2850
+          "bytes": 2745
         }
       }
     },
@@ -8260,7 +8267,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/volume-change.ogg",
-          "bytes": 2867
+          "bytes": 2757
         }
       }
     },
@@ -8280,7 +8287,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/skip-next.ogg",
-          "bytes": 3595
+          "bytes": 3324
         }
       }
     },
@@ -8300,7 +8307,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/skip-previous.ogg",
-          "bytes": 3356
+          "bytes": 3172
         }
       }
     },
@@ -8320,7 +8327,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/connect.ogg",
-          "bytes": 4415
+          "bytes": 4251
         }
       }
     },
@@ -8340,7 +8347,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/disconnect.ogg",
-          "bytes": 3978
+          "bytes": 2806
         }
       }
     },
@@ -8360,7 +8367,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/lock.ogg",
-          "bytes": 2728
+          "bytes": 2617
         }
       }
     },
@@ -8380,7 +8387,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/unlock.ogg",
-          "bytes": 3534
+          "bytes": 3389
         }
       }
     },
@@ -8400,7 +8407,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/wake.ogg",
-          "bytes": 2729
+          "bytes": 2626
         }
       }
     },
@@ -8420,7 +8427,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/sleep.ogg",
-          "bytes": 2854
+          "bytes": 2759
         }
       }
     },
@@ -8440,7 +8447,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/reward.ogg",
-          "bytes": 3862
+          "bytes": 2436
         }
       }
     },
@@ -8460,7 +8467,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/level-up.ogg",
-          "bytes": 6062
+          "bytes": 5660
         }
       }
     },
@@ -8480,7 +8487,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/achievement.ogg",
-          "bytes": 6936
+          "bytes": 6639
         }
       }
     },
@@ -8500,7 +8507,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/streak.ogg",
-          "bytes": 4879
+          "bytes": 4660
         }
       }
     },
@@ -8520,7 +8527,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/badge.ogg",
-          "bytes": 4323
+          "bytes": 4084
         }
       }
     },
@@ -8540,7 +8547,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/bonus.ogg",
-          "bytes": 5113
+          "bytes": 4872
         }
       }
     },
@@ -8560,7 +8567,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/add-to-cart.ogg",
-          "bytes": 3842
+          "bytes": 3690
         }
       }
     },
@@ -8580,7 +8587,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/remove-from-cart.ogg",
-          "bytes": 3637
+          "bytes": 3508
         }
       }
     },
@@ -8600,7 +8607,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/checkout.ogg",
-          "bytes": 4725
+          "bytes": 4454
         }
       }
     },
@@ -8620,7 +8627,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/purchase.ogg",
-          "bytes": 4154
+          "bytes": 3991
         }
       }
     },
@@ -8640,7 +8647,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/coupon.ogg",
-          "bytes": 4271
+          "bytes": 4075
         }
       }
     },
@@ -8660,7 +8667,7 @@
         },
         "ogg": {
           "path": "sounds/mechanical/refund.ogg",
-          "bytes": 5458
+          "bytes": 5162
         }
       }
     },
@@ -8680,7 +8687,7 @@
         },
         "ogg": {
           "path": "sounds/organic/hover.ogg",
-          "bytes": 1421
+          "bytes": 1357
         }
       }
     },
@@ -8700,7 +8707,7 @@
         },
         "ogg": {
           "path": "sounds/organic/press.ogg",
-          "bytes": 1734
+          "bytes": 1657
         }
       }
     },
@@ -8720,7 +8727,7 @@
         },
         "ogg": {
           "path": "sounds/organic/release.ogg",
-          "bytes": 2061
+          "bytes": 1971
         }
       }
     },
@@ -8740,7 +8747,7 @@
         },
         "ogg": {
           "path": "sounds/organic/double-click.ogg",
-          "bytes": 4080
+          "bytes": 3913
         }
       }
     },
@@ -8760,7 +8767,7 @@
         },
         "ogg": {
           "path": "sounds/organic/focus.ogg",
-          "bytes": 2414
+          "bytes": 2338
         }
       }
     },
@@ -8780,7 +8787,7 @@
         },
         "ogg": {
           "path": "sounds/organic/long-press.ogg",
-          "bytes": 3630
+          "bytes": 3487
         }
       }
     },
@@ -8800,7 +8807,7 @@
         },
         "ogg": {
           "path": "sounds/organic/select.ogg",
-          "bytes": 3475
+          "bytes": 3340
         }
       }
     },
@@ -8820,7 +8827,7 @@
         },
         "ogg": {
           "path": "sounds/organic/deselect.ogg",
-          "bytes": 3394
+          "bytes": 3247
         }
       }
     },
@@ -8840,7 +8847,7 @@
         },
         "ogg": {
           "path": "sounds/organic/toggle-on.ogg",
-          "bytes": 3598
+          "bytes": 3437
         }
       }
     },
@@ -8860,7 +8867,7 @@
         },
         "ogg": {
           "path": "sounds/organic/toggle-off.ogg",
-          "bytes": 3500
+          "bytes": 2270
         }
       }
     },
@@ -8880,7 +8887,7 @@
         },
         "ogg": {
           "path": "sounds/organic/check.ogg",
-          "bytes": 3803
+          "bytes": 3615
         }
       }
     },
@@ -8900,7 +8907,7 @@
         },
         "ogg": {
           "path": "sounds/organic/uncheck.ogg",
-          "bytes": 2276
+          "bytes": 2185
         }
       }
     },
@@ -8920,7 +8927,7 @@
         },
         "ogg": {
           "path": "sounds/organic/delete.ogg",
-          "bytes": 3314
+          "bytes": 3181
         }
       }
     },
@@ -8940,7 +8947,7 @@
         },
         "ogg": {
           "path": "sounds/organic/cancel.ogg",
-          "bytes": 2820
+          "bytes": 2708
         }
       }
     },
@@ -8960,7 +8967,7 @@
         },
         "ogg": {
           "path": "sounds/organic/undo.ogg",
-          "bytes": 5861
+          "bytes": 5482
         }
       }
     },
@@ -8980,7 +8987,7 @@
         },
         "ogg": {
           "path": "sounds/organic/redo.ogg",
-          "bytes": 6098
+          "bytes": 5674
         }
       }
     },
@@ -9000,7 +9007,7 @@
         },
         "ogg": {
           "path": "sounds/organic/copy.ogg",
-          "bytes": 4507
+          "bytes": 4275
         }
       }
     },
@@ -9020,7 +9027,7 @@
         },
         "ogg": {
           "path": "sounds/organic/paste.ogg",
-          "bytes": 2876
+          "bytes": 2747
         }
       }
     },
@@ -9040,7 +9047,7 @@
         },
         "ogg": {
           "path": "sounds/organic/open.ogg",
-          "bytes": 3096
+          "bytes": 2980
         }
       }
     },
@@ -9060,7 +9067,7 @@
         },
         "ogg": {
           "path": "sounds/organic/close.ogg",
-          "bytes": 2970
+          "bytes": 2855
         }
       }
     },
@@ -9080,7 +9087,7 @@
         },
         "ogg": {
           "path": "sounds/organic/back.ogg",
-          "bytes": 2891
+          "bytes": 2802
         }
       }
     },
@@ -9100,7 +9107,7 @@
         },
         "ogg": {
           "path": "sounds/organic/forward.ogg",
-          "bytes": 4198
+          "bytes": 4053
         }
       }
     },
@@ -9120,7 +9127,7 @@
         },
         "ogg": {
           "path": "sounds/organic/expand.ogg",
-          "bytes": 5955
+          "bytes": 5585
         }
       }
     },
@@ -9140,7 +9147,7 @@
         },
         "ogg": {
           "path": "sounds/organic/collapse.ogg",
-          "bytes": 5657
+          "bytes": 5363
         }
       }
     },
@@ -9160,7 +9167,7 @@
         },
         "ogg": {
           "path": "sounds/organic/drag-start.ogg",
-          "bytes": 2115
+          "bytes": 2047
         }
       }
     },
@@ -9180,7 +9187,7 @@
         },
         "ogg": {
           "path": "sounds/organic/drop.ogg",
-          "bytes": 2537
+          "bytes": 2427
         }
       }
     },
@@ -9200,7 +9207,7 @@
         },
         "ogg": {
           "path": "sounds/organic/snap.ogg",
-          "bytes": 3179
+          "bytes": 3037
         }
       }
     },
@@ -9220,7 +9227,7 @@
         },
         "ogg": {
           "path": "sounds/organic/swipe.ogg",
-          "bytes": 3880
+          "bytes": 3677
         }
       }
     },
@@ -9240,7 +9247,7 @@
         },
         "ogg": {
           "path": "sounds/organic/reorder.ogg",
-          "bytes": 3318
+          "bytes": 3185
         }
       }
     },
@@ -9260,7 +9267,7 @@
         },
         "ogg": {
           "path": "sounds/organic/invalid-drop.ogg",
-          "bytes": 3322
+          "bytes": 3181
         }
       }
     },
@@ -9280,7 +9287,7 @@
         },
         "ogg": {
           "path": "sounds/organic/send.ogg",
-          "bytes": 5011
+          "bytes": 4816
         }
       }
     },
@@ -9300,7 +9307,7 @@
         },
         "ogg": {
           "path": "sounds/organic/receive.ogg",
-          "bytes": 6164
+          "bytes": 5860
         }
       }
     },
@@ -9320,7 +9327,7 @@
         },
         "ogg": {
           "path": "sounds/organic/notification.ogg",
-          "bytes": 5039
+          "bytes": 4797
         }
       }
     },
@@ -9340,7 +9347,7 @@
         },
         "ogg": {
           "path": "sounds/organic/mention.ogg",
-          "bytes": 6391
+          "bytes": 6137
         }
       }
     },
@@ -9360,7 +9367,7 @@
         },
         "ogg": {
           "path": "sounds/organic/typing.ogg",
-          "bytes": 4554
+          "bytes": 4385
         }
       }
     },
@@ -9380,7 +9387,7 @@
         },
         "ogg": {
           "path": "sounds/organic/reaction.ogg",
-          "bytes": 4845
+          "bytes": 4611
         }
       }
     },
@@ -9400,7 +9407,7 @@
         },
         "ogg": {
           "path": "sounds/organic/success.ogg",
-          "bytes": 6419
+          "bytes": 6102
         }
       }
     },
@@ -9420,7 +9427,7 @@
         },
         "ogg": {
           "path": "sounds/organic/error.ogg",
-          "bytes": 4684
+          "bytes": 4501
         }
       }
     },
@@ -9440,7 +9447,7 @@
         },
         "ogg": {
           "path": "sounds/organic/warning.ogg",
-          "bytes": 5093
+          "bytes": 4899
         }
       }
     },
@@ -9460,7 +9467,7 @@
         },
         "ogg": {
           "path": "sounds/organic/info.ogg",
-          "bytes": 4460
+          "bytes": 4252
         }
       }
     },
@@ -9480,7 +9487,7 @@
         },
         "ogg": {
           "path": "sounds/organic/blocked.ogg",
-          "bytes": 2987
+          "bytes": 2896
         }
       }
     },
@@ -9500,7 +9507,7 @@
         },
         "ogg": {
           "path": "sounds/organic/retry.ogg",
-          "bytes": 3740
+          "bytes": 3606
         }
       }
     },
@@ -9520,7 +9527,7 @@
         },
         "ogg": {
           "path": "sounds/organic/start.ogg",
-          "bytes": 4083
+          "bytes": 3921
         }
       }
     },
@@ -9540,7 +9547,7 @@
         },
         "ogg": {
           "path": "sounds/organic/stop.ogg",
-          "bytes": 3445
+          "bytes": 3306
         }
       }
     },
@@ -9560,7 +9567,7 @@
         },
         "ogg": {
           "path": "sounds/organic/progress-step.ogg",
-          "bytes": 2874
+          "bytes": 2767
         }
       }
     },
@@ -9580,7 +9587,7 @@
         },
         "ogg": {
           "path": "sounds/organic/complete.ogg",
-          "bytes": 7070
+          "bytes": 6720
         }
       }
     },
@@ -9600,7 +9607,7 @@
         },
         "ogg": {
           "path": "sounds/organic/queued.ogg",
-          "bytes": 3328
+          "bytes": 3212
         }
       }
     },
@@ -9620,7 +9627,7 @@
         },
         "ogg": {
           "path": "sounds/organic/checkpoint.ogg",
-          "bytes": 5330
+          "bytes": 5100
         }
       }
     },
@@ -9640,7 +9647,7 @@
         },
         "ogg": {
           "path": "sounds/organic/loading.ogg",
-          "bytes": 8935
+          "bytes": 8538
         }
       }
     },
@@ -9660,7 +9667,7 @@
         },
         "ogg": {
           "path": "sounds/organic/processing.ogg",
-          "bytes": 7580
+          "bytes": 7305
         }
       }
     },
@@ -9680,7 +9687,7 @@
         },
         "ogg": {
           "path": "sounds/organic/recording.ogg",
-          "bytes": 3808
+          "bytes": 3667
         }
       }
     },
@@ -9700,7 +9707,7 @@
         },
         "ogg": {
           "path": "sounds/organic/connecting.ogg",
-          "bytes": 10685
+          "bytes": 9497
         }
       }
     },
@@ -9720,7 +9727,7 @@
         },
         "ogg": {
           "path": "sounds/organic/scanning.ogg",
-          "bytes": 6043
+          "bytes": 5698
         }
       }
     },
@@ -9740,7 +9747,7 @@
         },
         "ogg": {
           "path": "sounds/organic/streaming.ogg",
-          "bytes": 9743
+          "bytes": 8479
         }
       }
     },
@@ -9760,7 +9767,7 @@
         },
         "ogg": {
           "path": "sounds/organic/play.ogg",
-          "bytes": 4563
+          "bytes": 4357
         }
       }
     },
@@ -9780,7 +9787,7 @@
         },
         "ogg": {
           "path": "sounds/organic/pause.ogg",
-          "bytes": 4323
+          "bytes": 4108
         }
       }
     },
@@ -9800,7 +9807,7 @@
         },
         "ogg": {
           "path": "sounds/organic/seek.ogg",
-          "bytes": 3697
+          "bytes": 3535
         }
       }
     },
@@ -9820,7 +9827,7 @@
         },
         "ogg": {
           "path": "sounds/organic/volume-change.ogg",
-          "bytes": 3671
+          "bytes": 3499
         }
       }
     },
@@ -9840,7 +9847,7 @@
         },
         "ogg": {
           "path": "sounds/organic/skip-next.ogg",
-          "bytes": 5445
+          "bytes": 5047
         }
       }
     },
@@ -9860,7 +9867,7 @@
         },
         "ogg": {
           "path": "sounds/organic/skip-previous.ogg",
-          "bytes": 5269
+          "bytes": 4890
         }
       }
     },
@@ -9880,7 +9887,7 @@
         },
         "ogg": {
           "path": "sounds/organic/connect.ogg",
-          "bytes": 5701
+          "bytes": 5443
         }
       }
     },
@@ -9900,7 +9907,7 @@
         },
         "ogg": {
           "path": "sounds/organic/disconnect.ogg",
-          "bytes": 5132
+          "bytes": 4340
         }
       }
     },
@@ -9920,7 +9927,7 @@
         },
         "ogg": {
           "path": "sounds/organic/lock.ogg",
-          "bytes": 3626
+          "bytes": 3487
         }
       }
     },
@@ -9940,7 +9947,7 @@
         },
         "ogg": {
           "path": "sounds/organic/unlock.ogg",
-          "bytes": 5237
+          "bytes": 5029
         }
       }
     },
@@ -9960,7 +9967,7 @@
         },
         "ogg": {
           "path": "sounds/organic/wake.ogg",
-          "bytes": 3678
+          "bytes": 3562
         }
       }
     },
@@ -9980,7 +9987,7 @@
         },
         "ogg": {
           "path": "sounds/organic/sleep.ogg",
-          "bytes": 3463
+          "bytes": 3324
         }
       }
     },
@@ -10000,7 +10007,7 @@
         },
         "ogg": {
           "path": "sounds/organic/reward.ogg",
-          "bytes": 6517
+          "bytes": 4718
         }
       }
     },
@@ -10020,7 +10027,7 @@
         },
         "ogg": {
           "path": "sounds/organic/level-up.ogg",
-          "bytes": 7981
+          "bytes": 7675
         }
       }
     },
@@ -10040,7 +10047,7 @@
         },
         "ogg": {
           "path": "sounds/organic/achievement.ogg",
-          "bytes": 10552
+          "bytes": 10149
         }
       }
     },
@@ -10060,7 +10067,7 @@
         },
         "ogg": {
           "path": "sounds/organic/streak.ogg",
-          "bytes": 7158
+          "bytes": 6774
         }
       }
     },
@@ -10080,7 +10087,7 @@
         },
         "ogg": {
           "path": "sounds/organic/badge.ogg",
-          "bytes": 7769
+          "bytes": 7490
         }
       }
     },
@@ -10100,7 +10107,7 @@
         },
         "ogg": {
           "path": "sounds/organic/bonus.ogg",
-          "bytes": 8641
+          "bytes": 8277
         }
       }
     },
@@ -10120,7 +10127,7 @@
         },
         "ogg": {
           "path": "sounds/organic/add-to-cart.ogg",
-          "bytes": 5665
+          "bytes": 5425
         }
       }
     },
@@ -10140,7 +10147,7 @@
         },
         "ogg": {
           "path": "sounds/organic/remove-from-cart.ogg",
-          "bytes": 3341
+          "bytes": 3211
         }
       }
     },
@@ -10160,7 +10167,7 @@
         },
         "ogg": {
           "path": "sounds/organic/checkout.ogg",
-          "bytes": 6116
+          "bytes": 5806
         }
       }
     },
@@ -10180,7 +10187,7 @@
         },
         "ogg": {
           "path": "sounds/organic/purchase.ogg",
-          "bytes": 5953
+          "bytes": 5742
         }
       }
     },
@@ -10200,7 +10207,7 @@
         },
         "ogg": {
           "path": "sounds/organic/coupon.ogg",
-          "bytes": 5890
+          "bytes": 5555
         }
       }
     },
@@ -10220,7 +10227,7 @@
         },
         "ogg": {
           "path": "sounds/organic/refund.ogg",
-          "bytes": 8076
+          "bytes": 7606
         }
       }
     },
@@ -10240,7 +10247,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/hover.ogg",
-          "bytes": 2418
+          "bytes": 2308
         }
       }
     },
@@ -10260,7 +10267,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/press.ogg",
-          "bytes": 2727
+          "bytes": 2639
         }
       }
     },
@@ -10280,7 +10287,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/release.ogg",
-          "bytes": 2639
+          "bytes": 2511
         }
       }
     },
@@ -10300,7 +10307,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/double-click.ogg",
-          "bytes": 3625
+          "bytes": 3439
         }
       }
     },
@@ -10320,7 +10327,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/focus.ogg",
-          "bytes": 3658
+          "bytes": 3532
         }
       }
     },
@@ -10340,7 +10347,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/long-press.ogg",
-          "bytes": 5318
+          "bytes": 5067
         }
       }
     },
@@ -10360,7 +10367,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/select.ogg",
-          "bytes": 5108
+          "bytes": 4875
         }
       }
     },
@@ -10380,7 +10387,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/deselect.ogg",
-          "bytes": 3397
+          "bytes": 3264
         }
       }
     },
@@ -10400,7 +10407,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/toggle-on.ogg",
-          "bytes": 5618
+          "bytes": 5004
         }
       }
     },
@@ -10420,7 +10427,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/toggle-off.ogg",
-          "bytes": 3119
+          "bytes": 2973
         }
       }
     },
@@ -10440,7 +10447,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/check.ogg",
-          "bytes": 5143
+          "bytes": 4692
         }
       }
     },
@@ -10460,7 +10467,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/uncheck.ogg",
-          "bytes": 3312
+          "bytes": 3229
         }
       }
     },
@@ -10480,7 +10487,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/delete.ogg",
-          "bytes": 4569
+          "bytes": 4392
         }
       }
     },
@@ -10500,7 +10507,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/cancel.ogg",
-          "bytes": 4163
+          "bytes": 4001
         }
       }
     },
@@ -10520,7 +10527,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/undo.ogg",
-          "bytes": 7965
+          "bytes": 7223
         }
       }
     },
@@ -10540,7 +10547,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/redo.ogg",
-          "bytes": 8490
+          "bytes": 7917
         }
       }
     },
@@ -10560,7 +10567,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/copy.ogg",
-          "bytes": 7541
+          "bytes": 7333
         }
       }
     },
@@ -10580,7 +10587,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/paste.ogg",
-          "bytes": 3682
+          "bytes": 3456
         }
       }
     },
@@ -10600,7 +10607,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/open.ogg",
-          "bytes": 4693
+          "bytes": 4643
         }
       }
     },
@@ -10620,7 +10627,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/close.ogg",
-          "bytes": 3539
+          "bytes": 3378
         }
       }
     },
@@ -10640,7 +10647,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/back.ogg",
-          "bytes": 4780
+          "bytes": 4541
         }
       }
     },
@@ -10660,7 +10667,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/forward.ogg",
-          "bytes": 5914
+          "bytes": 5602
         }
       }
     },
@@ -10680,7 +10687,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/expand.ogg",
-          "bytes": 8375
+          "bytes": 7691
         }
       }
     },
@@ -10700,7 +10707,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/collapse.ogg",
-          "bytes": 7845
+          "bytes": 6981
         }
       }
     },
@@ -10720,7 +10727,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/drag-start.ogg",
-          "bytes": 3029
+          "bytes": 2933
         }
       }
     },
@@ -10740,7 +10747,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/drop.ogg",
-          "bytes": 3393
+          "bytes": 3291
         }
       }
     },
@@ -10760,7 +10767,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/snap.ogg",
-          "bytes": 2651
+          "bytes": 2530
         }
       }
     },
@@ -10780,7 +10787,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/swipe.ogg",
-          "bytes": 5361
+          "bytes": 5248
         }
       }
     },
@@ -10800,7 +10807,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/reorder.ogg",
-          "bytes": 5272
+          "bytes": 5075
         }
       }
     },
@@ -10820,7 +10827,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/invalid-drop.ogg",
-          "bytes": 4762
+          "bytes": 4568
         }
       }
     },
@@ -10840,7 +10847,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/send.ogg",
-          "bytes": 7528
+          "bytes": 7203
         }
       }
     },
@@ -10860,7 +10867,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/receive.ogg",
-          "bytes": 9185
+          "bytes": 8754
         }
       }
     },
@@ -10880,7 +10887,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/notification.ogg",
-          "bytes": 6473
+          "bytes": 6174
         }
       }
     },
@@ -10900,7 +10907,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/mention.ogg",
-          "bytes": 7581
+          "bytes": 7296
         }
       }
     },
@@ -10920,7 +10927,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/typing.ogg",
-          "bytes": 4430
+          "bytes": 4243
         }
       }
     },
@@ -10940,7 +10947,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/reaction.ogg",
-          "bytes": 5228
+          "bytes": 4832
         }
       }
     },
@@ -10960,7 +10967,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/success.ogg",
-          "bytes": 9551
+          "bytes": 9245
         }
       }
     },
@@ -10980,7 +10987,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/error.ogg",
-          "bytes": 6831
+          "bytes": 6600
         }
       }
     },
@@ -11000,7 +11007,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/warning.ogg",
-          "bytes": 8726
+          "bytes": 7935
         }
       }
     },
@@ -11020,7 +11027,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/info.ogg",
-          "bytes": 6559
+          "bytes": 6316
         }
       }
     },
@@ -11040,7 +11047,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/blocked.ogg",
-          "bytes": 4100
+          "bytes": 3953
         }
       }
     },
@@ -11060,7 +11067,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/retry.ogg",
-          "bytes": 5627
+          "bytes": 5564
         }
       }
     },
@@ -11080,7 +11087,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/start.ogg",
-          "bytes": 6030
+          "bytes": 5888
         }
       }
     },
@@ -11100,7 +11107,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/stop.ogg",
-          "bytes": 5209
+          "bytes": 5007
         }
       }
     },
@@ -11120,7 +11127,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/progress-step.ogg",
-          "bytes": 3347
+          "bytes": 3157
         }
       }
     },
@@ -11140,7 +11147,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/complete.ogg",
-          "bytes": 11051
+          "bytes": 10642
         }
       }
     },
@@ -11160,7 +11167,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/queued.ogg",
-          "bytes": 5024
+          "bytes": 4933
         }
       }
     },
@@ -11180,7 +11187,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/checkpoint.ogg",
-          "bytes": 7554
+          "bytes": 7299
         }
       }
     },
@@ -11200,7 +11207,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/loading.ogg",
-          "bytes": 7980
+          "bytes": 7970
         }
       }
     },
@@ -11220,7 +11227,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/processing.ogg",
-          "bytes": 8928
+          "bytes": 8617
         }
       }
     },
@@ -11240,7 +11247,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/recording.ogg",
-          "bytes": 3760
+          "bytes": 3470
         }
       }
     },
@@ -11260,7 +11267,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/connecting.ogg",
-          "bytes": 11676
+          "bytes": 11018
         }
       }
     },
@@ -11280,7 +11287,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/scanning.ogg",
-          "bytes": 7720
+          "bytes": 7316
         }
       }
     },
@@ -11300,7 +11307,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/streaming.ogg",
-          "bytes": 10808
+          "bytes": 10488
         }
       }
     },
@@ -11320,7 +11327,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/play.ogg",
-          "bytes": 6237
+          "bytes": 5796
         }
       }
     },
@@ -11340,7 +11347,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/pause.ogg",
-          "bytes": 4011
+          "bytes": 3753
         }
       }
     },
@@ -11360,7 +11367,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/seek.ogg",
-          "bytes": 5669
+          "bytes": 5426
         }
       }
     },
@@ -11380,7 +11387,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/volume-change.ogg",
-          "bytes": 3423
+          "bytes": 3274
         }
       }
     },
@@ -11400,7 +11407,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/skip-next.ogg",
-          "bytes": 7251
+          "bytes": 6917
         }
       }
     },
@@ -11420,7 +11427,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/skip-previous.ogg",
-          "bytes": 6798
+          "bytes": 6371
         }
       }
     },
@@ -11440,7 +11447,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/connect.ogg",
-          "bytes": 8756
+          "bytes": 8334
         }
       }
     },
@@ -11460,7 +11467,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/disconnect.ogg",
-          "bytes": 6130
+          "bytes": 5810
         }
       }
     },
@@ -11480,7 +11487,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/lock.ogg",
-          "bytes": 5261
+          "bytes": 5050
         }
       }
     },
@@ -11500,7 +11507,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/unlock.ogg",
-          "bytes": 7044
+          "bytes": 6532
         }
       }
     },
@@ -11520,7 +11527,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/wake.ogg",
-          "bytes": 5416
+          "bytes": 5226
         }
       }
     },
@@ -11540,7 +11547,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/sleep.ogg",
-          "bytes": 4989
+          "bytes": 4809
         }
       }
     },
@@ -11560,7 +11567,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/reward.ogg",
-          "bytes": 7000
+          "bytes": 6670
         }
       }
     },
@@ -11580,7 +11587,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/level-up.ogg",
-          "bytes": 11898
+          "bytes": 11389
         }
       }
     },
@@ -11600,7 +11607,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/achievement.ogg",
-          "bytes": 15468
+          "bytes": 14854
         }
       }
     },
@@ -11620,7 +11627,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/streak.ogg",
-          "bytes": 10161
+          "bytes": 9656
         }
       }
     },
@@ -11640,7 +11647,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/badge.ogg",
-          "bytes": 9331
+          "bytes": 9030
         }
       }
     },
@@ -11660,7 +11667,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/bonus.ogg",
-          "bytes": 12429
+          "bytes": 11817
         }
       }
     },
@@ -11680,7 +11687,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/add-to-cart.ogg",
-          "bytes": 7701
+          "bytes": 7251
         }
       }
     },
@@ -11700,7 +11707,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/remove-from-cart.ogg",
-          "bytes": 4758
+          "bytes": 4423
         }
       }
     },
@@ -11720,7 +11727,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/checkout.ogg",
-          "bytes": 8975
+          "bytes": 8569
         }
       }
     },
@@ -11740,7 +11747,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/purchase.ogg",
-          "bytes": 9095
+          "bytes": 8832
         }
       }
     },
@@ -11760,7 +11767,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/coupon.ogg",
-          "bytes": 6600
+          "bytes": 6293
         }
       }
     },
@@ -11780,7 +11787,7 @@
         },
         "ogg": {
           "path": "sounds/dreamy/refund.ogg",
-          "bytes": 11528
+          "bytes": 11143
         }
       }
     },
@@ -11800,7 +11807,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/hover.ogg",
-          "bytes": 1133
+          "bytes": 1103
         }
       }
     },
@@ -11820,7 +11827,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/press.ogg",
-          "bytes": 1481
+          "bytes": 1429
         }
       }
     },
@@ -11840,7 +11847,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/release.ogg",
-          "bytes": 1639
+          "bytes": 1569
         }
       }
     },
@@ -11860,7 +11867,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/double-click.ogg",
-          "bytes": 1594
+          "bytes": 1517
         }
       }
     },
@@ -11880,7 +11887,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/focus.ogg",
-          "bytes": 1899
+          "bytes": 1265
         }
       }
     },
@@ -11900,7 +11907,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/long-press.ogg",
-          "bytes": 2731
+          "bytes": 2618
         }
       }
     },
@@ -11920,7 +11927,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/select.ogg",
-          "bytes": 2539
+          "bytes": 1702
         }
       }
     },
@@ -11940,7 +11947,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/deselect.ogg",
-          "bytes": 1527
+          "bytes": 1485
         }
       }
     },
@@ -11960,7 +11967,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/toggle-on.ogg",
-          "bytes": 2544
+          "bytes": 2490
         }
       }
     },
@@ -11980,7 +11987,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/toggle-off.ogg",
-          "bytes": 1536
+          "bytes": 1477
         }
       }
     },
@@ -12000,7 +12007,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/check.ogg",
-          "bytes": 2744
+          "bytes": 2635
         }
       }
     },
@@ -12020,7 +12027,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/uncheck.ogg",
-          "bytes": 1558
+          "bytes": 1493
         }
       }
     },
@@ -12040,7 +12047,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/delete.ogg",
-          "bytes": 2555
+          "bytes": 2448
         }
       }
     },
@@ -12060,7 +12067,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/cancel.ogg",
-          "bytes": 2066
+          "bytes": 1995
         }
       }
     },
@@ -12080,7 +12087,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/undo.ogg",
-          "bytes": 4692
+          "bytes": 4126
         }
       }
     },
@@ -12100,7 +12107,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/redo.ogg",
-          "bytes": 4899
+          "bytes": 4413
         }
       }
     },
@@ -12120,7 +12127,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/copy.ogg",
-          "bytes": 3069
+          "bytes": 2906
         }
       }
     },
@@ -12140,7 +12147,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/paste.ogg",
-          "bytes": 1949
+          "bytes": 1877
         }
       }
     },
@@ -12160,7 +12167,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/open.ogg",
-          "bytes": 2276
+          "bytes": 2124
         }
       }
     },
@@ -12180,7 +12187,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/close.ogg",
-          "bytes": 1800
+          "bytes": 1728
         }
       }
     },
@@ -12200,7 +12207,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/back.ogg",
-          "bytes": 2519
+          "bytes": 2016
         }
       }
     },
@@ -12220,7 +12227,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/forward.ogg",
-          "bytes": 2969
+          "bytes": 2852
         }
       }
     },
@@ -12240,7 +12247,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/expand.ogg",
-          "bytes": 4556
+          "bytes": 3856
         }
       }
     },
@@ -12260,7 +12267,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/collapse.ogg",
-          "bytes": 4464
+          "bytes": 3816
         }
       }
     },
@@ -12280,7 +12287,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/drag-start.ogg",
-          "bytes": 1513
+          "bytes": 1450
         }
       }
     },
@@ -12300,7 +12307,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/drop.ogg",
-          "bytes": 2503
+          "bytes": 2392
         }
       }
     },
@@ -12320,7 +12327,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/snap.ogg",
-          "bytes": 1399
+          "bytes": 1339
         }
       }
     },
@@ -12340,7 +12347,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/swipe.ogg",
-          "bytes": 2544
+          "bytes": 2390
         }
       }
     },
@@ -12360,7 +12367,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/reorder.ogg",
-          "bytes": 3177
+          "bytes": 1905
         }
       }
     },
@@ -12380,7 +12387,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/invalid-drop.ogg",
-          "bytes": 3048
+          "bytes": 2956
         }
       }
     },
@@ -12400,7 +12407,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/send.ogg",
-          "bytes": 3596
+          "bytes": 3409
         }
       }
     },
@@ -12420,7 +12427,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/receive.ogg",
-          "bytes": 4280
+          "bytes": 4112
         }
       }
     },
@@ -12440,7 +12447,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/notification.ogg",
-          "bytes": 3551
+          "bytes": 3420
         }
       }
     },
@@ -12460,7 +12467,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/mention.ogg",
-          "bytes": 3482
+          "bytes": 3248
         }
       }
     },
@@ -12480,7 +12487,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/typing.ogg",
-          "bytes": 1912
+          "bytes": 1864
         }
       }
     },
@@ -12500,7 +12507,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/reaction.ogg",
-          "bytes": 2418
+          "bytes": 2355
         }
       }
     },
@@ -12520,7 +12527,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/success.ogg",
-          "bytes": 4574
+          "bytes": 4410
         }
       }
     },
@@ -12540,7 +12547,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/error.ogg",
-          "bytes": 3440
+          "bytes": 3315
         }
       }
     },
@@ -12560,7 +12567,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/warning.ogg",
-          "bytes": 4379
+          "bytes": 3791
         }
       }
     },
@@ -12580,7 +12587,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/info.ogg",
-          "bytes": 2939
+          "bytes": 2177
         }
       }
     },
@@ -12600,7 +12607,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/blocked.ogg",
-          "bytes": 2502
+          "bytes": 2393
         }
       }
     },
@@ -12620,7 +12627,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/retry.ogg",
-          "bytes": 2918
+          "bytes": 2813
         }
       }
     },
@@ -12640,7 +12647,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/start.ogg",
-          "bytes": 3281
+          "bytes": 3156
         }
       }
     },
@@ -12660,7 +12667,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/stop.ogg",
-          "bytes": 2696
+          "bytes": 2534
         }
       }
     },
@@ -12680,7 +12687,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/progress-step.ogg",
-          "bytes": 2403
+          "bytes": 2164
         }
       }
     },
@@ -12700,7 +12707,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/complete.ogg",
-          "bytes": 5035
+          "bytes": 4822
         }
       }
     },
@@ -12720,7 +12727,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/queued.ogg",
-          "bytes": 2412
+          "bytes": 2303
         }
       }
     },
@@ -12740,7 +12747,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/checkpoint.ogg",
-          "bytes": 3507
+          "bytes": 3416
         }
       }
     },
@@ -12760,7 +12767,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/loading.ogg",
-          "bytes": 9124
+          "bytes": 8835
         }
       }
     },
@@ -12780,7 +12787,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/processing.ogg",
-          "bytes": 7988
+          "bytes": 7687
         }
       }
     },
@@ -12800,7 +12807,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/recording.ogg",
-          "bytes": 4078
+          "bytes": 3804
         }
       }
     },
@@ -12820,7 +12827,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/connecting.ogg",
-          "bytes": 11471
+          "bytes": 10278
         }
       }
     },
@@ -12840,7 +12847,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/scanning.ogg",
-          "bytes": 5288
+          "bytes": 4751
         }
       }
     },
@@ -12860,7 +12867,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/streaming.ogg",
-          "bytes": 9589
+          "bytes": 8997
         }
       }
     },
@@ -12880,7 +12887,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/play.ogg",
-          "bytes": 3106
+          "bytes": 2884
         }
       }
     },
@@ -12900,7 +12907,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/pause.ogg",
-          "bytes": 1833
+          "bytes": 1730
         }
       }
     },
@@ -12920,7 +12927,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/seek.ogg",
-          "bytes": 2826
+          "bytes": 2710
         }
       }
     },
@@ -12940,7 +12947,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/volume-change.ogg",
-          "bytes": 2865
+          "bytes": 1648
         }
       }
     },
@@ -12960,7 +12967,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/skip-next.ogg",
-          "bytes": 3902
+          "bytes": 3634
         }
       }
     },
@@ -12980,7 +12987,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/skip-previous.ogg",
-          "bytes": 3658
+          "bytes": 3320
         }
       }
     },
@@ -13000,7 +13007,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/connect.ogg",
-          "bytes": 4012
+          "bytes": 3723
         }
       }
     },
@@ -13020,7 +13027,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/disconnect.ogg",
-          "bytes": 3145
+          "bytes": 2997
         }
       }
     },
@@ -13040,7 +13047,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/lock.ogg",
-          "bytes": 2789
+          "bytes": 2651
         }
       }
     },
@@ -13060,7 +13067,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/unlock.ogg",
-          "bytes": 3643
+          "bytes": 3508
         }
       }
     },
@@ -13080,7 +13087,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/wake.ogg",
-          "bytes": 2594
+          "bytes": 2506
         }
       }
     },
@@ -13100,7 +13107,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/sleep.ogg",
-          "bytes": 2589
+          "bytes": 2490
         }
       }
     },
@@ -13120,7 +13127,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/reward.ogg",
-          "bytes": 3186
+          "bytes": 3077
         }
       }
     },
@@ -13140,7 +13147,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/level-up.ogg",
-          "bytes": 5791
+          "bytes": 5443
         }
       }
     },
@@ -13160,7 +13167,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/achievement.ogg",
-          "bytes": 7751
+          "bytes": 7491
         }
       }
     },
@@ -13180,7 +13187,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/streak.ogg",
-          "bytes": 4747
+          "bytes": 4548
         }
       }
     },
@@ -13200,7 +13207,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/badge.ogg",
-          "bytes": 4021
+          "bytes": 3882
         }
       }
     },
@@ -13220,7 +13227,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/bonus.ogg",
-          "bytes": 6073
+          "bytes": 5621
         }
       }
     },
@@ -13240,7 +13247,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/add-to-cart.ogg",
-          "bytes": 4023
+          "bytes": 2605
         }
       }
     },
@@ -13260,7 +13267,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/remove-from-cart.ogg",
-          "bytes": 2325
+          "bytes": 2247
         }
       }
     },
@@ -13280,7 +13287,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/checkout.ogg",
-          "bytes": 4551
+          "bytes": 4201
         }
       }
     },
@@ -13300,7 +13307,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/purchase.ogg",
-          "bytes": 4348
+          "bytes": 4200
         }
       }
     },
@@ -13320,7 +13327,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/coupon.ogg",
-          "bytes": 4642
+          "bytes": 3234
         }
       }
     },
@@ -13340,7 +13347,7 @@
         },
         "ogg": {
           "path": "sounds/scifi/refund.ogg",
-          "bytes": 6050
+          "bytes": 5489
         }
       }
     },
@@ -13360,7 +13367,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/hover.ogg",
-          "bytes": 892
+          "bytes": 859
         }
       }
     },
@@ -13380,7 +13387,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/press.ogg",
-          "bytes": 1828
+          "bytes": 1759
         }
       }
     },
@@ -13400,7 +13407,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/release.ogg",
-          "bytes": 2032
+          "bytes": 1950
         }
       }
     },
@@ -13420,7 +13427,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/double-click.ogg",
-          "bytes": 2393
+          "bytes": 2300
         }
       }
     },
@@ -13440,7 +13447,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/focus.ogg",
-          "bytes": 2002
+          "bytes": 1918
         }
       }
     },
@@ -13460,7 +13467,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/long-press.ogg",
-          "bytes": 2745
+          "bytes": 2639
         }
       }
     },
@@ -13480,7 +13487,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/select.ogg",
-          "bytes": 2579
+          "bytes": 2403
         }
       }
     },
@@ -13500,7 +13507,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/deselect.ogg",
-          "bytes": 1558
+          "bytes": 1485
         }
       }
     },
@@ -13520,7 +13527,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/toggle-on.ogg",
-          "bytes": 2343
+          "bytes": 2251
         }
       }
     },
@@ -13540,7 +13547,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/toggle-off.ogg",
-          "bytes": 2311
+          "bytes": 2177
         }
       }
     },
@@ -13560,7 +13567,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/check.ogg",
-          "bytes": 2335
+          "bytes": 2306
         }
       }
     },
@@ -13580,7 +13587,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/uncheck.ogg",
-          "bytes": 1634
+          "bytes": 1562
         }
       }
     },
@@ -13600,7 +13607,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/delete.ogg",
-          "bytes": 2896
+          "bytes": 2806
         }
       }
     },
@@ -13620,7 +13627,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/cancel.ogg",
-          "bytes": 2475
+          "bytes": 2363
         }
       }
     },
@@ -13640,7 +13647,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/undo.ogg",
-          "bytes": 4078
+          "bytes": 3955
         }
       }
     },
@@ -13660,7 +13667,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/redo.ogg",
-          "bytes": 4618
+          "bytes": 4273
         }
       }
     },
@@ -13680,7 +13687,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/copy.ogg",
-          "bytes": 2974
+          "bytes": 2879
         }
       }
     },
@@ -13700,7 +13707,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/paste.ogg",
-          "bytes": 2061
+          "bytes": 1992
         }
       }
     },
@@ -13720,7 +13727,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/open.ogg",
-          "bytes": 2177
+          "bytes": 2099
         }
       }
     },
@@ -13740,7 +13747,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/close.ogg",
-          "bytes": 2044
+          "bytes": 1750
         }
       }
     },
@@ -13760,7 +13767,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/back.ogg",
-          "bytes": 2093
+          "bytes": 1969
         }
       }
     },
@@ -13780,7 +13787,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/forward.ogg",
-          "bytes": 3747
+          "bytes": 2996
         }
       }
     },
@@ -13800,7 +13807,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/expand.ogg",
-          "bytes": 4155
+          "bytes": 3526
         }
       }
     },
@@ -13820,7 +13827,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/collapse.ogg",
-          "bytes": 4044
+          "bytes": 3778
         }
       }
     },
@@ -13840,7 +13847,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/drag-start.ogg",
-          "bytes": 2100
+          "bytes": 2002
         }
       }
     },
@@ -13860,7 +13867,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/drop.ogg",
-          "bytes": 2571
+          "bytes": 2466
         }
       }
     },
@@ -13880,7 +13887,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/snap.ogg",
-          "bytes": 2019
+          "bytes": 1937
         }
       }
     },
@@ -13900,7 +13907,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/swipe.ogg",
-          "bytes": 2546
+          "bytes": 2503
         }
       }
     },
@@ -13920,7 +13927,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/reorder.ogg",
-          "bytes": 2920
+          "bytes": 2796
         }
       }
     },
@@ -13940,7 +13947,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/invalid-drop.ogg",
-          "bytes": 3416
+          "bytes": 3287
         }
       }
     },
@@ -13960,7 +13967,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/send.ogg",
-          "bytes": 3636
+          "bytes": 3494
         }
       }
     },
@@ -13980,7 +13987,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/receive.ogg",
-          "bytes": 4596
+          "bytes": 4354
         }
       }
     },
@@ -14000,7 +14007,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/notification.ogg",
-          "bytes": 3672
+          "bytes": 3565
         }
       }
     },
@@ -14020,7 +14027,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/mention.ogg",
-          "bytes": 3322
+          "bytes": 3167
         }
       }
     },
@@ -14040,7 +14047,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/typing.ogg",
-          "bytes": 3152
+          "bytes": 3021
         }
       }
     },
@@ -14060,7 +14067,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/reaction.ogg",
-          "bytes": 3272
+          "bytes": 2249
         }
       }
     },
@@ -14080,7 +14087,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/success.ogg",
-          "bytes": 4556
+          "bytes": 4377
         }
       }
     },
@@ -14100,7 +14107,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/error.ogg",
-          "bytes": 3619
+          "bytes": 3497
         }
       }
     },
@@ -14120,7 +14127,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/warning.ogg",
-          "bytes": 3815
+          "bytes": 3650
         }
       }
     },
@@ -14140,7 +14147,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/info.ogg",
-          "bytes": 2959
+          "bytes": 2799
         }
       }
     },
@@ -14160,7 +14167,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/blocked.ogg",
-          "bytes": 2947
+          "bytes": 2826
         }
       }
     },
@@ -14180,7 +14187,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/retry.ogg",
-          "bytes": 2790
+          "bytes": 2679
         }
       }
     },
@@ -14200,7 +14207,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/start.ogg",
-          "bytes": 3630
+          "bytes": 3435
         }
       }
     },
@@ -14220,7 +14227,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/stop.ogg",
-          "bytes": 3516
+          "bytes": 3431
         }
       }
     },
@@ -14240,7 +14247,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/progress-step.ogg",
-          "bytes": 2057
+          "bytes": 2048
         }
       }
     },
@@ -14260,7 +14267,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/complete.ogg",
-          "bytes": 5295
+          "bytes": 5138
         }
       }
     },
@@ -14280,7 +14287,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/queued.ogg",
-          "bytes": 2491
+          "bytes": 2418
         }
       }
     },
@@ -14300,7 +14307,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/checkpoint.ogg",
-          "bytes": 3708
+          "bytes": 3529
         }
       }
     },
@@ -14320,7 +14327,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/loading.ogg",
-          "bytes": 6099
+          "bytes": 6037
         }
       }
     },
@@ -14340,7 +14347,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/processing.ogg",
-          "bytes": 6126
+          "bytes": 5939
         }
       }
     },
@@ -14360,7 +14367,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/recording.ogg",
-          "bytes": 3012
+          "bytes": 2844
         }
       }
     },
@@ -14380,7 +14387,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/connecting.ogg",
-          "bytes": 8713
+          "bytes": 7619
         }
       }
     },
@@ -14400,7 +14407,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/scanning.ogg",
-          "bytes": 5288
+          "bytes": 5201
         }
       }
     },
@@ -14420,7 +14427,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/streaming.ogg",
-          "bytes": 7992
+          "bytes": 7019
         }
       }
     },
@@ -14440,7 +14447,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/play.ogg",
-          "bytes": 2866
+          "bytes": 2778
         }
       }
     },
@@ -14460,7 +14467,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/pause.ogg",
-          "bytes": 2854
+          "bytes": 2738
         }
       }
     },
@@ -14480,7 +14487,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/seek.ogg",
-          "bytes": 2916
+          "bytes": 2847
         }
       }
     },
@@ -14500,7 +14507,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/volume-change.ogg",
-          "bytes": 2757
+          "bytes": 1566
         }
       }
     },
@@ -14520,7 +14527,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/skip-next.ogg",
-          "bytes": 3562
+          "bytes": 3417
         }
       }
     },
@@ -14540,7 +14547,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/skip-previous.ogg",
-          "bytes": 3765
+          "bytes": 3423
         }
       }
     },
@@ -14560,7 +14567,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/connect.ogg",
-          "bytes": 4127
+          "bytes": 4072
         }
       }
     },
@@ -14580,7 +14587,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/disconnect.ogg",
-          "bytes": 3960
+          "bytes": 3856
         }
       }
     },
@@ -14600,7 +14607,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/lock.ogg",
-          "bytes": 2890
+          "bytes": 2756
         }
       }
     },
@@ -14620,7 +14627,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/unlock.ogg",
-          "bytes": 3380
+          "bytes": 3252
         }
       }
     },
@@ -14640,7 +14647,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/wake.ogg",
-          "bytes": 2718
+          "bytes": 2615
         }
       }
     },
@@ -14660,7 +14667,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/sleep.ogg",
-          "bytes": 2754
+          "bytes": 2667
         }
       }
     },
@@ -14680,7 +14687,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/reward.ogg",
-          "bytes": 3994
+          "bytes": 3086
         }
       }
     },
@@ -14700,7 +14707,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/level-up.ogg",
-          "bytes": 5619
+          "bytes": 5450
         }
       }
     },
@@ -14720,7 +14727,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/achievement.ogg",
-          "bytes": 7900
+          "bytes": 7723
         }
       }
     },
@@ -14740,7 +14747,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/streak.ogg",
-          "bytes": 4930
+          "bytes": 4782
         }
       }
     },
@@ -14760,7 +14767,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/badge.ogg",
-          "bytes": 4926
+          "bytes": 4763
         }
       }
     },
@@ -14780,7 +14787,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/bonus.ogg",
-          "bytes": 5794
+          "bytes": 5660
         }
       }
     },
@@ -14800,7 +14807,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/add-to-cart.ogg",
-          "bytes": 3506
+          "bytes": 3341
         }
       }
     },
@@ -14820,7 +14827,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/remove-from-cart.ogg",
-          "bytes": 2442
+          "bytes": 2343
         }
       }
     },
@@ -14840,7 +14847,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/checkout.ogg",
-          "bytes": 4375
+          "bytes": 4237
         }
       }
     },
@@ -14860,7 +14867,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/purchase.ogg",
-          "bytes": 4081
+          "bytes": 3944
         }
       }
     },
@@ -14880,7 +14887,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/coupon.ogg",
-          "bytes": 3944
+          "bytes": 3768
         }
       }
     },
@@ -14900,7 +14907,7 @@
         },
         "ogg": {
           "path": "sounds/rubber/refund.ogg",
-          "bytes": 5838
+          "bytes": 5628
         }
       }
     },
@@ -14920,7 +14927,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/hover.ogg",
-          "bytes": 2927
+          "bytes": 2821
         }
       }
     },
@@ -14940,7 +14947,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/press.ogg",
-          "bytes": 2380
+          "bytes": 2298
         }
       }
     },
@@ -14960,7 +14967,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/release.ogg",
-          "bytes": 2333
+          "bytes": 2243
         }
       }
     },
@@ -14980,7 +14987,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/double-click.ogg",
-          "bytes": 4833
+          "bytes": 4615
         }
       }
     },
@@ -15000,7 +15007,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/focus.ogg",
-          "bytes": 3282
+          "bytes": 3151
         }
       }
     },
@@ -15020,7 +15027,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/long-press.ogg",
-          "bytes": 4492
+          "bytes": 4316
         }
       }
     },
@@ -15040,7 +15047,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/select.ogg",
-          "bytes": 4873
+          "bytes": 4796
         }
       }
     },
@@ -15060,7 +15067,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/deselect.ogg",
-          "bytes": 4257
+          "bytes": 4086
         }
       }
     },
@@ -15080,7 +15087,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/toggle-on.ogg",
-          "bytes": 5042
+          "bytes": 4800
         }
       }
     },
@@ -15100,7 +15107,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/toggle-off.ogg",
-          "bytes": 4661
+          "bytes": 4430
         }
       }
     },
@@ -15120,7 +15127,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/check.ogg",
-          "bytes": 4968
+          "bytes": 4639
         }
       }
     },
@@ -15140,7 +15147,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/uncheck.ogg",
-          "bytes": 4609
+          "bytes": 4425
         }
       }
     },
@@ -15160,7 +15167,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/delete.ogg",
-          "bytes": 4219
+          "bytes": 4088
         }
       }
     },
@@ -15180,7 +15187,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/cancel.ogg",
-          "bytes": 3360
+          "bytes": 3224
         }
       }
     },
@@ -15200,7 +15207,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/undo.ogg",
-          "bytes": 7802
+          "bytes": 7484
         }
       }
     },
@@ -15220,7 +15227,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/redo.ogg",
-          "bytes": 8320
+          "bytes": 7848
         }
       }
     },
@@ -15240,7 +15247,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/copy.ogg",
-          "bytes": 6692
+          "bytes": 6323
         }
       }
     },
@@ -15260,7 +15267,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/paste.ogg",
-          "bytes": 5465
+          "bytes": 5251
         }
       }
     },
@@ -15280,7 +15287,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/open.ogg",
-          "bytes": 3905
+          "bytes": 3774
         }
       }
     },
@@ -15300,7 +15307,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/close.ogg",
-          "bytes": 3627
+          "bytes": 3482
         }
       }
     },
@@ -15320,7 +15327,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/back.ogg",
-          "bytes": 3590
+          "bytes": 3420
         }
       }
     },
@@ -15340,7 +15347,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/forward.ogg",
-          "bytes": 4808
+          "bytes": 4558
         }
       }
     },
@@ -15360,7 +15367,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/expand.ogg",
-          "bytes": 7314
+          "bytes": 6877
         }
       }
     },
@@ -15380,7 +15387,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/collapse.ogg",
-          "bytes": 7216
+          "bytes": 6672
         }
       }
     },
@@ -15400,7 +15407,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/drag-start.ogg",
-          "bytes": 2874
+          "bytes": 2819
         }
       }
     },
@@ -15420,7 +15427,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/drop.ogg",
-          "bytes": 2971
+          "bytes": 2992
         }
       }
     },
@@ -15440,7 +15447,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/snap.ogg",
-          "bytes": 4282
+          "bytes": 4024
         }
       }
     },
@@ -15460,7 +15467,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/swipe.ogg",
-          "bytes": 4643
+          "bytes": 4375
         }
       }
     },
@@ -15480,7 +15487,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/reorder.ogg",
-          "bytes": 4206
+          "bytes": 4033
         }
       }
     },
@@ -15500,7 +15507,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/invalid-drop.ogg",
-          "bytes": 4098
+          "bytes": 3939
         }
       }
     },
@@ -15520,7 +15527,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/send.ogg",
-          "bytes": 5526
+          "bytes": 5274
         }
       }
     },
@@ -15540,7 +15547,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/receive.ogg",
-          "bytes": 6279
+          "bytes": 6127
         }
       }
     },
@@ -15560,7 +15567,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/notification.ogg",
-          "bytes": 6914
+          "bytes": 6583
         }
       }
     },
@@ -15580,7 +15587,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/mention.ogg",
-          "bytes": 8917
+          "bytes": 8324
         }
       }
     },
@@ -15600,7 +15607,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/typing.ogg",
-          "bytes": 5098
+          "bytes": 4901
         }
       }
     },
@@ -15620,7 +15627,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/reaction.ogg",
-          "bytes": 6815
+          "bytes": 6344
         }
       }
     },
@@ -15640,7 +15647,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/success.ogg",
-          "bytes": 7942
+          "bytes": 7616
         }
       }
     },
@@ -15660,7 +15667,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/error.ogg",
-          "bytes": 5424
+          "bytes": 5207
         }
       }
     },
@@ -15680,7 +15687,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/warning.ogg",
-          "bytes": 7342
+          "bytes": 7068
         }
       }
     },
@@ -15700,7 +15707,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/info.ogg",
-          "bytes": 6273
+          "bytes": 5989
         }
       }
     },
@@ -15720,7 +15727,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/blocked.ogg",
-          "bytes": 3684
+          "bytes": 3590
         }
       }
     },
@@ -15740,7 +15747,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/retry.ogg",
-          "bytes": 4294
+          "bytes": 4125
         }
       }
     },
@@ -15760,7 +15767,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/start.ogg",
-          "bytes": 4713
+          "bytes": 4479
         }
       }
     },
@@ -15780,7 +15787,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/stop.ogg",
-          "bytes": 3995
+          "bytes": 3818
         }
       }
     },
@@ -15800,7 +15807,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/progress-step.ogg",
-          "bytes": 3835
+          "bytes": 3684
         }
       }
     },
@@ -15820,7 +15827,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/complete.ogg",
-          "bytes": 9194
+          "bytes": 8799
         }
       }
     },
@@ -15840,7 +15847,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/queued.ogg",
-          "bytes": 3827
+          "bytes": 3684
         }
       }
     },
@@ -15860,7 +15867,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/checkpoint.ogg",
-          "bytes": 7303
+          "bytes": 6957
         }
       }
     },
@@ -15880,7 +15887,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/loading.ogg",
-          "bytes": 6404
+          "bytes": 6156
         }
       }
     },
@@ -15900,7 +15907,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/processing.ogg",
-          "bytes": 7475
+          "bytes": 7143
         }
       }
     },
@@ -15920,7 +15927,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/recording.ogg",
-          "bytes": 3656
+          "bytes": 3519
         }
       }
     },
@@ -15940,7 +15947,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/connecting.ogg",
-          "bytes": 9013
+          "bytes": 8373
         }
       }
     },
@@ -15960,7 +15967,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/scanning.ogg",
-          "bytes": 5663
+          "bytes": 5300
         }
       }
     },
@@ -15980,7 +15987,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/streaming.ogg",
-          "bytes": 8075
+          "bytes": 7633
         }
       }
     },
@@ -16000,7 +16007,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/play.ogg",
-          "bytes": 5673
+          "bytes": 5414
         }
       }
     },
@@ -16020,7 +16027,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/pause.ogg",
-          "bytes": 5036
+          "bytes": 4823
         }
       }
     },
@@ -16040,7 +16047,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/seek.ogg",
-          "bytes": 4365
+          "bytes": 4174
         }
       }
     },
@@ -16060,7 +16067,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/volume-change.ogg",
-          "bytes": 4509
+          "bytes": 4329
         }
       }
     },
@@ -16080,7 +16087,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/skip-next.ogg",
-          "bytes": 7327
+          "bytes": 6598
         }
       }
     },
@@ -16100,7 +16107,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/skip-previous.ogg",
-          "bytes": 6559
+          "bytes": 6124
         }
       }
     },
@@ -16120,7 +16127,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/connect.ogg",
-          "bytes": 7656
+          "bytes": 7290
         }
       }
     },
@@ -16140,7 +16147,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/disconnect.ogg",
-          "bytes": 5678
+          "bytes": 5462
         }
       }
     },
@@ -16160,7 +16167,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/lock.ogg",
-          "bytes": 4364
+          "bytes": 3116
         }
       }
     },
@@ -16180,7 +16187,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/unlock.ogg",
-          "bytes": 6347
+          "bytes": 6053
         }
       }
     },
@@ -16200,7 +16207,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/wake.ogg",
-          "bytes": 4302
+          "bytes": 4131
         }
       }
     },
@@ -16220,7 +16227,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/sleep.ogg",
-          "bytes": 4101
+          "bytes": 3941
         }
       }
     },
@@ -16240,7 +16247,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/reward.ogg",
-          "bytes": 8863
+          "bytes": 8348
         }
       }
     },
@@ -16260,7 +16267,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/level-up.ogg",
-          "bytes": 10669
+          "bytes": 10190
         }
       }
     },
@@ -16280,7 +16287,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/achievement.ogg",
-          "bytes": 13669
+          "bytes": 12963
         }
       }
     },
@@ -16300,7 +16307,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/streak.ogg",
-          "bytes": 9518
+          "bytes": 9066
         }
       }
     },
@@ -16320,7 +16327,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/badge.ogg",
-          "bytes": 10558
+          "bytes": 9968
         }
       }
     },
@@ -16340,7 +16347,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/bonus.ogg",
-          "bytes": 11154
+          "bytes": 10584
         }
       }
     },
@@ -16360,7 +16367,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/add-to-cart.ogg",
-          "bytes": 7119
+          "bytes": 6818
         }
       }
     },
@@ -16380,7 +16387,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/remove-from-cart.ogg",
-          "bytes": 6534
+          "bytes": 6223
         }
       }
     },
@@ -16400,7 +16407,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/checkout.ogg",
-          "bytes": 8083
+          "bytes": 7672
         }
       }
     },
@@ -16420,7 +16427,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/purchase.ogg",
-          "bytes": 6930
+          "bytes": 6680
         }
       }
     },
@@ -16440,7 +16447,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/coupon.ogg",
-          "bytes": 7657
+          "bytes": 7118
         }
       }
     },
@@ -16460,7 +16467,7 @@
         },
         "ogg": {
           "path": "sounds/cinematic/refund.ogg",
-          "bytes": 10175
+          "bytes": 9602
         }
       }
     },
@@ -16480,7 +16487,7 @@
         },
         "ogg": {
           "path": "sounds/studio/hover.ogg",
-          "bytes": 1030
+          "bytes": 991
         }
       }
     },
@@ -16500,7 +16507,7 @@
         },
         "ogg": {
           "path": "sounds/studio/press.ogg",
-          "bytes": 1871
+          "bytes": 1798
         }
       }
     },
@@ -16520,7 +16527,7 @@
         },
         "ogg": {
           "path": "sounds/studio/release.ogg",
-          "bytes": 1814
+          "bytes": 1747
         }
       }
     },
@@ -16540,7 +16547,7 @@
         },
         "ogg": {
           "path": "sounds/studio/double-click.ogg",
-          "bytes": 2891
+          "bytes": 1463
         }
       }
     },
@@ -16560,7 +16567,7 @@
         },
         "ogg": {
           "path": "sounds/studio/focus.ogg",
-          "bytes": 2322
+          "bytes": 2223
         }
       }
     },
@@ -16580,7 +16587,7 @@
         },
         "ogg": {
           "path": "sounds/studio/long-press.ogg",
-          "bytes": 2946
+          "bytes": 2808
         }
       }
     },
@@ -16600,7 +16607,7 @@
         },
         "ogg": {
           "path": "sounds/studio/select.ogg",
-          "bytes": 3034
+          "bytes": 2940
         }
       }
     },
@@ -16620,7 +16627,7 @@
         },
         "ogg": {
           "path": "sounds/studio/deselect.ogg",
-          "bytes": 1467
+          "bytes": 1394
         }
       }
     },
@@ -16640,7 +16647,7 @@
         },
         "ogg": {
           "path": "sounds/studio/toggle-on.ogg",
-          "bytes": 3079
+          "bytes": 2956
         }
       }
     },
@@ -16660,7 +16667,7 @@
         },
         "ogg": {
           "path": "sounds/studio/toggle-off.ogg",
-          "bytes": 2795
+          "bytes": 2657
         }
       }
     },
@@ -16680,7 +16687,7 @@
         },
         "ogg": {
           "path": "sounds/studio/check.ogg",
-          "bytes": 2962
+          "bytes": 2806
         }
       }
     },
@@ -16700,7 +16707,7 @@
         },
         "ogg": {
           "path": "sounds/studio/uncheck.ogg",
-          "bytes": 1538
+          "bytes": 1481
         }
       }
     },
@@ -16720,7 +16727,7 @@
         },
         "ogg": {
           "path": "sounds/studio/delete.ogg",
-          "bytes": 2848
+          "bytes": 2731
         }
       }
     },
@@ -16740,7 +16747,7 @@
         },
         "ogg": {
           "path": "sounds/studio/cancel.ogg",
-          "bytes": 2534
+          "bytes": 2452
         }
       }
     },
@@ -16760,7 +16767,7 @@
         },
         "ogg": {
           "path": "sounds/studio/undo.ogg",
-          "bytes": 4894
+          "bytes": 4191
         }
       }
     },
@@ -16780,7 +16787,7 @@
         },
         "ogg": {
           "path": "sounds/studio/redo.ogg",
-          "bytes": 5135
+          "bytes": 4688
         }
       }
     },
@@ -16800,7 +16807,7 @@
         },
         "ogg": {
           "path": "sounds/studio/copy.ogg",
-          "bytes": 3221
+          "bytes": 3067
         }
       }
     },
@@ -16820,7 +16827,7 @@
         },
         "ogg": {
           "path": "sounds/studio/paste.ogg",
-          "bytes": 1911
+          "bytes": 1843
         }
       }
     },
@@ -16840,7 +16847,7 @@
         },
         "ogg": {
           "path": "sounds/studio/open.ogg",
-          "bytes": 2435
+          "bytes": 2465
         }
       }
     },
@@ -16860,7 +16867,7 @@
         },
         "ogg": {
           "path": "sounds/studio/close.ogg",
-          "bytes": 2585
+          "bytes": 2500
         }
       }
     },
@@ -16880,7 +16887,7 @@
         },
         "ogg": {
           "path": "sounds/studio/back.ogg",
-          "bytes": 2432
+          "bytes": 2142
         }
       }
     },
@@ -16900,7 +16907,7 @@
         },
         "ogg": {
           "path": "sounds/studio/forward.ogg",
-          "bytes": 3419
+          "bytes": 3239
         }
       }
     },
@@ -16920,7 +16927,7 @@
         },
         "ogg": {
           "path": "sounds/studio/expand.ogg",
-          "bytes": 4494
+          "bytes": 4037
         }
       }
     },
@@ -16940,7 +16947,7 @@
         },
         "ogg": {
           "path": "sounds/studio/collapse.ogg",
-          "bytes": 4717
+          "bytes": 4434
         }
       }
     },
@@ -16960,7 +16967,7 @@
         },
         "ogg": {
           "path": "sounds/studio/drag-start.ogg",
-          "bytes": 1978
+          "bytes": 1891
         }
       }
     },
@@ -16980,7 +16987,7 @@
         },
         "ogg": {
           "path": "sounds/studio/drop.ogg",
-          "bytes": 2671
+          "bytes": 2563
         }
       }
     },
@@ -17000,7 +17007,7 @@
         },
         "ogg": {
           "path": "sounds/studio/snap.ogg",
-          "bytes": 2476
+          "bytes": 2374
         }
       }
     },
@@ -17020,7 +17027,7 @@
         },
         "ogg": {
           "path": "sounds/studio/swipe.ogg",
-          "bytes": 2503
+          "bytes": 2355
         }
       }
     },
@@ -17040,7 +17047,7 @@
         },
         "ogg": {
           "path": "sounds/studio/reorder.ogg",
-          "bytes": 3225
+          "bytes": 3152
         }
       }
     },
@@ -17060,7 +17067,7 @@
         },
         "ogg": {
           "path": "sounds/studio/invalid-drop.ogg",
-          "bytes": 3369
+          "bytes": 3243
         }
       }
     },
@@ -17080,7 +17087,7 @@
         },
         "ogg": {
           "path": "sounds/studio/send.ogg",
-          "bytes": 3725
+          "bytes": 3466
         }
       }
     },
@@ -17100,7 +17107,7 @@
         },
         "ogg": {
           "path": "sounds/studio/receive.ogg",
-          "bytes": 4830
+          "bytes": 4582
         }
       }
     },
@@ -17120,7 +17127,7 @@
         },
         "ogg": {
           "path": "sounds/studio/notification.ogg",
-          "bytes": 2800
+          "bytes": 2554
         }
       }
     },
@@ -17140,7 +17147,7 @@
         },
         "ogg": {
           "path": "sounds/studio/mention.ogg",
-          "bytes": 3562
+          "bytes": 3317
         }
       }
     },
@@ -17160,7 +17167,7 @@
         },
         "ogg": {
           "path": "sounds/studio/typing.ogg",
-          "bytes": 1884
+          "bytes": 1816
         }
       }
     },
@@ -17180,7 +17187,7 @@
         },
         "ogg": {
           "path": "sounds/studio/reaction.ogg",
-          "bytes": 2094
+          "bytes": 2032
         }
       }
     },
@@ -17200,7 +17207,7 @@
         },
         "ogg": {
           "path": "sounds/studio/success.ogg",
-          "bytes": 5145
+          "bytes": 4928
         }
       }
     },
@@ -17220,7 +17227,7 @@
         },
         "ogg": {
           "path": "sounds/studio/error.ogg",
-          "bytes": 3355
+          "bytes": 3230
         }
       }
     },
@@ -17240,7 +17247,7 @@
         },
         "ogg": {
           "path": "sounds/studio/warning.ogg",
-          "bytes": 4560
+          "bytes": 4392
         }
       }
     },
@@ -17260,7 +17267,7 @@
         },
         "ogg": {
           "path": "sounds/studio/info.ogg",
-          "bytes": 3341
+          "bytes": 3175
         }
       }
     },
@@ -17280,7 +17287,7 @@
         },
         "ogg": {
           "path": "sounds/studio/blocked.ogg",
-          "bytes": 2735
+          "bytes": 2618
         }
       }
     },
@@ -17300,7 +17307,7 @@
         },
         "ogg": {
           "path": "sounds/studio/retry.ogg",
-          "bytes": 3151
+          "bytes": 3049
         }
       }
     },
@@ -17320,7 +17327,7 @@
         },
         "ogg": {
           "path": "sounds/studio/start.ogg",
-          "bytes": 3949
+          "bytes": 3827
         }
       }
     },
@@ -17340,7 +17347,7 @@
         },
         "ogg": {
           "path": "sounds/studio/stop.ogg",
-          "bytes": 3519
+          "bytes": 3398
         }
       }
     },
@@ -17360,7 +17367,7 @@
         },
         "ogg": {
           "path": "sounds/studio/progress-step.ogg",
-          "bytes": 1466
+          "bytes": 1415
         }
       }
     },
@@ -17380,7 +17387,7 @@
         },
         "ogg": {
           "path": "sounds/studio/complete.ogg",
-          "bytes": 5957
+          "bytes": 5921
         }
       }
     },
@@ -17400,7 +17407,7 @@
         },
         "ogg": {
           "path": "sounds/studio/queued.ogg",
-          "bytes": 2850
+          "bytes": 2777
         }
       }
     },
@@ -17420,7 +17427,7 @@
         },
         "ogg": {
           "path": "sounds/studio/checkpoint.ogg",
-          "bytes": 4001
+          "bytes": 3808
         }
       }
     },
@@ -17440,7 +17447,7 @@
         },
         "ogg": {
           "path": "sounds/studio/loading.ogg",
-          "bytes": 8862
+          "bytes": 8585
         }
       }
     },
@@ -17460,7 +17467,7 @@
         },
         "ogg": {
           "path": "sounds/studio/processing.ogg",
-          "bytes": 7169
+          "bytes": 6935
         }
       }
     },
@@ -17480,7 +17487,7 @@
         },
         "ogg": {
           "path": "sounds/studio/recording.ogg",
-          "bytes": 3706
+          "bytes": 3570
         }
       }
     },
@@ -17500,7 +17507,7 @@
         },
         "ogg": {
           "path": "sounds/studio/connecting.ogg",
-          "bytes": 10636
+          "bytes": 8822
         }
       }
     },
@@ -17520,7 +17527,7 @@
         },
         "ogg": {
           "path": "sounds/studio/scanning.ogg",
-          "bytes": 5185
+          "bytes": 4865
         }
       }
     },
@@ -17540,7 +17547,7 @@
         },
         "ogg": {
           "path": "sounds/studio/streaming.ogg",
-          "bytes": 9882
+          "bytes": 8515
         }
       }
     },
@@ -17560,7 +17567,7 @@
         },
         "ogg": {
           "path": "sounds/studio/play.ogg",
-          "bytes": 3410
+          "bytes": 3196
         }
       }
     },
@@ -17580,7 +17587,7 @@
         },
         "ogg": {
           "path": "sounds/studio/pause.ogg",
-          "bytes": 3053
+          "bytes": 2880
         }
       }
     },
@@ -17600,7 +17607,7 @@
         },
         "ogg": {
           "path": "sounds/studio/seek.ogg",
-          "bytes": 3143
+          "bytes": 2973
         }
       }
     },
@@ -17620,7 +17627,7 @@
         },
         "ogg": {
           "path": "sounds/studio/volume-change.ogg",
-          "bytes": 1581
+          "bytes": 1510
         }
       }
     },
@@ -17640,7 +17647,7 @@
         },
         "ogg": {
           "path": "sounds/studio/skip-next.ogg",
-          "bytes": 4232
+          "bytes": 3591
         }
       }
     },
@@ -17660,7 +17667,7 @@
         },
         "ogg": {
           "path": "sounds/studio/skip-previous.ogg",
-          "bytes": 4009
+          "bytes": 3535
         }
       }
     },
@@ -17680,7 +17687,7 @@
         },
         "ogg": {
           "path": "sounds/studio/connect.ogg",
-          "bytes": 4516
+          "bytes": 4468
         }
       }
     },
@@ -17700,7 +17707,7 @@
         },
         "ogg": {
           "path": "sounds/studio/disconnect.ogg",
-          "bytes": 3065
+          "bytes": 2903
         }
       }
     },
@@ -17720,7 +17727,7 @@
         },
         "ogg": {
           "path": "sounds/studio/lock.ogg",
-          "bytes": 3242
+          "bytes": 3149
         }
       }
     },
@@ -17740,7 +17747,7 @@
         },
         "ogg": {
           "path": "sounds/studio/unlock.ogg",
-          "bytes": 3966
+          "bytes": 3724
         }
       }
     },
@@ -17760,7 +17767,7 @@
         },
         "ogg": {
           "path": "sounds/studio/wake.ogg",
-          "bytes": 2905
+          "bytes": 2807
         }
       }
     },
@@ -17780,7 +17787,7 @@
         },
         "ogg": {
           "path": "sounds/studio/sleep.ogg",
-          "bytes": 2553
+          "bytes": 2470
         }
       }
     },
@@ -17800,7 +17807,7 @@
         },
         "ogg": {
           "path": "sounds/studio/reward.ogg",
-          "bytes": 3063
+          "bytes": 2910
         }
       }
     },
@@ -17820,7 +17827,7 @@
         },
         "ogg": {
           "path": "sounds/studio/level-up.ogg",
-          "bytes": 6531
+          "bytes": 6225
         }
       }
     },
@@ -17840,7 +17847,7 @@
         },
         "ogg": {
           "path": "sounds/studio/achievement.ogg",
-          "bytes": 8360
+          "bytes": 8086
         }
       }
     },
@@ -17860,7 +17867,7 @@
         },
         "ogg": {
           "path": "sounds/studio/streak.ogg",
-          "bytes": 5919
+          "bytes": 5621
         }
       }
     },
@@ -17880,7 +17887,7 @@
         },
         "ogg": {
           "path": "sounds/studio/badge.ogg",
-          "bytes": 5844
+          "bytes": 5707
         }
       }
     },
@@ -17900,7 +17907,7 @@
         },
         "ogg": {
           "path": "sounds/studio/bonus.ogg",
-          "bytes": 6131
+          "bytes": 5865
         }
       }
     },
@@ -17920,7 +17927,7 @@
         },
         "ogg": {
           "path": "sounds/studio/add-to-cart.ogg",
-          "bytes": 4127
+          "bytes": 3855
         }
       }
     },
@@ -17940,7 +17947,7 @@
         },
         "ogg": {
           "path": "sounds/studio/remove-from-cart.ogg",
-          "bytes": 2217
+          "bytes": 2108
         }
       }
     },
@@ -17960,7 +17967,7 @@
         },
         "ogg": {
           "path": "sounds/studio/checkout.ogg",
-          "bytes": 4987
+          "bytes": 4874
         }
       }
     },
@@ -17980,7 +17987,7 @@
         },
         "ogg": {
           "path": "sounds/studio/purchase.ogg",
-          "bytes": 4688
+          "bytes": 4521
         }
       }
     },
@@ -18000,7 +18007,7 @@
         },
         "ogg": {
           "path": "sounds/studio/coupon.ogg",
-          "bytes": 3101
+          "bytes": 2966
         }
       }
     },
@@ -18020,7 +18027,1567 @@
         },
         "ogg": {
           "path": "sounds/studio/refund.ogg",
-          "bytes": 6547
+          "bytes": 5952
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "hover",
+      "category": "input",
+      "duration": 0.175,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.12,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/hover.mp3",
+          "bytes": 1923
+        },
+        "ogg": {
+          "path": "sounds/zen/hover.ogg",
+          "bytes": 1068
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "press",
+      "category": "input",
+      "duration": 0.216,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/press.mp3",
+          "bytes": 2341
+        },
+        "ogg": {
+          "path": "sounds/zen/press.ogg",
+          "bytes": 1261
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "release",
+      "category": "input",
+      "duration": 0.236,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/release.mp3",
+          "bytes": 2550
+        },
+        "ogg": {
+          "path": "sounds/zen/release.ogg",
+          "bytes": 1536
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "double-click",
+      "category": "input",
+      "duration": 0.298,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/double-click.mp3",
+          "bytes": 2968
+        },
+        "ogg": {
+          "path": "sounds/zen/double-click.ogg",
+          "bytes": 1707
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "focus",
+      "category": "input",
+      "duration": 0.287,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.12,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/focus.mp3",
+          "bytes": 2968
+        },
+        "ogg": {
+          "path": "sounds/zen/focus.ogg",
+          "bytes": 2121
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "long-press",
+      "category": "input",
+      "duration": 0.522,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/long-press.mp3",
+          "bytes": 4640
+        },
+        "ogg": {
+          "path": "sounds/zen/long-press.ogg",
+          "bytes": 3555
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "select",
+      "category": "selection",
+      "duration": 0.338,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/select.mp3",
+          "bytes": 3177
+        },
+        "ogg": {
+          "path": "sounds/zen/select.ogg",
+          "bytes": 1933
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "deselect",
+      "category": "selection",
+      "duration": 0.308,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/deselect.mp3",
+          "bytes": 2968
+        },
+        "ogg": {
+          "path": "sounds/zen/deselect.ogg",
+          "bytes": 2342
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "toggle-on",
+      "category": "selection",
+      "duration": 0.359,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/toggle-on.mp3",
+          "bytes": 3386
+        },
+        "ogg": {
+          "path": "sounds/zen/toggle-on.ogg",
+          "bytes": 2042
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "toggle-off",
+      "category": "selection",
+      "duration": 0.349,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/toggle-off.mp3",
+          "bytes": 3386
+        },
+        "ogg": {
+          "path": "sounds/zen/toggle-off.ogg",
+          "bytes": 2634
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "check",
+      "category": "selection",
+      "duration": 0.349,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/check.mp3",
+          "bytes": 3386
+        },
+        "ogg": {
+          "path": "sounds/zen/check.ogg",
+          "bytes": 1971
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "uncheck",
+      "category": "selection",
+      "duration": 0.328,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.15,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/uncheck.mp3",
+          "bytes": 3177
+        },
+        "ogg": {
+          "path": "sounds/zen/uncheck.ogg",
+          "bytes": 1780
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "delete",
+      "category": "editing",
+      "duration": 0.542,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.22,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/delete.mp3",
+          "bytes": 4849
+        },
+        "ogg": {
+          "path": "sounds/zen/delete.ogg",
+          "bytes": 2881
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "cancel",
+      "category": "editing",
+      "duration": 0.4,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/cancel.mp3",
+          "bytes": 3804
+        },
+        "ogg": {
+          "path": "sounds/zen/cancel.ogg",
+          "bytes": 2236
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "undo",
+      "category": "editing",
+      "duration": 0.502,
+      "channels": 2,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/undo.mp3",
+          "bytes": 6940
+        },
+        "ogg": {
+          "path": "sounds/zen/undo.ogg",
+          "bytes": 3956
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "redo",
+      "category": "editing",
+      "duration": 0.502,
+      "channels": 2,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/redo.mp3",
+          "bytes": 6940
+        },
+        "ogg": {
+          "path": "sounds/zen/redo.ogg",
+          "bytes": 4027
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "copy",
+      "category": "editing",
+      "duration": 0.359,
+      "channels": 2,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.15,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/copy.mp3",
+          "bytes": 5059
+        },
+        "ogg": {
+          "path": "sounds/zen/copy.ogg",
+          "bytes": 2922
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "paste",
+      "category": "editing",
+      "duration": 0.42,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/paste.mp3",
+          "bytes": 4013
+        },
+        "ogg": {
+          "path": "sounds/zen/paste.ogg",
+          "bytes": 2393
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "open",
+      "category": "navigation",
+      "duration": 0.43,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/open.mp3",
+          "bytes": 4013
+        },
+        "ogg": {
+          "path": "sounds/zen/open.ogg",
+          "bytes": 2392
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "close",
+      "category": "navigation",
+      "duration": 0.4,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/close.mp3",
+          "bytes": 3804
+        },
+        "ogg": {
+          "path": "sounds/zen/close.ogg",
+          "bytes": 2243
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "back",
+      "category": "navigation",
+      "duration": 0.359,
+      "channels": 2,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/back.mp3",
+          "bytes": 5059
+        },
+        "ogg": {
+          "path": "sounds/zen/back.ogg",
+          "bytes": 3144
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "forward",
+      "category": "navigation",
+      "duration": 0.369,
+      "channels": 2,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/forward.mp3",
+          "bytes": 5373
+        },
+        "ogg": {
+          "path": "sounds/zen/forward.ogg",
+          "bytes": 2974
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "expand",
+      "category": "navigation",
+      "duration": 0.43,
+      "channels": 2,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.16,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/expand.mp3",
+          "bytes": 5999
+        },
+        "ogg": {
+          "path": "sounds/zen/expand.ogg",
+          "bytes": 3419
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "collapse",
+      "category": "navigation",
+      "duration": 0.41,
+      "channels": 2,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.15,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/collapse.mp3",
+          "bytes": 5686
+        },
+        "ogg": {
+          "path": "sounds/zen/collapse.ogg",
+          "bytes": 3323
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "drag-start",
+      "category": "movement",
+      "duration": 0.338,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/drag-start.mp3",
+          "bytes": 3177
+        },
+        "ogg": {
+          "path": "sounds/zen/drag-start.ogg",
+          "bytes": 1855
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "drop",
+      "category": "movement",
+      "duration": 0.359,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.22,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/drop.mp3",
+          "bytes": 3386
+        },
+        "ogg": {
+          "path": "sounds/zen/drop.ogg",
+          "bytes": 2010
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "snap",
+      "category": "movement",
+      "duration": 0.216,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/snap.mp3",
+          "bytes": 2341
+        },
+        "ogg": {
+          "path": "sounds/zen/snap.ogg",
+          "bytes": 1380
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "swipe",
+      "category": "movement",
+      "duration": 0.44,
+      "channels": 2,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.14,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/swipe.mp3",
+          "bytes": 5999
+        },
+        "ogg": {
+          "path": "sounds/zen/swipe.ogg",
+          "bytes": 3964
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "reorder",
+      "category": "movement",
+      "duration": 0.4,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/reorder.mp3",
+          "bytes": 3804
+        },
+        "ogg": {
+          "path": "sounds/zen/reorder.ogg",
+          "bytes": 2301
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "invalid-drop",
+      "category": "movement",
+      "duration": 0.461,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.19,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/invalid-drop.mp3",
+          "bytes": 4222
+        },
+        "ogg": {
+          "path": "sounds/zen/invalid-drop.ogg",
+          "bytes": 2600
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "send",
+      "category": "communication",
+      "duration": 0.481,
+      "channels": 2,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/send.mp3",
+          "bytes": 6626
+        },
+        "ogg": {
+          "path": "sounds/zen/send.ogg",
+          "bytes": 4581
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "receive",
+      "category": "communication",
+      "duration": 0.532,
+      "channels": 2,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/receive.mp3",
+          "bytes": 7253
+        },
+        "ogg": {
+          "path": "sounds/zen/receive.ogg",
+          "bytes": 4606
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "notification",
+      "category": "communication",
+      "duration": 0.644,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/notification.mp3",
+          "bytes": 5685
+        },
+        "ogg": {
+          "path": "sounds/zen/notification.ogg",
+          "bytes": 4269
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "mention",
+      "category": "communication",
+      "duration": 0.706,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.22,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/mention.mp3",
+          "bytes": 6312
+        },
+        "ogg": {
+          "path": "sounds/zen/mention.ogg",
+          "bytes": 5660
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "typing",
+      "category": "communication",
+      "duration": 0.379,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.1,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/typing.mp3",
+          "bytes": 3595
+        },
+        "ogg": {
+          "path": "sounds/zen/typing.ogg",
+          "bytes": 3051
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "reaction",
+      "category": "communication",
+      "duration": 0.461,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/reaction.mp3",
+          "bytes": 4222
+        },
+        "ogg": {
+          "path": "sounds/zen/reaction.ogg",
+          "bytes": 3148
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "success",
+      "category": "feedback",
+      "duration": 0.787,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.23,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/success.mp3",
+          "bytes": 6939
+        },
+        "ogg": {
+          "path": "sounds/zen/success.ogg",
+          "bytes": 5208
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "error",
+      "category": "feedback",
+      "duration": 0.685,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.22,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/error.mp3",
+          "bytes": 6103
+        },
+        "ogg": {
+          "path": "sounds/zen/error.ogg",
+          "bytes": 4473
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "warning",
+      "category": "feedback",
+      "duration": 0.746,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.22,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/warning.mp3",
+          "bytes": 6521
+        },
+        "ogg": {
+          "path": "sounds/zen/warning.ogg",
+          "bytes": 4616
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "info",
+      "category": "feedback",
+      "duration": 0.522,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.16,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/info.mp3",
+          "bytes": 4640
+        },
+        "ogg": {
+          "path": "sounds/zen/info.ogg",
+          "bytes": 3891
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "blocked",
+      "category": "feedback",
+      "duration": 0.491,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/blocked.mp3",
+          "bytes": 4431
+        },
+        "ogg": {
+          "path": "sounds/zen/blocked.ogg",
+          "bytes": 3786
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "retry",
+      "category": "feedback",
+      "duration": 0.481,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/retry.mp3",
+          "bytes": 4431
+        },
+        "ogg": {
+          "path": "sounds/zen/retry.ogg",
+          "bytes": 3733
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "start",
+      "category": "progress",
+      "duration": 0.522,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.19,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/start.mp3",
+          "bytes": 4640
+        },
+        "ogg": {
+          "path": "sounds/zen/start.ogg",
+          "bytes": 3587
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "stop",
+      "category": "progress",
+      "duration": 0.461,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.19,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/stop.mp3",
+          "bytes": 4222
+        },
+        "ogg": {
+          "path": "sounds/zen/stop.ogg",
+          "bytes": 2821
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "progress-step",
+      "category": "progress",
+      "duration": 0.287,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.12,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/progress-step.mp3",
+          "bytes": 2968
+        },
+        "ogg": {
+          "path": "sounds/zen/progress-step.ogg",
+          "bytes": 1593
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "complete",
+      "category": "progress",
+      "duration": 0.869,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.24,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/complete.mp3",
+          "bytes": 7566
+        },
+        "ogg": {
+          "path": "sounds/zen/complete.ogg",
+          "bytes": 6449
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "queued",
+      "category": "progress",
+      "duration": 0.42,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.14,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/queued.mp3",
+          "bytes": 4013
+        },
+        "ogg": {
+          "path": "sounds/zen/queued.ogg",
+          "bytes": 2301
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "checkpoint",
+      "category": "progress",
+      "duration": 0.563,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/checkpoint.mp3",
+          "bytes": 5058
+        },
+        "ogg": {
+          "path": "sounds/zen/checkpoint.ogg",
+          "bytes": 4446
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "loading",
+      "category": "loops",
+      "duration": 1.2,
+      "channels": 1,
+      "loop": true,
+      "playback": "loop",
+      "defaultVolume": 0.1,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/loading.mp3",
+          "bytes": 10074
+        },
+        "ogg": {
+          "path": "sounds/zen/loading.ogg",
+          "bytes": 7933
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "processing",
+      "category": "loops",
+      "duration": 1.6,
+      "channels": 1,
+      "loop": true,
+      "playback": "loop",
+      "defaultVolume": 0.08,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/processing.mp3",
+          "bytes": 13417
+        },
+        "ogg": {
+          "path": "sounds/zen/processing.ogg",
+          "bytes": 9924
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "recording",
+      "category": "loops",
+      "duration": 1,
+      "channels": 1,
+      "loop": true,
+      "playback": "loop",
+      "defaultVolume": 0.09,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/recording.mp3",
+          "bytes": 8611
+        },
+        "ogg": {
+          "path": "sounds/zen/recording.ogg",
+          "bytes": 6052
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "connecting",
+      "category": "loops",
+      "duration": 1.5,
+      "channels": 2,
+      "loop": true,
+      "playback": "loop",
+      "defaultVolume": 0.09,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/connecting.mp3",
+          "bytes": 18852
+        },
+        "ogg": {
+          "path": "sounds/zen/connecting.ogg",
+          "bytes": 14992
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "scanning",
+      "category": "loops",
+      "duration": 1.4,
+      "channels": 2,
+      "loop": true,
+      "playback": "loop",
+      "defaultVolume": 0.075,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/scanning.mp3",
+          "bytes": 17598
+        },
+        "ogg": {
+          "path": "sounds/zen/scanning.ogg",
+          "bytes": 7861
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "streaming",
+      "category": "loops",
+      "duration": 1.2,
+      "channels": 2,
+      "loop": true,
+      "playback": "loop",
+      "defaultVolume": 0.07,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/streaming.mp3",
+          "bytes": 15090
+        },
+        "ogg": {
+          "path": "sounds/zen/streaming.ogg",
+          "bytes": 10192
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "play",
+      "category": "media",
+      "duration": 0.4,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/play.mp3",
+          "bytes": 3804
+        },
+        "ogg": {
+          "path": "sounds/zen/play.ogg",
+          "bytes": 2307
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "pause",
+      "category": "media",
+      "duration": 0.379,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/pause.mp3",
+          "bytes": 3595
+        },
+        "ogg": {
+          "path": "sounds/zen/pause.ogg",
+          "bytes": 2176
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "seek",
+      "category": "media",
+      "duration": 0.359,
+      "channels": 2,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.13,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/seek.mp3",
+          "bytes": 5059
+        },
+        "ogg": {
+          "path": "sounds/zen/seek.ogg",
+          "bytes": 3227
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "volume-change",
+      "category": "media",
+      "duration": 0.298,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.11,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/volume-change.mp3",
+          "bytes": 2968
+        },
+        "ogg": {
+          "path": "sounds/zen/volume-change.ogg",
+          "bytes": 1809
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "skip-next",
+      "category": "media",
+      "duration": 0.349,
+      "channels": 2,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.16,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/skip-next.mp3",
+          "bytes": 5059
+        },
+        "ogg": {
+          "path": "sounds/zen/skip-next.ogg",
+          "bytes": 3047
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "skip-previous",
+      "category": "media",
+      "duration": 0.349,
+      "channels": 2,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.16,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/skip-previous.mp3",
+          "bytes": 5059
+        },
+        "ogg": {
+          "path": "sounds/zen/skip-previous.ogg",
+          "bytes": 3108
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "connect",
+      "category": "system",
+      "duration": 0.685,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/connect.mp3",
+          "bytes": 6103
+        },
+        "ogg": {
+          "path": "sounds/zen/connect.ogg",
+          "bytes": 5653
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "disconnect",
+      "category": "system",
+      "duration": 0.644,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.19,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/disconnect.mp3",
+          "bytes": 5685
+        },
+        "ogg": {
+          "path": "sounds/zen/disconnect.ogg",
+          "bytes": 4833
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "lock",
+      "category": "system",
+      "duration": 0.4,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/lock.mp3",
+          "bytes": 3804
+        },
+        "ogg": {
+          "path": "sounds/zen/lock.ogg",
+          "bytes": 1952
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "unlock",
+      "category": "system",
+      "duration": 0.512,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/unlock.mp3",
+          "bytes": 4640
+        },
+        "ogg": {
+          "path": "sounds/zen/unlock.ogg",
+          "bytes": 3008
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "wake",
+      "category": "system",
+      "duration": 0.522,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/wake.mp3",
+          "bytes": 4640
+        },
+        "ogg": {
+          "path": "sounds/zen/wake.ogg",
+          "bytes": 3421
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "sleep",
+      "category": "system",
+      "duration": 0.542,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.15,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/sleep.mp3",
+          "bytes": 4849
+        },
+        "ogg": {
+          "path": "sounds/zen/sleep.ogg",
+          "bytes": 3217
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "reward",
+      "category": "reward",
+      "duration": 0.706,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.22,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/reward.mp3",
+          "bytes": 6312
+        },
+        "ogg": {
+          "path": "sounds/zen/reward.ogg",
+          "bytes": 5444
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "level-up",
+      "category": "reward",
+      "duration": 0.991,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.25,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/level-up.mp3",
+          "bytes": 8402
+        },
+        "ogg": {
+          "path": "sounds/zen/level-up.ogg",
+          "bytes": 6730
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "achievement",
+      "category": "reward",
+      "duration": 1.236,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.26,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/achievement.mp3",
+          "bytes": 10492
+        },
+        "ogg": {
+          "path": "sounds/zen/achievement.ogg",
+          "bytes": 9346
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "streak",
+      "category": "reward",
+      "duration": 0.787,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.21,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/streak.mp3",
+          "bytes": 6939
+        },
+        "ogg": {
+          "path": "sounds/zen/streak.ogg",
+          "bytes": 6083
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "badge",
+      "category": "reward",
+      "duration": 0.869,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.22,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/badge.mp3",
+          "bytes": 7566
+        },
+        "ogg": {
+          "path": "sounds/zen/badge.ogg",
+          "bytes": 6337
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "bonus",
+      "category": "reward",
+      "duration": 0.93,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.24,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/bonus.mp3",
+          "bytes": 7984
+        },
+        "ogg": {
+          "path": "sounds/zen/bonus.ogg",
+          "bytes": 7490
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "add-to-cart",
+      "category": "commerce",
+      "duration": 0.553,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.19,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/add-to-cart.mp3",
+          "bytes": 5058
+        },
+        "ogg": {
+          "path": "sounds/zen/add-to-cart.ogg",
+          "bytes": 3872
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "remove-from-cart",
+      "category": "commerce",
+      "duration": 0.512,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/remove-from-cart.mp3",
+          "bytes": 4640
+        },
+        "ogg": {
+          "path": "sounds/zen/remove-from-cart.ogg",
+          "bytes": 2523
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "checkout",
+      "category": "commerce",
+      "duration": 0.726,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/checkout.mp3",
+          "bytes": 6312
+        },
+        "ogg": {
+          "path": "sounds/zen/checkout.ogg",
+          "bytes": 5403
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "purchase",
+      "category": "commerce",
+      "duration": 0.828,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.22,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/purchase.mp3",
+          "bytes": 7148
+        },
+        "ogg": {
+          "path": "sounds/zen/purchase.ogg",
+          "bytes": 5336
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "coupon",
+      "category": "commerce",
+      "duration": 0.583,
+      "channels": 1,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/coupon.mp3",
+          "bytes": 5267
+        },
+        "ogg": {
+          "path": "sounds/zen/coupon.ogg",
+          "bytes": 4780
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "refund",
+      "category": "commerce",
+      "duration": 0.767,
+      "channels": 2,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/refund.mp3",
+          "bytes": 10075
+        },
+        "ogg": {
+          "path": "sounds/zen/refund.ogg",
+          "bytes": 5706
         }
       }
     }

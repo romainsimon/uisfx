@@ -15,13 +15,13 @@
 
 Open-source interface sound effects for every product state.
 
-UI SFX is a tiny semantic sound system for web apps, mobile apps, SaaS, education, media, and games. Call `success`, `drop`, or `level-up` once, then switch the whole product between eleven coherent sonic personalities without changing interaction code.
+UI SFX is a tiny semantic sound system for web apps, mobile apps, SaaS, education, media, and games. Call `success`, `drop`, or `level-up` once, then switch the whole product between twelve coherent sonic personalities without changing interaction code.
 
 [Preview every sound, cue, and sonic personality at uisfx.com →](https://uisfx.com)
 
 - 78 semantic cues across 13 interaction categories
 - 11 complete sound packs
-- 858 original sounds in both MP3 and Ogg
+- 936 original sounds in both MP3 and Ogg
 - 72 brief one-shots and 6 seamless state loops
 - 4.76 MB for every MP3 or 3.71 MB for every higher-fidelity Ogg
 - Dry event-bound textures, clean silent tails, and automated similarity checks
@@ -55,7 +55,7 @@ ui.setPack('arcade')
 
 UI SFX creates its `AudioContext` after the first interaction, synthesizes from the same recipes as the portable library, and caches rendered buffers. It fetches no audio files at runtime.
 
-## Eleven sonic personalities
+## Twelve sonic personalities
 
 | Pack | Character | Good fit |
 | --- | --- | --- |
@@ -70,6 +70,7 @@ UI SFX creates its `AudioContext` after the first interaction, synthesizes from 
 | `rubber` | Tactile elastic taps with a quick friendly rebound | Kids, playful mobile, casual games |
 | `cinematic` | Deep impacts and polished tails | Premium media and dramatic moments |
 | `studio` | Tactile editing precision with warm restraint | Film, audio, and AI creative tools |
+| `zen` | Paper folds, soft brush, warm wood, and quiet chimes | Calm tools, wellness, reading, and focus |
 
 Every pack implements every cue. The complete semantic contract lives in [the taxonomy](docs/taxonomy.md).
 
@@ -183,7 +184,7 @@ UI SFX stays free, open, and maintained thanks to its sponsors. [Sponsor UI SFX 
 
 ## Contributing
 
-Issues and focused pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before changing the taxonomy or synthesis recipes; a new cue must work in all eleven packs and keep a visible or haptic counterpart.
+Issues and focused pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before changing the taxonomy or synthesis recipes; a new cue must work in all twelve packs and keep a visible or haptic counterpart.
 
 ## License
 

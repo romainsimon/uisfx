@@ -130,7 +130,7 @@ async function main() {
     const channels = isSpatial ? '2' : '1'
     await Promise.all([
       run('ffmpeg', ['-y', '-v', 'error', '-i', wavPath, '-map_metadata', '-1', '-ac', channels, '-c:a', 'libmp3lame', '-b:a', isSpatial ? '96k' : '72k', '-ar', '44100', mp3Path]),
-      run('ffmpeg', ['-y', '-v', 'error', '-i', wavPath, '-map_metadata', '-1', '-fflags', '+bitexact', '-flags:a', '+bitexact', '-ac', channels, '-c:a', 'libopus', '-b:a', isSpatial ? '64k' : '48k', '-vbr', 'on', '-application', 'audio', oggPath]),
+      run('ffmpeg', ['-y', '-v', 'error', '-i', wavPath, '-map_metadata', '-1', '-fflags', '+bitexact', '-flags:a', '+bitexact', '-ac', channels, '-c:a', 'libopus', '-b:a', isSpatial ? '60k' : '46k', '-vbr', 'on', '-application', 'audio', oggPath]),
     ])
 
     renderedCount += 1
