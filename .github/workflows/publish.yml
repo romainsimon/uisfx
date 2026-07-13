@@ -57,6 +57,8 @@ jobs:
         if: always() && github.ref == 'refs/heads/release/npm'
         env:
           PACKAGE_VERSION: ${{ steps.package.outputs.version }}
+          REGISTRY_EXISTS: ${{ steps.registry.outputs.exists }}
+          PUBLISH_OUTCOME: ${{ steps.publish.outcome }}
           RELEASE_RESULT: ${{ steps.registry.outputs.exists == 'true' && 'already-published' || (steps.publish.outcome == 'success' && 'published' || 'failed') }}
         run: |
           node --input-type=module <<'NODE'
@@ -69,11 +71,20 @@ jobs:
             // No publish command ran when the version already existed.
           }
 
+          const failureCategory =
+            /ENEEDAUTH|need auth|not logged in/i.test(publishLog) ? 'authentication-required'
+              : /EOTP|one-time password|two-factor/i.test(publishLog) ? 'two-factor-required'
+                : /OIDC|trusted publish|provenance/i.test(publishLog) ? 'trusted-publishing'
+                  : publishLog ? 'publish-command-failed' : 'pre-publish-step-failed'
+
           const record = {
             package: 'uisfx',
             version: process.env.PACKAGE_VERSION,
             sourceSha: process.env.GITHUB_SHA,
             result: process.env.RELEASE_RESULT,
+            registryExists: process.env.REGISTRY_EXISTS || null,
+            publishOutcome: process.env.PUBLISH_OUTCOME || null,
+            failureCategory: process.env.RELEASE_RESULT === 'failed' ? failureCategory : null,
             failureCode: publishLog.match(/npm error code\\s+([A-Z0-9]+)/i)?.[1] ?? null,
             verifiedAt: new Date().toISOString(),
           }
