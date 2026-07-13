@@ -197,6 +197,8 @@ useHead({
 
 const selectedPack = ref<PackName>('minimal')
 const comparisonCue = ref<CueName>('success')
+const demoCue = ref<CueName>('success')
+const demoLoopCue = ref<CueName>('processing')
 const category = ref<CategoryFilter>('all')
 const playback = ref<PlaybackFilter>('all')
 const query = ref('')
@@ -227,6 +229,11 @@ let muteTransition = 0
 
 const selectedPackData = computed(() => PACKS.find((pack) => pack.name === selectedPack.value) ?? PACKS[0])
 const selectedPackTheme = computed(() => PACK_THEMES[selectedPack.value])
+const demoOneShotGroups = CATEGORIES.map((item) => ({
+  ...item,
+  cues: CUES.filter((cue) => cue.category === item.id && getPlaybackMode(cue.name) === 'one-shot'),
+})).filter((item) => item.cues.length > 0)
+const demoLoopCues = CUES.filter((cue) => getPlaybackMode(cue.name) === 'loop')
 const packTheme = (pack: PackName) => PACK_THEMES[pack]
 const filteredCues = computed(() => {
   const needle = query.value.trim().toLowerCase()
@@ -334,6 +341,26 @@ function choosePackFromSelect(event: Event) {
   const value = event.target instanceof HTMLSelectElement ? event.target.value : ''
   const pack = PACKS.find((item) => item.name === value)
   if (pack) choosePack(pack.name)
+}
+
+function cueFromSelect(event: Event, mode: PlaybackMode) {
+  const value = event.target instanceof HTMLSelectElement ? event.target.value : ''
+  const cue = CUES.find((item) => item.name === value)
+  return cue && getPlaybackMode(cue.name) === mode ? cue.name : undefined
+}
+
+function onDemoCueChange(event: Event) {
+  const cue = cueFromSelect(event, 'one-shot')
+  if (!cue) return
+  demoCue.value = cue
+  play('select')
+}
+
+function onDemoLoopChange(event: Event) {
+  const cue = cueFromSelect(event, 'loop')
+  if (!cue) return
+  demoLoopCue.value = cue
+  play('select')
 }
 
 function previewPack(pack: PackName) {
@@ -973,18 +1000,33 @@ onBeforeUnmount(() => {
             <strong>{{ copied ? 'Copied' : 'Copy' }}</strong>
           </button>
         </div>
-        <div class="code-sample" aria-label="TypeScript usage example">
-          <div class="code-sample__head"><span>app.ts</span><span>8 lines</span></div>
+        <div class="code-sample" role="group" aria-labelledby="code-sample-title">
+          <div class="code-sample__head">
+            <span id="code-sample-title">app.ts</span>
+            <span class="code-sample__live"><i aria-hidden="true" />live example</span>
+          </div>
           <pre><span class="code-keyword">import</span> { createUISFX } <span class="code-keyword">from</span> <span class="code-string">'uisfx'</span>
 
 <span class="code-keyword">const</span> ui = createUISFX({
-  pack: <span class="code-string">'{{ selectedPack }}'</span>
+  pack: <span class="code-string" aria-hidden="true">'</span><label class="code-choice" :style="{ '--choice-width': `${selectedPack.length + 2}ch` }"><span class="sr-only">Choose a sound feel</span><select :value="selectedPack" @change="choosePackFromSelect"><option v-for="pack in PACKS" :key="`demo-pack-${pack.name}`" :value="pack.name">{{ pack.name }}</option></select></label><span class="code-string" aria-hidden="true">'</span>
 })
 
-ui.play(<span class="code-string">'success'</span>)
-<span class="code-keyword">const</span> task = ui.play(<span class="code-string">'processing'</span>)
+ui.play(<span class="code-string" aria-hidden="true">'</span><label class="code-choice" :style="{ '--choice-width': `${demoCue.length + 2}ch` }"><span class="sr-only">Choose a one-shot sound</span><select :value="demoCue" @change="onDemoCueChange"><optgroup v-for="group in demoOneShotGroups" :key="`demo-group-${group.id}`" :label="group.label"><option v-for="cue in group.cues" :key="`demo-cue-${cue.name}`" :value="cue.name">{{ cue.name }}</option></optgroup></select></label><span class="code-string" aria-hidden="true">'</span>)
+<span class="code-keyword">const</span> task = ui.play(<span class="code-string" aria-hidden="true">'</span><label class="code-choice" :style="{ '--choice-width': `${demoLoopCue.length + 2}ch` }"><span class="sr-only">Choose a looping sound</span><select :value="demoLoopCue" @change="onDemoLoopChange"><option v-for="cue in demoLoopCues" :key="`demo-loop-${cue.name}`" :value="cue.name">{{ cue.name }}</option></select></label><span class="code-string" aria-hidden="true">'</span>)
 task?.stop()</pre>
-          <button type="button" data-sfx-managed @click="play('success')">Run <span aria-hidden="true">▶</span></button>
+          <div class="code-sample__actions">
+            <p><span aria-hidden="true">↳</span> Change the green values, then run them.</p>
+            <div>
+              <button type="button" data-sfx-managed @click="play(demoCue)">Play {{ demoCue }} <span aria-hidden="true">▶</span></button>
+              <button
+                type="button"
+                data-sfx-managed
+                :aria-label="playLabel(demoLoopCue, selectedPack)"
+                :aria-pressed="isLooping(demoLoopCue, selectedPack)"
+                @click="play(demoLoopCue)"
+              >{{ isLooping(demoLoopCue, selectedPack) ? 'Stop' : 'Loop' }} {{ demoLoopCue }} <span aria-hidden="true">{{ isLooping(demoLoopCue, selectedPack) ? '■' : '↻' }}</span></button>
+            </div>
+          </div>
         </div>
       </section>
     </main>

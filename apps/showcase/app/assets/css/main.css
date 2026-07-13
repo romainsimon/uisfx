@@ -2124,6 +2124,8 @@ select:focus-visible {
 }
 
 .code-sample {
+  min-width: 0;
+  max-width: 100%;
   display: grid;
   gap: var(--space-lg);
   padding: var(--space-lg);
@@ -2132,6 +2134,21 @@ select:focus-visible {
   color: var(--paper-light);
   box-shadow: 0.75rem 0.75rem 0 color-mix(in oklch, var(--accent-dark), transparent 24%);
   rotate: -1deg;
+}
+
+.code-sample__live {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: color-mix(in oklch, var(--paper-light), transparent 18%);
+}
+
+.code-sample__live i {
+  width: 0.45rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: oklch(0.8 0.12 142);
+  box-shadow: 0 0 0 0.2rem color-mix(in oklch, oklch(0.8 0.12 142), transparent 82%);
 }
 
 .code-sample pre {
@@ -2154,16 +2171,108 @@ select:focus-visible {
   color: oklch(0.8 0.12 142);
 }
 
-.code-sample > button {
-  justify-self: end;
+.code-choice {
+  --choice-width: 12ch;
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  color: oklch(0.8 0.12 142);
+  vertical-align: baseline;
+}
+
+.code-choice::after {
+  content: '⌄';
+  position: absolute;
+  inset: 50% 0.28em auto auto;
+  color: currentcolor;
+  font-family: var(--font-body);
+  font-size: 0.72em;
+  line-height: 1;
+  pointer-events: none;
+  transform: translateY(-54%);
+  transition: transform 180ms var(--ease-out-quart);
+}
+
+.code-choice:has(select:focus-visible)::after,
+.code-choice:hover::after {
+  transform: translateY(-42%);
+}
+
+.code-choice select {
+  width: var(--choice-width);
+  min-height: 1.75rem;
+  padding: 0.06em 1.05em 0.06em 0.22em;
+  border: 1px solid color-mix(in oklch, currentcolor, transparent 70%);
+  border-radius: 0.2em;
+  appearance: none;
+  background: color-mix(in oklch, currentcolor, transparent 92%);
+  color: inherit;
+  color-scheme: dark;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1.45;
+  transition: background-color 180ms var(--ease-out-quart), border-color 180ms var(--ease-out-quart), transform 180ms var(--ease-out-quart);
+}
+
+.code-choice select:hover {
+  border-color: currentcolor;
+  background: color-mix(in oklch, currentcolor, transparent 84%);
+  transform: translateY(-0.06em);
+}
+
+.code-choice select:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.code-sample__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.code-sample__actions p {
+  margin: 0;
+  color: color-mix(in oklch, var(--paper-light), transparent 40%);
+  font-size: 0.66rem;
+  line-height: 1.5;
+}
+
+.code-sample__actions p span {
+  color: oklch(0.8 0.12 142);
+}
+
+.code-sample__actions > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-xs);
+}
+
+.code-sample__actions button {
   min-height: 2.8rem;
-  padding-inline: var(--space-lg);
+  padding-inline: var(--space-md);
   border: 1px solid var(--paper-light);
   background: var(--paper-light);
   color: var(--ink);
   cursor: pointer;
   font-size: 0.75rem;
   font-weight: 700;
+  transition: background-color 180ms var(--ease-out-quart), color 180ms var(--ease-out-quart), transform 180ms var(--ease-out-quart);
+}
+
+.code-sample__actions button:hover {
+  background: var(--accent);
+  color: var(--paper-light);
+  transform: translateY(-0.12rem);
+}
+
+.code-sample__actions button[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--paper-light);
 }
 
 footer {
@@ -2565,6 +2674,20 @@ footer p {
   .code-sample {
     width: calc(100% - 0.75rem);
     padding: var(--space-md);
+  }
+
+  .code-sample__actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .code-sample__actions > div {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .code-sample__actions button {
+    width: 100%;
   }
 }
 
