@@ -15,6 +15,10 @@
   "bugs": {
     "url": "https://github.com/romainsimon/uisfx/issues"
   },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/romainsimon"
+  },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"

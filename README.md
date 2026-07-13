@@ -5,6 +5,7 @@
 <p align="center">
   <a href="https://uisfx.com"><img alt="UI SFX website" src="https://img.shields.io/badge/preview-uisfx.com-2355c4"></a>
   <a href="https://www.npmjs.com/package/uisfx"><img alt="npm" src="https://img.shields.io/npm/v/uisfx?color=ff5a1f"></a>
+  <a href="https://github.com/sponsors/romainsimon"><img alt="Sponsor UI SFX" src="https://img.shields.io/badge/sponsor-UI%20SFX-ea4aaa"></a>
   <a href="LICENSE"><img alt="MIT licensed code" src="https://img.shields.io/badge/code-MIT-1b1816"></a>
   <a href="LICENSE-AUDIO"><img alt="CC0 licensed audio" src="https://img.shields.io/badge/audio-CC0-2355c4"></a>
   <img alt="zero runtime dependencies" src="https://img.shields.io/badge/dependencies-0-1b1816">
@@ -153,6 +154,30 @@ lesson done        complete          arcade          complete.ogg
 ```
 
 The product event stays stable while the sound system evolves independently.
+
+## Sponsors
+
+UI SFX stays free, open, and maintained thanks to its sponsors. [Sponsor UI SFX on GitHub](https://github.com/sponsors/romainsimon).
+
+### Founding Sponsors
+
+<p align="center"><!-- sponsors-founding --><sub>Become the first <a href="https://github.com/sponsors/romainsimon">Founding Sponsor</a>.</sub><!-- sponsors-founding --></p>
+
+### Premier Sponsors
+
+<p align="center"><!-- sponsors-premier --><sub>Become the first <a href="https://github.com/sponsors/romainsimon">Premier Sponsor</a>.</sub><!-- sponsors-premier --></p>
+
+### Sponsors
+
+<p align="center"><!-- sponsors-sponsor --><sub>Become the first <a href="https://github.com/sponsors/romainsimon">Sponsor</a>.</sub><!-- sponsors-sponsor --></p>
+
+### Backers
+
+<p align="center"><!-- sponsors-backer --><sub>Become the first <a href="https://github.com/sponsors/romainsimon">Backer</a>.</sub><!-- sponsors-backer --></p>
+
+### Supporters
+
+<p align="center"><!-- sponsors-supporter --><sub>Become the first <a href="https://github.com/sponsors/romainsimon">Supporter</a>.</sub><!-- sponsors-supporter --></p>
 
 ## Contributing
 

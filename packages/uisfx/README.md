@@ -187,5 +187,6 @@ Sound should reinforce visible feedback, never replace it.
 - [Full cue taxonomy](https://github.com/romainsimon/uisfx/blob/main/docs/taxonomy.md)
 - [Source code and contribution guide](https://github.com/romainsimon/uisfx)
 - [Issues and feature requests](https://github.com/romainsimon/uisfx/issues)
+- [Sponsor ongoing maintenance](https://github.com/sponsors/romainsimon)
 
 The TypeScript code is [MIT licensed](https://github.com/romainsimon/uisfx/blob/main/LICENSE). The generated audio library is dedicated to the public domain under [CC0 1.0](https://github.com/romainsimon/uisfx/blob/main/LICENSE-AUDIO).
