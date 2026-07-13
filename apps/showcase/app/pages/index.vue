@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { definePageMeta, useHead, useRuntimeConfig, useSeoMeta } from '#imports'
-import { Volume2, VolumeX } from '@lucide/vue'
-import { computed, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
+import { Check, Copy as CopyIcon, Volume1, Volume2, VolumeX } from '@lucide/vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
+import { buildAgentImplementationPrompt } from '../lib/agent-prompt'
+import { planPackSwitch } from '../lib/pack-switch'
 import {
   CATEGORIES,
   CUES,
@@ -19,6 +21,9 @@ import {
 
 type CategoryFilter = CategoryName | 'all'
 type PlaybackFilter = PlaybackMode | 'all'
+
+const DEFAULT_PREVIEW_VOLUME = 70
+const AUDIO_PREFERENCE_KEY = 'uisfx:preview-audio:v1'
 
 interface PackTheme {
   image: string
@@ -46,21 +51,25 @@ definePageMeta({ alias: ['/ui-sound-design'] })
 
 const pageTitle = 'UI Sound Design: 858 Interface Sound Effects | UI SFX'
 const pageDescription = 'Preview 858 open-source UI sound effects for web, mobile, SaaS, and games. Compare 11 sonic styles, one-shots, and seamless loops.'
+const socialTitle = 'UI SFX: 858 Open-Source Interface Sound Effects'
+const socialDescription = '78 semantic UI cues in 11 switchable feels. Preview, install, and ship clean one-shots and seamless loops for web, mobile, SaaS, and games.'
 const runtimeConfig = useRuntimeConfig()
 const siteUrl = String(runtimeConfig.public.siteUrl || 'https://uisfx.com').replace(/\/$/, '')
 const canonicalUrl = `${siteUrl}/ui-sound-design`
-const socialImage = `${siteUrl}/og-ui-sound-design.png`
+// Keep a versioned filename so social crawlers cannot reuse an older broken card.
+const socialImage = `${siteUrl}/og-ui-sound-design.png?v=858-20260713`
 const organizationId = `${siteUrl}/#organization`
 const websiteId = `${siteUrl}/#website`
 const softwareId = `${canonicalUrl}#software`
+const audioLibraryId = `${canonicalUrl}#audio-library`
 
 useSeoMeta({
   title: pageTitle,
   description: pageDescription,
   robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
   author: 'Yuki Capital',
-  ogTitle: pageTitle,
-  ogDescription: pageDescription,
+  ogTitle: socialTitle,
+  ogDescription: socialDescription,
   ogType: 'website',
   ogUrl: canonicalUrl,
   ogSiteName: 'UI SFX',
@@ -72,14 +81,19 @@ useSeoMeta({
   ogImageHeight: 630,
   ogImageAlt: 'UI SFX sound design library with eleven sound styles and waveform previews',
   twitterCard: 'summary_large_image',
-  twitterTitle: pageTitle,
-  twitterDescription: pageDescription,
+  twitterTitle: socialTitle,
+  twitterDescription: socialDescription,
   twitterImage: socialImage,
   twitterImageAlt: 'UI SFX open-source interface sound effects library',
 })
 
 useHead({
-  link: [{ rel: 'canonical', href: canonicalUrl }],
+  link: [
+    { rel: 'canonical', href: canonicalUrl },
+    { rel: 'alternate', href: `${siteUrl}/llms.txt`, type: 'text/plain', title: 'UI SFX documentation for language models' },
+    { rel: 'alternate', href: `${siteUrl}/ui-sound-design.md`, type: 'text/markdown', title: 'UI SFX documentation in Markdown' },
+    { rel: 'alternate', href: `${siteUrl}/docs/agent-guide.md`, type: 'text/markdown', title: 'UI SFX coding-agent integration guide' },
+  ],
   meta: [
     { name: 'googlebot', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
   ],
@@ -137,6 +151,7 @@ useHead({
           },
           author: { '@id': organizationId },
           isPartOf: { '@id': websiteId },
+          hasPart: { '@id': audioLibraryId },
           license: 'https://opensource.org/license/mit',
           keywords: 'ui sound design, interface sound effects, ui sound effects, ui sounds, ux sound design',
           dateModified: '2026-07-13',
@@ -152,6 +167,23 @@ useHead({
           license: 'https://opensource.org/license/mit',
           author: { '@id': organizationId },
           isPartOf: { '@id': softwareId },
+        },
+        {
+          '@type': 'Dataset',
+          '@id': audioLibraryId,
+          name: 'UI SFX interface sound effects library',
+          url: `${siteUrl}/uisfx-manifest.json`,
+          description: 'A public-domain library of 858 generated interface sound effects across 78 semantic cues and 11 sonic styles.',
+          creator: { '@id': organizationId },
+          isPartOf: { '@id': softwareId },
+          license: 'https://creativecommons.org/publicdomain/zero/1.0/',
+          keywords: 'interface sound effects, ui sounds, ui sound design, sound effects dataset',
+          dateModified: '2026-07-13',
+          distribution: {
+            '@type': 'DataDownload',
+            encodingFormat: 'application/json',
+            contentUrl: `${siteUrl}/uisfx-manifest.json`,
+          },
         },
         {
           '@type': 'FAQPage',
@@ -202,33 +234,59 @@ const demoLoopCue = ref<CueName>('processing')
 const category = ref<CategoryFilter>('all')
 const playback = ref<PlaybackFilter>('all')
 const query = ref('')
-const muted = ref(false)
+const volumePercent = ref(DEFAULT_PREVIEW_VOLUME)
+const lastAudibleVolume = ref(DEFAULT_PREVIEW_VOLUME)
+const volumeOpen = ref(false)
+const muted = computed(() => volumePercent.value === 0)
 const activeCue = ref<CueName | null>(null)
 const activePack = ref<PackName | null>(null)
 const announcement = ref('Sound previews are ready')
 const copied = ref(false)
+const installCopyFailed = ref(false)
+const agentPromptCopied = ref(false)
+const agentPromptCopyFailed = ref(false)
 const reducedMotion = ref(false)
 const motionReady = ref(false)
-const showPackDock = ref(false)
+const selectorControlOwner = ref<'source' | 'dock' | 'none'>('source')
+const selectorSurface = ref<'source' | 'handoff' | 'dock'>('source')
 const loopingCue = ref<CueName | null>(null)
 const loopingPack = ref<PackName | null>(null)
 const player = shallowRef<UISFXPlayer>()
 const siteShell = ref<HTMLElement>()
+const topbar = ref<HTMLElement>()
 const soundConsole = ref<HTMLElement>()
+const packDock = ref<HTMLElement>()
+const packHandoffShell = ref<HTMLElement>()
+const selectorFocusParking = ref<HTMLElement>()
+const volumeControl = ref<HTMLElement>()
+const volumeTrigger = ref<HTMLButtonElement>()
 let loopingSound: PlayingSFX | null = null
 let logoLoopSound: PlayingSFX | null = null
 let activeTimer: ReturnType<typeof setTimeout> | undefined
 let motionPreference: MediaQueryList | undefined
 let syncMotionPreference: (() => void) | undefined
 let revealObserver: IntersectionObserver | undefined
-let consoleObserver: IntersectionObserver | undefined
+let selectorResizeObserver: ResizeObserver | undefined
 let scrollFrame: number | undefined
+let headerStyleState = ''
+let installCopyTimer: number | undefined
+let agentPromptCopyTimer: number | undefined
 let searchSoundTimer: ReturnType<typeof setTimeout> | undefined
 let previousQuery = ''
-let muteTransition = 0
+let parkedSelectorFocus = false
+let selectorGeometry: {
+  sourceWidth: number
+  sourceHeight: number
+  dockWidth: number
+  dockHeight: number
+  dockBottom: number
+} | undefined
 
 const selectedPackData = computed(() => PACKS.find((pack) => pack.name === selectedPack.value) ?? PACKS[0])
 const selectedPackTheme = computed(() => PACK_THEMES[selectedPack.value])
+const agentPromptUrl = computed(() => `/agent-prompt.txt?pack=${selectedPack.value}`)
+const packDockInteractive = computed(() => selectorControlOwner.value === 'dock')
+const sourceSelectorInteractive = computed(() => selectorControlOwner.value === 'source')
 const demoOneShotGroups = CATEGORIES.map((item) => ({
   ...item,
   cues: CUES.filter((cue) => cue.category === item.id && getPlaybackMode(cue.name) === 'one-shot'),
@@ -320,8 +378,15 @@ function play(cue: CueName, pack: PackName = selectedPack.value) {
   }
 }
 
-function setPackWithTransition(pack: PackName) {
-  const update = () => { selectedPack.value = pack }
+function setPackWithTransition(pack: PackName, onSelected: () => void) {
+  const update = () => {
+    selectedPack.value = pack
+    onSelected()
+  }
+  if (pack === selectedPack.value) {
+    update()
+    return
+  }
   const transitionDocument = document as Document & {
     startViewTransition?: (callback: () => void) => { finished: Promise<void> }
   }
@@ -332,9 +397,27 @@ function setPackWithTransition(pack: PackName) {
   }
 }
 
+function switchPack(pack: PackName, previewCue: CueName, preserveActiveLoop = true) {
+  setPackWithTransition(pack, () => {
+    const plan = planPackSwitch({
+      nextPack: pack,
+      previewCue,
+      activeLoop: loopingCue.value && loopingPack.value
+        ? { cue: loopingCue.value, pack: loopingPack.value }
+        : null,
+      preserveActiveLoop,
+    })
+
+    if (plan.kind === 'keep-loop') {
+      announcement.value = `Looping ${plan.cue} in the ${plan.pack} feel. Activate again to stop.`
+      return
+    }
+    play(plan.cue, plan.pack)
+  })
+}
+
 function choosePack(pack: PackName) {
-  setPackWithTransition(pack)
-  play('select', pack)
+  switchPack(pack, 'select')
 }
 
 function choosePackFromSelect(event: Event) {
@@ -364,8 +447,7 @@ function onDemoLoopChange(event: Event) {
 }
 
 function previewPack(pack: PackName) {
-  setPackWithTransition(pack)
-  play(comparisonCue.value, pack)
+  switchPack(pack, comparisonCue.value, false)
 }
 
 function onShellClick(event: MouseEvent) {
@@ -405,14 +487,184 @@ function onSearchInput(event: Event) {
   previousQuery = value
 }
 
+function smoothstep(value: number) {
+  const clamped = Math.min(1, Math.max(0, value))
+  return clamped * clamped * (3 - 2 * clamped)
+}
+
+function progressBetween(value: number, start: number, end: number) {
+  return smoothstep((value - start) / (end - start))
+}
+
+function measureSelectorGeometry() {
+  const source = soundConsole.value
+  const dock = packDock.value
+  if (!source || !dock) return undefined
+
+  const dockStyle = window.getComputedStyle(dock)
+  selectorGeometry = {
+    sourceWidth: source.offsetWidth || 1,
+    sourceHeight: source.offsetHeight || 1,
+    dockWidth: dock.offsetWidth || 1,
+    dockHeight: dock.offsetHeight || 1,
+    dockBottom: Number.parseFloat(dockStyle.bottom) || 16,
+  }
+
+  const shell = packHandoffShell.value
+  shell?.style.setProperty('--handoff-width', `${selectorGeometry.sourceWidth}px`)
+  shell?.style.setProperty('--handoff-height', `${selectorGeometry.sourceHeight}px`)
+  return selectorGeometry
+}
+
+function selectorFocusTarget(container: HTMLElement | undefined, docked: boolean) {
+  if (!container) return undefined
+  if (!docked) return container.querySelector<HTMLElement>('.pack-keys button.active') ?? undefined
+  if (window.matchMedia('(max-width: 52rem)').matches) {
+    return container.querySelector<HTMLElement>('.pack-dock__select select') ?? undefined
+  }
+  return container.querySelector<HTMLElement>('.pack-dock__keys button.active') ?? undefined
+}
+
+function setSelectorControlOwner(nextOwner: 'source' | 'dock' | 'none') {
+  const currentOwner = selectorControlOwner.value
+  if (currentOwner === nextOwner) return
+
+  const outgoing = currentOwner === 'source' ? soundConsole.value : currentOwner === 'dock' ? packDock.value : undefined
+  const incoming = nextOwner === 'source' ? soundConsole.value : nextOwner === 'dock' ? packDock.value : undefined
+  const activeElement = document.activeElement
+  const focusWasInOutgoing = activeElement instanceof HTMLElement && outgoing?.contains(activeElement)
+  selectorControlOwner.value = nextOwner
+
+  if (nextOwner === 'none') {
+    if (!focusWasInOutgoing) return
+    parkedSelectorFocus = true
+    void nextTick(() => selectorFocusParking.value?.focus({ preventScroll: true }))
+    return
+  }
+
+  const parkingControl = selectorFocusParking.value
+  const shouldRestoreParkedFocus = parkedSelectorFocus && document.activeElement === parkingControl
+  parkedSelectorFocus = false
+  if (!focusWasInOutgoing && !shouldRestoreParkedFocus) return
+  void nextTick(() => selectorFocusTarget(incoming, nextOwner === 'dock')?.focus({ preventScroll: true }))
+}
+
+function cancelSelectorFocusRestore() {
+  parkedSelectorFocus = false
+}
+
 function updateScrollProgress() {
-  if (scrollFrame) return
+  if (scrollFrame !== undefined) return
   scrollFrame = window.requestAnimationFrame(() => {
     const scrollable = document.documentElement.scrollHeight - window.innerHeight
     const progress = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0
-    siteShell.value?.style.setProperty('--scroll-progress', String(progress))
+    const source = soundConsole.value
+    const dock = packDock.value
+    const handoffShell = packHandoffShell.value
+    const shell = siteShell.value
+    const header = topbar.value
+    const headerRawProgress = Math.min(1, Math.max(0, window.scrollY / 112))
+    const headerProgress = reducedMotion.value
+      ? Number(window.scrollY > 8)
+      : smoothstep(headerRawProgress)
+    const compactHeaderScale = reducedMotion.value ? 1 : window.innerWidth <= 832 ? 0.985 : 0.955
+    const headerScale = 1 - (1 - compactHeaderScale) * headerProgress
+    const headerShiftY = reducedMotion.value ? 0 : headerProgress * 2
+    const nextHeaderStyleState = `${headerProgress.toFixed(4)}:${headerScale.toFixed(4)}:${headerShiftY.toFixed(2)}`
+    // Read selector geometry before writing CSS variables so the scroll frame avoids a second layout pass.
+    const geometry = selectorGeometry ?? measureSelectorGeometry()
+    const sourceRect = source && dock && handoffShell && shell && geometry
+      ? source.getBoundingClientRect()
+      : undefined
+
+    if (header && nextHeaderStyleState !== headerStyleState) {
+      header.style.setProperty('--header-progress', headerProgress.toFixed(4))
+      header.style.setProperty('--header-scale', headerScale.toFixed(4))
+      header.style.setProperty('--header-shift-y', `${headerShiftY.toFixed(2)}px`)
+      headerStyleState = nextHeaderStyleState
+    }
+
+    if (source && dock && handoffShell && shell && geometry && sourceRect) {
+      const viewportHeight = window.innerHeight
+      const handoffEnd = Math.max(80, Math.min(112, viewportHeight * 0.15))
+      const handoffStart = Math.max(handoffEnd + 220, Math.min(680, viewportHeight * 0.72))
+      const rawHandoff = Math.min(1, Math.max(0, (handoffStart - sourceRect.bottom) / (handoffStart - handoffEnd)))
+      const handoff = smoothstep(rawHandoff)
+      const sourceCenterX = sourceRect.left + sourceRect.width / 2
+      const sourceCenterY = sourceRect.top + sourceRect.height / 2
+      const dockCenterX = window.innerWidth / 2
+      const dockCenterY = viewportHeight - geometry.dockBottom - geometry.dockHeight / 2
+      const remainingTravel = 1 - handoff
+      const sourceRotation = Number.parseFloat(source.style.getPropertyValue('--console-rotate')) || 1.1
+      const currentCenterX = reducedMotion.value
+        ? dockCenterX
+        : sourceCenterX * remainingTravel + dockCenterX * handoff
+      const currentCenterY = reducedMotion.value
+        ? dockCenterY
+        : sourceCenterY * remainingTravel + dockCenterY * handoff
+      const dockStartScaleX = geometry.sourceWidth / geometry.dockWidth
+      const dockStartScaleY = geometry.sourceHeight / geometry.dockHeight
+      const dockScaleX = reducedMotion.value ? 1 : dockStartScaleX + (1 - dockStartScaleX) * handoff
+      const dockScaleY = reducedMotion.value ? 1 : dockStartScaleY + (1 - dockStartScaleY) * handoff
+      const shellScaleX = reducedMotion.value ? 1 : 1 + (geometry.dockWidth / geometry.sourceWidth - 1) * handoff
+      const shellScaleY = reducedMotion.value ? 1 : 1 + (geometry.dockHeight / geometry.sourceHeight - 1) * handoff
+      const rotation = reducedMotion.value ? 0 : sourceRotation * remainingTravel
+
+      const sourceFade = reducedMotion.value ? handoff : progressBetween(handoff, 0, 0.1)
+      const dockFade = reducedMotion.value ? handoff : progressBetween(handoff, 0.84, 1)
+      const compactOpacity = reducedMotion.value ? handoff : progressBetween(handoff, 0.82, 1)
+      const sourceOpacity = reducedMotion.value ? 1 - sourceFade : sourceFade < 1 ? 1 : 0
+      const handoffShellOpacity = reducedMotion.value
+        ? 0
+        : sourceFade < 1
+          ? sourceFade
+          : dockFade < 1 ? 1 : 0
+
+      shell.style.setProperty('--scroll-progress', String(progress))
+      shell.style.setProperty('--selector-source-opacity', sourceOpacity.toFixed(4))
+      dock.style.setProperty('--dock-travel-x', `${currentCenterX - dockCenterX}px`)
+      dock.style.setProperty('--dock-travel-y', `${currentCenterY - dockCenterY}px`)
+      dock.style.setProperty('--dock-scale-x', dockScaleX.toFixed(4))
+      dock.style.setProperty('--dock-scale-y', dockScaleY.toFixed(4))
+      dock.style.setProperty('--dock-rotation', `${rotation}deg`)
+      dock.style.setProperty('--dock-opacity', dockFade.toFixed(4))
+      dock.style.setProperty('--dock-content-opacity', compactOpacity.toFixed(4))
+      dock.style.setProperty('--dock-content-scale-x', (1 / dockScaleX).toFixed(4))
+      dock.style.setProperty('--dock-content-scale-y', (1 / dockScaleY).toFixed(4))
+
+      handoffShell.style.setProperty('--handoff-x', `${currentCenterX - geometry.sourceWidth / 2}px`)
+      handoffShell.style.setProperty('--handoff-y', `${currentCenterY - geometry.sourceHeight / 2}px`)
+      handoffShell.style.setProperty('--handoff-scale-x', shellScaleX.toFixed(4))
+      handoffShell.style.setProperty('--handoff-scale-y', shellScaleY.toFixed(4))
+      handoffShell.style.setProperty('--handoff-rotation', `${rotation}deg`)
+      handoffShell.style.setProperty('--handoff-opacity', handoffShellOpacity.toFixed(4))
+
+      const nextSurface = reducedMotion.value
+        ? dockFade >= 0.5 ? 'dock' : 'source'
+        : sourceFade < 0.5 ? 'source' : dockFade < 0.5 ? 'handoff' : 'dock'
+      if (selectorSurface.value !== nextSurface) selectorSurface.value = nextSurface
+
+      const currentOwner = selectorControlOwner.value
+      let nextOwner: 'source' | 'dock' | 'none' = 'none'
+      if (reducedMotion.value) {
+        if ((currentOwner === 'source' && handoff <= 0.45) || handoff <= 0.4) nextOwner = 'source'
+        if ((currentOwner === 'dock' && handoff >= 0.55) || handoff >= 0.6) nextOwner = 'dock'
+      } else {
+        if ((currentOwner === 'source' && handoff <= 0.05) || handoff <= 0.04) nextOwner = 'source'
+        if ((currentOwner === 'dock' && handoff >= 0.92) || handoff >= 0.94) nextOwner = 'dock'
+      }
+      setSelectorControlOwner(nextOwner)
+    } else if (shell) {
+      shell.style.setProperty('--scroll-progress', String(progress))
+    }
     scrollFrame = undefined
   })
+}
+
+function onViewportResize() {
+  selectorGeometry = undefined
+  measureSelectorGeometry()
+  updateScrollProgress()
 }
 
 function onConsolePointerMove(event: PointerEvent) {
@@ -433,49 +685,169 @@ function resetConsoleTilt(event: PointerEvent) {
   element.style.setProperty('--console-rotate', '1.1deg')
 }
 
-async function copyInstall() {
-  const command = 'npm install uisfx'
+async function writeClipboard(value: string) {
   try {
     if (!navigator.clipboard?.writeText) throw new Error('Clipboard API unavailable')
-    await navigator.clipboard.writeText(command)
+    await navigator.clipboard.writeText(value)
+    return true
   } catch {
     const textarea = document.createElement('textarea')
-    textarea.value = command
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : undefined
+    textarea.value = value
     textarea.setAttribute('readonly', '')
     textarea.style.position = 'fixed'
+    textarea.style.inset = '0 auto auto -9999px'
     textarea.style.opacity = '0'
     document.body.append(textarea)
     textarea.select()
-    document.execCommand('copy')
-    textarea.remove()
+    try {
+      return document.execCommand('copy')
+    } catch {
+      return false
+    } finally {
+      textarea.remove()
+      previousFocus?.focus({ preventScroll: true })
+    }
   }
-  copied.value = true
-  play('success')
-  window.setTimeout(() => { copied.value = false }, 1_800)
 }
 
-function toggleMute() {
-  const transition = ++muteTransition
-  if (!muted.value) {
+async function copyInstall() {
+  if (installCopyTimer) clearTimeout(installCopyTimer)
+  copied.value = false
+  installCopyFailed.value = false
+  const didCopy = await writeClipboard('npm install uisfx')
+  if (!didCopy) {
+    installCopyFailed.value = true
+    announcement.value = 'Could not copy the install command'
+    play('error')
+    installCopyTimer = window.setTimeout(() => { installCopyFailed.value = false }, 2_400)
+    return
+  }
+  copied.value = true
+  announcement.value = 'Install command copied'
+  play('copy')
+  installCopyTimer = window.setTimeout(() => {
+    copied.value = false
+    installCopyFailed.value = false
+  }, 1_800)
+}
+
+async function copyAgentPrompt() {
+  if (agentPromptCopyTimer) clearTimeout(agentPromptCopyTimer)
+  agentPromptCopied.value = false
+  agentPromptCopyFailed.value = false
+  const didCopy = await writeClipboard(buildAgentImplementationPrompt(selectedPack.value))
+  if (!didCopy) {
+    agentPromptCopyFailed.value = true
+    announcement.value = 'Could not copy the implementation prompt'
+    play('error')
+    agentPromptCopyTimer = window.setTimeout(() => { agentPromptCopyFailed.value = false }, 2_400)
+    return
+  }
+  agentPromptCopied.value = true
+  announcement.value = `${selectedPackData.value.label} implementation prompt copied`
+  play('copy')
+  agentPromptCopyTimer = window.setTimeout(() => {
+    agentPromptCopied.value = false
+    agentPromptCopyFailed.value = false
+  }, 1_800)
+}
+
+function clampVolumePercent(value: unknown, fallback = DEFAULT_PREVIEW_VOLUME) {
+  return typeof value === 'number' && Number.isFinite(value)
+    ? Math.round(Math.max(0, Math.min(100, value)))
+    : fallback
+}
+
+function restoreAudioPreference() {
+  try {
+    const value = window.localStorage.getItem(AUDIO_PREFERENCE_KEY)
+    if (!value) return
+    const saved = JSON.parse(value) as { volume?: unknown, lastAudibleVolume?: unknown }
+    const restoredLastVolume = clampVolumePercent(saved.lastAudibleVolume)
+    lastAudibleVolume.value = restoredLastVolume > 0 ? restoredLastVolume : DEFAULT_PREVIEW_VOLUME
+    volumePercent.value = clampVolumePercent(saved.volume, lastAudibleVolume.value)
+  } catch {
+    // Storage can be unavailable in privacy modes. The in-memory preference still works.
+  }
+}
+
+function persistAudioPreference() {
+  try {
+    window.localStorage.setItem(AUDIO_PREFERENCE_KEY, JSON.stringify({
+      volume: volumePercent.value,
+      lastAudibleVolume: lastAudibleVolume.value,
+    }))
+  } catch {
+    // A blocked storage write should never block sound previews.
+  }
+}
+
+function setPreviewVolume(value: number) {
+  const nextVolume = clampVolumePercent(value, volumePercent.value)
+  const wasMuted = muted.value
+
+  if (nextVolume === 0) {
+    if (!wasMuted) lastAudibleVolume.value = Math.max(1, volumePercent.value)
     stopLogoLoop()
     stopLoop()
-    const confirmation = player.value?.play('toggle-off')
-    muted.value = true
-    announcement.value = 'Sound previews muted'
-    if (!confirmation) {
-      player.value?.setEnabled(false)
-      return
-    }
-    void confirmation.ended.then(() => {
-      if (muted.value && transition === muteTransition) player.value?.setEnabled(false)
-    })
+    volumePercent.value = 0
+    player.value?.setVolume(0)
+    player.value?.setEnabled(false)
     return
   }
 
-  muted.value = false
-  player.value?.setEnabled(true)
-  announcement.value = 'Sound previews enabled'
-  play('toggle-on')
+  volumePercent.value = nextVolume
+  lastAudibleVolume.value = nextVolume
+  player.value?.setVolume(nextVolume / 100)
+  if (wasMuted) player.value?.setEnabled(true)
+}
+
+function onVolumeInput(event: Event) {
+  if (!(event.target instanceof HTMLInputElement)) return
+  setPreviewVolume(Number(event.target.value))
+}
+
+function onVolumeCommit() {
+  persistAudioPreference()
+  if (muted.value) {
+    announcement.value = 'Sound previews muted'
+    return
+  }
+  announcement.value = `Sound preview volume ${volumePercent.value} percent`
+  player.value?.play('volume-change')
+}
+
+function toggleMute() {
+  if (!muted.value) {
+    lastAudibleVolume.value = Math.max(1, volumePercent.value)
+    setPreviewVolume(0)
+    persistAudioPreference()
+    announcement.value = 'Sound previews muted'
+    return
+  }
+
+  setPreviewVolume(lastAudibleVolume.value || DEFAULT_PREVIEW_VOLUME)
+  persistAudioPreference()
+  announcement.value = `Sound previews enabled at ${volumePercent.value} percent`
+  player.value?.play('toggle-on')
+}
+
+function toggleVolumePanel() {
+  volumeOpen.value = !volumeOpen.value
+  if (!muted.value) player.value?.play(volumeOpen.value ? 'open' : 'close')
+}
+
+function closeVolumePanel(restoreFocus = false, withSound = true) {
+  if (!volumeOpen.value) return
+  volumeOpen.value = false
+  if (withSound && !muted.value) player.value?.play('close')
+  if (restoreFocus) void nextTick(() => volumeTrigger.value?.focus({ preventScroll: true }))
+}
+
+function onDocumentPointerDown(event: PointerEvent) {
+  if (!volumeOpen.value || !(event.target instanceof Node) || volumeControl.value?.contains(event.target)) return
+  closeVolumePanel(false, false)
 }
 
 function onKeydown(event: KeyboardEvent) {
@@ -491,17 +863,25 @@ function onVisibilityChange() {
 }
 
 onMounted(() => {
-  player.value = createUISFX({ pack: selectedPack.value })
+  restoreAudioPreference()
+  player.value = createUISFX({
+    pack: selectedPack.value,
+    volume: volumePercent.value / 100,
+    enabled: !muted.value,
+  })
   motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
   syncMotionPreference = () => {
     reducedMotion.value = motionPreference?.matches ?? false
     if (reducedMotion.value) stopLogoLoop()
+    updateScrollProgress()
   }
   syncMotionPreference()
   motionPreference.addEventListener('change', syncMotionPreference)
   window.addEventListener('blur', stopLogoLoop)
   window.addEventListener('keydown', onKeydown)
   window.addEventListener('scroll', updateScrollProgress, { passive: true })
+  window.addEventListener('resize', onViewportResize, { passive: true })
+  document.addEventListener('pointerdown', onDocumentPointerDown)
   document.addEventListener('visibilitychange', onVisibilityChange)
   updateScrollProgress()
 
@@ -518,17 +898,26 @@ onMounted(() => {
   }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' })
   document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((element) => revealObserver?.observe(element))
 
-  consoleObserver = new IntersectionObserver(([entry]) => {
-    if (!entry) return
-    showPackDock.value = !entry.isIntersecting && entry.boundingClientRect.bottom <= 96
-  }, { threshold: 0, rootMargin: '-96px 0px 0px 0px' })
-  if (soundConsole.value) consoleObserver.observe(soundConsole.value)
-  window.requestAnimationFrame(() => { motionReady.value = true })
+  selectorResizeObserver = new ResizeObserver(() => {
+    selectorGeometry = undefined
+    measureSelectorGeometry()
+    updateScrollProgress()
+  })
+  if (soundConsole.value) selectorResizeObserver.observe(soundConsole.value)
+  if (packDock.value) selectorResizeObserver.observe(packDock.value)
+
+  window.requestAnimationFrame(() => {
+    motionReady.value = true
+    updateScrollProgress()
+  })
 })
 
 watch(selectedPack, (pack) => {
   stopLogoLoop()
   player.value?.setPack(pack)
+  agentPromptCopied.value = false
+  agentPromptCopyFailed.value = false
+  if (agentPromptCopyTimer) clearTimeout(agentPromptCopyTimer)
 })
 
 onBeforeUnmount(() => {
@@ -536,13 +925,17 @@ onBeforeUnmount(() => {
   window.removeEventListener('keydown', onKeydown)
   if (syncMotionPreference) motionPreference?.removeEventListener('change', syncMotionPreference)
   window.removeEventListener('scroll', updateScrollProgress)
+  window.removeEventListener('resize', onViewportResize)
+  document.removeEventListener('pointerdown', onDocumentPointerDown)
   document.removeEventListener('visibilitychange', onVisibilityChange)
   revealObserver?.disconnect()
-  consoleObserver?.disconnect()
-  if (scrollFrame) window.cancelAnimationFrame(scrollFrame)
+  selectorResizeObserver?.disconnect()
+  if (scrollFrame !== undefined) window.cancelAnimationFrame(scrollFrame)
   stopLogoLoop()
   stopLoop()
   if (activeTimer) clearTimeout(activeTimer)
+  if (installCopyTimer) clearTimeout(installCopyTimer)
+  if (agentPromptCopyTimer) clearTimeout(agentPromptCopyTimer)
   if (searchSoundTimer) clearTimeout(searchSoundTimer)
   void player.value?.destroy()
 })
@@ -559,13 +952,14 @@ onBeforeUnmount(() => {
       '--active-bg': selectedPackTheme.background,
       '--active-ink': selectedPackTheme.ink,
       '--active-accent': selectedPackTheme.accent,
+      '--active-artwork': `url(${selectedPackTheme.image})`,
     }"
     @click="onShellClick"
   >
     <div class="scroll-progress" aria-hidden="true"><i /></div>
     <a class="skip-link" href="#sound-library" data-sfx="forward">Skip to sound library</a>
 
-    <header class="topbar">
+    <header ref="topbar" class="topbar">
       <a
         class="brand-link logo-sound-trigger"
         href="#top"
@@ -606,42 +1000,116 @@ onBeforeUnmount(() => {
           <span class="source-link__label">npm</span>
           <span class="source-link__arrow" aria-hidden="true">↗</span>
         </a>
-        <button
-          class="mute-button"
-          type="button"
-          data-sfx-managed
-          :aria-label="muted ? 'Turn sound on' : 'Turn sound off'"
-          :aria-pressed="muted"
-          @click="toggleMute"
+        <div
+          ref="volumeControl"
+          class="volume-control"
+          :class="{ 'is-muted': muted, 'is-open': volumeOpen }"
+          @keydown.esc.stop.prevent="closeVolumePanel(true)"
         >
-          <span class="mute-button__light" aria-hidden="true" />
-          <VolumeX v-if="muted" class="mute-button__icon" aria-hidden="true" />
-          <Volume2 v-else class="mute-button__icon" aria-hidden="true" />
-          <span class="mute-button__label">{{ muted ? 'Sound off' : 'Sound on' }}</span>
-        </button>
+          <button
+            ref="selectorFocusParking"
+            class="volume-control__mute"
+            type="button"
+            data-sfx-managed
+            :aria-label="muted ? `Unmute sound previews at ${lastAudibleVolume} percent` : 'Mute sound previews'"
+            :aria-pressed="muted"
+            @click="toggleMute"
+            @keydown="cancelSelectorFocusRestore"
+            @pointerdown="cancelSelectorFocusRestore"
+          >
+            <VolumeX v-if="muted" class="volume-control__icon" aria-hidden="true" />
+            <Volume1 v-else-if="volumePercent < 50" class="volume-control__icon" aria-hidden="true" />
+            <Volume2 v-else class="volume-control__icon" aria-hidden="true" />
+          </button>
+          <button
+            ref="volumeTrigger"
+            class="volume-control__trigger"
+            type="button"
+            data-sfx-managed
+            aria-controls="preview-volume-panel"
+            :aria-expanded="volumeOpen"
+            :aria-label="muted ? 'Adjust preview volume, currently muted' : `Adjust preview volume, ${volumePercent} percent`"
+            @click="toggleVolumePanel"
+            @keydown="cancelSelectorFocusRestore"
+            @pointerdown="cancelSelectorFocusRestore"
+          >
+            <span>{{ muted ? 'Off' : `${volumePercent}%` }}</span>
+          </button>
+          <Transition name="volume-panel">
+            <div
+              v-if="volumeOpen"
+              id="preview-volume-panel"
+              class="volume-panel"
+              role="group"
+              aria-labelledby="preview-volume-label"
+            >
+              <div class="volume-panel__heading">
+                <span id="preview-volume-label">Preview volume</span>
+                <output for="preview-volume-range">{{ volumePercent }}%</output>
+              </div>
+              <label class="volume-panel__range">
+                <span class="sr-only">Sound preview volume</span>
+                <input
+                  id="preview-volume-range"
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="5"
+                  :value="volumePercent"
+                  :style="{ '--volume-progress': `${volumePercent}%` }"
+                  aria-label="Sound preview volume"
+                  :aria-valuetext="muted ? 'Muted' : `${volumePercent} percent`"
+                  @input="onVolumeInput"
+                  @change="onVolumeCommit"
+                >
+              </label>
+              <p>{{ muted ? `Muted. Unmute restores ${lastAudibleVolume}%.` : 'Applies to every preview and active loop.' }}</p>
+            </div>
+          </Transition>
+        </div>
       </div>
     </header>
 
-    <Transition name="pack-dock">
-      <aside
-        v-if="showPackDock"
-        class="pack-dock"
-        :style="{
-          '--dock-accent': selectedPackTheme.accent,
-          '--dock-bg': selectedPackTheme.background,
-          '--dock-ink': selectedPackTheme.ink,
-        }"
-        aria-label="Persistent sound feel selector"
+    <div
+      ref="packHandoffShell"
+      class="pack-handoff-shell"
+      :style="{ 'view-transition-name': selectorSurface === 'handoff' ? 'sound-console' : 'none' }"
+      aria-hidden="true"
+    >
+      <img
+        class="pack-handoff-shell__artwork"
+        :src="selectedPackTheme.image"
+        alt=""
+        width="1200"
+        height="800"
       >
-        <img
-          class="pack-dock__artwork"
-          :src="selectedPackTheme.image"
-          alt=""
-          width="1200"
-          height="800"
-          aria-hidden="true"
-        >
-        <span class="pack-dock__veil" aria-hidden="true" />
+      <span class="pack-handoff-shell__veil" />
+    </div>
+
+    <aside
+      ref="packDock"
+      class="pack-dock"
+      :class="{ 'is-interactive': packDockInteractive }"
+      :style="{
+        '--dock-accent': selectedPackTheme.accent,
+        '--dock-bg': selectedPackTheme.background,
+        '--dock-ink': selectedPackTheme.ink,
+        'view-transition-name': selectorSurface === 'dock' ? 'sound-console' : 'none',
+      }"
+      :aria-hidden="!packDockInteractive"
+      :inert="!packDockInteractive"
+      aria-label="Persistent sound feel selector"
+    >
+      <img
+        class="pack-dock__artwork"
+        :src="selectedPackTheme.image"
+        alt=""
+        width="1200"
+        height="800"
+        aria-hidden="true"
+      >
+      <span class="pack-dock__veil" aria-hidden="true" />
+      <div class="pack-dock__content">
         <div class="pack-dock__current">
           <span aria-hidden="true" />
           <small>Feel</small>
@@ -674,8 +1142,8 @@ onBeforeUnmount(() => {
             <option v-for="pack in PACKS" :key="`dock-option-${pack.name}`" :value="pack.name">{{ pack.label }}</option>
           </select>
         </label>
-      </aside>
-    </Transition>
+      </div>
+    </aside>
 
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
@@ -686,18 +1154,52 @@ onBeforeUnmount(() => {
           <div class="hero-actions">
             <a class="primary-link" href="#sound-library">Explore all {{ CUES.length * PACKS.length }} sounds</a>
             <div class="hero-ship">
-              <button
-                class="hero-install-command"
-                :class="{ copied }"
-                type="button"
-                data-sfx-managed
-                :aria-label="copied ? 'Install command copied' : 'Copy npm install uisfx command'"
-                @click="copyInstall"
-              >
-                <span aria-hidden="true">$</span>
-                <code>npm install uisfx</code>
-                <strong aria-live="polite">{{ copied ? 'Copied' : 'Copy' }}</strong>
-              </button>
+              <div class="hero-install-block">
+                <p class="hero-tool-label"><span>01</span> Install in your terminal <small>npm</small></p>
+                <button
+                  class="hero-install-command"
+                  :class="{ copied, failed: installCopyFailed }"
+                  type="button"
+                  data-sfx-managed
+                  :aria-label="installCopyFailed ? 'Copy failed. Try again.' : copied ? 'Install command copied' : 'Copy npm install uisfx command'"
+                  @click="copyInstall"
+                >
+                  <span class="hero-install-command__prompt" aria-hidden="true">$</span>
+                  <code>npm install <strong>uisfx</strong></code>
+                  <span class="hero-install-command__action">
+                    <span v-if="installCopyFailed" class="copy-status-icon" aria-hidden="true">!</span>
+                    <Check v-else-if="copied" aria-hidden="true" />
+                    <CopyIcon v-else aria-hidden="true" />
+                    <b>{{ installCopyFailed ? 'Failed' : copied ? 'Copied' : 'Copy' }}</b>
+                  </span>
+                </button>
+              </div>
+
+              <div class="hero-agent-handoff">
+                <div class="hero-agent-handoff__mark" aria-hidden="true"><i /><i /><i /></div>
+                <div class="hero-agent-handoff__copy">
+                  <p class="hero-tool-label"><span>02</span> Hand to your coding agent <small>{{ selectedPackData.label }} feel</small></p>
+                  <strong>Instrument the whole product, tastefully.</strong>
+                  <span>Copies a production-ready {{ selectedPackData.label }} prompt for every meaningful interaction and state.</span>
+                </div>
+                <div class="hero-agent-handoff__actions">
+                  <button
+                    class="hero-agent-copy"
+                    :class="{ copied: agentPromptCopied, failed: agentPromptCopyFailed }"
+                    type="button"
+                    data-sfx-managed
+                    :aria-label="agentPromptCopyFailed ? 'Copy failed. Try again.' : agentPromptCopied ? 'Implementation prompt copied' : `Copy UI SFX implementation prompt using the ${selectedPackData.label} feel`"
+                    @click="copyAgentPrompt"
+                  >
+                    <span v-if="agentPromptCopyFailed" class="copy-status-icon" aria-hidden="true">!</span>
+                    <Check v-else-if="agentPromptCopied" aria-hidden="true" />
+                    <CopyIcon v-else aria-hidden="true" />
+                    <span>{{ agentPromptCopyFailed ? 'Copy failed' : agentPromptCopied ? 'Prompt copied' : 'Copy agent prompt' }}</span>
+                  </button>
+                  <a :href="agentPromptUrl" target="_blank" rel="noopener noreferrer">Open prompt <span aria-hidden="true">↗</span></a>
+                </div>
+              </div>
+
               <nav class="hero-source-links" aria-label="UI SFX source and package links">
                 <a
                   href="https://github.com/romainsimon/uisfx"
@@ -723,7 +1225,12 @@ onBeforeUnmount(() => {
         <div
           ref="soundConsole"
           class="sound-console"
-          :style="{ '--pack-color': selectedPackData.color }"
+          :style="{
+            '--pack-color': selectedPackData.color,
+            'view-transition-name': selectorSurface === 'source' ? 'sound-console' : 'none',
+          }"
+          :aria-hidden="!sourceSelectorInteractive"
+          :inert="!sourceSelectorInteractive"
           @pointermove="onConsolePointerMove"
           @pointerleave="resetConsoleTilt"
         >
@@ -781,9 +1288,9 @@ onBeforeUnmount(() => {
       <section id="compare" class="compare-section" aria-labelledby="compare-title">
         <div class="section-heading" data-reveal>
           <div>
-            <p class="eyebrow">A/B the personality</p>
-            <h2 id="compare-title">Eleven voices. Eleven visual worlds.</h2>
-            <p class="section-deck">Every sound pack has its own artwork, palette, shape language, and sonic character. The semantic cue stays the same.</p>
+            <p class="eyebrow">Compare the feels</p>
+            <h2 id="compare-title">Eleven feels. One sound language.</h2>
+            <p class="section-deck">Choose any cue and hear it across every feel. The event stays the same. Only its sonic character changes.</p>
           </div>
           <label class="cue-select">
             <span>Comparison cue</span>
@@ -793,7 +1300,7 @@ onBeforeUnmount(() => {
           </label>
         </div>
 
-        <div class="comparison-board" aria-label="Eleven sound personalities" data-reveal data-reveal-group>
+        <div class="comparison-board" aria-label="Eleven UI sound feels" data-reveal data-reveal-group>
           <button
             v-for="(pack, index) in PACKS"
             :key="pack.name"
@@ -809,20 +1316,21 @@ onBeforeUnmount(() => {
               '--theme-accent': packTheme(pack.name).accent,
             }"
             :aria-label="playLabel(comparisonCue, pack.name)"
+            :aria-pressed="selectedPack === pack.name"
             data-sfx-managed
             @click="previewPack(pack.name)"
           >
             <span class="voice-card__visual">
               <img
                 :src="packTheme(pack.name).image"
-                :alt="`${pack.label} UI sound theme artwork`"
+                alt=""
                 width="1200"
                 height="800"
                 loading="lazy"
                 decoding="async"
               >
               <span class="voice-card__number">{{ String(index + 1).padStart(2, '0') }}</span>
-              <span v-if="selectedPack === pack.name" class="voice-card__loaded">Loaded</span>
+              <span v-if="selectedPack === pack.name" class="voice-card__loaded"><span aria-hidden="true">✓</span><span class="sr-only">Loaded</span></span>
             </span>
             <span class="voice-card__body">
               <span class="voice-card__top">
@@ -853,7 +1361,7 @@ onBeforeUnmount(() => {
           <p>{{ selectedPackData.description }} <strong>{{ selectedPackData.bestFor }}.</strong></p>
         </div>
 
-        <fieldset class="category-showcase" data-reveal data-reveal-group>
+        <fieldset class="category-showcase" :data-pack="selectedPack" data-reveal data-reveal-group>
           <legend class="sr-only">Filter sounds by interaction category</legend>
           <span class="category-option" data-reveal-item>
             <input
@@ -942,21 +1450,32 @@ onBeforeUnmount(() => {
           <p>UI sound design is the practice of giving interface events a clear, consistent audible response. A useful UI sound confirms what happened, communicates urgency, or makes a transition feel physical without competing with the screen. The goal is not to add noise to every tap. It is to build a small sound language that helps people understand a product more quickly.</p>
         </header>
 
-        <div class="guide-principles" data-reveal data-reveal-group>
+        <div
+          class="guide-principles"
+          :data-pack="selectedPack"
+          data-reveal
+          data-reveal-group
+        >
           <article data-reveal-item>
-            <span>01</span>
-            <h3>Start with intent</h3>
-            <p>Name sounds after the product event, not the instrument used to make them. A semantic cue such as <code>success</code>, <code>warning</code>, or <code>message</code> survives a redesign. It also lets one event keep the same meaning while your team switches from a minimalist feel to a gamified one.</p>
+            <div class="guide-card__surface">
+              <span>01</span>
+              <h3>Start with intent</h3>
+              <p>Name sounds after the product event, not the instrument used to make them. A semantic cue such as <code>success</code>, <code>warning</code>, or <code>message</code> survives a redesign. It also lets one event keep the same meaning while your team switches from a minimalist feel to a gamified one.</p>
+            </div>
           </article>
           <article data-reveal-item>
-            <span>02</span>
-            <h3>Use one-shots for outcomes</h3>
-            <p>Brief interface sound effects work best for discrete outcomes: a button activates, a file drops, a payment succeeds, or an action fails. Keep them short enough to preserve momentum. UI SFX includes 72 one-shots, each rendered in eleven styles, so product feedback can stay coherent across an entire flow.</p>
+            <div class="guide-card__surface">
+              <span>02</span>
+              <h3>Use one-shots for outcomes</h3>
+              <p>Brief interface sound effects work best for discrete outcomes: a button activates, a file drops, a payment succeeds, or an action fails. Keep them short enough to preserve momentum. UI SFX includes 72 one-shots, each rendered in eleven styles, so product feedback can stay coherent across an entire flow.</p>
+            </div>
           </article>
           <article data-reveal-item>
-            <span>03</span>
-            <h3>Use loops for ongoing state</h3>
-            <p>A loop communicates that work is still happening. Loading, processing, recording, and connecting sounds continue until the state resolves. Start the loop with the visual state, then stop it immediately on success, failure, or cancellation. Never leave an invisible audio process running in the background.</p>
+            <div class="guide-card__surface">
+              <span>03</span>
+              <h3>Use loops for ongoing state</h3>
+              <p>A loop communicates that work is still happening. Loading, processing, recording, and connecting sounds continue until the state resolves. Start the loop with the visual state, then stop it immediately on success, failure, or cancellation. Never leave an invisible audio process running in the background.</p>
+            </div>
           </article>
         </div>
 
@@ -1004,10 +1523,10 @@ onBeforeUnmount(() => {
           <p class="eyebrow">Zero dependencies</p>
           <h2 id="install-title">Give your product<br>a sound language.</h2>
           <p>Use live synthesis on the web or copy all 858 tiny MP3 and Ogg files into any native, game, or media project. One-shots end automatically. Loops return a control you stop when the interface state resolves.</p>
-          <button class="install-command" :class="{ copied }" type="button" data-sfx-managed @click="copyInstall">
+          <button class="install-command" :class="{ copied, failed: installCopyFailed }" type="button" data-sfx-managed @click="copyInstall">
             <span aria-hidden="true">$</span>
             <code>npm install uisfx</code>
-            <strong>{{ copied ? 'Copied' : 'Copy' }}</strong>
+            <strong>{{ installCopyFailed ? 'Copy failed' : copied ? 'Copied' : 'Copy' }}</strong>
           </button>
         </div>
         <div class="code-sample" role="group" aria-labelledby="code-sample-title">
@@ -1066,6 +1585,18 @@ task?.stop()</pre>
           rel="noopener noreferrer"
           aria-label="UI SFX package on npm (opens in a new tab)"
         >npm <span aria-hidden="true">↗</span></a>
+        <a
+          href="/docs/agent-guide.md"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="UI SFX coding-agent guide (opens in a new tab)"
+        >Agent guide <span aria-hidden="true">↗</span></a>
+        <a
+          href="/llms.txt"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="UI SFX language-model index (opens in a new tab)"
+        >llms.txt <span aria-hidden="true">↗</span></a>
         <span>MIT code</span>
         <span>CC0 audio</span>
         <a
