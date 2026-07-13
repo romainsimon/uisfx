@@ -7,11 +7,12 @@ on:
     tags: ['v*']
 
 permissions:
-  contents: read
+  contents: write
   id-token: write
 
 jobs:
   publish:
+    if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip publish]')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,16 +22,52 @@ jobs:
           registry-url: https://registry.npmjs.org
       - name: Enable npm trusted publishing
         run: npm install --global npm@11.5.1
+      - name: Read package version
+        id: package
+        run: echo "version=$(node -p \"require('./packages/uisfx/package.json').version\")" >> "$GITHUB_OUTPUT"
       - name: Verify release tag matches package version
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          package_version=$(node -p "require('./packages/uisfx/package.json').version")
-          if [ "$GITHUB_REF_NAME" != "v$package_version" ]; then
-            echo "::error::Tag $GITHUB_REF_NAME does not match package version v$package_version"
+          if [ "$GITHUB_REF_NAME" != "v${{ steps.package.outputs.version }}" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match package version v${{ steps.package.outputs.version }}"
             exit 1
           fi
       - run: npm ci
       - run: npm run build --workspace=uisfx
-      - run: npm publish --workspace=uisfx --access public --provenance
+      - name: Check whether this version already exists
+        id: registry
+        run: |
+          if npm view "uisfx@${{ steps.package.outputs.version }}" version >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Publish package
+        if: steps.registry.outputs.exists != 'true'
+        run: npm publish --workspace=uisfx --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Record verified release
+        if: success() && github.ref == 'refs/heads/release/npm'
+        env:
+          PACKAGE_VERSION: ${{ steps.package.outputs.version }}
+          RELEASE_RESULT: ${{ steps.registry.outputs.exists == 'true' && 'already-published' || 'published' }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { writeFileSync } from 'node:fs'
+
+          const record = {
+            package: 'uisfx',
+            version: process.env.PACKAGE_VERSION,
+            sourceSha: process.env.GITHUB_SHA,
+            result: process.env.RELEASE_RESULT,
+            verifiedAt: new Date().toISOString(),
+          }
+
+          writeFileSync('.github/npm-release-status.json', `${JSON.stringify(record, null, 2)}\n`)
+          NODE
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .github/npm-release-status.json
+          git commit -m "chore: record npm release [skip publish]"
+          git push
