@@ -1,11 +1,11 @@
 {
   "package": "uisfx",
   "version": "0.4.0",
-  "sourceSha": "cc86c975f289318931253288db77b5c591e440e1",
-  "result": "failed",
+  "sourceSha": "07d65415cb3dc8f94fd6177ca4699ba7dc496f24",
+  "result": "published",
   "registryExists": "false",
-  "publishOutcome": "failure",
-  "failureCategory": "trusted-publishing",
+  "publishOutcome": "success",
+  "failureCategory": null,
   "failureCode": null,
-  "verifiedAt": "2026-07-14T11:46:15.178Z"
+  "verifiedAt": "2026-07-14T11:56:03.324Z"
 }
