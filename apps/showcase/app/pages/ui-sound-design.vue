@@ -16,6 +16,7 @@ import {
   shouldRecoverLegacyHomepageRedirect,
 } from '../lib/legacy-home-redirect'
 import { findActiveSection } from '../lib/scrollspy'
+import { VOLUME_PREVIEW_PLAY_OPTIONS } from '../lib/volume-preview'
 
 const runtimeConfig = useRuntimeConfig()
 const siteUrl = String(runtimeConfig.public.siteUrl || 'https://uisfx.com').replace(/\/$/, '')
@@ -233,12 +234,22 @@ function toggleMute() {
   else playCue('toggle-on')
 }
 
+function previewVolumeLevel(event: Event) {
+  if (!(event.target instanceof HTMLInputElement) || !player.value) return
+  const nextVolume = Math.max(0, Math.min(100, Number(event.target.value)))
+  volume.value = nextVolume
+  player.value.setVolume(nextVolume / 100)
+  if (!muted.value && nextVolume > 0) {
+    player.value.play('volume-change', VOLUME_PREVIEW_PLAY_OPTIONS)
+  }
+}
+
 function handlePreviewHover(event: PointerEvent) {
   if (event.pointerType === 'touch' || muted.value || !player.value) return
   const target = event.target as HTMLElement | null
   const interactive = target?.closest('button, a, select, input')
   const previous = (event.relatedTarget as HTMLElement | null)?.closest?.('button, a, select, input')
-  if (interactive && interactive !== previous) player.value.play('hover')
+  if (interactive && !interactive.closest('[data-sfx-no-hover]') && interactive !== previous) player.value.play('hover')
 }
 
 function updateActiveTocSection() {
@@ -396,7 +407,17 @@ onBeforeUnmount(() => {
               </label>
               <label class="volume-field">
                 <span>Preview volume <b>{{ muted ? 'Muted' : `${volume}%` }}</b></span>
-                <input v-model.number="volume" type="range" min="0" max="100" step="1" aria-label="Preview volume">
+                <input
+                  v-model.number="volume"
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="1"
+                  aria-label="Preview volume"
+                  :aria-valuetext="`${volume} percent`"
+                  data-sfx-no-hover
+                  @input="previewVolumeLevel"
+                >
               </label>
               <button type="button" class="mute-button" :aria-pressed="muted" @click="toggleMute">{{ muted ? 'Turn sound on' : 'Mute previews' }}</button>
             </div>
@@ -415,7 +436,7 @@ onBeforeUnmount(() => {
                 <small>{{ cue.note }}</small>
               </button>
             </div>
-            <p class="listen-note">Browsers require a first tap or click before audio can start. The loading example loops until you stop it.</p>
+            <p class="listen-note">Move the volume slider to hear the selected level immediately. Browsers require a first tap or click before audio can start. The loading example loops until you stop it.</p>
           </section>
 
           <section id="when" class="prose-section" data-guide-reveal>
@@ -556,6 +577,19 @@ const task = ui.play('processing')
 await renderProject()
 task?.stop()
 ui.play('complete')</code></pre>
+
+            <h3>Let the volume control preview itself</h3>
+            <p>Apply the new level before playing the cue. Restart the same short cue with a tiny cooldown so rapid pointer input stays responsive without stacking sounds.</p>
+            <pre class="code-block"><code>const volumeInput = document.querySelector('#sound-volume')
+
+volumeInput.addEventListener('input', () =&gt; {
+  const volume = Number(volumeInput.value) / 100
+  ui.setVolume(volume)
+  ui.play('volume-change', {
+    retrigger: 'restart',
+    cooldownMs: 45,
+  })
+})</code></pre>
 
             <h3>Web implementation checklist</h3>
             <ul class="implementation-list">

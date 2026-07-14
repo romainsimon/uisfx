@@ -6,6 +6,7 @@ import { buildAgentImplementationPrompt } from '../lib/agent-prompt'
 import { LEGACY_HOME_RECOVERY_PARAMETER } from '../lib/legacy-home-redirect'
 import { resolvePackShortcut } from '../lib/pack-shortcut'
 import { planPackSwitch } from '../lib/pack-switch'
+import { scalePreviewVolume, VOLUME_PREVIEW_PLAY_OPTIONS } from '../lib/volume-preview'
 import {
   CATEGORIES,
   CUES,
@@ -678,6 +679,9 @@ function setPreviewVolume(value: number) {
 function onVolumeInput(event: Event) {
   if (!(event.target instanceof HTMLInputElement)) return
   setPreviewVolume(Number(event.target.value))
+  if (!muted.value) {
+    player.value?.play('volume-change', VOLUME_PREVIEW_PLAY_OPTIONS)
+  }
 }
 
 function onVolumeCommit() {
@@ -687,7 +691,18 @@ function onVolumeCommit() {
     return
   }
   announcement.value = `Sound preview volume ${volumePercent.value} percent`
-  player.value?.play('volume-change')
+}
+
+function playLevelPreview(cue: CueName, level: number) {
+  if (!player.value || muted.value) return
+  const normalizedLevel = Math.max(0, Math.min(1, level))
+  if (normalizedLevel === 0) return
+  const recipe = createRecipe(selectedPack.value, cue)
+  player.value.play(cue, {
+    ...VOLUME_PREVIEW_PLAY_OPTIONS,
+    volume: scalePreviewVolume(recipe.defaultVolume, normalizedLevel),
+  })
+  announcement.value = `Previewing ${cue} at ${Math.round(normalizedLevel * 100)} percent`
 }
 
 function toggleMute() {
@@ -961,6 +976,7 @@ onBeforeUnmount(() => {
                   :style="{ '--volume-progress': `${volumePercent}%` }"
                   aria-label="Sound preview volume"
                   :aria-valuetext="muted ? 'Muted' : `${volumePercent} percent`"
+                  data-sfx-no-hover
                   @input="onVolumeInput"
                   @change="onVolumeCommit"
                 >
@@ -1256,7 +1272,12 @@ onBeforeUnmount(() => {
       </section>
 
       <div data-reveal>
-        <UISoundPatterns :pack-label="selectedPackData.label" :muted="muted" @play="play" />
+        <UISoundPatterns
+          :pack-label="selectedPackData.label"
+          :muted="muted"
+          @play="play"
+          @play-level="playLevelPreview"
+        />
       </div>
 
       <section id="sound-library" class="library-section" aria-labelledby="library-title">

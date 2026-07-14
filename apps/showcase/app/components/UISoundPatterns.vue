@@ -42,7 +42,10 @@ const props = defineProps<{
   muted: boolean
 }>()
 
-const emit = defineEmits<{ play: [cue: CueName] }>()
+const emit = defineEmits<{
+  play: [cue: CueName]
+  playLevel: [cue: CueName, level: number]
+}>()
 
 type ScenarioName = 'saas' | 'commerce' | 'rewards' | 'media' | 'messages'
 
@@ -118,6 +121,11 @@ function later(callback: () => void, delay: number) {
 function sound(cue: CueName) {
   recentCues.value = [...recentCues.value.slice(-4), { id: nextCueEventId++, cue }]
   emit('play', cue)
+}
+
+function soundAtLevel(cue: CueName, level: number) {
+  recentCues.value = [...recentCues.value.slice(-4), { id: nextCueEventId++, cue }]
+  emit('playLevel', cue, Math.max(0, Math.min(1, level)))
 }
 
 function changeScenario(value: string | number) {
@@ -307,8 +315,10 @@ function commitMediaSeek() {
   sound('seek')
 }
 
-function commitMediaVolume() {
-  sound('volume-change')
+function previewMediaVolume(event: Event) {
+  if (!(event.target instanceof HTMLInputElement)) return
+  mediaVolume.value = Number(event.target.value)
+  soundAtLevel('volume-change', mediaVolume.value / 100)
 }
 
 function onMessageInput() {
@@ -540,8 +550,17 @@ onBeforeUnmount(() => {
                 <label class="media-volume">
                   <Volume2 aria-hidden="true" />
                   <span class="sr-only">Volume</span>
-                  <input v-model.number="mediaVolume" type="range" min="0" max="100" aria-label="Volume" @change="commitMediaVolume">
-                  <strong>{{ mediaVolume }}</strong>
+                  <input
+                    v-model.number="mediaVolume"
+                    type="range"
+                    min="0"
+                    max="100"
+                    aria-label="Volume"
+                    :aria-valuetext="`${mediaVolume} percent`"
+                    data-sfx-no-hover
+                    @input="previewMediaVolume"
+                  >
+                  <strong>{{ mediaVolume }}%</strong>
                 </label>
               </div>
             </div>
