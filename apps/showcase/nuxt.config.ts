@@ -4,6 +4,11 @@ import { defineNuxtConfig } from 'nuxt/config'
 export default defineNuxtConfig({
   compatibilityDate: '2026-07-01',
   devtools: { enabled: false },
+  features: {
+    // Social crawlers should reach the page metadata before any component CSS.
+    // X is particularly sensitive to large SSR heads and may stop parsing early.
+    inlineStyles: false,
+  },
   modules: ['shadcn-nuxt'],
   shadcn: {
     prefix: '',
