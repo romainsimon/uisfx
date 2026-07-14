@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://uisfx.com"><strong>Preview all 858 sounds</strong></a>
+  <a href="https://uisfx.com"><strong>Preview all 936 sounds</strong></a>
   ·
   <a href="https://github.com/romainsimon/uisfx">GitHub</a>
   ·
@@ -29,7 +29,14 @@ Want a coding agent to implement it across an existing product? Use the [copy-re
 ```ts
 import { createUISFX } from 'uisfx'
 
-const ui = createUISFX({ pack: 'minimal', volume: 0.7 })
+const ui = createUISFX({
+  pack: 'minimal',
+  volume: 0.7,
+  preferences: { key: 'my-product:sound' },
+})
+
+// Call from the first trusted pointer or keyboard action.
+await ui.unlock()
 
 saveButton.addEventListener('click', async () => {
   const processing = ui.play('processing')
@@ -45,20 +52,20 @@ saveButton.addEventListener('click', async () => {
 })
 ```
 
-The `AudioContext` is created lazily. Sounds are synthesized and cached locally from deterministic recipes, so the runtime fetches no audio files.
+The `AudioContext` is created lazily. Sounds are synthesized and cached locally from deterministic recipes, so the runtime fetches no audio files. The player bounds polyphony, deduplicates loops, rate-limits frequent cues, and restarts repeated outcomes instead of layering them.
 
 ## What ships
 
 - 78 semantic cues across 13 interaction categories
-- 11 interchangeable sound packs
-- 858 portable sounds in both MP3 and Ogg
+- 12 interchangeable sound packs
+- 936 portable sounds in both MP3 and Ogg
 - 72 brief one-shots and 6 seamless state loops
 - Dry, event-bound textures with clean silent tails
-- A 10.2 kB compressed Web Audio runtime
+- A 12.0 kB compressed Web Audio runtime
 - Zero runtime dependencies
 - MIT code and CC0 audio
 
-## One API, eleven sonic personalities
+## One API, twelve sonic personalities
 
 Every pack implements every cue. Product logic stays stable while the sound design changes instantly.
 
@@ -68,6 +75,8 @@ ui.play('complete')
 ui.setPack('arcade')
 ui.play('complete') // Same meaning, entirely different feel.
 ```
+
+An active loop moves to the new pack automatically and keeps the same stoppable handle.
 
 | Pack | Character | Good fit |
 | --- | --- | --- |
@@ -82,6 +91,7 @@ ui.play('complete') // Same meaning, entirely different feel.
 | `rubber` | Tactile elastic taps with a quick friendly rebound | Kids, playful mobile, casual games |
 | `cinematic` | Deep impacts and polished tails | Premium media and dramatic moments |
 | `studio` | Tactile precision with warm restraint | Film, audio, and AI creative tools |
+| `zen` | Paper folds, soft brush, warm wood, and quiet chimes | Calm tools, wellness, reading, and focus |
 
 [Hear every pack on the interactive website →](https://uisfx.com)
 
@@ -123,6 +133,23 @@ ui.stopAll()
 await ui.destroy()
 ```
 
+Pass `preferences: {}` to persist pack, volume, and enabled state in localStorage. Supply a `storage` adapter for React Native, Electron, tests, or another persistence layer.
+
+### Playback policy and preload
+
+The default policy allows eight concurrent voices, reuses duplicate loops, restarts duplicate one-shots, and applies short cooldowns to high-frequency cues. Override deliberately when an interaction needs real overlap.
+
+```ts
+ui.play('reaction', { retrigger: 'overlap' })
+ui.play('hover', { cooldownMs: 0 })
+
+const controller = new AbortController()
+await ui.preload(['hover', 'select', 'success'], { signal: controller.signal })
+controller.abort()
+```
+
+Preload yields between cues so it does not synthesize an entire pack in one browser task.
+
 ## Add sound with HTML
 
 Use declarative bindings when data attributes fit your app better than event handlers.
@@ -162,12 +189,13 @@ Asset paths follow `sounds/{pack}/{cue}.{mp3|ogg}`. The `uisfx/manifest` export 
 
 | API | Purpose |
 | --- | --- |
-| `createUISFX(options)` | Create a player with a pack, volume, enabled state, or custom `AudioContext` |
+| `createUISFX(options)` | Create a player with preferences, a pack, volume, enabled state, voice limit, cooldown, or custom `AudioContext` |
+| `player.unlock()` | Resume Web Audio from a trusted pointer or keyboard action |
 | `player.play(cue, options)` | Play a typed semantic cue and receive `stop()` plus an `ended` promise |
-| `player.preload(cues?)` | Render and cache selected cues before they are needed |
-| `player.setPack(pack)` | Change the sonic personality without changing cue names |
+| `player.preload(cues?, options?)` | Cooperatively render selected cues with optional cancellation |
+| `player.setPack(pack)` | Change personality and migrate active loops without changing their handles |
 | `player.setVolume(value)` | Set master volume between `0` and `1` |
-| `player.setEnabled(value)` | Respect a persistent sound preference and stop active audio when disabled |
+| `player.setEnabled(value)` | Persist the sound preference and stop active audio when disabled |
 | `bindUISFX(root?, options?)` | Wire semantic cues to HTML data attributes |
 | `cueNames`, `packNames` | Build typed selectors, settings, and sound browsers |
 
@@ -187,6 +215,7 @@ Sound should reinforce visible feedback, never replace it.
 
 - [Interactive sound library and examples](https://uisfx.com)
 - [Full cue taxonomy](https://github.com/romainsimon/uisfx/blob/main/docs/taxonomy.md)
+- [Listening conformance protocol](https://github.com/romainsimon/uisfx/blob/main/docs/listening-protocol.md)
 - [Source code and contribution guide](https://github.com/romainsimon/uisfx)
 - [Issues and feature requests](https://github.com/romainsimon/uisfx/issues)
 - [Sponsor ongoing maintenance](https://github.com/sponsors/romainsimon)

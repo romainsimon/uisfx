@@ -18,6 +18,9 @@ export {
 export {
   createUISFX,
   soundUrl,
+  type PreloadOptions,
+  type UISFXPreferences,
+  type UISFXPreferenceStorage,
   type UISFXOptions,
   type UISFXPlayer,
   type PlayingSFX,

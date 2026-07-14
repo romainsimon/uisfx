@@ -18,11 +18,15 @@ function isPack(value: string | undefined): value is PackName {
   return Boolean(value && packNames.includes(value as PackName))
 }
 
-function cueFromTarget(target: EventTarget | null, attribute: string) {
+function cueTargetFromEventTarget(target: EventTarget | null, attribute: string) {
   if (!(target instanceof Element)) return undefined
   const element = target.closest<HTMLElement>(`[${attribute}]`)
   const value = element?.dataset[attribute.replace('data-', '').replace(/-([a-z])/g, (_, letter: string) => letter.toUpperCase())]
-  return isCue(value) ? value : undefined
+  return element && isCue(value) ? { element, cue: value } : undefined
+}
+
+function cueFromTarget(target: EventTarget | null, attribute: string) {
+  return cueTargetFromEventTarget(target, attribute)?.cue
 }
 
 export function bindUISFX(root: Document | HTMLElement = document, options: BindOptions = {}): UISFXBinding {
@@ -39,8 +43,9 @@ export function bindUISFX(root: Document | HTMLElement = document, options: Bind
 
   const pointerOver = (event: Event) => {
     if (!(event instanceof PointerEvent) || event.pointerType === 'touch') return
-    const cue = cueFromTarget(event.target, 'data-uisfx-hover')
-    if (cue) player.play(cue)
+    const current = cueTargetFromEventTarget(event.target, 'data-uisfx-hover')
+    const previous = cueTargetFromEventTarget(event.relatedTarget, 'data-uisfx-hover')
+    if (current && current.element !== previous?.element) player.play(current.cue)
   }
 
   const pointerDown = (event: Event) => {

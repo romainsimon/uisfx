@@ -14,10 +14,12 @@
     "generate": "node --import tsx scripts/generate-library.ts",
     "privacy:check": "node scripts/privacy-check.mjs",
     "report:audio": "node --import tsx scripts/audio-report.ts",
+    "report:browser": "npm run build --workspace=uisfx && node scripts/browser-conformance.mjs",
+    "report:package": "npm run build --workspace=uisfx && node scripts/package-budget.mjs",
     "report:quality": "node --import tsx scripts/audio-quality.ts",
     "test": "turbo run test",
     "typecheck": "npm run build --workspace=uisfx && tsc -p tsconfig.json --noEmit && turbo run typecheck",
-    "check": "npm run privacy:check && npm run generate && npm run report:quality && npm run check:agents && npm run typecheck && npm run test && npm run build && npm run report:audio"
+    "check": "npm run privacy:check && npm run generate && npm run report:quality && npm run check:agents && npm run typecheck && npm run test && npm run build && npm run report:audio && npm run report:package && npm run report:browser"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

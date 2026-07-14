@@ -1,6 +1,6 @@
 {
   "name": "uisfx",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Open-source semantic UI sound effects for web, mobile, SaaS, and games.",
   "type": "module",
   "sideEffects": false,

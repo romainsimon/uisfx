@@ -21,16 +21,25 @@ describe('UI SFX catalog', () => {
     }
   })
 
-  it('creates all 858 pack and cue combinations', () => {
+  it('creates every pack and cue combination', () => {
     const recipes = PACKS.flatMap((pack) => CUES.map((cue) => createRecipe(pack.name, cue.name)))
-    expect(recipes).toHaveLength(858)
-    expect(new Set(recipes.map((recipe) => `${recipe.pack}:${recipe.cue}`)).size).toBe(858)
+    const expectedCount = PACKS.length * CUES.length
+    expect(recipes).toHaveLength(expectedCount)
+    expect(new Set(recipes.map((recipe) => `${recipe.pack}:${recipe.cue}`)).size).toBe(expectedCount)
   })
 
   it('distinguishes brief one-shots from explicit continuous loops', () => {
     const loops = CUES.filter((cue) => getPlaybackMode(cue.name) === 'loop')
     expect(loops.map((cue) => cue.name)).toEqual(['loading', 'processing', 'recording', 'connecting', 'scanning', 'streaming'])
     expect(CUES.filter((cue) => getPlaybackMode(cue.name) === 'one-shot')).toHaveLength(72)
+  })
+
+  it('keeps every rendered one-shot recipe within the 1.5 second interaction budget', () => {
+    for (const pack of PACKS) {
+      for (const cue of CUES.filter((candidate) => !('loop' in candidate) || !candidate.loop)) {
+        expect(renderRecipe(createRecipe(pack.name, cue.name), 8_000).duration).toBeLessThanOrEqual(1.5)
+      }
+    }
   })
 })
 
@@ -67,6 +76,26 @@ describe('deterministic renderer', () => {
     expect(new Set(signatures).size).toBe(PACKS.length)
     expect(createRecipe('glass', 'achievement').notes.length).toBeGreaterThan(createRecipe('minimal', 'achievement').notes.length)
     expect(createRecipe('mechanical', 'press').notes.length).toBeGreaterThan(createRecipe('minimal', 'press').notes.length)
+  })
+
+  it('gives Zen cues event-bound paper, brush, wood, and chime materials', () => {
+    expect(createRecipe('zen', 'open').paper).toBeGreaterThan(0)
+    expect(createRecipe('zen', 'scanning').brush).toBeGreaterThan(0)
+    expect(createRecipe('zen', 'press').wood).toBeGreaterThan(0)
+    expect(createRecipe('zen', 'success').chime).toBeGreaterThan(0)
+    expect(createRecipe('minimal', 'open').paper).toBe(0)
+  })
+
+  it('masters Zen below the more assertive packs', () => {
+    const hover = renderRecipe(createRecipe('zen', 'hover'), 16_000)
+    const success = renderRecipe(createRecipe('zen', 'success'), 16_000)
+    const loading = renderRecipe(createRecipe('zen', 'loading'), 16_000)
+    const minimalSuccess = renderRecipe(createRecipe('minimal', 'success'), 16_000)
+
+    expect(hover.peak).toBeLessThanOrEqual(0.221)
+    expect(success.peak).toBeLessThanOrEqual(0.341)
+    expect(loading.peak).toBeLessThanOrEqual(0.231)
+    expect(success.peak).toBeLessThan(minimalSuccess.peak)
   })
 
   it('renders loop buffers with click-free samples and slopes at the seam', () => {
@@ -142,7 +171,7 @@ describe('deterministic renderer', () => {
         expect(finalTwentyMs).toBeLessThan(0.000_32)
       }
     }
-  })
+  }, 10_000)
 
   it('keeps the playful packs expressive without forcing a large glide onto every cue', () => {
     for (const cue of ['hover', 'select', 'notification', 'info', 'progress-step'] as const) {

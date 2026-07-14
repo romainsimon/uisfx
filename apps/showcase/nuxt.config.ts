@@ -28,6 +28,13 @@ export default defineNuxtConfig({
         'Cross-Origin-Resource-Policy': 'cross-origin',
       },
     },
+    '/og-ui-sound-design-936.jpg': {
+      headers: {
+        'Cache-Control': 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000',
+        'Access-Control-Allow-Origin': '*',
+        'Cross-Origin-Resource-Policy': 'cross-origin',
+      },
+    },
   },
   vite: {
     plugins: [tailwindcss()],
@@ -40,9 +47,9 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'en' },
-      title: 'UI Sound Design: 858 Interface Sound Effects | UI SFX',
+      title: 'UI Sound Design: 936 Interface Sound Effects | UI SFX',
       meta: [
-        { name: 'description', content: 'Preview 858 open-source UI sound effects for web, mobile, SaaS, and games. Compare 11 sonic styles, one-shots, and seamless loops.' },
+        { name: 'description', content: 'Preview 936 open-source UI sound effects for web, mobile, SaaS, and games. Compare 12 sonic styles, one-shots, and seamless loops.' },
         { name: 'theme-color', content: '#f5eddd' },
       ],
       link: [

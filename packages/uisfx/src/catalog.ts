@@ -156,6 +156,10 @@ export interface PackDefinition {
   fmRatio?: number
   fmDepth?: number
   elasticity?: number
+  paper?: number
+  brush?: number
+  wood?: number
+  chime?: number
 }
 
 export const PACKS = [
@@ -170,6 +174,7 @@ export const PACKS = [
   { name: 'rubber', label: 'Rubber', description: 'Tactile elastic taps with a quick, friendly rebound.', bestFor: 'Kids, playful mobile, casual games', color: '#d99a24', waveform: 'triangle', pitch: 0.86, duration: 0.88, attack: 0.0035, decay: 2.2, noise: 0.018, transient: 0.22, brightness: 0.5, echo: 0.012, bitDepth: 16, harmonics: [[1, 1], [1.5, 0.075], [2.02, 0.04]], elasticity: 1.15 },
   { name: 'cinematic', label: 'Cinematic', description: 'Deep impacts, polished tails, and quiet scale.', bestFor: 'Premium media, games, dramatic moments', color: '#3f5873', waveform: 'sine', pitch: 0.7, duration: 1.28, attack: 0.008, decay: 1.78, noise: 0.12, transient: 0.55, brightness: 0.38, echo: 0.11, bitDepth: 16, harmonics: [[1, 1], [0.5, 0.22], [2, 0.1], [3, 0.035]] },
   { name: 'studio', label: 'Studio', description: 'Tactile editing precision with warm cinematic restraint.', bestFor: 'Film, audio, and AI creative tools', color: '#6261a8', waveform: 'triangle', pitch: 0.86, duration: 0.82, attack: 0.004, decay: 2.15, noise: 0.09, transient: 0.24, brightness: 0.48, echo: 0.025, bitDepth: 16, harmonics: [[1, 1], [2, 0.11], [3, 0.035]] },
+  { name: 'zen', label: 'Zen', description: 'Washi folds, soft brush, and quiet wooden detail.', bestFor: 'Mindfulness, reading, writing, calm productivity', color: '#7d8f77', waveform: 'sine', pitch: 0.86, duration: 1.02, attack: 0.012, decay: 2.05, noise: 0, transient: 0.045, brightness: 0.34, echo: 0.018, bitDepth: 16, harmonics: [[1, 1], [2.01, 0.075], [3.98, 0.018]], paper: 0.34, brush: 0.26, wood: 0.22, chime: 0.12 },
 ] as const satisfies readonly PackDefinition[]
 
 export type PackName = (typeof PACKS)[number]['name']

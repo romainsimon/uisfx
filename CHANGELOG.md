@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.4.0 - 2026-07-14
+
+- Bound default polyphony to eight voices, retire old one-shots before loops, and restart repeated outcomes instead of layering them.
+- Reuse duplicate loops and migrate active loops across pack changes without invalidating their stoppable handles.
+- Add semantic cooldowns for high-frequency cues with per-player and per-play overrides.
+- Add explicit Web Audio unlocking, cooperative cancellable preload, and persisted pack, volume, and enabled preferences.
+- Deduplicate delegated hover bindings when a pointer moves between descendants of the same control.
+- Enforce the 1.5 second one-shot budget across every rendered pack.
+- Add package size budgets and real-browser conformance for trusted unlocking, first-play latency, cooperative preload, loop migration, and preference restoration.
+- Add a repeatable human listening protocol covering meaning, hierarchy, fatigue, device speakers, headphones, speech, and media playback.
+
 ## 0.3.0 - 2026-07-13
 
 - Add a live master gain so volume changes immediately affect one-shots and loops already playing.
@@ -17,12 +28,14 @@
 - Correct pitch-glide phase, band-limit bright oscillators, and give one-shots clean digital-black tails.
 - Make all 66 rendered loops clock-even, seam-continuous, cyclically panned, and click-free when stopped.
 - Increase portable asset fidelity, using mono where spatial information is unnecessary and preserving stereo motion where it matters.
-- Add automated gates for tail cleanliness, loop continuity, loop timing, and pairwise perceptual similarity across all 858 renders.
+- Add automated gates for tail cleanliness, loop continuity, loop timing, and pairwise perceptual similarity across all 936 renders.
 
 ## 0.2.0
 
 - Add the Studio feel for film, audio, and AI creative tools.
-- Expand the portable library to 858 CC0 sounds in MP3 and Ogg.
+- Expand the portable library to 936 CC0 sounds in MP3 and Ogg, including the calm paper, brush, wood, and chime textures of the new Zen feel.
+- Add a live GitHub Sponsors showcase and a prominent animated sponsor action.
+- Add restrained hover audio and stronger theme-aware states across the showcase.
 - Add Studio artwork and showcase theme.
 
 ## 0.1.0

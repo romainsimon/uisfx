@@ -473,87 +473,7 @@ select:focus-visible {
   transform: translate3d(0, -0.35rem, 0) scale(0.97);
 }
 
-.pack-handoff-shell {
-  --handoff-width: 1px;
-  --handoff-height: 1px;
-  --handoff-x: 0px;
-  --handoff-y: 0px;
-  --handoff-scale-x: 1;
-  --handoff-scale-y: 1;
-  --handoff-rotation: 1.1deg;
-  --handoff-opacity: 0;
-  position: fixed;
-  z-index: 45;
-  inset: 0 auto auto 0;
-  width: var(--handoff-width);
-  height: var(--handoff-height);
-  overflow: hidden;
-  border: 1px solid var(--ink);
-  background: var(--active-ink, var(--ink));
-  box-shadow: 0.65rem 0.65rem 0 var(--paper-deep), 0.65rem 0.65rem 0 1px var(--ink);
-  isolation: isolate;
-  opacity: var(--handoff-opacity);
-  pointer-events: none;
-  transform: translate3d(var(--handoff-x), var(--handoff-y), 0) rotate(var(--handoff-rotation)) scaleX(var(--handoff-scale-x)) scaleY(var(--handoff-scale-y));
-  transform-origin: center;
-  will-change: transform, opacity;
-}
-
-.pack-handoff-shell__artwork,
-.pack-handoff-shell__veil {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.pack-handoff-shell__artwork {
-  z-index: 0;
-  object-fit: cover;
-  object-position: center;
-  scale: 1.015;
-}
-
-.pack-handoff-shell__veil {
-  z-index: 1;
-  background: linear-gradient(
-    180deg,
-    color-mix(in oklch, var(--active-ink, var(--ink)), transparent 28%) 0%,
-    color-mix(in oklch, var(--active-ink, var(--ink)), transparent 48%) 52%,
-    color-mix(in oklch, var(--active-ink, var(--ink)), transparent 20%) 100%
-  );
-}
-
-.pack-handoff-shell::before,
-.pack-handoff-shell::after {
-  content: '';
-  position: absolute;
-  z-index: 2;
-  width: 0.35rem;
-  aspect-ratio: 1;
-  border: 1px solid color-mix(in oklch, var(--active-bg, var(--paper-light)), transparent 45%);
-  border-radius: 50%;
-}
-
-.pack-handoff-shell::before {
-  inset: 0.6rem auto auto 0.6rem;
-}
-
-.pack-handoff-shell::after {
-  inset: auto 0.6rem 0.6rem auto;
-}
-
 .pack-dock {
-  --dock-travel-x: 0px;
-  --dock-travel-y: 0px;
-  --dock-scale-x: 1;
-  --dock-scale-y: 1;
-  --dock-rotation: 0deg;
-  --dock-opacity: 0;
-  --dock-content-opacity: 0;
-  --dock-content-scale-x: 1;
-  --dock-content-scale-y: 1;
   position: fixed;
   z-index: 46;
   inset: auto auto max(1rem, env(safe-area-inset-bottom)) 50%;
@@ -565,29 +485,28 @@ select:focus-visible {
   color: var(--dock-ink, var(--ink));
   box-shadow: 0.38rem 0.38rem 0 var(--dock-accent, var(--accent));
   isolation: isolate;
-  opacity: var(--dock-opacity);
+  visibility: hidden;
+  opacity: 0;
   pointer-events: none;
-  transform: translate3d(calc(-50% + var(--dock-travel-x)), var(--dock-travel-y), 0) rotate(var(--dock-rotation)) scaleX(var(--dock-scale-x)) scaleY(var(--dock-scale-y));
-  transform-origin: center;
-  will-change: transform, opacity;
+  transform: translate3d(-50%, 0, 0);
+}
+
+.pack-dock.is-visible {
+  visibility: visible;
+  opacity: 1;
 }
 
 .pack-dock.is-interactive {
   pointer-events: auto;
 }
 
-.site-shell:not(.motion-ready) .pack-dock,
-.site-shell:not(.motion-ready) .pack-handoff-shell {
+.site-shell:not(.motion-ready) .pack-dock {
   opacity: 0;
 }
 
 .pack-dock__content {
   display: flex;
   align-items: stretch;
-  opacity: var(--dock-content-opacity);
-  transform: scaleX(var(--dock-content-scale-x)) scaleY(var(--dock-content-scale-y));
-  transform-origin: center;
-  will-change: transform, opacity;
 }
 
 .pack-dock__artwork,
@@ -665,7 +584,7 @@ select:focus-visible {
   background: color-mix(in oklch, var(--dock-bg, var(--paper-light)), transparent 30%);
   color: color-mix(in oklch, var(--dock-ink, var(--ink)), transparent 30%);
   cursor: pointer;
-  transition: background-color 180ms var(--ease-out-quart), color 180ms var(--ease-out-quart), transform 120ms ease-out;
+  transition: background-color 180ms var(--ease-out-quart), color 180ms var(--ease-out-quart), transform 120ms ease-out, box-shadow 180ms var(--ease-out-quart);
 }
 
 .pack-dock__key-label {
@@ -709,12 +628,21 @@ select:focus-visible {
 }
 
 .pack-dock__keys button.active {
-  background: var(--dock-key-bg);
-  color: var(--dock-key-ink);
+  background: var(--dock-key-ink);
+  color: var(--dock-key-bg);
+  box-shadow: inset 0 -0.24rem 0 var(--dock-key);
+  font-weight: 900;
 }
 
 .pack-dock__keys button.active::after {
-  transform: scale(1);
+  box-shadow: 0 0 0 0.2rem color-mix(in oklch, var(--dock-key), transparent 72%);
+  transform: scale(1.18);
+}
+
+.pack-dock__keys button:focus-visible {
+  z-index: 1;
+  outline: 2px solid var(--dock-key);
+  outline-offset: -3px;
 }
 
 .pack-dock__select {
@@ -783,16 +711,16 @@ select:focus-visible {
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__dots i {
-    animation: logo-dot-sequence 1.2s var(--ease-out-quart) infinite;
+    animation: logo-dot-sequence 1200ms var(--ease-out-quart) infinite;
     will-change: transform;
   }
 
   .logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__dots i:nth-child(2) {
-    animation-delay: -0.3s;
+    animation-delay: 400ms;
   }
 
   .logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__dots i:nth-child(3) {
-    animation-delay: -0.6s;
+    animation-delay: 800ms;
   }
 }
 
@@ -842,8 +770,9 @@ select:focus-visible {
 }
 
 .hero h1 em {
-  color: var(--accent);
+  color: var(--active-pack, var(--accent));
   font-style: normal;
+  transition: color 300ms var(--ease-out-quart);
 }
 
 .hero-intro {
@@ -867,6 +796,11 @@ select:focus-visible {
 }
 
 .hero-install-block {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.hero-agent-block {
   display: grid;
   gap: 0.4rem;
 }
@@ -1236,11 +1170,11 @@ select:focus-visible {
   background: var(--active-ink, var(--ink));
   color: var(--active-bg, var(--paper-light));
   box-shadow: 0.65rem 0.65rem 0 var(--paper-deep), 0.65rem 0.65rem 0 1px var(--ink);
-  opacity: var(--selector-source-opacity, 1);
+  opacity: 1;
   transform: translate3d(var(--console-x, 0), var(--console-y, 0), 0) rotate(var(--console-rotate, 1.1deg));
   transform-origin: center;
   transition: transform 360ms var(--ease-out-quart), background-color 360ms var(--ease-out-quart), color 360ms var(--ease-out-quart);
-  will-change: transform, opacity;
+  will-change: transform;
   view-transition-name: sound-console;
 }
 
@@ -1896,7 +1830,7 @@ select:focus-visible {
 
 @media (min-width: 75rem) {
   .comparison-board {
-    grid-template-columns: repeat(11, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: var(--space-xs);
   }
 
@@ -2495,6 +2429,55 @@ select:focus-visible {
   padding-block: var(--space-3xl);
   color: var(--ink-soft);
   text-align: center;
+}
+
+.guide-promo {
+  width: min(100% - 2 * clamp(1rem, 4vw, 4rem), 90rem);
+  margin-inline: auto;
+  padding-block: clamp(5rem, 9vw, 8rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.72fr);
+  gap: clamp(2rem, 8vw, 8rem);
+  align-items: end;
+}
+
+.guide-promo h2 {
+  max-width: 12ch;
+  margin: var(--space-sm) 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 6.5rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+}
+
+.guide-promo__copy {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.guide-promo__copy p {
+  max-width: 38rem;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.7;
+}
+
+.guide-promo__copy a {
+  width: fit-content;
+  padding: 0.85rem 1.1rem;
+  background: var(--ink);
+  color: var(--paper-light);
+  font-weight: 700;
+  transition: transform 180ms var(--ease-out-quart), background-color 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .guide-promo__copy a:hover {
+    transform: translateY(-3px) rotate(-0.5deg);
+    background: var(--accent-dark);
+  }
 }
 
 .guide-section {
@@ -3191,6 +3174,11 @@ select:focus-visible {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
+  .guide-promo {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
   .guide-principles {
     grid-template-columns: 1fr;
   }
@@ -3459,7 +3447,7 @@ select:focus-visible {
     align-items: start;
   }
 
-  .hero-agent-handoff .hero-tool-label small {
+  .hero-agent-block .hero-tool-label small {
     display: none;
   }
 

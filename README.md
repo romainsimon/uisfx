@@ -15,17 +15,17 @@
 
 Open-source interface sound effects for every product state.
 
-UI SFX is a tiny semantic sound system for web apps, mobile apps, SaaS, education, media, and games. Call `success`, `drop`, or `level-up` once, then switch the whole product between eleven coherent sonic personalities without changing interaction code.
+UI SFX is a tiny semantic sound system for web apps, mobile apps, SaaS, education, media, and games. Call `success`, `drop`, or `level-up` once, then switch the whole product between twelve coherent sonic personalities without changing interaction code.
 
 [Preview every sound, cue, and sonic personality at uisfx.com →](https://uisfx.com)
 
 - 78 semantic cues across 13 interaction categories
-- 11 complete sound packs
-- 858 original sounds in both MP3 and Ogg
+- 12 complete sound packs
+- 936 original sounds in both MP3 and Ogg
 - 72 brief one-shots and 6 seamless state loops
-- 4.76 MB for every MP3 or 3.71 MB for every higher-fidelity Ogg
+- 5.18 MB for every MP3 or 3.82 MB for every higher-fidelity Ogg
 - Dry event-bound textures, clean silent tails, and automated similarity checks
-- 10.2 kB compressed Web Audio runtime with zero dependencies
+- 12.0 kB compressed Web Audio runtime with zero dependencies
 - MIT code, CC0 audio, and CC0 sound-pack art
 
 ## Install
@@ -39,7 +39,10 @@ Want a coding agent to wire the whole product? Copy the [production-ready implem
 ```ts
 import { createUISFX } from 'uisfx'
 
-const ui = createUISFX({ pack: 'minimal' })
+const ui = createUISFX({ pack: 'minimal', preferences: {} })
+
+// Call from the first trusted pointer or keyboard action.
+await ui.unlock()
 
 saveButton.addEventListener('click', () => {
   ui.play('success')
@@ -53,9 +56,11 @@ processing?.stop()
 ui.setPack('arcade')
 ```
 
-UI SFX creates its `AudioContext` after the first interaction, synthesizes from the same recipes as the portable library, and caches rendered buffers. It fetches no audio files at runtime.
+The player defaults to eight voices, deduplicates loops, restarts repeated outcomes, rate-limits high-frequency cues, and moves active loops into a newly selected pack without invalidating their handles.
 
-## Eleven sonic personalities
+UI SFX creates its `AudioContext` lazily. Call `unlock()` from the first trusted interaction, then it synthesizes deterministic recipes locally and caches rendered buffers without fetching audio files.
+
+## Twelve sonic personalities
 
 | Pack | Character | Good fit |
 | --- | --- | --- |
@@ -70,6 +75,7 @@ UI SFX creates its `AudioContext` after the first interaction, synthesizes from 
 | `rubber` | Tactile elastic taps with a quick friendly rebound | Kids, playful mobile, casual games |
 | `cinematic` | Deep impacts and polished tails | Premium media and dramatic moments |
 | `studio` | Tactile editing precision with warm restraint | Film, audio, and AI creative tools |
+| `zen` | Paper folds, soft brush, warm wood, and quiet chimes | Calm tools, wellness, reading, and focus |
 
 Every pack implements every cue. The complete semantic contract lives in [the taxonomy](docs/taxonomy.md).
 
@@ -133,6 +139,8 @@ ui.setVolume(0.5)
 ui.stopAll()
 ```
 
+`preferences: {}` stores pack, volume, and enabled state in localStorage. A custom storage adapter supports native shells and application preference stores. `preload()` yields between cues and accepts an `AbortSignal`, so preparing sounds does not monopolize one browser task.
+
 ## Build from source
 
 The checked-in sound files are reproducible from deterministic synthesis recipes.
@@ -143,7 +151,7 @@ npm run generate
 npm run check
 ```
 
-Node 22.20 or later and `ffmpeg` are required. The full quality gate regenerates every file, typechecks, tests, builds the package and showcase, and validates audio size, decoded peaks, tail silence, loop timing, seam continuity, and pairwise similarity.
+Node 22.20 or later, Chrome or Chromium, and `ffmpeg` are required. The full quality gate regenerates every file, typechecks, tests, builds the package and showcase, and validates audio size, decoded peaks, tail silence, loop timing, seam continuity, pairwise similarity, runtime size, browser unlocking, cooperative preload, and preference restoration. Recipe changes also follow the [listening conformance protocol](docs/listening-protocol.md).
 
 ## Why semantic cues?
 
@@ -161,10 +169,6 @@ The product event stays stable while the sound system evolves independently.
 
 UI SFX stays free, open, and maintained thanks to its sponsors. [Sponsor UI SFX on GitHub](https://github.com/sponsors/romainsimon).
 
-### Founding Sponsors
-
-<p align="center"><!-- sponsors-founding --><sub>Become the first <a href="https://github.com/sponsors/romainsimon">Founding Sponsor</a>.</sub><!-- sponsors-founding --></p>
-
 ### Premier Sponsors
 
 <p align="center"><!-- sponsors-premier --><sub>Become the first <a href="https://github.com/sponsors/romainsimon">Premier Sponsor</a>.</sub><!-- sponsors-premier --></p>
@@ -173,17 +177,9 @@ UI SFX stays free, open, and maintained thanks to its sponsors. [Sponsor UI SFX 
 
 <p align="center"><!-- sponsors-sponsor --><sub>Become the first <a href="https://github.com/sponsors/romainsimon">Sponsor</a>.</sub><!-- sponsors-sponsor --></p>
 
-### Backers
-
-<p align="center"><!-- sponsors-backer --><sub>Become the first <a href="https://github.com/sponsors/romainsimon">Backer</a>.</sub><!-- sponsors-backer --></p>
-
-### Supporters
-
-<p align="center"><!-- sponsors-supporter --><sub>Become the first <a href="https://github.com/sponsors/romainsimon">Supporter</a>.</sub><!-- sponsors-supporter --></p>
-
 ## Contributing
 
-Issues and focused pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before changing the taxonomy or synthesis recipes; a new cue must work in all eleven packs and keep a visible or haptic counterpart.
+Issues and focused pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before changing the taxonomy or synthesis recipes; a new cue must work in all twelve packs and keep a visible or haptic counterpart.
 
 ## License
 
