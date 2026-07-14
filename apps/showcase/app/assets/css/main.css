@@ -664,63 +664,51 @@ select:focus-visible {
   font-size: 1.55rem;
 }
 
-.uisfx-mark__dots {
+.uisfx-mark__wave {
+  height: 0.42em;
   display: inline-flex;
   align-items: center;
-  gap: 0.1em;
+  gap: 0.085em;
 }
 
-.uisfx-mark__dots i {
-  width: 0.14em;
-  aspect-ratio: 1;
-  border-radius: 50%;
+.uisfx-mark__wave i {
+  width: 0.105em;
+  height: 100%;
+  display: block;
+  border-radius: 999px;
   background: var(--accent);
-  transform-origin: 50% 100%;
+  transform: scaleY(var(--wave-rest));
+  transform-origin: 50% 50%;
   transition: background-color 180ms var(--ease-out-quart), transform 180ms var(--ease-out-quart);
 }
 
-.uisfx-mark__word {
-  display: inline-block;
-  transition: transform 240ms var(--ease-out-quart);
-}
+.uisfx-mark__wave i:nth-child(1) { --wave-rest: 0.42; }
+.uisfx-mark__wave i:nth-child(2) { --wave-rest: 1; }
+.uisfx-mark__wave i:nth-child(3) { --wave-rest: 0.64; }
 
-.logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__word {
-  transform: translate3d(0, -0.025em, 0);
-}
-
-.logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__dots i {
+.logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__wave i {
   background: var(--active-accent, var(--accent));
 }
 
-@keyframes logo-dot-sequence {
-  0%, 18%, 58%, 100% {
-    opacity: 0.72;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-
-  32% {
-    opacity: 1;
-    transform: translate3d(0, -0.32em, 0) scale(0.88, 1.22);
-  }
-
-  43% {
-    opacity: 0.9;
-    transform: translate3d(0, 0.07em, 0) scale(1.14, 0.82);
-  }
+@keyframes logo-wave-pulse {
+  0%, 100% { transform: scaleY(0.34); }
+  28% { transform: scaleY(0.78); }
+  52% { transform: scaleY(1); }
+  76% { transform: scaleY(0.52); }
 }
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__dots i {
-    animation: logo-dot-sequence 1200ms var(--ease-out-quart) infinite;
+  .logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__wave i {
+    animation: logo-wave-pulse 1080ms ease-in-out infinite;
     will-change: transform;
   }
 
-  .logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__dots i:nth-child(2) {
-    animation-delay: 400ms;
+  .logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__wave i:nth-child(2) {
+    animation-delay: -360ms;
   }
 
-  .logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__dots i:nth-child(3) {
-    animation-delay: 800ms;
+  .logo-sound-trigger:is(:hover, :focus-visible) .uisfx-mark__wave i:nth-child(3) {
+    animation-delay: -720ms;
   }
 }
 

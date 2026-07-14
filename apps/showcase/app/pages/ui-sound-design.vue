@@ -318,7 +318,7 @@ onBeforeUnmount(() => {
     <a class="guide-skip" href="#article">Skip to guide</a>
 
     <header class="guide-topbar">
-      <a class="guide-brand" href="/" aria-label="UI SFX home"><UISFXMark compact /></a>
+      <a class="guide-brand logo-sound-trigger" href="/" aria-label="UI SFX home"><UISFXMark compact /></a>
       <nav aria-label="Guide navigation">
         <a href="/#compare">Feels</a>
         <a href="/#sound-library">Sound library</a>
@@ -676,7 +676,7 @@ ui.play('complete')</code></pre>
     </main>
 
     <footer class="guide-footer">
-      <a href="/" aria-label="UI SFX home"><UISFXMark /></a>
+      <a class="logo-sound-trigger" href="/" aria-label="UI SFX home"><UISFXMark /></a>
       <p>Sound should reinforce visible feedback, never replace it.</p>
       <nav aria-label="Footer navigation">
         <a href="/">Library</a>
