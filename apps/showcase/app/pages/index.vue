@@ -447,7 +447,12 @@ function onShellPointerOver(event: PointerEvent) {
   const target = event.target
   if (!(target instanceof Element)) return
   const control = target.closest<HTMLElement>('a, button, [role="button"]')
-  if (!control || control.closest('.logo-sound-trigger') || control.hasAttribute('disabled')) return
+  if (
+    !control
+    || control.closest('.logo-sound-trigger')
+    || control.closest('[data-sfx-no-hover]')
+    || control.hasAttribute('disabled')
+  ) return
   if (event.relatedTarget instanceof Node && control.contains(event.relatedTarget)) return
   const now = performance.now()
   if (now - lastHoverSoundAt < 90) return
@@ -1330,6 +1335,7 @@ onBeforeUnmount(() => {
             :class="{ playing: activeCue === cue.name && activePack === selectedPack, looping: isLooping(cue.name, selectedPack) }"
             :aria-label="playLabel(cue.name, selectedPack)"
             data-sfx-managed
+            data-sfx-no-hover
             @click="play(cue.name)"
           >
             <span class="cue-row__index">{{ String(index + 1).padStart(2, '0') }}</span>
