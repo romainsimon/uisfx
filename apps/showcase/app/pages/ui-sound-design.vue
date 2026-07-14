@@ -11,6 +11,10 @@ import {
   type PlayingSFX,
   type UISFXPlayer,
 } from 'uisfx'
+import {
+  LEGACY_HOME_RECOVERY_QUERY,
+  shouldRecoverLegacyHomepageRedirect,
+} from '../lib/legacy-home-redirect'
 
 const runtimeConfig = useRuntimeConfig()
 const siteUrl = String(runtimeConfig.public.siteUrl || 'https://uisfx.com').replace(/\/$/, '')
@@ -221,6 +225,18 @@ watch(selectedPack, (next) => {
 })
 
 onMounted(() => {
+  const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined
+  if (shouldRecoverLegacyHomepageRedirect(window.location.pathname, navigation?.redirectCount ?? 0)) {
+    try {
+      const recoveryKey = 'uisfx:legacy-home-redirect-recovered'
+      if (!sessionStorage.getItem(recoveryKey)) {
+        sessionStorage.setItem(recoveryKey, '1')
+        window.location.replace(`/${LEGACY_HOME_RECOVERY_QUERY}`)
+        return
+      }
+    } catch { /* Continue to the guide when session storage is unavailable. */ }
+  }
+
   player.value = createUISFX({ pack: selectedPack.value, volume: volume.value / 100 })
   const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
   reducedMotion.value = motionQuery.matches

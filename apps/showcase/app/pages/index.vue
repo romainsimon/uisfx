@@ -3,6 +3,7 @@ import { useHead, useRuntimeConfig, useSeoMeta } from '#imports'
 import { BookOpen, Check, Copy as CopyIcon, Volume1, Volume2, VolumeX } from '@lucide/vue'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 import { buildAgentImplementationPrompt } from '../lib/agent-prompt'
+import { LEGACY_HOME_RECOVERY_PARAMETER } from '../lib/legacy-home-redirect'
 import { planPackSwitch } from '../lib/pack-switch'
 import {
   CATEGORIES,
@@ -735,6 +736,16 @@ function onVisibilityChange() {
 }
 
 onMounted(() => {
+  const currentUrl = new URL(window.location.href)
+  if (currentUrl.searchParams.has(LEGACY_HOME_RECOVERY_PARAMETER)) {
+    currentUrl.searchParams.delete(LEGACY_HOME_RECOVERY_PARAMETER)
+    window.history.replaceState(
+      window.history.state,
+      '',
+      `${currentUrl.pathname}${currentUrl.search}${currentUrl.hash}`,
+    )
+  }
+
   restoreAudioPreference()
   player.value = createUISFX({
     pack: selectedPack.value,
