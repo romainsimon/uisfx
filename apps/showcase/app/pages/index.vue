@@ -1263,6 +1263,7 @@ onBeforeUnmount(() => {
 
       <div data-reveal>
         <UISoundPatterns
+          :pack="selectedPack"
           :pack-label="selectedPackData.label"
           :muted="muted"
           @play="play"

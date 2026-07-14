@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CueName } from 'uisfx'
+import type { CueName, PackName } from 'uisfx'
 import {
   AtSign,
   Bell,
@@ -38,6 +38,7 @@ import { Switch } from '@/components/ui/switch'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 const props = defineProps<{
+  pack: PackName
   packLabel: string
   muted: boolean
 }>()
@@ -371,7 +372,7 @@ onBeforeUnmount(() => {
 
     <div class="patterns-lab">
       <Tabs :model-value="activeScenario" class="patterns-tabs" @update:model-value="changeScenario">
-        <div class="patterns-toolbar">
+        <div class="patterns-toolbar" :data-pack="pack">
           <TabsList aria-label="Example interface type">
             <TabsTrigger value="saas">Workflow</TabsTrigger>
             <TabsTrigger value="commerce">Shop</TabsTrigger>
@@ -676,12 +677,184 @@ onBeforeUnmount(() => {
 .patterns-tabs,
 .scenario-panel,
 .demo-app { min-width: 0; max-width: 100%; }
-.patterns-toolbar { min-width: 0; min-height: 4.25rem; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-lg); padding: var(--space-sm); border-bottom: 1px solid var(--ink); background: var(--paper-deep); }
-.patterns-toolbar [data-slot='tabs-list'] { width: 100%; min-width: 0; max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: thin; }
-.patterns-toolbar [data-slot='tabs-trigger'] { min-height: 2.75rem; flex: none; scroll-snap-align: start; }
-.patterns-toolbar > span { flex: none; display: inline-flex; align-items: center; gap: var(--space-xs); padding-inline: var(--space-sm); color: var(--ink-soft); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
-.patterns-toolbar > span i, .cue-trace header i { width: 0.55rem; aspect-ratio: 1; border-radius: 50%; background: oklch(0.68 0.16 142); box-shadow: 0 0 0 3px color-mix(in oklch, oklch(0.68 0.16 142), transparent 78%); }
-.patterns-toolbar > span i.muted, .cue-trace header i.muted { background: var(--rule); box-shadow: none; }
+.patterns-toolbar {
+  --toolbar-radius: 0.2rem;
+  --toolbar-control-radius: 0.1rem;
+  --toolbar-shadow: none;
+  min-width: 0;
+  min-height: 4.25rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-sm);
+  border-bottom: 1px solid color-mix(in oklch, var(--active-ink), transparent 18%);
+  background: var(--active-bg);
+  color: var(--active-ink);
+  box-shadow: var(--toolbar-shadow);
+  transition:
+    background-color 320ms var(--ease-out-quart),
+    border-color 320ms var(--ease-out-quart),
+    color 320ms var(--ease-out-quart),
+    box-shadow 320ms var(--ease-out-quart);
+}
+
+.patterns-toolbar :deep([data-slot='tabs-list']) {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  border-color: color-mix(in oklch, var(--active-ink), transparent 38%);
+  border-radius: var(--toolbar-radius);
+  background: color-mix(in oklch, var(--active-bg), var(--active-ink) 5%);
+  scrollbar-color: color-mix(in oklch, var(--active-accent), transparent 20%) transparent;
+  scrollbar-width: thin;
+  transition:
+    background-color 320ms var(--ease-out-quart),
+    border-color 320ms var(--ease-out-quart),
+    border-radius 320ms var(--ease-out-quart);
+}
+
+.patterns-toolbar :deep([data-slot='tabs-trigger']) {
+  min-height: 2.75rem;
+  flex: none;
+  border-radius: var(--toolbar-control-radius);
+  color: color-mix(in oklch, var(--active-ink), transparent 22%);
+  scroll-snap-align: start;
+  transition:
+    background-color 180ms ease-out,
+    color 180ms ease-out,
+    border-radius 320ms var(--ease-out-quart),
+    box-shadow 180ms ease-out,
+    transform 180ms var(--ease-out-quart);
+}
+
+.patterns-toolbar :deep([data-slot='tabs-trigger']:hover:not([data-state='active'])) {
+  background: color-mix(in oklch, var(--active-accent), transparent 86%);
+  color: var(--active-ink);
+}
+
+.patterns-toolbar :deep([data-slot='tabs-trigger'][data-state='active']) {
+  background: var(--active-ink);
+  color: var(--active-bg);
+  box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--active-accent), transparent 32%);
+}
+
+.patterns-toolbar :deep([data-slot='tabs-trigger']:focus-visible) {
+  outline: 3px solid color-mix(in oklch, var(--active-accent), transparent 28%);
+  outline-offset: -3px;
+}
+
+.patterns-toolbar > span {
+  min-height: 2.75rem;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding-inline: var(--space-md);
+  border: 1px solid color-mix(in oklch, var(--active-ink), transparent 55%);
+  border-radius: var(--toolbar-control-radius);
+  background: color-mix(in oklch, var(--active-bg), var(--active-ink) 5%);
+  color: color-mix(in oklch, var(--active-ink), transparent 12%);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    background-color 320ms var(--ease-out-quart),
+    border-color 320ms var(--ease-out-quart),
+    border-radius 320ms var(--ease-out-quart),
+    color 320ms var(--ease-out-quart),
+    box-shadow 320ms var(--ease-out-quart);
+}
+
+.patterns-toolbar > span i, .cue-trace header i { width: 0.55rem; aspect-ratio: 1; border-radius: 50%; background: var(--active-accent); box-shadow: 0 0 0 3px color-mix(in oklch, var(--active-accent), transparent 78%); }
+.patterns-toolbar > span i.muted { background: color-mix(in oklch, var(--active-ink), transparent 58%); box-shadow: none; }
+.cue-trace header i.muted { background: var(--rule); box-shadow: none; }
+
+.patterns-toolbar[data-pack='soft'] {
+  --toolbar-radius: 1.1rem;
+  --toolbar-control-radius: 0.78rem;
+  --toolbar-shadow: inset 0 1px 0 color-mix(in oklch, white, transparent 48%);
+}
+
+.patterns-toolbar[data-pack='glass'] {
+  --toolbar-radius: 0.35rem 1rem 0.35rem 1rem;
+  --toolbar-control-radius: 0.2rem 0.7rem 0.2rem 0.7rem;
+  --toolbar-shadow: inset 0 1px 0 color-mix(in oklch, white, transparent 35%), inset 0 -1px 0 color-mix(in oklch, var(--active-accent), transparent 68%);
+  background:
+    linear-gradient(115deg, color-mix(in oklch, white, transparent 56%), transparent 42%),
+    color-mix(in oklch, var(--active-bg), transparent 8%);
+  backdrop-filter: blur(18px) saturate(125%);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+}
+
+.patterns-toolbar[data-pack='arcade'] {
+  --toolbar-shadow: inset 0 -0.25rem 0 color-mix(in oklch, var(--active-ink), transparent 72%);
+}
+
+.patterns-toolbar[data-pack='arcade'] :deep([data-slot='tabs-trigger'][data-state='active']) {
+  box-shadow: 0.2rem 0.2rem 0 var(--active-accent);
+  transform: translate3d(-0.1rem, -0.1rem, 0);
+}
+
+.patterns-toolbar[data-pack='mechanical'] {
+  --toolbar-shadow: inset 0 0 0 0.22rem color-mix(in oklch, var(--active-ink), transparent 84%);
+}
+
+.patterns-toolbar[data-pack='mechanical'] > span,
+.patterns-toolbar[data-pack='mechanical'] :deep([data-slot='tabs-list']) {
+  box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--active-ink), transparent 76%);
+}
+
+.patterns-toolbar[data-pack='organic'] {
+  --toolbar-radius: 1.05rem 0.35rem 0.9rem 0.45rem;
+  --toolbar-control-radius: 0.75rem 0.25rem 0.65rem 0.3rem;
+}
+
+.patterns-toolbar[data-pack='dreamy'] {
+  --toolbar-radius: 1.5rem;
+  --toolbar-control-radius: 999px;
+  --toolbar-shadow: inset 0 1px 0 color-mix(in oklch, white, transparent 40%), 0 0.55rem 1.5rem color-mix(in oklch, var(--active-accent), transparent 84%);
+}
+
+.patterns-toolbar[data-pack='scifi'] {
+  --toolbar-radius: 0.15rem 0.85rem 0.15rem 0.85rem;
+  --toolbar-control-radius: 0.1rem 0.55rem 0.1rem 0.55rem;
+  --toolbar-shadow: inset 0 -1px 0 var(--active-accent);
+}
+
+.patterns-toolbar[data-pack='rubber'] {
+  --toolbar-radius: 0.75rem 1.45rem 0.8rem 1.3rem;
+  --toolbar-control-radius: 999px;
+  --toolbar-shadow: inset 0 -0.3rem 0 color-mix(in oklch, var(--active-accent), transparent 70%);
+}
+
+.patterns-toolbar[data-pack='rubber'] :deep([data-slot='tabs-trigger'][data-state='active']) {
+  transform: rotate(-1deg) scale(1.02);
+}
+
+.patterns-toolbar[data-pack='cinematic'] {
+  --toolbar-shadow: inset 0 -1px 0 var(--active-accent), inset 0 1px 0 color-mix(in oklch, var(--active-ink), transparent 78%);
+}
+
+.patterns-toolbar[data-pack='cinematic'] :deep([data-slot='tabs-trigger'][data-state='active']) {
+  box-shadow: inset 0 -0.2rem 0 var(--active-accent);
+}
+
+.patterns-toolbar[data-pack='studio'] {
+  --toolbar-radius: 0.25rem 0.85rem 0.25rem 0.85rem;
+  --toolbar-control-radius: 0.15rem 0.6rem 0.15rem 0.6rem;
+  --toolbar-shadow: inset 0 0 0 1px color-mix(in oklch, var(--active-accent), transparent 45%);
+}
+
+.patterns-toolbar[data-pack='zen'] {
+  --toolbar-radius: 0.9rem 0.3rem 0.9rem 0.3rem;
+  --toolbar-control-radius: 0.65rem 0.2rem 0.65rem 0.2rem;
+  --toolbar-shadow: inset 0 1px 0 color-mix(in oklch, white, transparent 58%);
+}
 .scenario-panel { margin: 0; }
 
 .patterns-section :deep(button:not(:disabled)),
@@ -977,6 +1150,10 @@ onBeforeUnmount(() => {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .patterns-toolbar,
+  .patterns-toolbar > span,
+  .patterns-toolbar :deep([data-slot='tabs-list']),
+  .patterns-toolbar :deep([data-slot='tabs-trigger']),
   .scenario-panel[data-state='active'] .demo-app,
   .upload-zone.is-queued > span,
   .media-art.is-playing .media-art__disc,
@@ -987,5 +1164,13 @@ onBeforeUnmount(() => {
   .reward-medal,
   .reward-orbit > i,
   [data-slot='progress'] > * { transition: none; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .patterns-toolbar[data-pack='glass'] {
+    background: var(--active-bg);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 </style>
