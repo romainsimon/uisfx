@@ -15,6 +15,7 @@ import {
   LEGACY_HOME_RECOVERY_QUERY,
   shouldRecoverLegacyHomepageRedirect,
 } from '../lib/legacy-home-redirect'
+import { findActiveSection } from '../lib/scrollspy'
 
 const runtimeConfig = useRuntimeConfig()
 const siteUrl = String(runtimeConfig.public.siteUrl || 'https://uisfx.com').replace(/\/$/, '')
@@ -57,6 +58,22 @@ const faqItems = [
     answer: 'Yes. UI SFX audio assets are released under CC0 and the TypeScript runtime is MIT licensed. You can use and adapt them in personal and commercial products.',
   },
 ] as const
+
+const tocItems = [
+  { id: 'definition', label: 'What UI sound design is' },
+  { id: 'listen', label: 'Hear meaning and feel' },
+  { id: 'when', label: 'When sound earns its place' },
+  { id: 'language', label: 'Build a sound language' },
+  { id: 'oneshots-loops', label: 'One-shots and loops' },
+  { id: 'principles', label: 'Design principles' },
+  { id: 'platforms', label: 'Web, mobile, SaaS, games' },
+  { id: 'accessibility', label: 'Accessibility' },
+  { id: 'implementation', label: 'Implementation' },
+  { id: 'workflow', label: 'Workflow and testing' },
+  { id: 'faq', label: 'Frequently asked questions' },
+] as const
+
+type TocSectionId = typeof tocItems[number]['id']
 
 const organizationId = `${siteUrl}/#organization`
 const articleId = `${canonicalUrl}#article`
@@ -148,11 +165,13 @@ const volume = ref(38)
 const muted = ref(false)
 const activeCue = ref<CueName | null>(null)
 const loopingCue = ref<CueName | null>(null)
+const activeTocSection = ref<TocSectionId>('definition')
 const player = shallowRef<UISFXPlayer>()
 const reducedMotion = ref(false)
 let loopSound: PlayingSFX | null = null
 let activeTimer: ReturnType<typeof setTimeout> | undefined
 let revealObserver: IntersectionObserver | undefined
+let tocScrollFrame: number | undefined
 
 const previewCues = [
   { name: 'select', label: 'Select', note: 'A choice becomes active.' },
@@ -211,6 +230,21 @@ function handlePreviewHover(event: PointerEvent) {
   if (interactive && interactive !== previous) player.value.play('hover')
 }
 
+function updateActiveTocSection() {
+  tocScrollFrame = undefined
+  const sections = tocItems.flatMap((item) => {
+    const element = document.getElementById(item.id)
+    return element ? [{ id: item.id, top: element.getBoundingClientRect().top }] : []
+  })
+  const active = findActiveSection(sections, Math.min(window.innerHeight * 0.28, 220))
+  if (active) activeTocSection.value = active
+}
+
+function scheduleTocUpdate() {
+  if (tocScrollFrame !== undefined) return
+  tocScrollFrame = window.requestAnimationFrame(updateActiveTocSection)
+}
+
 watch(volume, (next) => player.value?.setVolume(next / 100))
 watch(selectedPack, (next) => {
   const shouldRestartLoop = loopingCue.value
@@ -238,6 +272,9 @@ onMounted(() => {
   }
 
   player.value = createUISFX({ pack: selectedPack.value, volume: volume.value / 100 })
+  window.addEventListener('scroll', scheduleTocUpdate, { passive: true })
+  window.addEventListener('resize', scheduleTocUpdate)
+  scheduleTocUpdate()
   const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
   reducedMotion.value = motionQuery.matches
   if (!reducedMotion.value) {
@@ -255,6 +292,9 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  window.removeEventListener('scroll', scheduleTocUpdate)
+  window.removeEventListener('resize', scheduleTocUpdate)
+  if (tocScrollFrame !== undefined) window.cancelAnimationFrame(tocScrollFrame)
   if (activeTimer) clearTimeout(activeTimer)
   revealObserver?.disconnect()
   stopLoop()
@@ -299,17 +339,14 @@ onBeforeUnmount(() => {
         <aside class="guide-toc" aria-label="Table of contents">
           <p>In this guide</p>
           <ol>
-            <li><a href="#definition">What UI sound design is</a></li>
-            <li><a href="#listen">Hear meaning and feel</a></li>
-            <li><a href="#when">When sound earns its place</a></li>
-            <li><a href="#language">Build a sound language</a></li>
-            <li><a href="#oneshots-loops">One-shots and loops</a></li>
-            <li><a href="#principles">Design principles</a></li>
-            <li><a href="#platforms">Web, mobile, SaaS, games</a></li>
-            <li><a href="#accessibility">Accessibility</a></li>
-            <li><a href="#implementation">Implementation</a></li>
-            <li><a href="#workflow">Workflow and testing</a></li>
-            <li><a href="#faq">Frequently asked questions</a></li>
+            <li v-for="item in tocItems" :key="item.id">
+              <a
+                :href="`#${item.id}`"
+                :class="{ 'is-active': activeTocSection === item.id }"
+                :aria-current="activeTocSection === item.id ? 'location' : undefined"
+                @click="activeTocSection = item.id"
+              >{{ item.label }}</a>
+            </li>
           </ol>
         </aside>
 
@@ -680,9 +717,11 @@ ui.play('complete')</code></pre>
 .guide-toc p { margin: 0 0 .75rem; font-size: .78rem; font-weight: 900; letter-spacing: .09em; text-transform: uppercase; }
 .guide-toc ol { margin: 0; padding: 0; list-style: none; counter-reset: toc; }
 .guide-toc li { counter-increment: toc; }
-.guide-toc a { display: grid; grid-template-columns: 1.75rem 1fr; padding: .38rem 0; color: var(--ink-soft); font-size: .86rem; line-height: 1.25; }
+.guide-toc a { display: grid; grid-template-columns: 1.75rem 1fr; padding: .42rem .55rem; color: var(--ink-soft); font-size: .86rem; line-height: 1.25; transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease; }
 .guide-toc a::before { content: counter(toc, decimal-leading-zero); color: var(--rule); font-variant-numeric: tabular-nums; }
 .guide-toc a:hover { color: var(--accent-dark); }
+.guide-toc a.is-active { background: color-mix(in oklch, var(--accent) 9%, transparent); color: var(--ink); box-shadow: inset .16rem 0 0 var(--accent); font-weight: 800; }
+.guide-toc a.is-active::before { color: var(--accent-dark); }
 
 .guide-article { min-width: 0; }
 .prose-section, .listen-lab, .sources-section, .guide-final-cta { scroll-margin-top: 6rem; margin-bottom: clamp(6rem, 12vw, 11rem); }
@@ -845,6 +884,6 @@ blockquote p { max-width: 25ch; margin: 0; font-size: clamp(1.55rem, 3vw, 2.4rem
 
 @media (prefers-reduced-motion: reduce) {
   [data-guide-reveal] { opacity: 1; transform: none; transition: none; }
-  .cue-preview-grid button, .guide-hero__actions a { transition: none; }
+  .cue-preview-grid button, .guide-hero__actions a, .guide-toc a { transition: none; }
 }
 </style>
