@@ -20,7 +20,7 @@ import { findActiveSection } from '../lib/scrollspy'
 const runtimeConfig = useRuntimeConfig()
 const siteUrl = String(runtimeConfig.public.siteUrl || 'https://uisfx.com').replace(/\/$/, '')
 const canonicalUrl = `${siteUrl}/ui-sound-design`
-const socialImage = `${siteUrl}/og-ui-sound-design-936.jpg`
+const socialImage = `${siteUrl}/og-ui-sound-effects-v2.jpg`
 const pageTitle = 'UI Sound Design Guide: Interface Sound Effects | UI SFX'
 const pageDescription = 'Learn UI sound design from first principles. Plan, create, test, and implement accessible interface sound effects for web, mobile, SaaS, and games.'
 
@@ -94,7 +94,7 @@ useSeoMeta({
   ogImageType: 'image/jpeg',
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: 'UI SFX interface sound effects library and UI sound design guide',
+  ogImageAlt: 'UI SFX open-source UI sound effects library with 936 sounds, 78 semantic cues, and 12 feels',
   twitterCard: 'summary_large_image',
   twitterTitle: 'UI Sound Design: The Complete Guide',
   twitterDescription: pageDescription,

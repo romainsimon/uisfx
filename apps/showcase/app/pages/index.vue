@@ -62,7 +62,7 @@ const siteUrl = String(runtimeConfig.public.siteUrl || 'https://uisfx.com').repl
 const canonicalUrl = siteUrl
 // Use an opaque, versioned JPEG because X's image proxy can retain a failed
 // fetch independently of the page-card cache. A new filename invalidates both.
-const socialImage = `${siteUrl}/og-ui-sound-design-936.jpg`
+const socialImage = `${siteUrl}/og-ui-sound-effects-v2.jpg`
 const organizationId = `${siteUrl}/#organization`
 const websiteId = `${siteUrl}/#website`
 const softwareId = `${canonicalUrl}#software`
@@ -84,7 +84,7 @@ useSeoMeta({
   ogImageType: 'image/jpeg',
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: `UI SFX sound design library with ${PACKS.length} sound styles and waveform previews`,
+  ogImageAlt: `UI SFX open-source UI sound effects with ${soundCount} sounds, ${CUES.length} semantic cues, and ${PACKS.length} feels`,
   twitterCard: 'summary_large_image',
   twitterTitle: socialTitle,
   twitterDescription: socialDescription,
