@@ -1,7 +1,7 @@
 import { spawn } from 'node:child_process'
 import { mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
-import { CATEGORIES, CUES, PACKS, type CueDefinition } from '../packages/uisfx/src/catalog.ts'
+import { CATEGORIES, CUES, PACKS, type CueDefinition, type PackName } from '../packages/uisfx/src/catalog.ts'
 import { createRecipe } from '../packages/uisfx/src/recipes.ts'
 import { renderRecipe, type RenderedSound } from '../packages/uisfx/src/synth.ts'
 
@@ -9,6 +9,16 @@ const root = resolve(import.meta.dirname, '..')
 const packageRoot = resolve(root, 'packages/uisfx')
 const soundsRoot = resolve(packageRoot, 'sounds')
 const temporaryRoot = resolve(root, '.generated/wav')
+const packArgumentIndex = process.argv.findIndex((argument) => argument === '--pack')
+const inlinePackArgument = process.argv.find((argument) => argument.startsWith('--pack='))?.slice('--pack='.length)
+const requestedPack = (inlinePackArgument || (packArgumentIndex >= 0 ? process.argv[packArgumentIndex + 1] : undefined)) as PackName | undefined
+const selectedPacks = requestedPack
+  ? PACKS.filter((pack) => pack.name === requestedPack)
+  : PACKS
+
+if (requestedPack && selectedPacks.length === 0) {
+  throw new Error(`Unknown pack: ${requestedPack}`)
+}
 
 function wavBuffer(sound: RenderedSound) {
   const channelCount = 2
@@ -106,12 +116,28 @@ async function mapConcurrent<T>(items: readonly T[], concurrency: number, worker
 }
 
 async function main() {
-  await rm(soundsRoot, { recursive: true, force: true })
+  const manifestPath = resolve(packageRoot, 'manifest.json')
+  const previousDurations = new Map<string, number>()
+  if (requestedPack) {
+    try {
+      const previousManifest = JSON.parse(await readFile(manifestPath, 'utf8')) as {
+        assets?: { pack: PackName, cue: string, duration: number }[]
+      }
+      for (const asset of previousManifest.assets ?? []) {
+        previousDurations.set(`${asset.pack}:${asset.cue}`, asset.duration)
+      }
+    } catch {
+      // A first full generation remains the source of truth when no manifest exists yet.
+    }
+    await Promise.all(selectedPacks.map((pack) => rm(resolve(soundsRoot, pack.name), { recursive: true, force: true })))
+  } else {
+    await rm(soundsRoot, { recursive: true, force: true })
+  }
   await rm(temporaryRoot, { recursive: true, force: true })
   await mkdir(soundsRoot, { recursive: true })
   await mkdir(temporaryRoot, { recursive: true })
 
-  const jobs = PACKS.flatMap((pack) => CUES.map((cue) => ({ pack, cue })))
+  const jobs = selectedPacks.flatMap((pack) => CUES.map((cue) => ({ pack, cue })))
   const renderedDurations = new Map<string, number>()
   let renderedCount = 0
 
@@ -149,7 +175,9 @@ async function main() {
         pack: pack.name,
         cue: cue.name,
         category: cue.category,
-        duration: Number((renderedDurations.get(`${pack.name}:${cue.name}`) ?? recipe.duration).toFixed(3)),
+        duration: Number((renderedDurations.get(`${pack.name}:${cue.name}`)
+          ?? previousDurations.get(`${pack.name}:${cue.name}`)
+          ?? recipe.duration).toFixed(3)),
         channels: isSpatial ? 2 : 1,
         loop: recipe.loop,
         playback: recipe.loop ? 'loop' : 'one-shot',
@@ -188,9 +216,9 @@ async function main() {
     })),
     assets,
   }
-  await writeFile(resolve(packageRoot, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`)
+  await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`)
   await rm(temporaryRoot, { recursive: true, force: true })
-  process.stdout.write(`UI SFX library ready: ${assets.length} cues in MP3 and Ogg.\n`)
+  process.stdout.write(`UI SFX library ready: ${assets.length} cues in MP3 and Ogg${requestedPack ? `; regenerated ${requestedPack}` : ''}.\n`)
 }
 
 await main()

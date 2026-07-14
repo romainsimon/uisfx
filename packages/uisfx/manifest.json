@@ -10,8 +10,8 @@
     "packs": 12,
     "cues": 78,
     "assets": 936,
-    "mp3Bytes": 5433737,
-    "oggBytes": 4010712
+    "mp3Bytes": 5353070,
+    "oggBytes": 3944275
   },
   "categories": [
     {
@@ -161,7 +161,7 @@
     {
       "name": "zen",
       "label": "Zen",
-      "description": "Washi folds, soft brush, and quiet wooden detail.",
+      "description": "Pure tones, dry wood, and brief washi detail.",
       "bestFor": "Mindfulness, reading, writing, calm productivity",
       "color": "#7d8f77"
     }
@@ -18035,7 +18035,7 @@
       "pack": "zen",
       "cue": "hover",
       "category": "input",
-      "duration": 0.175,
+      "duration": 0.122,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18043,11 +18043,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/hover.mp3",
-          "bytes": 1923
+          "bytes": 1505
         },
         "ogg": {
           "path": "sounds/zen/hover.ogg",
-          "bytes": 1068
+          "bytes": 1025
         }
       }
     },
@@ -18055,7 +18055,7 @@
       "pack": "zen",
       "cue": "press",
       "category": "input",
-      "duration": 0.216,
+      "duration": 0.155,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18063,11 +18063,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/press.mp3",
-          "bytes": 2341
+          "bytes": 1714
         },
         "ogg": {
           "path": "sounds/zen/press.ogg",
-          "bytes": 1261
+          "bytes": 1231
         }
       }
     },
@@ -18075,7 +18075,7 @@
       "pack": "zen",
       "cue": "release",
       "category": "input",
-      "duration": 0.236,
+      "duration": 0.172,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18083,11 +18083,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/release.mp3",
-          "bytes": 2550
+          "bytes": 1923
         },
         "ogg": {
           "path": "sounds/zen/release.ogg",
-          "bytes": 1536
+          "bytes": 1570
         }
       }
     },
@@ -18095,7 +18095,7 @@
       "pack": "zen",
       "cue": "double-click",
       "category": "input",
-      "duration": 0.298,
+      "duration": 0.221,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18103,11 +18103,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/double-click.mp3",
-          "bytes": 2968
+          "bytes": 2341
         },
         "ogg": {
           "path": "sounds/zen/double-click.ogg",
-          "bytes": 1707
+          "bytes": 2117
         }
       }
     },
@@ -18115,7 +18115,7 @@
       "pack": "zen",
       "cue": "focus",
       "category": "input",
-      "duration": 0.287,
+      "duration": 0.207,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18123,11 +18123,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/focus.mp3",
-          "bytes": 2968
+          "bytes": 2132
         },
         "ogg": {
           "path": "sounds/zen/focus.ogg",
-          "bytes": 2121
+          "bytes": 1794
         }
       }
     },
@@ -18135,7 +18135,7 @@
       "pack": "zen",
       "cue": "long-press",
       "category": "input",
-      "duration": 0.522,
+      "duration": 0.401,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18143,11 +18143,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/long-press.mp3",
-          "bytes": 4640
+          "bytes": 3804
         },
         "ogg": {
           "path": "sounds/zen/long-press.ogg",
-          "bytes": 3555
+          "bytes": 3446
         }
       }
     },
@@ -18155,7 +18155,7 @@
       "pack": "zen",
       "cue": "select",
       "category": "selection",
-      "duration": 0.338,
+      "duration": 0.254,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18163,11 +18163,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/select.mp3",
-          "bytes": 3177
+          "bytes": 2550
         },
         "ogg": {
           "path": "sounds/zen/select.ogg",
-          "bytes": 1933
+          "bytes": 2744
         }
       }
     },
@@ -18175,7 +18175,7 @@
       "pack": "zen",
       "cue": "deselect",
       "category": "selection",
-      "duration": 0.308,
+      "duration": 0.229,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18183,11 +18183,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/deselect.mp3",
-          "bytes": 2968
+          "bytes": 2341
         },
         "ogg": {
           "path": "sounds/zen/deselect.ogg",
-          "bytes": 2342
+          "bytes": 2212
         }
       }
     },
@@ -18195,7 +18195,7 @@
       "pack": "zen",
       "cue": "toggle-on",
       "category": "selection",
-      "duration": 0.359,
+      "duration": 0.268,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18203,11 +18203,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/toggle-on.mp3",
-          "bytes": 3386
+          "bytes": 2759
         },
         "ogg": {
           "path": "sounds/zen/toggle-on.ogg",
-          "bytes": 2042
+          "bytes": 2331
         }
       }
     },
@@ -18215,7 +18215,7 @@
       "pack": "zen",
       "cue": "toggle-off",
       "category": "selection",
-      "duration": 0.349,
+      "duration": 0.262,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18223,11 +18223,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/toggle-off.mp3",
-          "bytes": 3386
+          "bytes": 2759
         },
         "ogg": {
           "path": "sounds/zen/toggle-off.ogg",
-          "bytes": 2634
+          "bytes": 2756
         }
       }
     },
@@ -18235,7 +18235,7 @@
       "pack": "zen",
       "cue": "check",
       "category": "selection",
-      "duration": 0.349,
+      "duration": 0.262,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18243,11 +18243,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/check.mp3",
-          "bytes": 3386
+          "bytes": 2759
         },
         "ogg": {
           "path": "sounds/zen/check.ogg",
-          "bytes": 1971
+          "bytes": 2805
         }
       }
     },
@@ -18255,7 +18255,7 @@
       "pack": "zen",
       "cue": "uncheck",
       "category": "selection",
-      "duration": 0.328,
+      "duration": 0.245,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18263,11 +18263,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/uncheck.mp3",
-          "bytes": 3177
+          "bytes": 2550
         },
         "ogg": {
           "path": "sounds/zen/uncheck.ogg",
-          "bytes": 1780
+          "bytes": 2127
         }
       }
     },
@@ -18275,7 +18275,7 @@
       "pack": "zen",
       "cue": "delete",
       "category": "editing",
-      "duration": 0.542,
+      "duration": 0.396,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18283,11 +18283,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/delete.mp3",
-          "bytes": 4849
+          "bytes": 3804
         },
         "ogg": {
           "path": "sounds/zen/delete.ogg",
-          "bytes": 2881
+          "bytes": 3150
         }
       }
     },
@@ -18295,7 +18295,7 @@
       "pack": "zen",
       "cue": "cancel",
       "category": "editing",
-      "duration": 0.4,
+      "duration": 0.303,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18303,11 +18303,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/cancel.mp3",
-          "bytes": 3804
+          "bytes": 2968
         },
         "ogg": {
           "path": "sounds/zen/cancel.ogg",
-          "bytes": 2236
+          "bytes": 2539
         }
       }
     },
@@ -18315,7 +18315,7 @@
       "pack": "zen",
       "cue": "undo",
       "category": "editing",
-      "duration": 0.502,
+      "duration": 0.385,
       "channels": 2,
       "loop": false,
       "playback": "one-shot",
@@ -18323,11 +18323,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/undo.mp3",
-          "bytes": 6940
+          "bytes": 5373
         },
         "ogg": {
           "path": "sounds/zen/undo.ogg",
-          "bytes": 3956
+          "bytes": 3011
         }
       }
     },
@@ -18335,7 +18335,7 @@
       "pack": "zen",
       "cue": "redo",
       "category": "editing",
-      "duration": 0.502,
+      "duration": 0.385,
       "channels": 2,
       "loop": false,
       "playback": "one-shot",
@@ -18343,11 +18343,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/redo.mp3",
-          "bytes": 6940
+          "bytes": 5373
         },
         "ogg": {
           "path": "sounds/zen/redo.ogg",
-          "bytes": 4027
+          "bytes": 3205
         }
       }
     },
@@ -18355,7 +18355,7 @@
       "pack": "zen",
       "cue": "copy",
       "category": "editing",
-      "duration": 0.359,
+      "duration": 0.27,
       "channels": 2,
       "loop": false,
       "playback": "one-shot",
@@ -18363,11 +18363,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/copy.mp3",
-          "bytes": 5059
+          "bytes": 4119
         },
         "ogg": {
           "path": "sounds/zen/copy.ogg",
-          "bytes": 2922
+          "bytes": 2256
         }
       }
     },
@@ -18375,7 +18375,7 @@
       "pack": "zen",
       "cue": "paste",
       "category": "editing",
-      "duration": 0.42,
+      "duration": 0.319,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18383,11 +18383,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/paste.mp3",
-          "bytes": 4013
+          "bytes": 3177
         },
         "ogg": {
           "path": "sounds/zen/paste.ogg",
-          "bytes": 2393
+          "bytes": 3050
         }
       }
     },
@@ -18395,7 +18395,7 @@
       "pack": "zen",
       "cue": "open",
       "category": "navigation",
-      "duration": 0.43,
+      "duration": 0.327,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18403,11 +18403,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/open.mp3",
-          "bytes": 4013
+          "bytes": 3177
         },
         "ogg": {
           "path": "sounds/zen/open.ogg",
-          "bytes": 2392
+          "bytes": 1986
         }
       }
     },
@@ -18415,7 +18415,7 @@
       "pack": "zen",
       "cue": "close",
       "category": "navigation",
-      "duration": 0.4,
+      "duration": 0.303,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18423,11 +18423,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/close.mp3",
-          "bytes": 3804
+          "bytes": 2968
         },
         "ogg": {
           "path": "sounds/zen/close.ogg",
-          "bytes": 2243
+          "bytes": 1841
         }
       }
     },
@@ -18435,7 +18435,7 @@
       "pack": "zen",
       "cue": "back",
       "category": "navigation",
-      "duration": 0.359,
+      "duration": 0.269,
       "channels": 2,
       "loop": false,
       "playback": "one-shot",
@@ -18443,11 +18443,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/back.mp3",
-          "bytes": 5059
+          "bytes": 4119
         },
         "ogg": {
           "path": "sounds/zen/back.ogg",
-          "bytes": 3144
+          "bytes": 1726
         }
       }
     },
@@ -18455,7 +18455,7 @@
       "pack": "zen",
       "cue": "forward",
       "category": "navigation",
-      "duration": 0.369,
+      "duration": 0.278,
       "channels": 2,
       "loop": false,
       "playback": "one-shot",
@@ -18463,11 +18463,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/forward.mp3",
-          "bytes": 5373
+          "bytes": 4119
         },
         "ogg": {
           "path": "sounds/zen/forward.ogg",
-          "bytes": 2974
+          "bytes": 1819
         }
       }
     },
@@ -18475,7 +18475,7 @@
       "pack": "zen",
       "cue": "expand",
       "category": "navigation",
-      "duration": 0.43,
+      "duration": 0.327,
       "channels": 2,
       "loop": false,
       "playback": "one-shot",
@@ -18483,11 +18483,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/expand.mp3",
-          "bytes": 5999
+          "bytes": 4746
         },
         "ogg": {
           "path": "sounds/zen/expand.ogg",
-          "bytes": 3419
+          "bytes": 3083
         }
       }
     },
@@ -18495,7 +18495,7 @@
       "pack": "zen",
       "cue": "collapse",
       "category": "navigation",
-      "duration": 0.41,
+      "duration": 0.311,
       "channels": 2,
       "loop": false,
       "playback": "one-shot",
@@ -18503,11 +18503,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/collapse.mp3",
-          "bytes": 5686
+          "bytes": 4432
         },
         "ogg": {
           "path": "sounds/zen/collapse.ogg",
-          "bytes": 3323
+          "bytes": 3582
         }
       }
     },
@@ -18515,7 +18515,7 @@
       "pack": "zen",
       "cue": "drag-start",
       "category": "movement",
-      "duration": 0.338,
+      "duration": 0.254,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18523,11 +18523,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/drag-start.mp3",
-          "bytes": 3177
+          "bytes": 2550
         },
         "ogg": {
           "path": "sounds/zen/drag-start.ogg",
-          "bytes": 1855
+          "bytes": 2074
         }
       }
     },
@@ -18535,7 +18535,7 @@
       "pack": "zen",
       "cue": "drop",
       "category": "movement",
-      "duration": 0.359,
+      "duration": 0.27,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18543,11 +18543,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/drop.mp3",
-          "bytes": 3386
+          "bytes": 2759
         },
         "ogg": {
           "path": "sounds/zen/drop.ogg",
-          "bytes": 2010
+          "bytes": 2390
         }
       }
     },
@@ -18555,7 +18555,7 @@
       "pack": "zen",
       "cue": "snap",
       "category": "movement",
-      "duration": 0.216,
+      "duration": 0.155,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18563,11 +18563,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/snap.mp3",
-          "bytes": 2341
+          "bytes": 1714
         },
         "ogg": {
           "path": "sounds/zen/snap.ogg",
-          "bytes": 1380
+          "bytes": 2015
         }
       }
     },
@@ -18575,7 +18575,7 @@
       "pack": "zen",
       "cue": "swipe",
       "category": "movement",
-      "duration": 0.44,
+      "duration": 0.319,
       "channels": 2,
       "loop": false,
       "playback": "one-shot",
@@ -18583,11 +18583,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/swipe.mp3",
-          "bytes": 5999
+          "bytes": 4746
         },
         "ogg": {
           "path": "sounds/zen/swipe.ogg",
-          "bytes": 3964
+          "bytes": 1776
         }
       }
     },
@@ -18595,7 +18595,7 @@
       "pack": "zen",
       "cue": "reorder",
       "category": "movement",
-      "duration": 0.4,
+      "duration": 0.303,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18603,11 +18603,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/reorder.mp3",
-          "bytes": 3804
+          "bytes": 2968
         },
         "ogg": {
           "path": "sounds/zen/reorder.ogg",
-          "bytes": 2301
+          "bytes": 2734
         }
       }
     },
@@ -18615,7 +18615,7 @@
       "pack": "zen",
       "cue": "invalid-drop",
       "category": "movement",
-      "duration": 0.461,
+      "duration": 0.352,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18623,11 +18623,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/invalid-drop.mp3",
-          "bytes": 4222
+          "bytes": 3386
         },
         "ogg": {
           "path": "sounds/zen/invalid-drop.ogg",
-          "bytes": 2600
+          "bytes": 2680
         }
       }
     },
@@ -18635,7 +18635,7 @@
       "pack": "zen",
       "cue": "send",
       "category": "communication",
-      "duration": 0.481,
+      "duration": 0.368,
       "channels": 2,
       "loop": false,
       "playback": "one-shot",
@@ -18643,11 +18643,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/send.mp3",
-          "bytes": 6626
+          "bytes": 5373
         },
         "ogg": {
           "path": "sounds/zen/send.ogg",
-          "bytes": 4581
+          "bytes": 3121
         }
       }
     },
@@ -18655,7 +18655,7 @@
       "pack": "zen",
       "cue": "receive",
       "category": "communication",
-      "duration": 0.532,
+      "duration": 0.409,
       "channels": 2,
       "loop": false,
       "playback": "one-shot",
@@ -18663,11 +18663,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/receive.mp3",
-          "bytes": 7253
+          "bytes": 5686
         },
         "ogg": {
           "path": "sounds/zen/receive.ogg",
-          "bytes": 4606
+          "bytes": 4312
         }
       }
     },
@@ -18675,7 +18675,7 @@
       "pack": "zen",
       "cue": "notification",
       "category": "communication",
-      "duration": 0.644,
+      "duration": 0.458,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18683,11 +18683,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/notification.mp3",
-          "bytes": 5685
+          "bytes": 4222
         },
         "ogg": {
           "path": "sounds/zen/notification.ogg",
-          "bytes": 4269
+          "bytes": 3286
         }
       }
     },
@@ -18695,7 +18695,7 @@
       "pack": "zen",
       "cue": "mention",
       "category": "communication",
-      "duration": 0.706,
+      "duration": 0.52,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18703,11 +18703,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/mention.mp3",
-          "bytes": 6312
+          "bytes": 4640
         },
         "ogg": {
           "path": "sounds/zen/mention.ogg",
-          "bytes": 5660
+          "bytes": 4343
         }
       }
     },
@@ -18715,7 +18715,7 @@
       "pack": "zen",
       "cue": "typing",
       "category": "communication",
-      "duration": 0.379,
+      "duration": 0.286,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18723,11 +18723,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/typing.mp3",
-          "bytes": 3595
+          "bytes": 2759
         },
         "ogg": {
           "path": "sounds/zen/typing.ogg",
-          "bytes": 3051
+          "bytes": 2795
         }
       }
     },
@@ -18735,7 +18735,7 @@
       "pack": "zen",
       "cue": "reaction",
       "category": "communication",
-      "duration": 0.461,
+      "duration": 0.352,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18743,11 +18743,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/reaction.mp3",
-          "bytes": 4222
+          "bytes": 3386
         },
         "ogg": {
           "path": "sounds/zen/reaction.ogg",
-          "bytes": 3148
+          "bytes": 2933
         }
       }
     },
@@ -18755,7 +18755,7 @@
       "pack": "zen",
       "cue": "success",
       "category": "feedback",
-      "duration": 0.787,
+      "duration": 0.571,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18763,11 +18763,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/success.mp3",
-          "bytes": 6939
+          "bytes": 5058
         },
         "ogg": {
           "path": "sounds/zen/success.ogg",
-          "bytes": 5208
+          "bytes": 3634
         }
       }
     },
@@ -18775,7 +18775,7 @@
       "pack": "zen",
       "cue": "error",
       "category": "feedback",
-      "duration": 0.685,
+      "duration": 0.481,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18783,11 +18783,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/error.mp3",
-          "bytes": 6103
+          "bytes": 4431
         },
         "ogg": {
           "path": "sounds/zen/error.ogg",
-          "bytes": 4473
+          "bytes": 2954
         }
       }
     },
@@ -18795,7 +18795,7 @@
       "pack": "zen",
       "cue": "warning",
       "category": "feedback",
-      "duration": 0.746,
+      "duration": 0.52,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18803,11 +18803,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/warning.mp3",
-          "bytes": 6521
+          "bytes": 4640
         },
         "ogg": {
           "path": "sounds/zen/warning.ogg",
-          "bytes": 4616
+          "bytes": 3915
         }
       }
     },
@@ -18815,7 +18815,7 @@
       "pack": "zen",
       "cue": "info",
       "category": "feedback",
-      "duration": 0.522,
+      "duration": 0.39,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18823,11 +18823,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/info.mp3",
-          "bytes": 4640
+          "bytes": 3595
         },
         "ogg": {
           "path": "sounds/zen/info.ogg",
-          "bytes": 3891
+          "bytes": 3010
         }
       }
     },
@@ -18835,7 +18835,7 @@
       "pack": "zen",
       "cue": "blocked",
       "category": "feedback",
-      "duration": 0.491,
+      "duration": 0.359,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18843,11 +18843,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/blocked.mp3",
-          "bytes": 4431
+          "bytes": 3386
         },
         "ogg": {
           "path": "sounds/zen/blocked.ogg",
-          "bytes": 3786
+          "bytes": 2857
         }
       }
     },
@@ -18855,7 +18855,7 @@
       "pack": "zen",
       "cue": "retry",
       "category": "feedback",
-      "duration": 0.481,
+      "duration": 0.368,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18863,11 +18863,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/retry.mp3",
-          "bytes": 4431
+          "bytes": 3595
         },
         "ogg": {
           "path": "sounds/zen/retry.ogg",
-          "bytes": 3733
+          "bytes": 2390
         }
       }
     },
@@ -18875,7 +18875,7 @@
       "pack": "zen",
       "cue": "start",
       "category": "progress",
-      "duration": 0.522,
+      "duration": 0.401,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18883,11 +18883,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/start.mp3",
-          "bytes": 4640
+          "bytes": 3804
         },
         "ogg": {
           "path": "sounds/zen/start.ogg",
-          "bytes": 3587
+          "bytes": 2381
         }
       }
     },
@@ -18895,7 +18895,7 @@
       "pack": "zen",
       "cue": "stop",
       "category": "progress",
-      "duration": 0.461,
+      "duration": 0.352,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18903,11 +18903,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/stop.mp3",
-          "bytes": 4222
+          "bytes": 3386
         },
         "ogg": {
           "path": "sounds/zen/stop.ogg",
-          "bytes": 2821
+          "bytes": 2943
         }
       }
     },
@@ -18915,7 +18915,7 @@
       "pack": "zen",
       "cue": "progress-step",
       "category": "progress",
-      "duration": 0.287,
+      "duration": 0.213,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18923,11 +18923,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/progress-step.mp3",
-          "bytes": 2968
+          "bytes": 2341
         },
         "ogg": {
           "path": "sounds/zen/progress-step.ogg",
-          "bytes": 1593
+          "bytes": 1878
         }
       }
     },
@@ -18935,7 +18935,7 @@
       "pack": "zen",
       "cue": "complete",
       "category": "progress",
-      "duration": 0.869,
+      "duration": 0.637,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18943,11 +18943,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/complete.mp3",
-          "bytes": 7566
+          "bytes": 5685
         },
         "ogg": {
           "path": "sounds/zen/complete.ogg",
-          "bytes": 6449
+          "bytes": 4315
         }
       }
     },
@@ -18955,7 +18955,7 @@
       "pack": "zen",
       "cue": "queued",
       "category": "progress",
-      "duration": 0.42,
+      "duration": 0.319,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18963,11 +18963,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/queued.mp3",
-          "bytes": 4013
+          "bytes": 3177
         },
         "ogg": {
           "path": "sounds/zen/queued.ogg",
-          "bytes": 2301
+          "bytes": 1679
         }
       }
     },
@@ -18975,7 +18975,7 @@
       "pack": "zen",
       "cue": "checkpoint",
       "category": "progress",
-      "duration": 0.563,
+      "duration": 0.434,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -18983,11 +18983,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/checkpoint.mp3",
-          "bytes": 5058
+          "bytes": 4013
         },
         "ogg": {
           "path": "sounds/zen/checkpoint.ogg",
-          "bytes": 4446
+          "bytes": 4153
         }
       }
     },
@@ -19007,7 +19007,7 @@
         },
         "ogg": {
           "path": "sounds/zen/loading.ogg",
-          "bytes": 7933
+          "bytes": 4103
         }
       }
     },
@@ -19027,7 +19027,7 @@
         },
         "ogg": {
           "path": "sounds/zen/processing.ogg",
-          "bytes": 9924
+          "bytes": 5815
         }
       }
     },
@@ -19047,7 +19047,7 @@
         },
         "ogg": {
           "path": "sounds/zen/recording.ogg",
-          "bytes": 6052
+          "bytes": 2807
         }
       }
     },
@@ -19067,7 +19067,7 @@
         },
         "ogg": {
           "path": "sounds/zen/connecting.ogg",
-          "bytes": 14992
+          "bytes": 6690
         }
       }
     },
@@ -19087,7 +19087,7 @@
         },
         "ogg": {
           "path": "sounds/zen/scanning.ogg",
-          "bytes": 7861
+          "bytes": 4450
         }
       }
     },
@@ -19107,7 +19107,7 @@
         },
         "ogg": {
           "path": "sounds/zen/streaming.ogg",
-          "bytes": 10192
+          "bytes": 6162
         }
       }
     },
@@ -19115,7 +19115,7 @@
       "pack": "zen",
       "cue": "play",
       "category": "media",
-      "duration": 0.4,
+      "duration": 0.303,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19123,11 +19123,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/play.mp3",
-          "bytes": 3804
+          "bytes": 2968
         },
         "ogg": {
           "path": "sounds/zen/play.ogg",
-          "bytes": 2307
+          "bytes": 1996
         }
       }
     },
@@ -19135,7 +19135,7 @@
       "pack": "zen",
       "cue": "pause",
       "category": "media",
-      "duration": 0.379,
+      "duration": 0.286,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19143,11 +19143,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/pause.mp3",
-          "bytes": 3595
+          "bytes": 2759
         },
         "ogg": {
           "path": "sounds/zen/pause.ogg",
-          "bytes": 2176
+          "bytes": 2616
         }
       }
     },
@@ -19155,7 +19155,7 @@
       "pack": "zen",
       "cue": "seek",
       "category": "media",
-      "duration": 0.359,
+      "duration": 0.27,
       "channels": 2,
       "loop": false,
       "playback": "one-shot",
@@ -19163,11 +19163,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/seek.mp3",
-          "bytes": 5059
+          "bytes": 4119
         },
         "ogg": {
           "path": "sounds/zen/seek.ogg",
-          "bytes": 3227
+          "bytes": 2010
         }
       }
     },
@@ -19175,7 +19175,7 @@
       "pack": "zen",
       "cue": "volume-change",
       "category": "media",
-      "duration": 0.298,
+      "duration": 0.221,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19183,11 +19183,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/volume-change.mp3",
-          "bytes": 2968
+          "bytes": 2341
         },
         "ogg": {
           "path": "sounds/zen/volume-change.ogg",
-          "bytes": 1809
+          "bytes": 2184
         }
       }
     },
@@ -19195,7 +19195,7 @@
       "pack": "zen",
       "cue": "skip-next",
       "category": "media",
-      "duration": 0.349,
+      "duration": 0.262,
       "channels": 2,
       "loop": false,
       "playback": "one-shot",
@@ -19203,11 +19203,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/skip-next.mp3",
-          "bytes": 5059
+          "bytes": 4119
         },
         "ogg": {
           "path": "sounds/zen/skip-next.ogg",
-          "bytes": 3047
+          "bytes": 3184
         }
       }
     },
@@ -19215,7 +19215,7 @@
       "pack": "zen",
       "cue": "skip-previous",
       "category": "media",
-      "duration": 0.349,
+      "duration": 0.262,
       "channels": 2,
       "loop": false,
       "playback": "one-shot",
@@ -19223,11 +19223,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/skip-previous.mp3",
-          "bytes": 5059
+          "bytes": 4119
         },
         "ogg": {
           "path": "sounds/zen/skip-previous.ogg",
-          "bytes": 3108
+          "bytes": 2321
         }
       }
     },
@@ -19235,7 +19235,7 @@
       "pack": "zen",
       "cue": "connect",
       "category": "system",
-      "duration": 0.685,
+      "duration": 0.525,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19243,11 +19243,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/connect.mp3",
-          "bytes": 6103
+          "bytes": 4849
         },
         "ogg": {
           "path": "sounds/zen/connect.ogg",
-          "bytes": 5653
+          "bytes": 3674
         }
       }
     },
@@ -19255,7 +19255,7 @@
       "pack": "zen",
       "cue": "disconnect",
       "category": "system",
-      "duration": 0.644,
+      "duration": 0.498,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19263,11 +19263,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/disconnect.mp3",
-          "bytes": 5685
+          "bytes": 4640
         },
         "ogg": {
           "path": "sounds/zen/disconnect.ogg",
-          "bytes": 4833
+          "bytes": 5114
         }
       }
     },
@@ -19275,7 +19275,7 @@
       "pack": "zen",
       "cue": "lock",
       "category": "system",
-      "duration": 0.4,
+      "duration": 0.303,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19283,11 +19283,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/lock.mp3",
-          "bytes": 3804
+          "bytes": 2968
         },
         "ogg": {
           "path": "sounds/zen/lock.ogg",
-          "bytes": 1952
+          "bytes": 2248
         }
       }
     },
@@ -19295,7 +19295,7 @@
       "pack": "zen",
       "cue": "unlock",
       "category": "system",
-      "duration": 0.512,
+      "duration": 0.393,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19303,11 +19303,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/unlock.mp3",
-          "bytes": 4640
+          "bytes": 3804
         },
         "ogg": {
           "path": "sounds/zen/unlock.ogg",
-          "bytes": 3008
+          "bytes": 3219
         }
       }
     },
@@ -19315,7 +19315,7 @@
       "pack": "zen",
       "cue": "wake",
       "category": "system",
-      "duration": 0.522,
+      "duration": 0.401,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19323,11 +19323,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/wake.mp3",
-          "bytes": 4640
+          "bytes": 3804
         },
         "ogg": {
           "path": "sounds/zen/wake.ogg",
-          "bytes": 3421
+          "bytes": 2216
         }
       }
     },
@@ -19335,7 +19335,7 @@
       "pack": "zen",
       "cue": "sleep",
       "category": "system",
-      "duration": 0.542,
+      "duration": 0.413,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19343,11 +19343,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/sleep.mp3",
-          "bytes": 4849
+          "bytes": 3804
         },
         "ogg": {
           "path": "sounds/zen/sleep.ogg",
-          "bytes": 3217
+          "bytes": 2572
         }
       }
     },
@@ -19355,7 +19355,7 @@
       "pack": "zen",
       "cue": "reward",
       "category": "reward",
-      "duration": 0.706,
+      "duration": 0.5,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19363,11 +19363,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/reward.mp3",
-          "bytes": 6312
+          "bytes": 4640
         },
         "ogg": {
           "path": "sounds/zen/reward.ogg",
-          "bytes": 5444
+          "bytes": 3627
         }
       }
     },
@@ -19375,7 +19375,7 @@
       "pack": "zen",
       "cue": "level-up",
       "category": "reward",
-      "duration": 0.991,
+      "duration": 0.704,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19383,11 +19383,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/level-up.mp3",
-          "bytes": 8402
+          "bytes": 6103
         },
         "ogg": {
           "path": "sounds/zen/level-up.ogg",
-          "bytes": 6730
+          "bytes": 4840
         }
       }
     },
@@ -19395,7 +19395,7 @@
       "pack": "zen",
       "cue": "achievement",
       "category": "reward",
-      "duration": 1.236,
+      "duration": 0.911,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19403,11 +19403,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/achievement.mp3",
-          "bytes": 10492
+          "bytes": 7775
         },
         "ogg": {
           "path": "sounds/zen/achievement.ogg",
-          "bytes": 9346
+          "bytes": 6561
         }
       }
     },
@@ -19415,7 +19415,7 @@
       "pack": "zen",
       "cue": "streak",
       "category": "reward",
-      "duration": 0.787,
+      "duration": 0.584,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19423,11 +19423,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/streak.mp3",
-          "bytes": 6939
+          "bytes": 5267
         },
         "ogg": {
           "path": "sounds/zen/streak.ogg",
-          "bytes": 6083
+          "bytes": 4158
         }
       }
     },
@@ -19435,7 +19435,7 @@
       "pack": "zen",
       "cue": "badge",
       "category": "reward",
-      "duration": 0.869,
+      "duration": 0.582,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19443,11 +19443,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/badge.mp3",
-          "bytes": 7566
+          "bytes": 5267
         },
         "ogg": {
           "path": "sounds/zen/badge.ogg",
-          "bytes": 6337
+          "bytes": 4373
         }
       }
     },
@@ -19455,7 +19455,7 @@
       "pack": "zen",
       "cue": "bonus",
       "category": "reward",
-      "duration": 0.93,
+      "duration": 0.66,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19463,11 +19463,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/bonus.mp3",
-          "bytes": 7984
+          "bytes": 5894
         },
         "ogg": {
           "path": "sounds/zen/bonus.ogg",
-          "bytes": 7490
+          "bytes": 4971
         }
       }
     },
@@ -19475,7 +19475,7 @@
       "pack": "zen",
       "cue": "add-to-cart",
       "category": "commerce",
-      "duration": 0.553,
+      "duration": 0.426,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19483,11 +19483,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/add-to-cart.mp3",
-          "bytes": 5058
+          "bytes": 4013
         },
         "ogg": {
           "path": "sounds/zen/add-to-cart.ogg",
-          "bytes": 3872
+          "bytes": 3495
         }
       }
     },
@@ -19495,7 +19495,7 @@
       "pack": "zen",
       "cue": "remove-from-cart",
       "category": "commerce",
-      "duration": 0.512,
+      "duration": 0.393,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19503,11 +19503,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/remove-from-cart.mp3",
-          "bytes": 4640
+          "bytes": 3804
         },
         "ogg": {
           "path": "sounds/zen/remove-from-cart.ogg",
-          "bytes": 2523
+          "bytes": 3582
         }
       }
     },
@@ -19515,7 +19515,7 @@
       "pack": "zen",
       "cue": "checkout",
       "category": "commerce",
-      "duration": 0.726,
+      "duration": 0.538,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19523,11 +19523,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/checkout.mp3",
-          "bytes": 6312
+          "bytes": 4849
         },
         "ogg": {
           "path": "sounds/zen/checkout.ogg",
-          "bytes": 5403
+          "bytes": 4062
         }
       }
     },
@@ -19535,7 +19535,7 @@
       "pack": "zen",
       "cue": "purchase",
       "category": "commerce",
-      "duration": 0.828,
+      "duration": 0.534,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19543,11 +19543,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/purchase.mp3",
-          "bytes": 7148
+          "bytes": 4849
         },
         "ogg": {
           "path": "sounds/zen/purchase.ogg",
-          "bytes": 5336
+          "bytes": 3814
         }
       }
     },
@@ -19555,7 +19555,7 @@
       "pack": "zen",
       "cue": "coupon",
       "category": "commerce",
-      "duration": 0.583,
+      "duration": 0.45,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -19563,11 +19563,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/coupon.mp3",
-          "bytes": 5267
+          "bytes": 4222
         },
         "ogg": {
           "path": "sounds/zen/coupon.ogg",
-          "bytes": 4780
+          "bytes": 3362
         }
       }
     },
@@ -19575,7 +19575,7 @@
       "pack": "zen",
       "cue": "refund",
       "category": "commerce",
-      "duration": 0.767,
+      "duration": 0.561,
       "channels": 2,
       "loop": false,
       "playback": "one-shot",
@@ -19583,11 +19583,11 @@
       "files": {
         "mp3": {
           "path": "sounds/zen/refund.mp3",
-          "bytes": 10075
+          "bytes": 7567
         },
         "ogg": {
           "path": "sounds/zen/refund.ogg",
-          "bytes": 5706
+          "bytes": 5314
         }
       }
     }

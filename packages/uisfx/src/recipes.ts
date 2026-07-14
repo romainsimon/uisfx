@@ -88,19 +88,13 @@ const RUBBER_EXPRESSIVE_CUES = new Set<CueName>([
 ])
 
 const ZEN_PAPER_CUES = new Set<CueName>([
-  'hover', 'press', 'release', 'double-click', 'focus', 'long-press',
-  'select', 'deselect', 'toggle-on', 'toggle-off', 'check', 'uncheck',
-  'delete', 'cancel', 'copy', 'paste', 'open', 'close', 'back', 'forward', 'expand', 'collapse',
-  'drag-start', 'drop', 'snap', 'swipe', 'reorder', 'invalid-drop',
-  'start', 'stop', 'progress-step', 'queued', 'play', 'pause', 'seek',
-  'lock', 'unlock', 'add-to-cart', 'remove-from-cart', 'checkout', 'purchase', 'coupon', 'refund',
+  'copy', 'paste', 'open', 'close', 'expand', 'collapse',
+  'drag-start', 'drop', 'swipe', 'reorder',
+  'send', 'receive', 'add-to-cart', 'remove-from-cart', 'checkout', 'refund',
 ])
 
 const ZEN_BRUSH_CUES = new Set<CueName>([
-  'hover', 'focus', 'cancel', 'undo', 'redo', 'open', 'close', 'back', 'forward', 'expand', 'collapse',
-  'drag-start', 'swipe', 'reorder', 'send', 'receive', 'typing',
-  'start', 'stop', 'loading', 'processing', 'recording', 'connecting', 'scanning', 'streaming',
-  'play', 'pause', 'seek', 'volume-change', 'skip-next', 'skip-previous', 'wake', 'sleep', 'refund',
+  'undo', 'redo', 'back', 'forward', 'swipe', 'send', 'receive', 'wake', 'sleep',
 ])
 
 const ZEN_WOOD_CUES = new Set<CueName>([
@@ -116,6 +110,12 @@ const ZEN_CHIME_CUES = new Set<CueName>([
   'success', 'error', 'warning', 'info', 'retry', 'complete', 'checkpoint',
   'connect', 'disconnect', 'wake', 'reward', 'level-up', 'achievement', 'streak', 'badge', 'bonus',
   'checkout', 'purchase', 'coupon', 'refund',
+])
+
+const ZEN_FREQUENT_CUES = new Set<CueName>([
+  'hover', 'press', 'release', 'double-click', 'focus',
+  'select', 'deselect', 'toggle-on', 'toggle-off', 'check', 'uncheck',
+  'snap', 'typing', 'progress-step', 'seek', 'volume-change',
 ])
 
 function zenVariation(cue: CueName, channel: number) {
@@ -238,13 +238,14 @@ function arrangeNotes(pack: PackName, cue: CueName, source: readonly PatternNote
     }
     case 'zen': {
       const variation = zenVariation(cue, 0)
+      const lengthScale = loop ? 0.68 : ZEN_FREQUENT_CUES.has(cue) ? 0.46 : 0.68
       return notes.map((note, index) => ({
         ...note,
-        at: loop ? note.at : note.at * (0.97 + variation * 0.025) + index * 0.004,
-        length: note.length * (0.9 + variation * 0.08),
-        semitone: note.semitone + (variation - 0.5) * 0.42 + (index % 2 === 0 ? -0.08 : 0.06),
-        glide: note.glide === undefined ? undefined : note.glide * 0.42,
-        gain: (note.gain ?? 1) * (loop ? 0.42 : 0.57),
+        at: loop ? note.at : note.at * (0.9 + variation * 0.025) + index * 0.002,
+        length: note.length * lengthScale * (0.96 + variation * 0.05),
+        semitone: note.semitone + (variation - 0.5) * 0.22 + (index % 2 === 0 ? -0.035 : 0.025),
+        glide: note.glide === undefined ? undefined : note.glide * 0.28,
+        gain: (note.gain ?? 1) * (loop ? 0.32 : ZEN_FREQUENT_CUES.has(cue) ? 0.48 : 0.52),
       }))
     }
     default:

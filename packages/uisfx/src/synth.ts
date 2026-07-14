@@ -74,7 +74,7 @@ export function renderRecipe(recipe: SoundRecipe, sampleRate = 44_100): Rendered
   const cleanHold = 0.024
   const bodyDuration = recipe.loop
     ? recipe.duration
-    : Math.min(recipe.duration, finalNoteEnd + (recipe.pack === 'zen' ? 0.36 : 0.06))
+    : Math.min(recipe.duration, finalNoteEnd + (recipe.pack === 'zen' ? 0.12 : 0.06))
   const tail = recipe.loop ? 0 : cleanHold + recipe.echo * 1.6
   const frameCount = Math.max(1, Math.round((bodyDuration + tail) * sampleRate))
   const left = new Float32Array(frameCount)
@@ -85,6 +85,7 @@ export function renderRecipe(recipe: SoundRecipe, sampleRate = 44_100): Rendered
   let lowNoise = 0
   let paperNoise = 0
   let brushNoise = 0
+  let brushBody = 0
   let peak = 0
   const effectiveAttack = recipe.loop ? Math.max(0.0018, recipe.attack) : recipe.attack
   const hasMaterials = recipe.paper > 0 || recipe.brush > 0 || recipe.wood > 0 || recipe.chime > 0
@@ -138,9 +139,11 @@ export function renderRecipe(recipe: SoundRecipe, sampleRate = 44_100): Rendered
 
     const rawNoise = random() * 2 - 1
     const materialRaw = materialRandom() * 2 - 1
-    paperNoise += (materialRaw - paperNoise) * 0.13
-    brushNoise += (materialRaw - brushNoise) * 0.035
-    const paperGrain = materialRaw - paperNoise
+    paperNoise += (materialRaw - paperNoise) * 0.08
+    brushNoise += (materialRaw - brushNoise) * 0.018
+    brushBody += (materialRaw - brushBody) * 0.004
+    const paperGrain = paperNoise - brushNoise
+    const brushGrain = brushNoise - brushBody
 
     if (hasMaterials) {
       for (const note of recipe.notes) {
@@ -148,23 +151,22 @@ export function renderRecipe(recipe: SoundRecipe, sampleRate = 44_100): Rendered
         if (localTime < 0) continue
 
         if (recipe.paper > 0) {
-          const length = Math.min(note.length, 0.18, Math.max(0.075, note.length * 0.72))
+          const length = Math.min(note.length, 0.075, Math.max(0.028, note.length * 0.62))
           if (localTime <= length) {
             const progress = localTime / length
-            const fold = Math.sin(Math.PI * progress) ** 0.62 * (1 - progress * 0.36)
-            const firstCrease = Math.exp(-(((localTime - length * 0.2) / 0.007) ** 2))
-            const secondCrease = Math.exp(-(((localTime - length * 0.62) / 0.011) ** 2))
-            material += paperGrain * recipe.paper * fold * (0.38 + firstCrease * 0.66 + secondCrease * 0.38)
+            const fold = Math.sin(Math.PI * progress) ** 1.1 * (1 - progress * 0.48)
+            const firstCrease = Math.exp(-(((localTime - length * 0.24) / 0.003) ** 2))
+            const secondCrease = Math.exp(-(((localTime - length * 0.64) / 0.005) ** 2))
+            material += paperGrain * recipe.paper * fold * (0.16 + firstCrease * 0.52 + secondCrease * 0.24)
           }
         }
 
         if (recipe.brush > 0) {
-          const length = Math.min(note.length, 0.3, Math.max(0.12, note.length * 1.16))
+          const length = Math.min(note.length, 0.11, Math.max(0.045, note.length * 0.95))
           if (localTime <= length) {
             const progress = localTime / length
-            const stroke = Math.sin(Math.PI * progress) ** 0.82
-            const bristle = materialRaw * 0.3 + brushNoise * 0.7
-            material += bristle * recipe.brush * stroke * (0.72 + progress * 0.18)
+            const stroke = Math.sin(Math.PI * progress) ** 1.3
+            material += brushGrain * recipe.brush * stroke * (0.42 + progress * 0.08)
           }
         }
 
@@ -200,10 +202,10 @@ export function renderRecipe(recipe: SoundRecipe, sampleRate = 44_100): Rendered
     const texture = textureNoise * recipe.noise * Math.min(1.4, textureEnvelope)
     const transient = highNoise * recipe.transient * Math.min(1.35, transientEnvelope)
     const zen = recipe.pack === 'zen'
-    let sample = tonal * (zen ? 0.38 : 0.62)
-      + texture * (zen ? 0.2 : 0.32)
-      + transient * (zen ? 0.2 : 0.3)
-      + material * (zen ? 0.72 : 0)
+    let sample = tonal * (zen ? 0.58 : 0.62)
+      + texture * (zen ? 0.1 : 0.32)
+      + transient * (zen ? 0.08 : 0.3)
+      + material * (zen ? 0.34 : 0)
 
     if (recipe.bitDepth < 16) {
       const levels = 2 ** recipe.bitDepth
@@ -216,7 +218,7 @@ export function renderRecipe(recipe: SoundRecipe, sampleRate = 44_100): Rendered
         - (recipe.panTo - recipe.panFrom) / 2 * Math.cos(Math.PI * 2 * panProgress)
       : recipe.panFrom + (recipe.panTo - recipe.panFrom) * panProgress
     const angle = ((pan + 1) * Math.PI) / 4
-    const limited = softLimit(sample)
+    const limited = zen ? sample : softLimit(sample)
     left[frame] = limited * Math.cos(angle)
     right[frame] = limited * Math.sin(angle)
   }
@@ -248,7 +250,7 @@ export function renderRecipe(recipe: SoundRecipe, sampleRate = 44_100): Rendered
   // Leave generous headroom because short, bright transients can overshoot
   // after low-bitrate MP3 encoding even when the source PCM is below 0 dBFS.
   const targetPeak = recipe.pack === 'zen'
-    ? recipe.loop ? 0.23 : recipe.cue === 'hover' ? 0.22 : 0.34
+    ? recipe.loop ? 0.18 : recipe.cue === 'hover' ? 0.15 : 0.28
     : recipe.loop ? 0.32 : recipe.cue === 'hover' ? 0.3 : 0.42
   const scale = peak > 0 ? Math.min(2.2, targetPeak / peak) : 1
   peak = 0
