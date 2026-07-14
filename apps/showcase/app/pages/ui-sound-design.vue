@@ -774,13 +774,13 @@ volumeInput.addEventListener('input', () =&gt; {
 .guide-hero {
   width: min(100% - 2rem, 96rem);
   margin-inline: auto;
-  padding: clamp(4rem, 8vw, 8rem) 0 clamp(4rem, 8vw, 7rem);
+  padding: clamp(2rem, 3vw, 3.5rem) 0 clamp(4rem, 8vw, 7rem);
 }
 
 .breadcrumbs { display: flex; gap: .55rem; color: var(--ink-soft); font-size: .85rem; }
 .breadcrumbs a { text-decoration: underline; text-underline-offset: .2em; }
 .guide-kicker, .section-label { margin: 0; color: var(--accent-dark); font-size: .76rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
-.guide-kicker { margin-top: clamp(4rem, 7vw, 7rem); }
+.guide-kicker { margin-top: clamp(2.5rem, 3.5vw, 4rem); }
 
 .guide-hero h1 {
   max-width: 13.5ch;
@@ -1007,8 +1007,8 @@ blockquote p { max-width: 25ch; margin: 0; font-size: clamp(1.55rem, 3vw, 2.4rem
 @media (max-width: 48rem) {
   .guide-topbar { grid-template-columns: 1fr auto; }
   .guide-topbar nav { display: none; }
-  .guide-hero { padding-top: 2.5rem; }
-  .guide-kicker { margin-top: 3rem; }
+  .guide-hero { padding-top: 1.75rem; }
+  .guide-kicker { margin-top: 2.25rem; }
   .guide-hero h1 { max-width: 100%; font-size: clamp(3rem, 13.5vw, 4.8rem); }
   .guide-hero__actions a { max-width: 100%; font-size: .9rem; }
   .guide-facts { grid-template-columns: 1fr; }
