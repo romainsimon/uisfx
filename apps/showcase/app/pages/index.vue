@@ -24,6 +24,10 @@ import {
 
 type CategoryFilter = CategoryName | 'all'
 type PlaybackFilter = PlaybackMode | 'all'
+type InstallCopyPlacement = 'hero' | 'install-section'
+type PlausibleWindow = Window & {
+  plausible?: (eventName: string, options?: { props?: Record<string, string> }) => void
+}
 
 const DEFAULT_PREVIEW_VOLUME = 70
 const AUDIO_PREFERENCE_KEY = 'uisfx:preview-audio:v1'
@@ -575,7 +579,7 @@ async function writeClipboard(value: string) {
   }
 }
 
-async function copyInstall() {
+async function copyInstall(placement: InstallCopyPlacement) {
   if (installCopyTimer) clearTimeout(installCopyTimer)
   copied.value = false
   installCopyFailed.value = false
@@ -589,6 +593,9 @@ async function copyInstall() {
   }
   copied.value = true
   announcement.value = 'Install command copied'
+  ;(window as PlausibleWindow).plausible?.('Install Command Copied', {
+    props: { placement },
+  })
   play('copy')
   installCopyTimer = window.setTimeout(() => {
     copied.value = false
@@ -1053,7 +1060,7 @@ onBeforeUnmount(() => {
                   type="button"
                   data-sfx-managed
                   :aria-label="installCopyFailed ? 'Copy failed. Try again.' : copied ? 'Install command copied' : 'Copy npm install uisfx command'"
-                  @click="copyInstall"
+                  @click="copyInstall('hero')"
                 >
                   <span class="hero-install-command__prompt" aria-hidden="true">$</span>
                   <code>npm install <strong>uisfx</strong></code>
@@ -1381,7 +1388,7 @@ onBeforeUnmount(() => {
           <p class="eyebrow">Zero dependencies</p>
           <h2 id="install-title">Give your product<br>a sound language.</h2>
           <p>Use live synthesis on the web or copy all {{ soundCount }} tiny MP3 and Ogg files into any native, game, or media project. One-shots end automatically. Loops return a control you stop when the interface state resolves.</p>
-          <button class="install-command" :class="{ copied, failed: installCopyFailed }" type="button" data-sfx-managed @click="copyInstall">
+          <button class="install-command" :class="{ copied, failed: installCopyFailed }" type="button" data-sfx-managed @click="copyInstall('install-section')">
             <span aria-hidden="true">$</span>
             <code>npm install uisfx</code>
             <strong>{{ installCopyFailed ? 'Copy failed' : copied ? 'Copied' : 'Copy' }}</strong>
