@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f5eddd"/>
+
+  <g fill="#29241f" font-family="Avenir Next, Avenir, Arial, sans-serif">
+    <text x="64" y="98" font-size="54" font-weight="700" letter-spacing="-2.4">ui sfx</text>
+    <text x="64" y="252" font-size="78" font-weight="700" letter-spacing="-3.2">Open-source UI</text>
+    <text x="64" y="344" font-size="78" font-weight="700" letter-spacing="-3.2">sound effects.</text>
+    <text x="67" y="414" fill="#5f584f" font-size="36" font-weight="500" letter-spacing="-0.9">A semantic sound system for every interface.</text>
+  </g>
+
+  <!-- The same three-bar waveform used by the header wordmark. -->
+  <g transform="translate(214 70)" fill="#e84d2a">
+    <rect x="0" y="7" width="6" height="10" rx="3"/>
+    <rect x="11" y="0" width="6" height="23" rx="3"/>
+    <rect x="22" y="4" width="6" height="15" rx="3"/>
+  </g>
+
+  <!-- Exact three-bar app icon from favicon.svg, scaled without extra bars. -->
+  <g transform="translate(876 154) scale(4.0625)">
+    <rect width="64" height="64" rx="14" fill="#29241f"/>
+    <rect x="14" y="23" width="8" height="18" rx="4" fill="#f3e8d5"/>
+    <rect x="30" y="14" width="8" height="36" rx="4" fill="#e84d2a"/>
+    <rect x="46" y="20" width="8" height="24" rx="4" fill="#f3e8d5"/>
+  </g>
+
+  <g font-family="Avenir Next, Avenir, Arial, sans-serif">
+    <text x="68" y="548" fill="#29241f" font-size="34" font-weight="700">936 sounds</text>
+    <text x="294" y="548" fill="#29241f" font-size="34" font-weight="700">78 cues</text>
+    <text x="480" y="548" fill="#29241f" font-size="34" font-weight="700">12 feels</text>
+    <text x="68" y="594" fill="#6b645b" font-size="22" font-weight="700" letter-spacing="2.1">CC0 AUDIO  /  MIT RUNTIME</text>
+  </g>
+</svg>

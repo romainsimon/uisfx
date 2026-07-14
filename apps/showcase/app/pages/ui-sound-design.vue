@@ -11,11 +11,17 @@ import {
   type PlayingSFX,
   type UISFXPlayer,
 } from 'uisfx'
+import {
+  LEGACY_HOME_RECOVERY_QUERY,
+  shouldRecoverLegacyHomepageRedirect,
+} from '../lib/legacy-home-redirect'
+import { findActiveSection } from '../lib/scrollspy'
+import { VOLUME_PREVIEW_PLAY_OPTIONS } from '../lib/volume-preview'
 
 const runtimeConfig = useRuntimeConfig()
 const siteUrl = String(runtimeConfig.public.siteUrl || 'https://uisfx.com').replace(/\/$/, '')
 const canonicalUrl = `${siteUrl}/ui-sound-design`
-const socialImage = `${siteUrl}/og-ui-sound-design-936.jpg`
+const socialImage = `${siteUrl}/og-ui-sound-effects-v3.jpg`
 const pageTitle = 'UI Sound Design Guide: Interface Sound Effects | UI SFX'
 const pageDescription = 'Learn UI sound design from first principles. Plan, create, test, and implement accessible interface sound effects for web, mobile, SaaS, and games.'
 
@@ -54,6 +60,22 @@ const faqItems = [
   },
 ] as const
 
+const tocItems = [
+  { id: 'definition', label: 'What UI sound design is' },
+  { id: 'listen', label: 'Hear meaning and feel' },
+  { id: 'when', label: 'When sound earns its place' },
+  { id: 'language', label: 'Build a sound language' },
+  { id: 'oneshots-loops', label: 'One-shots and loops' },
+  { id: 'principles', label: 'Design principles' },
+  { id: 'platforms', label: 'Web, mobile, SaaS, games' },
+  { id: 'accessibility', label: 'Accessibility' },
+  { id: 'implementation', label: 'Implementation' },
+  { id: 'workflow', label: 'Workflow and testing' },
+  { id: 'faq', label: 'Frequently asked questions' },
+] as const
+
+type TocSectionId = typeof tocItems[number]['id']
+
 const organizationId = `${siteUrl}/#organization`
 const articleId = `${canonicalUrl}#article`
 
@@ -73,7 +95,7 @@ useSeoMeta({
   ogImageType: 'image/jpeg',
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: 'UI SFX interface sound effects library and UI sound design guide',
+  ogImageAlt: 'UI SFX open-source UI sound effects library with 936 sounds, 78 semantic cues, and 12 feels',
   twitterCard: 'summary_large_image',
   twitterTitle: 'UI Sound Design: The Complete Guide',
   twitterDescription: pageDescription,
@@ -144,11 +166,13 @@ const volume = ref(38)
 const muted = ref(false)
 const activeCue = ref<CueName | null>(null)
 const loopingCue = ref<CueName | null>(null)
+const activeTocSection = ref<TocSectionId>('definition')
 const player = shallowRef<UISFXPlayer>()
 const reducedMotion = ref(false)
 let loopSound: PlayingSFX | null = null
 let activeTimer: ReturnType<typeof setTimeout> | undefined
 let revealObserver: IntersectionObserver | undefined
+let tocScrollFrame: number | undefined
 
 const previewCues = [
   { name: 'select', label: 'Select', note: 'A choice becomes active.' },
@@ -158,10 +182,20 @@ const previewCues = [
   { name: 'loading', label: 'Loading loop', note: 'A process remains active until stopped.' },
 ] as const satisfies readonly { name: CueName, label: string, note: string }[]
 
+const finalShowcaseCues = [
+  { name: 'select', label: 'Select' },
+  { name: 'success', label: 'Success' },
+  { name: 'error', label: 'Error' },
+  { name: 'notification', label: 'Notify' },
+  { name: 'loading', label: 'Loading loop' },
+] as const satisfies readonly { name: CueName, label: string }[]
+
 const categoryGroups = computed(() => CATEGORIES.map(category => ({
   ...category,
   cues: CUES.filter(cue => cue.category === category.id),
 })))
+const selectedPackDetails = computed(() => PACKS.find(pack => pack.name === selectedPack.value) ?? PACKS[0])
+const lastPlayedCue = ref<CueName>('success')
 
 function stopLoop() {
   loopSound?.stop()
@@ -171,6 +205,7 @@ function stopLoop() {
 
 function playCue(cue: CueName) {
   if (!player.value || muted.value) return
+  lastPlayedCue.value = cue
   if (cue === 'loading' && loopingCue.value === cue) {
     stopLoop()
     activeCue.value = null
@@ -199,12 +234,42 @@ function toggleMute() {
   else playCue('toggle-on')
 }
 
+function previewVolumeLevel(event: Event) {
+  if (!(event.target instanceof HTMLInputElement) || !player.value) return
+  const nextVolume = Math.max(0, Math.min(100, Number(event.target.value)))
+  volume.value = nextVolume
+  player.value.setVolume(nextVolume / 100)
+  if (!muted.value && nextVolume > 0) {
+    player.value.play('volume-change', VOLUME_PREVIEW_PLAY_OPTIONS)
+  }
+}
+
 function handlePreviewHover(event: PointerEvent) {
   if (event.pointerType === 'touch' || muted.value || !player.value) return
   const target = event.target as HTMLElement | null
   const interactive = target?.closest('button, a, select, input')
   const previous = (event.relatedTarget as HTMLElement | null)?.closest?.('button, a, select, input')
-  if (interactive && interactive !== previous) player.value.play('hover')
+  if (interactive && !interactive.closest('[data-sfx-no-hover]') && interactive !== previous) player.value.play('hover')
+}
+
+function handleTocClick(sectionId: TocSectionId) {
+  activeTocSection.value = sectionId
+  playCue('forward')
+}
+
+function updateActiveTocSection() {
+  tocScrollFrame = undefined
+  const sections = tocItems.flatMap((item) => {
+    const element = document.getElementById(item.id)
+    return element ? [{ id: item.id, top: element.getBoundingClientRect().top }] : []
+  })
+  const active = findActiveSection(sections, Math.min(window.innerHeight * 0.28, 220))
+  if (active) activeTocSection.value = active
+}
+
+function scheduleTocUpdate() {
+  if (tocScrollFrame !== undefined) return
+  tocScrollFrame = window.requestAnimationFrame(updateActiveTocSection)
 }
 
 watch(volume, (next) => player.value?.setVolume(next / 100))
@@ -221,7 +286,22 @@ watch(selectedPack, (next) => {
 })
 
 onMounted(() => {
+  const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined
+  if (shouldRecoverLegacyHomepageRedirect(window.location.pathname, navigation?.redirectCount ?? 0)) {
+    try {
+      const recoveryKey = 'uisfx:legacy-home-redirect-recovered'
+      if (!sessionStorage.getItem(recoveryKey)) {
+        sessionStorage.setItem(recoveryKey, '1')
+        window.location.replace(`/${LEGACY_HOME_RECOVERY_QUERY}`)
+        return
+      }
+    } catch { /* Continue to the guide when session storage is unavailable. */ }
+  }
+
   player.value = createUISFX({ pack: selectedPack.value, volume: volume.value / 100 })
+  window.addEventListener('scroll', scheduleTocUpdate, { passive: true })
+  window.addEventListener('resize', scheduleTocUpdate)
+  scheduleTocUpdate()
   const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
   reducedMotion.value = motionQuery.matches
   if (!reducedMotion.value) {
@@ -239,6 +319,9 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  window.removeEventListener('scroll', scheduleTocUpdate)
+  window.removeEventListener('resize', scheduleTocUpdate)
+  if (tocScrollFrame !== undefined) window.cancelAnimationFrame(tocScrollFrame)
   if (activeTimer) clearTimeout(activeTimer)
   revealObserver?.disconnect()
   stopLoop()
@@ -251,7 +334,7 @@ onBeforeUnmount(() => {
     <a class="guide-skip" href="#article">Skip to guide</a>
 
     <header class="guide-topbar">
-      <a class="guide-brand" href="/" aria-label="UI SFX home"><UISFXMark compact /></a>
+      <a class="guide-brand logo-sound-trigger" href="/" aria-label="UI SFX home"><UISFXMark compact /></a>
       <nav aria-label="Guide navigation">
         <a href="/#compare">Feels</a>
         <a href="/#sound-library">Sound library</a>
@@ -283,17 +366,14 @@ onBeforeUnmount(() => {
         <aside class="guide-toc" aria-label="Table of contents">
           <p>In this guide</p>
           <ol>
-            <li><a href="#definition">What UI sound design is</a></li>
-            <li><a href="#listen">Hear meaning and feel</a></li>
-            <li><a href="#when">When sound earns its place</a></li>
-            <li><a href="#language">Build a sound language</a></li>
-            <li><a href="#oneshots-loops">One-shots and loops</a></li>
-            <li><a href="#principles">Design principles</a></li>
-            <li><a href="#platforms">Web, mobile, SaaS, games</a></li>
-            <li><a href="#accessibility">Accessibility</a></li>
-            <li><a href="#implementation">Implementation</a></li>
-            <li><a href="#workflow">Workflow and testing</a></li>
-            <li><a href="#faq">Frequently asked questions</a></li>
+            <li v-for="item in tocItems" :key="item.id">
+              <a
+                :href="`#${item.id}`"
+                :class="{ 'is-active': activeTocSection === item.id }"
+                :aria-current="activeTocSection === item.id ? 'location' : undefined"
+                @click="handleTocClick(item.id)"
+              >{{ item.label }}</a>
+            </li>
           </ol>
         </aside>
 
@@ -332,7 +412,17 @@ onBeforeUnmount(() => {
               </label>
               <label class="volume-field">
                 <span>Preview volume <b>{{ muted ? 'Muted' : `${volume}%` }}</b></span>
-                <input v-model.number="volume" type="range" min="0" max="100" step="1" aria-label="Preview volume">
+                <input
+                  v-model.number="volume"
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="1"
+                  aria-label="Preview volume"
+                  :aria-valuetext="`${volume} percent`"
+                  data-sfx-no-hover
+                  @input="previewVolumeLevel"
+                >
               </label>
               <button type="button" class="mute-button" :aria-pressed="muted" @click="toggleMute">{{ muted ? 'Turn sound on' : 'Mute previews' }}</button>
             </div>
@@ -351,7 +441,7 @@ onBeforeUnmount(() => {
                 <small>{{ cue.note }}</small>
               </button>
             </div>
-            <p class="listen-note">Browsers require a first tap or click before audio can start. The loading example loops until you stop it.</p>
+            <p class="listen-note">Move the volume slider to hear the selected level immediately. Browsers require a first tap or click before audio can start. The loading example loops until you stop it.</p>
           </section>
 
           <section id="when" class="prose-section" data-guide-reveal>
@@ -450,7 +540,7 @@ onBeforeUnmount(() => {
             <h2>UI sound across web, mobile, SaaS, and games</h2>
             <div class="platform-grid">
               <article><h3>Web apps</h3><p>Browsers commonly block audio until a person interacts with the page. Initialize or resume audio from a user gesture, load only the cues needed for the first flow, and make mute and volume controls easy to find.</p></article>
-              <article><h3>SaaS and productivity</h3><p>Frequency is the central constraint. Use restrained cues for important outcomes, collaboration, uploads, and background completion. Avoid sounding every keystroke, hover, save, and navigation step.</p></article>
+              <article><h3>SaaS and productivity</h3><p>Frequency is the central constraint. Keep routine feedback restrained. If typing feedback is enabled, use one very brief, quiet cue per keystroke and always provide volume and mute controls.</p></article>
               <article><h3>Mobile apps</h3><p>Respect silent mode, system volume, interruptions, and the expectations of each platform. Pair sound with visible state or haptics, and let people control optional feedback inside the app.</p></article>
               <article><h3>Games</h3><p>Menus can be more expressive, but interface audio still needs a hierarchy separate from music, dialogue, and world sound. Reward cues should scale with the achievement instead of making every tap feel equally important.</p></article>
             </div>
@@ -492,6 +582,19 @@ const task = ui.play('processing')
 await renderProject()
 task?.stop()
 ui.play('complete')</code></pre>
+
+            <h3>Let the volume control preview itself</h3>
+            <p>Apply the new level before playing the cue. Restart the same short cue with a tiny cooldown so rapid pointer input stays responsive without stacking sounds.</p>
+            <pre class="code-block"><code>const volumeInput = document.querySelector('#sound-volume')
+
+volumeInput.addEventListener('input', () =&gt; {
+  const volume = Number(volumeInput.value) / 100
+  ui.setVolume(volume)
+  ui.play('volume-change', {
+    retrigger: 'restart',
+    cooldownMs: 45,
+  })
+})</code></pre>
 
             <h3>Web implementation checklist</h3>
             <ul class="implementation-list">
@@ -551,18 +654,68 @@ ui.play('complete')</code></pre>
             </ul>
           </section>
 
-          <section class="guide-final-cta" data-guide-reveal>
-            <p>From principles to playback</p>
-            <h2>Hear every event in every feel.</h2>
-            <p>Explore the complete open-source library, compare sonic personalities, and copy the implementation into your product.</p>
-            <a href="/">Open the UI SFX playground <span aria-hidden="true">↗</span></a>
+          <section class="guide-final-cta" data-guide-reveal aria-labelledby="playback-showcase-title">
+            <div class="guide-final-cta__intro">
+              <div>
+                <p>From principles to playback</p>
+                <h2 id="playback-showcase-title">One event.<br>Any sonic feel.</h2>
+              </div>
+              <p>UI SFX gives product events stable semantic names. Change the feel once, then keep every interaction wired to the same language.</p>
+            </div>
+
+            <div class="playback-console">
+              <div class="playback-console__head">
+                <div>
+                  <span class="playback-console__live"><i aria-hidden="true" /> Live library</span>
+                  <strong>{{ CUES.length }} cues · {{ PACKS.length }} feels · {{ CUES.length * PACKS.length }} sounds</strong>
+                </div>
+                <div class="playback-console__controls">
+                  <label>
+                    <span>Sound feel</span>
+                    <select v-model="selectedPack" aria-label="Sound feel for the playback showcase">
+                      <option v-for="pack in PACKS" :key="pack.name" :value="pack.name">{{ pack.label }}</option>
+                    </select>
+                  </label>
+                  <button type="button" :aria-pressed="!muted" @click="toggleMute">{{ muted ? 'Sound off' : 'Sound on' }}</button>
+                </div>
+              </div>
+
+              <div class="playback-console__identity">
+                <span>{{ selectedPackDetails.label }}</span>
+                <p>{{ selectedPackDetails.description }}</p>
+              </div>
+
+              <div class="playback-console__cues" aria-label="Try semantic UI sound cues">
+                <button
+                  v-for="cue in finalShowcaseCues"
+                  :key="cue.name"
+                  type="button"
+                  :class="{ 'is-active': activeCue === cue.name || loopingCue === cue.name }"
+                  :aria-pressed="cue.name === 'loading' ? loopingCue === cue.name : undefined"
+                  @click="playCue(cue.name)"
+                >
+                  <span aria-hidden="true">{{ cue.name === 'loading' && loopingCue === cue.name ? '■' : '▶' }}</span>
+                  <strong>{{ cue.label }}</strong>
+                  <small>{{ cue.name }}</small>
+                </button>
+              </div>
+
+              <div class="playback-console__code" aria-live="polite">
+                <span>ui.play(</span><strong>'{{ lastPlayedCue }}'</strong><span>)</span>
+              </div>
+            </div>
+
+            <div class="guide-final-cta__actions">
+              <a href="/">Explore the complete library <span aria-hidden="true">↗</span></a>
+              <a href="https://www.npmjs.com/package/uisfx" target="_blank" rel="noopener noreferrer">npm install uisfx <span aria-hidden="true">↗</span></a>
+            </div>
           </section>
         </article>
       </div>
     </main>
 
     <footer class="guide-footer">
-      <a href="/" aria-label="UI SFX home"><UISFXMark /></a>
+      <a class="logo-sound-trigger" href="/" aria-label="UI SFX home"><UISFXMark /></a>
       <p>Sound should reinforce visible feedback, never replace it.</p>
       <nav aria-label="Footer navigation">
         <a href="/">Library</a>
@@ -664,9 +817,11 @@ ui.play('complete')</code></pre>
 .guide-toc p { margin: 0 0 .75rem; font-size: .78rem; font-weight: 900; letter-spacing: .09em; text-transform: uppercase; }
 .guide-toc ol { margin: 0; padding: 0; list-style: none; counter-reset: toc; }
 .guide-toc li { counter-increment: toc; }
-.guide-toc a { display: grid; grid-template-columns: 1.75rem 1fr; padding: .38rem 0; color: var(--ink-soft); font-size: .86rem; line-height: 1.25; }
+.guide-toc a { display: grid; grid-template-columns: 1.75rem 1fr; padding: .42rem .55rem; color: var(--ink-soft); font-size: .86rem; line-height: 1.25; transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease; }
 .guide-toc a::before { content: counter(toc, decimal-leading-zero); color: var(--rule); font-variant-numeric: tabular-nums; }
 .guide-toc a:hover { color: var(--accent-dark); }
+.guide-toc a.is-active { background: color-mix(in oklch, var(--accent) 9%, transparent); color: var(--ink); box-shadow: inset .16rem 0 0 var(--accent); font-weight: 800; }
+.guide-toc a.is-active::before { color: var(--accent-dark); }
 
 .guide-article { min-width: 0; }
 .prose-section, .listen-lab, .sources-section, .guide-final-cta { scroll-margin-top: 6rem; margin-bottom: clamp(6rem, 12vw, 11rem); }
@@ -751,8 +906,17 @@ blockquote p { max-width: 25ch; margin: 0; font-size: clamp(1.55rem, 3vw, 2.4rem
 .code-block { margin: 2.5rem 0; padding: clamp(1.2rem, 4vw, 2.5rem); overflow-x: auto; background: var(--ink); color: #f7efdf; font: .9rem/1.75 ui-monospace, SFMono-Regular, Menlo, monospace; }
 .code-block code { user-select: text; }
 .code-block::selection,
-.code-block code::selection,
-.code-block span::selection { background: #a83f2a; color: #fff8ed; text-shadow: none; }
+.code-block *::selection { background: #a83f2a; color: #fff8ed; text-shadow: none; }
+.code-block::target-text,
+.code-block *::target-text {
+  background: transparent;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: #f68562;
+  text-decoration-thickness: .12em;
+  text-underline-offset: .18em;
+  text-shadow: none;
+}
 .code-block span { color: #f68562; }
 .implementation-list { margin: 1rem 0 3rem; padding: 0; list-style: none; }
 .implementation-list li { padding: 1rem 0; border-bottom: 1px solid var(--rule); color: var(--ink-soft); line-height: 1.6; }
@@ -782,10 +946,38 @@ blockquote p { max-width: 25ch; margin: 0; font-size: clamp(1.55rem, 3vw, 2.4rem
 .sources-section a { height: 100%; padding: .9rem; display: block; background: var(--paper); font-size: .88rem; font-weight: 700; }
 .sources-section a:hover { color: var(--accent-dark); }
 
-.guide-final-cta { padding: clamp(2rem, 6vw, 5rem); background: var(--ink); color: var(--paper-light); }
-.guide-final-cta > p { max-width: 38rem; color: color-mix(in oklch, var(--paper-light) 68%, transparent); line-height: 1.7; }
-.guide-final-cta > p:first-child { color: #f68562; font-size: .75rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
-.guide-final-cta a { margin-top: 1rem; padding: .85rem 1.1rem; display: inline-block; background: var(--accent); color: white; font-weight: 800; }
+.guide-final-cta { padding: clamp(1.5rem, 5vw, 4rem); background: var(--ink); color: var(--paper-light); }
+.guide-final-cta__intro { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(16rem, .75fr); gap: clamp(2rem, 6vw, 5rem); align-items: end; }
+.guide-final-cta__intro h2 { margin-bottom: 0; }
+.guide-final-cta__intro > div > p { margin: 0; color: #f68562; font-size: .75rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.guide-final-cta__intro > p { max-width: 34rem; margin: 0 0 .35rem; color: color-mix(in oklch, var(--paper-light) 68%, transparent); line-height: 1.7; }
+.playback-console { margin-top: clamp(2.5rem, 6vw, 5rem); border: 1px solid color-mix(in oklch, var(--paper-light) 24%, transparent); background: #292621; }
+.playback-console__head { min-height: 5rem; padding: 1rem 1.2rem; display: flex; justify-content: space-between; gap: 2rem; align-items: center; border-bottom: 1px solid color-mix(in oklch, var(--paper-light) 18%, transparent); }
+.playback-console__head > div { display: grid; gap: .35rem; }
+.playback-console__head strong { font-size: .78rem; font-weight: 600; color: color-mix(in oklch, var(--paper-light) 55%, transparent); }
+.playback-console__live { display: inline-flex; gap: .5rem; align-items: center; color: var(--paper-light); font-size: .72rem; font-weight: 900; letter-spacing: .09em; text-transform: uppercase; }
+.playback-console__live i { width: .48rem; aspect-ratio: 1; border-radius: 50%; background: #f68562; box-shadow: 0 0 0 .22rem color-mix(in oklch, #f68562 18%, transparent); }
+.playback-console__controls { display: flex; gap: .5rem; align-items: end; }
+.playback-console__head label { display: grid; grid-template-columns: auto minmax(8rem, 10rem); gap: .75rem; align-items: center; font-size: .72rem; font-weight: 800; }
+.playback-console__head select { min-height: 2.65rem; padding: 0 .7rem; border: 1px solid color-mix(in oklch, var(--paper-light) 30%, transparent); border-radius: 0; background: var(--ink); color: var(--paper-light); cursor: pointer; }
+.playback-console__controls > button { min-height: 2.65rem; padding: 0 .8rem; border: 1px solid color-mix(in oklch, var(--paper-light) 30%, transparent); background: transparent; color: var(--paper-light); cursor: pointer; font-size: .72rem; font-weight: 800; white-space: nowrap; }
+.playback-console__identity { padding: 1.15rem 1.2rem; display: grid; grid-template-columns: minmax(8rem, .35fr) 1fr; gap: 1.25rem; border-bottom: 1px solid color-mix(in oklch, var(--paper-light) 18%, transparent); }
+.playback-console__identity span { color: #f68562; font-size: 1.05rem; font-weight: 850; }
+.playback-console__identity p { margin: 0; color: color-mix(in oklch, var(--paper-light) 62%, transparent); font-size: .9rem; line-height: 1.45; }
+.playback-console__cues { display: grid; grid-template-columns: repeat(5, 1fr); }
+.playback-console__cues button { min-width: 0; min-height: 8.5rem; padding: 1rem; display: grid; grid-template-rows: auto 1fr auto; gap: .45rem; border: 0; border-right: 1px solid color-mix(in oklch, var(--paper-light) 15%, transparent); background: transparent; color: inherit; text-align: left; cursor: pointer; transition: background-color 150ms ease, color 150ms ease, transform 150ms var(--ease-out-quart); }
+.playback-console__cues button:last-child { border-right: 0; }
+.playback-console__cues button > span { justify-self: end; color: #f68562; font-size: .7rem; }
+.playback-console__cues button strong { align-self: end; font-size: .95rem; }
+.playback-console__cues button small { color: color-mix(in oklch, currentColor 55%, transparent); font: .68rem/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.playback-console__cues button.is-active { background: var(--accent); color: var(--ink); transform: translateY(-.2rem); }
+.playback-console__cues button:active { transform: translateY(.08rem) scale(.985); }
+.playback-console__code { padding: .9rem 1.2rem; display: flex; justify-content: center; background: #171512; color: color-mix(in oklch, var(--paper-light) 62%, transparent); font: .86rem/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.playback-console__code strong { color: #f68562; font-weight: 700; }
+.guide-final-cta__actions { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: .65rem; }
+.guide-final-cta__actions a { min-height: 3rem; padding: .8rem 1rem; display: inline-flex; align-items: center; gap: .65rem; border: 1px solid color-mix(in oklch, var(--paper-light) 32%, transparent); color: var(--paper-light); font-weight: 800; }
+.guide-final-cta__actions a:first-child { border-color: var(--accent); background: var(--accent); color: var(--ink); }
+.guide-final-cta__actions a:active, .playback-console__controls > button:active { transform: translateY(1px); }
 
 .guide-footer { width: min(100% - 2rem, 96rem); margin-inline: auto; padding: 3rem 0; display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: center; }
 .guide-footer p { color: var(--ink-soft); font-size: .84rem; }
@@ -795,6 +987,10 @@ blockquote p { max-width: 25ch; margin: 0; font-size: clamp(1.55rem, 3vw, 2.4rem
   .guide-hero__actions a:hover { transform: translateY(-3px); background: var(--accent-dark); color: white; }
   .cue-preview-grid button:hover { transform: translateY(-4px); background: color-mix(in oklch, var(--paper-light) 15%, transparent); }
   .cue-preview-grid button.is-active:hover { background: var(--accent); }
+  .playback-console__cues button:hover { background: color-mix(in oklch, var(--paper-light) 8%, transparent); }
+  .playback-console__cues button.is-active:hover { background: var(--accent); }
+  .guide-final-cta__actions a:hover { border-color: #f68562; color: #f68562; }
+  .guide-final-cta__actions a:first-child:hover { border-color: #f68562; background: #f68562; color: var(--ink); }
 }
 
 @media (max-width: 68rem) {
@@ -804,6 +1000,8 @@ blockquote p { max-width: 25ch; margin: 0; font-size: clamp(1.55rem, 3vw, 2.4rem
   .listen-controls { grid-template-columns: 1fr 1fr; }
   .listen-controls > label:first-child { grid-column: 1 / -1; }
   .cue-preview-grid { grid-template-columns: repeat(3, 1fr); }
+  .playback-console__cues { grid-template-columns: repeat(3, 1fr); }
+  .playback-console__cues button { border-bottom: 1px solid color-mix(in oklch, var(--paper-light) 15%, transparent); }
 }
 
 @media (max-width: 48rem) {
@@ -823,12 +1021,20 @@ blockquote p { max-width: 25ch; margin: 0; font-size: clamp(1.55rem, 3vw, 2.4rem
   .editorial-list li, .principle-list div { grid-template-columns: 1fr; gap: .4rem; }
   .principle-list li { grid-template-columns: 2.5rem 1fr; }
   .implementation-cta { grid-template-columns: 1fr; align-items: start; }
+  .guide-final-cta__intro { grid-template-columns: 1fr; gap: 1.25rem; }
+  .playback-console__head { align-items: stretch; flex-direction: column; gap: 1rem; }
+  .playback-console__controls { align-items: stretch; flex-direction: column; }
+  .playback-console__head label { grid-template-columns: 1fr; gap: .45rem; }
+  .playback-console__head select { width: 100%; }
+  .playback-console__identity { grid-template-columns: 1fr; gap: .35rem; }
+  .playback-console__cues { grid-template-columns: repeat(2, 1fr); }
+  .playback-console__cues button { min-height: 7.5rem; }
   .guide-footer { grid-template-columns: 1fr; align-items: start; }
   .guide-footer nav { justify-content: flex-start; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   [data-guide-reveal] { opacity: 1; transform: none; transition: none; }
-  .cue-preview-grid button, .guide-hero__actions a { transition: none; }
+  .cue-preview-grid button, .guide-hero__actions a, .guide-toc a, .playback-console__cues button { transition: none; }
 }
 </style>

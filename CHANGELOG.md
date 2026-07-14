@@ -2,6 +2,7 @@
 
 ## 0.4.0 - 2026-07-14
 
+- Rebuild Zen around short pure-tone and dry-wood transients, reserving filtered washi and brush texture for a small set of spatial gestures instead of frequent controls or loops.
 - Bound default polyphony to eight voices, retire old one-shots before loops, and restart repeated outcomes instead of layering them.
 - Reuse duplicate loops and migrate active loops across pack changes without invalidating their stoppable handles.
 - Add semantic cooldowns for high-frequency cues with per-player and per-play overrides.

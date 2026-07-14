@@ -49,7 +49,7 @@ SoundCN was reviewed as a product reference. Its useful patterns include fast pr
 - Canonical and absolute social URLs resolve to their current route, with `NUXT_PUBLIC_SITE_URL` available as a deployment override.
 - `/robots.txt` allows crawling and references `/sitemap.xml`.
 - The sitemap contains both `/` and `/ui-sound-design`.
-- The opaque 1200×630 JPEG social card is declared for Open Graph and Twitter with explicit dimensions, alt text, and a versioned URL so social crawlers cannot reuse a superseded broken image.
+- The opaque 1200×630 JPEG social card uses a thumbnail-first composition, explicit dimensions and alt text, and a versioned URL so social crawlers cannot reuse a superseded image.
 
 ## Launch checklist
 

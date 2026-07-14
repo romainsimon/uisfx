@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { useHead, useRuntimeConfig, useSeoMeta } from '#imports'
-import { BookOpen, Check, Copy as CopyIcon, Volume1, Volume2, VolumeX } from '@lucide/vue'
+import { BookOpen, Check, Copy as CopyIcon, Heart, Volume1, Volume2, VolumeX } from '@lucide/vue'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 import { buildAgentImplementationPrompt } from '../lib/agent-prompt'
+import { LEGACY_HOME_RECOVERY_PARAMETER } from '../lib/legacy-home-redirect'
+import { resolvePackShortcut } from '../lib/pack-shortcut'
 import { planPackSwitch } from '../lib/pack-switch'
+import { scalePreviewVolume, VOLUME_PREVIEW_PLAY_OPTIONS } from '../lib/volume-preview'
 import {
   CATEGORIES,
   CUES,
@@ -60,7 +63,7 @@ const siteUrl = String(runtimeConfig.public.siteUrl || 'https://uisfx.com').repl
 const canonicalUrl = siteUrl
 // Use an opaque, versioned JPEG because X's image proxy can retain a failed
 // fetch independently of the page-card cache. A new filename invalidates both.
-const socialImage = `${siteUrl}/og-ui-sound-design-936.jpg`
+const socialImage = `${siteUrl}/og-ui-sound-effects-v3.jpg`
 const organizationId = `${siteUrl}/#organization`
 const websiteId = `${siteUrl}/#website`
 const softwareId = `${canonicalUrl}#software`
@@ -82,7 +85,7 @@ useSeoMeta({
   ogImageType: 'image/jpeg',
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: `UI SFX sound design library with ${PACKS.length} sound styles and waveform previews`,
+  ogImageAlt: `UI SFX open-source UI sound effects with ${soundCount} sounds, ${CUES.length} semantic cues, and ${PACKS.length} feels`,
   twitterCard: 'summary_large_image',
   twitterTitle: socialTitle,
   twitterDescription: socialDescription,
@@ -236,8 +239,8 @@ let scrollFrame: number | undefined
 let headerStyleState = ''
 let installCopyTimer: number | undefined
 let agentPromptCopyTimer: number | undefined
-let searchSoundTimer: ReturnType<typeof setTimeout> | undefined
-let previousQuery = ''
+let packShortcutTimer: ReturnType<typeof setTimeout> | undefined
+let pendingPackOne = false
 let lastHoverSoundAt = 0
 
 const selectedPackData = computed(() => PACKS.find((pack) => pack.name === selectedPack.value) ?? PACKS[0])
@@ -443,7 +446,12 @@ function onShellPointerOver(event: PointerEvent) {
   const target = event.target
   if (!(target instanceof Element)) return
   const control = target.closest<HTMLElement>('a, button, [role="button"]')
-  if (!control || control.closest('.logo-sound-trigger') || control.hasAttribute('disabled')) return
+  if (
+    !control
+    || control.closest('.logo-sound-trigger')
+    || control.closest('[data-sfx-no-hover]')
+    || control.hasAttribute('disabled')
+  ) return
   if (event.relatedTarget instanceof Node && control.contains(event.relatedTarget)) return
   const now = performance.now()
   if (now - lastHoverSoundAt < 90) return
@@ -465,15 +473,8 @@ function onSearchFocus() {
   play('focus')
 }
 
-function onSearchInput(event: Event) {
-  const value = event.target instanceof HTMLInputElement ? event.target.value : query.value
-  if (!value && previousQuery) {
-    play('deselect')
-  } else if (value && !searchSoundTimer) {
-    play('typing')
-    searchSoundTimer = setTimeout(() => { searchSoundTimer = undefined }, 420)
-  }
-  previousQuery = value
+function onSearchInput() {
+  play('typing')
 }
 
 function smoothstep(value: number) {
@@ -669,6 +670,9 @@ function setPreviewVolume(value: number) {
 function onVolumeInput(event: Event) {
   if (!(event.target instanceof HTMLInputElement)) return
   setPreviewVolume(Number(event.target.value))
+  if (!muted.value) {
+    player.value?.play('volume-change', VOLUME_PREVIEW_PLAY_OPTIONS)
+  }
 }
 
 function onVolumeCommit() {
@@ -678,7 +682,18 @@ function onVolumeCommit() {
     return
   }
   announcement.value = `Sound preview volume ${volumePercent.value} percent`
-  player.value?.play('volume-change')
+}
+
+function playLevelPreview(cue: CueName, level: number) {
+  if (!player.value || muted.value) return
+  const normalizedLevel = Math.max(0, Math.min(1, level))
+  if (normalizedLevel === 0) return
+  const recipe = createRecipe(selectedPack.value, cue)
+  player.value.play(cue, {
+    ...VOLUME_PREVIEW_PLAY_OPTIONS,
+    volume: scalePreviewVolume(recipe.defaultVolume, normalizedLevel),
+  })
+  announcement.value = `Previewing ${cue} at ${Math.round(normalizedLevel * 100)} percent`
 }
 
 function toggleMute() {
@@ -717,17 +732,29 @@ function onDocumentPointerDown(event: PointerEvent) {
 
 function onKeydown(event: KeyboardEvent) {
   unlockAudioFromGesture()
-  if (event.metaKey || event.ctrlKey || event.altKey || event.isComposing) return
+  if (event.metaKey || event.ctrlKey || event.altKey || event.isComposing || event.repeat) return
   if (event.target instanceof HTMLElement && (event.target.matches('input, select, textarea') || event.target.isContentEditable)) return
-  const index = event.key === '+' || event.key === '='
-    ? 11
-    : event.key === '-'
-      ? 10
-      : event.key === '0'
-        ? 9
-        : Number(event.key) - 1
-  const pack = PACKS[index]
-  if (pack) choosePack(pack.name)
+  const resolution = resolvePackShortcut(pendingPackOne, event.key)
+  if (resolution.pendingOne === pendingPackOne && resolution.indices.length === 0) return
+
+  if (packShortcutTimer) clearTimeout(packShortcutTimer)
+  packShortcutTimer = undefined
+  pendingPackOne = resolution.pendingOne
+
+  if (pendingPackOne) {
+    packShortcutTimer = setTimeout(() => {
+      pendingPackOne = false
+      packShortcutTimer = undefined
+      const firstPack = PACKS[0]
+      if (firstPack) choosePack(firstPack.name)
+    }, 360)
+    return
+  }
+
+  resolution.indices.forEach((index) => {
+    const pack = PACKS[index]
+    if (pack) choosePack(pack.name)
+  })
 }
 
 function onVisibilityChange() {
@@ -735,6 +762,16 @@ function onVisibilityChange() {
 }
 
 onMounted(() => {
+  const currentUrl = new URL(window.location.href)
+  if (currentUrl.searchParams.has(LEGACY_HOME_RECOVERY_PARAMETER)) {
+    currentUrl.searchParams.delete(LEGACY_HOME_RECOVERY_PARAMETER)
+    window.history.replaceState(
+      window.history.state,
+      '',
+      `${currentUrl.pathname}${currentUrl.search}${currentUrl.hash}`,
+    )
+  }
+
   restoreAudioPreference()
   player.value = createUISFX({
     pack: selectedPack.value,
@@ -810,7 +847,7 @@ onBeforeUnmount(() => {
   if (activeTimer) clearTimeout(activeTimer)
   if (installCopyTimer) clearTimeout(installCopyTimer)
   if (agentPromptCopyTimer) clearTimeout(agentPromptCopyTimer)
-  if (searchSoundTimer) clearTimeout(searchSoundTimer)
+  if (packShortcutTimer) clearTimeout(packShortcutTimer)
   void player.value?.destroy()
 })
 </script>
@@ -929,6 +966,7 @@ onBeforeUnmount(() => {
                   :style="{ '--volume-progress': `${volumePercent}%` }"
                   aria-label="Sound preview volume"
                   :aria-valuetext="muted ? 'Muted' : `${volumePercent} percent`"
+                  data-sfx-no-hover
                   @input="onVolumeInput"
                   @change="onVolumeCommit"
                 >
@@ -1136,16 +1174,28 @@ onBeforeUnmount(() => {
               {{ pack.label }}
             </button>
           </div>
-          <p class="console-note">Press keys 1-9, 0, − or + to switch feel</p>
+          <p class="console-note">Type 1-12 to switch feel · 0, − and + still work</p>
         </div>
       </section>
 
-      <section class="spec-strip" aria-label="Library specifications" data-reveal data-reveal-group>
+      <section id="specifications" class="spec-strip" aria-label="Library specifications" data-reveal data-reveal-group>
         <p data-reveal-item><strong>{{ CUES.length }}</strong><span>semantic UI cues</span></p>
         <p data-reveal-item><strong>{{ PACKS.length }}</strong><span>distinct feels</span></p>
-        <p data-reveal-item><strong>72</strong><span>brief one-shots</span></p>
-        <p data-reveal-item><strong>6</strong><span>seamless loops</span></p>
+        <p data-reveal-item><strong>{{ oneShotCount }}</strong><span>brief one-shots</span></p>
+        <p data-reveal-item><strong>{{ loopCount }}</strong><span>seamless loops</span></p>
         <p data-reveal-item><strong>CC0</strong><span>audio license</span></p>
+        <a
+          class="spec-strip__sponsor"
+          href="https://github.com/sponsors/romainsimon"
+          target="_blank"
+          rel="sponsored noopener"
+          data-sfx="reward"
+          data-reveal-item
+          aria-label="Sponsor UI SFX on GitHub and place your logo here (opens in a new tab)"
+        >
+          <Heart :size="22" :stroke-width="2" aria-hidden="true" />
+          <span><strong>Your logo</strong><small>Sponsor UI SFX</small></span>
+        </a>
       </section>
 
       <section id="compare" class="compare-section" aria-labelledby="compare-title">
@@ -1212,7 +1262,12 @@ onBeforeUnmount(() => {
       </section>
 
       <div data-reveal>
-        <UISoundPatterns :pack-label="selectedPackData.label" :muted="muted" @play="play" />
+        <UISoundPatterns
+          :pack-label="selectedPackData.label"
+          :muted="muted"
+          @play="play"
+          @play-level="playLevelPreview"
+        />
       </div>
 
       <section id="sound-library" class="library-section" aria-labelledby="library-title">
@@ -1291,6 +1346,7 @@ onBeforeUnmount(() => {
             :class="{ playing: activeCue === cue.name && activePack === selectedPack, looping: isLooping(cue.name, selectedPack) }"
             :aria-label="playLabel(cue.name, selectedPack)"
             data-sfx-managed
+            data-sfx-no-hover
             @click="play(cue.name)"
           >
             <span class="cue-row__index">{{ String(index + 1).padStart(2, '0') }}</span>

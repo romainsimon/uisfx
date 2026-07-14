@@ -4,6 +4,11 @@ import { defineNuxtConfig } from 'nuxt/config'
 export default defineNuxtConfig({
   compatibilityDate: '2026-07-01',
   devtools: { enabled: false },
+  features: {
+    // Social crawlers should reach the page metadata before any component CSS.
+    // X is particularly sensitive to large SSR heads and may stop parsing early.
+    inlineStyles: false,
+  },
   modules: ['shadcn-nuxt'],
   shadcn: {
     prefix: '',
@@ -29,6 +34,20 @@ export default defineNuxtConfig({
       },
     },
     '/og-ui-sound-design-936.jpg': {
+      headers: {
+        'Cache-Control': 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000',
+        'Access-Control-Allow-Origin': '*',
+        'Cross-Origin-Resource-Policy': 'cross-origin',
+      },
+    },
+    '/og-ui-sound-effects-v2.jpg': {
+      headers: {
+        'Cache-Control': 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000',
+        'Access-Control-Allow-Origin': '*',
+        'Cross-Origin-Resource-Policy': 'cross-origin',
+      },
+    },
+    '/og-ui-sound-effects-v3.jpg': {
       headers: {
         'Cache-Control': 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000',
         'Access-Control-Allow-Origin': '*',

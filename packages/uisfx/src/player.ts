@@ -80,7 +80,6 @@ function yieldToMain() {
 const SEMANTIC_COOLDOWNS: Partial<Record<CueName, number>> = {
   hover: 60,
   focus: 80,
-  typing: 180,
   'progress-step': 80,
   'volume-change': 60,
 }

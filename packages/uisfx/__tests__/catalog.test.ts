@@ -12,6 +12,18 @@ function rms(samples: Float32Array, from: number, to: number) {
   return count > 0 ? Math.sqrt(sum / count) : 0
 }
 
+function activeDuration(pack: 'zen', cue: Parameters<typeof createRecipe>[1]) {
+  const rendered = renderRecipe(createRecipe(pack, cue), 16_000)
+  const threshold = rendered.peak * 0.01
+  let finalActiveFrame = 0
+  for (let index = 0; index < rendered.left.length; index += 1) {
+    if (Math.max(Math.abs(rendered.left[index] ?? 0), Math.abs(rendered.right[index] ?? 0)) >= threshold) {
+      finalActiveFrame = index
+    }
+  }
+  return finalActiveFrame / rendered.sampleRate
+}
+
 describe('UI SFX catalog', () => {
   it('covers thirteen semantic categories with 78 cues', () => {
     expect(CATEGORIES).toHaveLength(13)
@@ -39,6 +51,18 @@ describe('UI SFX catalog', () => {
       for (const cue of CUES.filter((candidate) => !('loop' in candidate) || !candidate.loop)) {
         expect(renderRecipe(createRecipe(pack.name, cue.name), 8_000).duration).toBeLessThanOrEqual(1.5)
       }
+    }
+  })
+
+  it('keeps per-keystroke typing feedback brief and quiet in every feel', () => {
+    const typingCue = CUES.find((cue) => cue.name === 'typing')
+    expect(typingCue?.defaultVolume).toBeLessThanOrEqual(0.07)
+
+    for (const pack of PACKS) {
+      const recipe = createRecipe(pack.name, 'typing')
+      const rendered = renderRecipe(recipe, 16_000)
+      expect(recipe.notes).toHaveLength(1)
+      expect(rendered.duration).toBeLessThan(0.12)
     }
   })
 })
@@ -80,10 +104,33 @@ describe('deterministic renderer', () => {
 
   it('gives Zen cues event-bound paper, brush, wood, and chime materials', () => {
     expect(createRecipe('zen', 'open').paper).toBeGreaterThan(0)
-    expect(createRecipe('zen', 'scanning').brush).toBeGreaterThan(0)
+    expect(createRecipe('zen', 'swipe').brush).toBeGreaterThan(0)
     expect(createRecipe('zen', 'press').wood).toBeGreaterThan(0)
     expect(createRecipe('zen', 'success').chime).toBeGreaterThan(0)
     expect(createRecipe('minimal', 'open').paper).toBe(0)
+  })
+
+  it('keeps frequent and looping Zen cues free from paper and brush noise', () => {
+    for (const cue of ['hover', 'press', 'select', 'typing', 'volume-change'] as const) {
+      const recipe = createRecipe('zen', cue)
+      expect(recipe.paper).toBe(0)
+      expect(recipe.brush).toBe(0)
+      expect(recipe.noise).toBe(0)
+    }
+    for (const cue of ['loading', 'processing', 'recording', 'connecting', 'scanning', 'streaming'] as const) {
+      const recipe = createRecipe('zen', cue)
+      expect(recipe.paper).toBe(0)
+      expect(recipe.brush).toBe(0)
+      expect(recipe.noise).toBe(0)
+    }
+  })
+
+  it('keeps frequent Zen feedback brief enough for repeated use', () => {
+    expect(activeDuration('zen', 'hover')).toBeLessThan(0.04)
+    expect(activeDuration('zen', 'press')).toBeLessThan(0.06)
+    expect(activeDuration('zen', 'focus')).toBeLessThan(0.07)
+    expect(activeDuration('zen', 'progress-step')).toBeLessThan(0.11)
+    expect(activeDuration('zen', 'volume-change')).toBeLessThan(0.13)
   })
 
   it('masters Zen below the more assertive packs', () => {
