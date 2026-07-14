@@ -749,6 +749,10 @@ blockquote p { max-width: 25ch; margin: 0; font-size: clamp(1.55rem, 3vw, 2.4rem
 .accessibility-checklist strong { color: var(--ink); }
 
 .code-block { margin: 2.5rem 0; padding: clamp(1.2rem, 4vw, 2.5rem); overflow-x: auto; background: var(--ink); color: #f7efdf; font: .9rem/1.75 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.code-block code { user-select: text; }
+.code-block::selection,
+.code-block code::selection,
+.code-block span::selection { background: #a83f2a; color: #fff8ed; text-shadow: none; }
 .code-block span { color: #f68562; }
 .implementation-list { margin: 1rem 0 3rem; padding: 0; list-style: none; }
 .implementation-list li { padding: 1rem 0; border-bottom: 1px solid var(--rule); color: var(--ink-soft); line-height: 1.6; }
