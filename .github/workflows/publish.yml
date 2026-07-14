@@ -49,8 +49,6 @@ jobs:
         if: steps.registry.outputs.exists != 'true'
         continue-on-error: true
         run: npm publish --workspace=uisfx --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Record verified release
         if: always() && github.ref == 'refs/heads/release/npm'
         env:
