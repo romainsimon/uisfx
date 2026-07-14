@@ -71,7 +71,9 @@ function softLimit(value: number) {
 
 export function renderRecipe(recipe: SoundRecipe, sampleRate = 44_100): RenderedSound {
   const finalNoteEnd = Math.max(0, ...recipe.notes.map((note) => note.at + note.length))
-  const cleanHold = 0.024
+  // Very short per-keystroke assets need a little extra digital silence so
+  // low-bitrate codecs do not smear the transient into the end of the file.
+  const cleanHold = recipe.cue === 'typing' ? 0.048 : 0.024
   const bodyDuration = recipe.loop
     ? recipe.duration
     : Math.min(recipe.duration, finalNoteEnd + (recipe.pack === 'zen' ? 0.12 : 0.06))
@@ -249,9 +251,11 @@ export function renderRecipe(recipe: SoundRecipe, sampleRate = 44_100): Rendered
 
   // Leave generous headroom because short, bright transients can overshoot
   // after low-bitrate MP3 encoding even when the source PCM is below 0 dBFS.
-  const targetPeak = recipe.pack === 'zen'
-    ? recipe.loop ? 0.18 : recipe.cue === 'hover' ? 0.15 : 0.28
-    : recipe.loop ? 0.32 : recipe.cue === 'hover' ? 0.3 : 0.42
+  const targetPeak = recipe.cue === 'typing'
+    ? recipe.pack === 'zen' ? 0.15 : 0.28
+    : recipe.pack === 'zen'
+      ? recipe.loop ? 0.18 : recipe.cue === 'hover' ? 0.15 : 0.28
+      : recipe.loop ? 0.32 : recipe.cue === 'hover' ? 0.3 : 0.42
   const scale = peak > 0 ? Math.min(2.2, targetPeak / peak) : 1
   peak = 0
   for (let frame = 0; frame < frameCount; frame += 1) {

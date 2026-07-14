@@ -209,6 +209,17 @@ describe('UI SFX playback policy', () => {
     expect(context.sources).toHaveLength(1)
   })
 
+  it('replays typing immediately for every keystroke', () => {
+    const { context, player } = setupPlayer()
+
+    player.play('typing')
+    player.play('typing')
+
+    expect(context.sources).toHaveLength(2)
+    expect(context.sources[0]?.stopTimes).toEqual([4.018])
+    expect(context.sources[1]?.stopTimes).toEqual([])
+  })
+
   it('bounds polyphony and starts the replacement only after the oldest one-shot retires', () => {
     const { context, player } = setupPlayer()
     const cues = ['hover', 'press', 'release', 'focus', 'select', 'success', 'error', 'notification', 'open'] as const

@@ -239,10 +239,8 @@ let scrollFrame: number | undefined
 let headerStyleState = ''
 let installCopyTimer: number | undefined
 let agentPromptCopyTimer: number | undefined
-let searchSoundTimer: ReturnType<typeof setTimeout> | undefined
 let packShortcutTimer: ReturnType<typeof setTimeout> | undefined
 let pendingPackOne = false
-let previousQuery = ''
 let lastHoverSoundAt = 0
 
 const selectedPackData = computed(() => PACKS.find((pack) => pack.name === selectedPack.value) ?? PACKS[0])
@@ -475,15 +473,8 @@ function onSearchFocus() {
   play('focus')
 }
 
-function onSearchInput(event: Event) {
-  const value = event.target instanceof HTMLInputElement ? event.target.value : query.value
-  if (!value && previousQuery) {
-    play('deselect')
-  } else if (value && !searchSoundTimer) {
-    play('typing')
-    searchSoundTimer = setTimeout(() => { searchSoundTimer = undefined }, 420)
-  }
-  previousQuery = value
+function onSearchInput() {
+  play('typing')
 }
 
 function smoothstep(value: number) {
@@ -856,7 +847,6 @@ onBeforeUnmount(() => {
   if (activeTimer) clearTimeout(activeTimer)
   if (installCopyTimer) clearTimeout(installCopyTimer)
   if (agentPromptCopyTimer) clearTimeout(agentPromptCopyTimer)
-  if (searchSoundTimer) clearTimeout(searchSoundTimer)
   if (packShortcutTimer) clearTimeout(packShortcutTimer)
   void player.value?.destroy()
 })

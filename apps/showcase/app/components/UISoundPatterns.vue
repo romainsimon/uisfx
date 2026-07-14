@@ -95,8 +95,6 @@ const messageDraft = ref('')
 const activeMessageChannel = ref<'sound-design' | 'launch'>('sound-design')
 let progressTimer: ReturnType<typeof setInterval> | undefined
 let mediaTimer: ReturnType<typeof setInterval> | undefined
-let typingSoundTimer: ReturnType<typeof setTimeout> | undefined
-let previousWorkspaceQuery = ''
 let nextMessageId = 3
 let nextCueEventId = 1
 const timers = new Set<ReturnType<typeof setTimeout>>()
@@ -173,15 +171,8 @@ function setNotifications(value: boolean) {
   toast(value ? 'Team notifications enabled' : 'Team notifications paused')
 }
 
-function onWorkspaceInput(event: Event) {
-  const value = event.target instanceof HTMLInputElement ? event.target.value : workspaceQuery.value
-  if (!value && previousWorkspaceQuery) {
-    sound('deselect')
-  } else if (value && !typingSoundTimer) {
-    sound('typing')
-    typingSoundTimer = setTimeout(() => { typingSoundTimer = undefined }, 420)
-  }
-  previousWorkspaceQuery = value
+function onWorkspaceInput() {
+  sound('typing')
 }
 
 function addToCart() {
@@ -322,9 +313,7 @@ function previewMediaVolume(event: Event) {
 }
 
 function onMessageInput() {
-  if (!messageDraft.value || typingSoundTimer) return
   sound('typing')
-  typingSoundTimer = setTimeout(() => { typingSoundTimer = undefined }, 520)
 }
 
 function sendMessage() {
@@ -366,7 +355,6 @@ function selectMessageChannel(channel: 'sound-design' | 'launch') {
 onBeforeUnmount(() => {
   if (progressTimer) clearInterval(progressTimer)
   stopMediaTimer()
-  if (typingSoundTimer) clearTimeout(typingSoundTimer)
   for (const timer of timers) clearTimeout(timer)
 })
 </script>

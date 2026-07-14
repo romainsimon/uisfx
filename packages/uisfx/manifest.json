@@ -10,8 +10,8 @@
     "packs": 12,
     "cues": 78,
     "assets": 936,
-    "mp3Bytes": 5353070,
-    "oggBytes": 3944275
+    "mp3Bytes": 5324019,
+    "oggBytes": 3917792
   },
   "categories": [
     {
@@ -477,8 +477,8 @@
       "name": "typing",
       "label": "Typing",
       "category": "communication",
-      "description": "A collaborator begins composing a response.",
-      "defaultVolume": 0.1,
+      "description": "A brief key contact during text entry.",
+      "defaultVolume": 0.065,
       "loop": false,
       "playback": "one-shot"
     },
@@ -1555,19 +1555,19 @@
       "pack": "minimal",
       "cue": "typing",
       "category": "communication",
-      "duration": 0.274,
+      "duration": 0.087,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
-      "defaultVolume": 0.1,
+      "defaultVolume": 0.065,
       "files": {
         "mp3": {
           "path": "sounds/minimal/typing.mp3",
-          "bytes": 2759
+          "bytes": 1296
         },
         "ogg": {
           "path": "sounds/minimal/typing.ogg",
-          "bytes": 3258
+          "bytes": 1195
         }
       }
     },
@@ -3115,19 +3115,19 @@
       "pack": "soft",
       "cue": "typing",
       "category": "communication",
-      "duration": 0.435,
+      "duration": 0.104,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
-      "defaultVolume": 0.1,
+      "defaultVolume": 0.065,
       "files": {
         "mp3": {
           "path": "sounds/soft/typing.mp3",
-          "bytes": 4013
+          "bytes": 1296
         },
         "ogg": {
           "path": "sounds/soft/typing.ogg",
-          "bytes": 2925
+          "bytes": 668
         }
       }
     },
@@ -4675,19 +4675,19 @@
       "pack": "glass",
       "cue": "typing",
       "category": "communication",
-      "duration": 0.557,
+      "duration": 0.109,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
-      "defaultVolume": 0.1,
+      "defaultVolume": 0.065,
       "files": {
         "mp3": {
           "path": "sounds/glass/typing.mp3",
-          "bytes": 5058
+          "bytes": 1505
         },
         "ogg": {
           "path": "sounds/glass/typing.ogg",
-          "bytes": 3746
+          "bytes": 652
         }
       }
     },
@@ -6235,19 +6235,19 @@
       "pack": "arcade",
       "cue": "typing",
       "category": "communication",
-      "duration": 0.339,
+      "duration": 0.117,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
-      "defaultVolume": 0.1,
+      "defaultVolume": 0.065,
       "files": {
         "mp3": {
           "path": "sounds/arcade/typing.mp3",
-          "bytes": 3177
+          "bytes": 1505
         },
         "ogg": {
           "path": "sounds/arcade/typing.ogg",
-          "bytes": 2227
+          "bytes": 1597
         }
       }
     },
@@ -7795,19 +7795,19 @@
       "pack": "mechanical",
       "cue": "typing",
       "category": "communication",
-      "duration": 0.278,
+      "duration": 0.087,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
-      "defaultVolume": 0.1,
+      "defaultVolume": 0.065,
       "files": {
         "mp3": {
           "path": "sounds/mechanical/typing.mp3",
-          "bytes": 2759
+          "bytes": 1296
         },
         "ogg": {
           "path": "sounds/mechanical/typing.ogg",
-          "bytes": 3085
+          "bytes": 1214
         }
       }
     },
@@ -9355,19 +9355,19 @@
       "pack": "organic",
       "cue": "typing",
       "category": "communication",
-      "duration": 0.47,
+      "duration": 0.105,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
-      "defaultVolume": 0.1,
+      "defaultVolume": 0.065,
       "files": {
         "mp3": {
           "path": "sounds/organic/typing.mp3",
-          "bytes": 4431
+          "bytes": 1505
         },
         "ogg": {
           "path": "sounds/organic/typing.ogg",
-          "bytes": 4385
+          "bytes": 1433
         }
       }
     },
@@ -10915,19 +10915,19 @@
       "pack": "dreamy",
       "cue": "typing",
       "category": "communication",
-      "duration": 0.61,
+      "duration": 0.108,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
-      "defaultVolume": 0.1,
+      "defaultVolume": 0.065,
       "files": {
         "mp3": {
           "path": "sounds/dreamy/typing.mp3",
-          "bytes": 5476
+          "bytes": 1505
         },
         "ogg": {
           "path": "sounds/dreamy/typing.ogg",
-          "bytes": 4243
+          "bytes": 683
         }
       }
     },
@@ -12475,19 +12475,19 @@
       "pack": "scifi",
       "cue": "typing",
       "category": "communication",
-      "duration": 0.349,
+      "duration": 0.092,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
-      "defaultVolume": 0.1,
+      "defaultVolume": 0.065,
       "files": {
         "mp3": {
           "path": "sounds/scifi/typing.mp3",
-          "bytes": 3386
+          "bytes": 1296
         },
         "ogg": {
           "path": "sounds/scifi/typing.ogg",
-          "bytes": 1864
+          "bytes": 537
         }
       }
     },
@@ -14035,19 +14035,19 @@
       "pack": "rubber",
       "cue": "typing",
       "category": "communication",
-      "duration": 0.325,
+      "duration": 0.094,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
-      "defaultVolume": 0.1,
+      "defaultVolume": 0.065,
       "files": {
         "mp3": {
           "path": "sounds/rubber/typing.mp3",
-          "bytes": 3177
+          "bytes": 1296
         },
         "ogg": {
           "path": "sounds/rubber/typing.ogg",
-          "bytes": 3021
+          "bytes": 1175
         }
       }
     },
@@ -15595,19 +15595,19 @@
       "pack": "cinematic",
       "cue": "typing",
       "category": "communication",
-      "duration": 0.61,
+      "duration": 0.112,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
-      "defaultVolume": 0.1,
+      "defaultVolume": 0.065,
       "files": {
         "mp3": {
           "path": "sounds/cinematic/typing.mp3",
-          "bytes": 5476
+          "bytes": 1505
         },
         "ogg": {
           "path": "sounds/cinematic/typing.ogg",
-          "bytes": 4901
+          "bytes": 884
         }
       }
     },
@@ -17155,19 +17155,19 @@
       "pack": "studio",
       "cue": "typing",
       "category": "communication",
-      "duration": 0.322,
+      "duration": 0.091,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
-      "defaultVolume": 0.1,
+      "defaultVolume": 0.065,
       "files": {
         "mp3": {
           "path": "sounds/studio/typing.mp3",
-          "bytes": 3177
+          "bytes": 1296
         },
         "ogg": {
           "path": "sounds/studio/typing.ogg",
-          "bytes": 1816
+          "bytes": 532
         }
       }
     },
@@ -18715,19 +18715,19 @@
       "pack": "zen",
       "cue": "typing",
       "category": "communication",
-      "duration": 0.286,
+      "duration": 0.085,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
-      "defaultVolume": 0.1,
+      "defaultVolume": 0.065,
       "files": {
         "mp3": {
           "path": "sounds/zen/typing.mp3",
-          "bytes": 2759
+          "bytes": 1296
         },
         "ogg": {
           "path": "sounds/zen/typing.ogg",
-          "bytes": 2795
+          "bytes": 1213
         }
       }
     },

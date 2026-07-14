@@ -53,6 +53,18 @@ describe('UI SFX catalog', () => {
       }
     }
   })
+
+  it('keeps per-keystroke typing feedback brief and quiet in every feel', () => {
+    const typingCue = CUES.find((cue) => cue.name === 'typing')
+    expect(typingCue?.defaultVolume).toBeLessThanOrEqual(0.07)
+
+    for (const pack of PACKS) {
+      const recipe = createRecipe(pack.name, 'typing')
+      const rendered = renderRecipe(recipe, 16_000)
+      expect(recipe.notes).toHaveLength(1)
+      expect(rendered.duration).toBeLessThan(0.12)
+    }
+  })
 })
 
 describe('deterministic renderer', () => {

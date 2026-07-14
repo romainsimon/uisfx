@@ -535,7 +535,7 @@ onBeforeUnmount(() => {
             <h2>UI sound across web, mobile, SaaS, and games</h2>
             <div class="platform-grid">
               <article><h3>Web apps</h3><p>Browsers commonly block audio until a person interacts with the page. Initialize or resume audio from a user gesture, load only the cues needed for the first flow, and make mute and volume controls easy to find.</p></article>
-              <article><h3>SaaS and productivity</h3><p>Frequency is the central constraint. Use restrained cues for important outcomes, collaboration, uploads, and background completion. Avoid sounding every keystroke, hover, save, and navigation step.</p></article>
+              <article><h3>SaaS and productivity</h3><p>Frequency is the central constraint. Keep routine feedback restrained. If typing feedback is enabled, use one very brief, quiet cue per keystroke and always provide volume and mute controls.</p></article>
               <article><h3>Mobile apps</h3><p>Respect silent mode, system volume, interruptions, and the expectations of each platform. Pair sound with visible state or haptics, and let people control optional feedback inside the app.</p></article>
               <article><h3>Games</h3><p>Menus can be more expressive, but interface audio still needs a hierarchy separate from music, dialogue, and world sound. Reward cues should scale with the achievement instead of making every tap feel equally important.</p></article>
             </div>

@@ -51,7 +51,7 @@ const STUDIO_MILESTONE_CUES = new Set<CueName>([
 
 const MECHANICAL_DETENT_CUES = new Set<CueName>([
   ...STUDIO_DETENT_CUES,
-  'typing', 'blocked', 'progress-step', 'stop', 'invalid-drop',
+  'blocked', 'progress-step', 'stop', 'invalid-drop',
 ])
 
 const ORGANIC_BODY_CUES = new Set<CueName>([
@@ -300,7 +300,9 @@ export function createRecipe(packName: PackName, cueName: CueName): SoundRecipe 
     noise: packName === 'zen' ? 0 : Math.min(0.42, cueTexture * (0.55 + packTexture) + packTexture * 0.025),
     transient: packName === 'zen' ? Math.min(0.12, transient * 0.28) : transient,
     brightness: pack.brightness,
-    echo: pack.echo,
+    // Per-keystroke feedback must end before the next ordinary key event.
+    // Cap long pack tails so expressive feels stay crisp at typing cadence.
+    echo: cueName === 'typing' ? Math.min(pack.echo, 0.004) : pack.echo,
     bitDepth: pack.bitDepth,
     panFrom: cue.panFrom ?? 0,
     panTo: cue.panTo ?? cue.panFrom ?? 0,

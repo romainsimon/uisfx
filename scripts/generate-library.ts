@@ -1,7 +1,7 @@
 import { spawn } from 'node:child_process'
 import { mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
-import { CATEGORIES, CUES, PACKS, type CueDefinition, type PackName } from '../packages/uisfx/src/catalog.ts'
+import { CATEGORIES, CUES, PACKS, type CueDefinition, type CueName, type PackName } from '../packages/uisfx/src/catalog.ts'
 import { createRecipe } from '../packages/uisfx/src/recipes.ts'
 import { renderRecipe, type RenderedSound } from '../packages/uisfx/src/synth.ts'
 
@@ -12,12 +12,23 @@ const temporaryRoot = resolve(root, '.generated/wav')
 const packArgumentIndex = process.argv.findIndex((argument) => argument === '--pack')
 const inlinePackArgument = process.argv.find((argument) => argument.startsWith('--pack='))?.slice('--pack='.length)
 const requestedPack = (inlinePackArgument || (packArgumentIndex >= 0 ? process.argv[packArgumentIndex + 1] : undefined)) as PackName | undefined
+const cueArgumentIndex = process.argv.findIndex((argument) => argument === '--cue')
+const inlineCueArgument = process.argv.find((argument) => argument.startsWith('--cue='))?.slice('--cue='.length)
+const requestedCue = (inlineCueArgument || (cueArgumentIndex >= 0 ? process.argv[cueArgumentIndex + 1] : undefined)) as CueName | undefined
 const selectedPacks = requestedPack
   ? PACKS.filter((pack) => pack.name === requestedPack)
   : PACKS
+const selectedCues = requestedCue
+  ? CUES.filter((cue) => cue.name === requestedCue)
+  : CUES
+const isPartialGeneration = Boolean(requestedPack || requestedCue)
 
 if (requestedPack && selectedPacks.length === 0) {
   throw new Error(`Unknown pack: ${requestedPack}`)
+}
+
+if (requestedCue && selectedCues.length === 0) {
+  throw new Error(`Unknown cue: ${requestedCue}`)
 }
 
 function wavBuffer(sound: RenderedSound) {
@@ -118,7 +129,7 @@ async function mapConcurrent<T>(items: readonly T[], concurrency: number, worker
 async function main() {
   const manifestPath = resolve(packageRoot, 'manifest.json')
   const previousDurations = new Map<string, number>()
-  if (requestedPack) {
+  if (isPartialGeneration) {
     try {
       const previousManifest = JSON.parse(await readFile(manifestPath, 'utf8')) as {
         assets?: { pack: PackName, cue: string, duration: number }[]
@@ -129,7 +140,9 @@ async function main() {
     } catch {
       // A first full generation remains the source of truth when no manifest exists yet.
     }
-    await Promise.all(selectedPacks.map((pack) => rm(resolve(soundsRoot, pack.name), { recursive: true, force: true })))
+    if (requestedPack && !requestedCue) {
+      await Promise.all(selectedPacks.map((pack) => rm(resolve(soundsRoot, pack.name), { recursive: true, force: true })))
+    }
   } else {
     await rm(soundsRoot, { recursive: true, force: true })
   }
@@ -137,7 +150,7 @@ async function main() {
   await mkdir(soundsRoot, { recursive: true })
   await mkdir(temporaryRoot, { recursive: true })
 
-  const jobs = selectedPacks.flatMap((pack) => CUES.map((cue) => ({ pack, cue })))
+  const jobs = selectedPacks.flatMap((pack) => selectedCues.map((cue) => ({ pack, cue })))
   const renderedDurations = new Map<string, number>()
   let renderedCount = 0
 
@@ -218,7 +231,8 @@ async function main() {
   }
   await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`)
   await rm(temporaryRoot, { recursive: true, force: true })
-  process.stdout.write(`UI SFX library ready: ${assets.length} cues in MP3 and Ogg${requestedPack ? `; regenerated ${requestedPack}` : ''}.\n`)
+  const regeneratedTarget = [requestedPack, requestedCue].filter(Boolean).join(':')
+  process.stdout.write(`UI SFX library ready: ${assets.length} cues in MP3 and Ogg${regeneratedTarget ? `; regenerated ${regeneratedTarget}` : ''}.\n`)
 }
 
 await main()

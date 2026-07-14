@@ -65,7 +65,7 @@ UI SFX names what happened, not what the sound resembles. Each cue should carry 
 | `receive` | A direct response or object arrives | Every background sync |
 | `notification` | New, non-urgent information | Warnings or direct mentions |
 | `mention` | The user is directly addressed | General activity feeds |
-| `typing` | A collaborator begins composing a response | Every local keystroke |
+| `typing` | Brief feedback for each local text-entry keystroke | A remote typing indicator or long typing loop |
 | `reaction` | A lightweight social response is added | A full message notification |
 
 ## Feedback
