@@ -1,4 +1,4 @@
-export const SPONSOR_TIERS = ['founding', 'premier', 'sponsor', 'backer', 'supporter'] as const
+export const SPONSOR_TIERS = ['premier', 'sponsor', 'supporter'] as const
 
 export type SponsorTier = typeof SPONSOR_TIERS[number]
 
@@ -62,7 +62,7 @@ function normalizeSponsor(value: unknown): Sponsor | null {
 export function emptySponsorsData(): SponsorsData {
   return {
     updated_at: new Date(0).toISOString(),
-    tiers: { founding: [], premier: [], sponsor: [], backer: [], supporter: [] },
+    tiers: { premier: [], sponsor: [], supporter: [] },
   }
 }
 

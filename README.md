@@ -162,10 +162,6 @@ The product event stays stable while the sound system evolves independently.
 
 UI SFX stays free, open, and maintained thanks to its sponsors. [Sponsor UI SFX on GitHub](https://github.com/sponsors/romainsimon).
 
-### Founding Sponsors
-
-<p align="center"><!-- sponsors-founding --><sub>Become the first <a href="https://github.com/sponsors/romainsimon">Founding Sponsor</a>.</sub><!-- sponsors-founding --></p>
-
 ### Premier Sponsors
 
 <p align="center"><!-- sponsors-premier --><sub>Become the first <a href="https://github.com/sponsors/romainsimon">Premier Sponsor</a>.</sub><!-- sponsors-premier --></p>
@@ -173,14 +169,6 @@ UI SFX stays free, open, and maintained thanks to its sponsors. [Sponsor UI SFX 
 ### Sponsors
 
 <p align="center"><!-- sponsors-sponsor --><sub>Become the first <a href="https://github.com/sponsors/romainsimon">Sponsor</a>.</sub><!-- sponsors-sponsor --></p>
-
-### Backers
-
-<p align="center"><!-- sponsors-backer --><sub>Become the first <a href="https://github.com/sponsors/romainsimon">Backer</a>.</sub><!-- sponsors-backer --></p>
-
-### Supporters
-
-<p align="center"><!-- sponsors-supporter --><sub>Become the first <a href="https://github.com/sponsors/romainsimon">Supporter</a>.</sub><!-- sponsors-supporter --></p>
 
 ## Contributing
 

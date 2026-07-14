@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { emptySponsorsData, flattenSponsors, type RankedSponsor, type SponsorsData } from '~/lib/sponsors'
+import { emptySponsorsData, type Sponsor, type SponsorsData } from '~/lib/sponsors'
 
 const emit = defineEmits<{ sound: [cue: 'open' | 'reward'] }>()
 const { data, status } = await useLazyFetch<SponsorsData>('/api/sponsors', {
@@ -8,13 +8,19 @@ const { data, status } = await useLazyFetch<SponsorsData>('/api/sponsors', {
   server: false,
 })
 
-const sponsors = computed(() => flattenSponsors(data.value ?? emptySponsorsData()))
-const placeholderCount = computed(() => Math.max(0, 6 - sponsors.value.length))
+const seats = computed(() => {
+  const byTier = data.value?.tiers ?? emptySponsorsData().tiers
+  return [
+    ...Array.from({ length: 2 }, (_, index) => ({ tier: 'premier' as const, sponsor: byTier.premier[index] })),
+    ...Array.from({ length: 4 }, (_, index) => ({ tier: 'sponsor' as const, sponsor: byTier.sponsor[index] })),
+  ]
+})
+const logoSponsorCount = computed(() => seats.value.filter(seat => seat.sponsor).length)
 const brokenLogos = ref(new Set<string>())
-const identity = (sponsor: RankedSponsor) => sponsor.github || sponsor.url
+const identity = (sponsor: Sponsor) => sponsor.github || sponsor.url
 const initials = (name: string) => name.split(/\s+/).filter(Boolean).slice(0, 2).map(part => part[0]).join('').toUpperCase()
-const canShowLogo = (sponsor: RankedSponsor) => Boolean(sponsor.logo) && !brokenLogos.value.has(identity(sponsor))
-function hideBrokenLogo(sponsor: RankedSponsor) {
+const canShowLogo = (sponsor: Sponsor) => Boolean(sponsor.logo) && !brokenLogos.value.has(identity(sponsor))
+function hideBrokenLogo(sponsor: Sponsor) {
   brokenLogos.value = new Set(brokenLogos.value).add(identity(sponsor))
 }
 </script>
@@ -31,40 +37,40 @@ function hideBrokenLogo(sponsor: RankedSponsor) {
       </p>
     </div>
 
-    <div class="sponsor-board" :class="{ 'sponsor-board--live': sponsors.length }" :aria-busy="status === 'pending'" aria-label="UI SFX sponsors">
-      <a
-        v-for="(sponsor, index) in sponsors"
-        :key="identity(sponsor)"
-        class="sponsor-seat sponsor-seat--filled"
-        :class="{ 'sponsor-seat--wide': index === 0 || index === 3 }"
-        :href="sponsor.url"
-        target="_blank"
-        rel="sponsored noopener"
-        :aria-label="`${sponsor.name}, ${sponsor.tier} sponsor (opens in a new tab)`"
-        data-sfx-managed
-        @click="emit('sound', 'open')"
-      >
-        <img v-if="canShowLogo(sponsor)" :src="sponsor.logo" :alt="`${sponsor.name} logo`" loading="lazy" decoding="async" @error="hideBrokenLogo(sponsor)">
-        <span v-else class="sponsor-seat__fallback" aria-hidden="true">{{ initials(sponsor.name) }}</span>
-        <span class="sr-only">{{ sponsor.name }}</span>
-      </a>
+    <div class="sponsor-board" :class="{ 'sponsor-board--live': logoSponsorCount }" :aria-busy="status === 'pending'" aria-label="UI SFX sponsors">
+      <template v-for="(seat, index) in seats" :key="`${seat.tier}-${index}`">
+        <a
+          v-if="seat.sponsor"
+          class="sponsor-seat sponsor-seat--filled"
+          :class="{ 'sponsor-seat--wide': seat.tier === 'premier' }"
+          :href="seat.sponsor.url"
+          target="_blank"
+          rel="sponsored noopener"
+          :aria-label="`${seat.sponsor.name}, ${seat.tier} sponsor (opens in a new tab)`"
+          data-sfx-managed
+          @click="emit('sound', 'open')"
+        >
+          <img v-if="canShowLogo(seat.sponsor)" :src="seat.sponsor.logo" :alt="`${seat.sponsor.name} logo`" loading="lazy" decoding="async" @error="hideBrokenLogo(seat.sponsor)">
+          <span v-else class="sponsor-seat__fallback" aria-hidden="true">{{ initials(seat.sponsor.name) }}</span>
+          <span class="sr-only">{{ seat.sponsor.name }}</span>
+        </a>
 
-      <a
-        v-for="slot in placeholderCount"
-        :key="`sponsor-placeholder-${slot}`"
-        class="sponsor-seat sponsor-seat--empty"
-        :class="{ 'sponsor-seat--wide': sponsors.length + slot === 1 || sponsors.length + slot === 4 }"
-        href="https://github.com/sponsors/romainsimon"
-        target="_blank"
-        rel="sponsored noopener"
-        data-sfx-managed
-        aria-label="Claim an open UI SFX sponsor spot (opens in a new tab)"
-        @click="emit('sound', 'reward')"
-      >
-        <span class="sponsor-seat__wave" aria-hidden="true"><i /><i /><i /><i /><i /></span>
-        <strong>Your logo</strong>
-        <small>Open sponsor spot</small>
-      </a>
+        <a
+          v-else
+          class="sponsor-seat sponsor-seat--empty"
+          :class="{ 'sponsor-seat--wide': seat.tier === 'premier' }"
+          href="https://github.com/sponsors/romainsimon"
+          target="_blank"
+          rel="sponsored noopener"
+          data-sfx-managed
+          :aria-label="`Claim an open UI SFX ${seat.tier} sponsor spot (opens in a new tab)`"
+          @click="emit('sound', 'reward')"
+        >
+          <span class="sponsor-seat__wave" aria-hidden="true"><i /><i /><i /><i /><i /></span>
+          <strong>Your logo</strong>
+          <small>{{ seat.tier === 'premier' ? 'Featured sponsor spot' : 'Sponsor spot' }}</small>
+        </a>
+      </template>
     </div>
   </section>
 </template>
@@ -94,6 +100,7 @@ function hideBrokenLogo(sponsor: RankedSponsor) {
 .sponsor-seat--filled { padding: 1.25rem; background: var(--paper-light); }
 .sponsor-board--live .sponsor-seat--filled { animation: sponsor-arrive 420ms var(--ease-out-quart) both; }
 .sponsor-seat--filled img { width: min(100%, 9rem); height: 3.2rem; display: block; object-fit: contain; }
+.sponsor-seat--wide img { width: min(100%, 12rem); height: 4rem; }
 .sponsor-seat__fallback { width: 3.5rem; aspect-ratio: 1; display: grid; place-items: center; background: var(--ink); color: var(--paper-light); font-size: 0.9rem; font-weight: 900; }
 .sponsor-seat--empty { border-style: dashed; color: color-mix(in oklch, currentColor, transparent 20%); }
 .sponsor-seat--empty strong { font-size: 0.78rem; letter-spacing: 0.055em; text-transform: uppercase; }
