@@ -18,6 +18,7 @@ import {
   buildUiSoundDesignMarkdown,
 } from '../apps/showcase/server/utils/agent-docs.ts'
 import { buildPublicManifest } from '../apps/showcase/server/utils/library-manifest.ts'
+import packageJson from '../packages/uisfx/package.json'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 const expectedAssets = PACKS.length * CUES.length
@@ -41,7 +42,7 @@ assert.match(llms, /https:\/\/uisfx\.com\/ui-sound-design\.md/)
 assert.match(llms, /https:\/\/uisfx\.com\/uisfx-catalog\.json/)
 assert.match(llms, /https:\/\/uisfx\.com\/uisfx-manifest\.json/)
 
-assert.equal(manifest.version, '0.3.0')
+assert.equal(manifest.version, packageJson.version)
 assert.equal(manifest.license.code, 'MIT')
 assert.equal(manifest.license.audio, 'CC0-1.0')
 assert.equal(manifest.summary.packs, PACKS.length)

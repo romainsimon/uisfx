@@ -33,6 +33,14 @@ describe('UI SFX catalog', () => {
     expect(loops.map((cue) => cue.name)).toEqual(['loading', 'processing', 'recording', 'connecting', 'scanning', 'streaming'])
     expect(CUES.filter((cue) => getPlaybackMode(cue.name) === 'one-shot')).toHaveLength(72)
   })
+
+  it('keeps every rendered one-shot recipe within the 1.5 second interaction budget', () => {
+    for (const pack of PACKS) {
+      for (const cue of CUES.filter((candidate) => !('loop' in candidate) || !candidate.loop)) {
+        expect(renderRecipe(createRecipe(pack.name, cue.name), 8_000).duration).toBeLessThanOrEqual(1.5)
+      }
+    }
+  })
 })
 
 describe('deterministic renderer', () => {

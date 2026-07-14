@@ -257,7 +257,7 @@ export function createRecipe(packName: PackName, cueName: CueName): SoundRecipe 
   const pack = getPack(packName)
   const durationScale = cue.loop ? 1 : pack.duration
   const arrangedNotes = arrangeNotes(packName, cueName, cue.notes, cue.loop ?? false)
-  const notes = arrangedNotes.map((note) => {
+  let notes = arrangedNotes.map((note) => {
     const startMidi = cue.baseMidi + note.semitone + 12 * Math.log2(pack.pitch)
     const endMidi = startMidi + (note.glide ?? 0)
     return {
@@ -268,6 +268,15 @@ export function createRecipe(packName: PackName, cueName: CueName): SoundRecipe 
       endFrequency: midiToFrequency(endMidi),
     }
   })
+  let duration = cue.loop
+    ? cue.duration
+    : Math.max(cue.duration * durationScale, ...notes.map((note) => note.at + note.length + 0.02))
+  const maximumOneShotBody = 1.5 - 0.024 - pack.echo * 1.6
+  if (!cue.loop && duration > maximumOneShotBody) {
+    const fit = (maximumOneShotBody - 0.02) / (duration - 0.02)
+    notes = notes.map((note) => ({ ...note, at: note.at * fit, length: note.length * fit }))
+    duration = maximumOneShotBody
+  }
   const packTexture = pack.noise
   const cueTexture = cue.noise ?? 0
   const transient = Math.min(1, (cue.transient ?? 0) * (0.7 + pack.transient * 0.3) + pack.transient * 0.45)
@@ -279,9 +288,7 @@ export function createRecipe(packName: PackName, cueName: CueName): SoundRecipe 
   return {
     cue: cueName,
     pack: packName,
-    duration: cue.loop
-      ? cue.duration
-      : Math.max(cue.duration * durationScale, ...notes.map((note) => note.at + note.length + 0.02)),
+    duration,
     notes,
     waveform: pack.waveform,
     harmonics: pack.harmonics,

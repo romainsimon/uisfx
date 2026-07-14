@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.4.0 - 2026-07-14
+
+- Bound default polyphony to eight voices, retire old one-shots before loops, and restart repeated outcomes instead of layering them.
+- Reuse duplicate loops and migrate active loops across pack changes without invalidating their stoppable handles.
+- Add semantic cooldowns for high-frequency cues with per-player and per-play overrides.
+- Add explicit Web Audio unlocking, cooperative cancellable preload, and persisted pack, volume, and enabled preferences.
+- Deduplicate delegated hover bindings when a pointer moves between descendants of the same control.
+- Enforce the 1.5 second one-shot budget across every rendered pack.
+- Add package size budgets and real-browser conformance for trusted unlocking, first-play latency, cooperative preload, loop migration, and preference restoration.
+- Add a repeatable human listening protocol covering meaning, hierarchy, fatigue, device speakers, headphones, speech, and media playback.
+
 ## 0.3.0 - 2026-07-13
 
 - Add a live master gain so volume changes immediately affect one-shots and loops already playing.

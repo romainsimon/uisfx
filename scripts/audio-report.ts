@@ -136,17 +136,19 @@ const encodedOneShotFailures = encodedOneShots.filter((result) => (
   result.onset >= 0.08
   || result.tailRms > 0.000_32
   || result.durationError > 0.002
+  || result.asset.duration > 1.5
 ))
 if (encodedOneShotFailures.length > 0) {
   const offender = encodedOneShotFailures.sort((first, second) => (
-    Math.max(second.onset / 0.08, second.tailRms / 0.000_32, second.durationError / 0.002)
-    - Math.max(first.onset / 0.08, first.tailRms / 0.000_32, first.durationError / 0.002)
+    Math.max(second.onset / 0.08, second.tailRms / 0.000_32, second.durationError / 0.002, second.asset.duration / 1.5)
+    - Math.max(first.onset / 0.08, first.tailRms / 0.000_32, first.durationError / 0.002, first.asset.duration / 1.5)
   ))[0]
   throw new Error(
     `Encoded one-shot failed for ${offender?.format} ${offender?.asset.pack}/${offender?.asset.cue}:`
     + ` onset ${((offender?.onset ?? 0) * 1_000).toFixed(1)} ms,`
     + ` tail ${decibels(offender?.tailRms ?? 0).toFixed(1)} dBFS,`
-    + ` duration error ${((offender?.durationError ?? 0) * 1_000).toFixed(1)} ms`,
+    + ` duration ${((offender?.asset.duration ?? 0) * 1_000).toFixed(1)} ms,`
+    + ` error ${((offender?.durationError ?? 0) * 1_000).toFixed(1)} ms`,
   )
 }
 

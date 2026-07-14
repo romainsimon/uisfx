@@ -89,11 +89,13 @@ import { createUISFX } from 'uisfx'
 const ui = createUISFX({
   pack: '${pack}',
   volume: 0.7,
-  enabled: savedSoundPreference,
+  preferences: { key: 'product:sound' },
 })
+
+await ui.unlock()
 \`\`\`
 
-Do not instantiate or play audio during SSR. Unlock Web Audio from a genuine user gesture: call the first \`ui.play()\` synchronously inside a pointer or keyboard handler before any \`await\`, or create, retain, and resume an \`AudioContext\` in that handler and pass it to \`createUISFX\`. If the app creates that context, close it with \`await context.close()\` after \`await ui.destroy()\` during final app teardown. Never autoplay on page load. Until audio is unlocked, suppress background and asynchronous cues rather than queueing stale feedback. For native mobile, game engines, or environments without Web Audio, use the packaged MP3 or Ogg assets and preserve the same semantic rules.
+Do not instantiate or play audio during SSR. Call \`await ui.unlock()\` from a genuine pointer or keyboard handler before asynchronous playback begins. A caller-owned \`AudioContext\` can still be passed to \`createUISFX\`; close it separately after \`await ui.destroy()\`. Never autoplay on page load. Until audio is unlocked, suppress background and asynchronous cues rather than queueing stale feedback. For native mobile, game engines, or environments without Web Audio, use the packaged MP3 or Ogg assets and preserve the same semantic rules.
 
 ## Implementation contract
 
@@ -101,7 +103,7 @@ Do not instantiate or play audio during SSR. Unlock Web Audio from a genuine use
 2. Use cue names for what happened, not what a control looks like. Prefer committed outcomes over speculative click sounds.
 3. Usually play one cue per interaction. Do not stack \`press\`, \`select\`, and \`success\` on an ordinary action.
 4. Use hover sparingly on important fine-pointer targets. Never use hover sound on touch or dense repeated lists.
-5. Throttle rapid seek, volume, hover, progress, and notification events.
+5. Keep the built-in high-frequency cooldowns unless the audited interaction requires an explicit override.
 6. Keep visible, textual, motion, haptic, and ARIA feedback. Sound must never be the only signal.
 7. Add or reuse a clearly labeled, persistent sound preference. Do not interpret reduced-motion as a mute preference.
 8. Support pointer, touch, and keyboard activation without double playback.
@@ -140,15 +142,16 @@ if (caught) {
 }
 \`\`\`
 
-Make loop starts idempotent. Stop loops and clear retained handles on success, failure, cancellation, timeout, navigation, replacement, unmount, mute, disable, and \`finally\`. Use cancellation classification only to suppress an inappropriate error cue; preserve the product's existing cancellation propagation policy. Before \`ui.setEnabled(false)\`, stop retained loops and call \`ui.stopAll()\`. Use \`destroy()\` only when the app-level service is disposed. A caller-owned \`AudioContext\` is not closed by \`ui.destroy()\`; close it separately after destroying the player.
+Loop starts are idempotent by default, and active loops migrate when the pack changes. Stop loops and clear retained handles on success, failure, cancellation, timeout, navigation, unmount, mute, disable, and \`finally\`. Use cancellation classification only to suppress an inappropriate error cue; preserve the product's existing cancellation propagation policy. Use \`destroy()\` only when the app-level player is disposed. A caller-owned \`AudioContext\` is not closed by \`ui.destroy()\`; close it separately after destroying the player.
 
 ## API summary
 
-- \`createUISFX({ pack, volume, enabled, context })\`
-- \`player.play(cue, { volume, loop, playbackRate })\` returns \`{ stop, ended }\` or \`null\`
-- \`player.preload(cues?)\`
+- \`createUISFX({ pack, volume, enabled, maxVoices, cooldownMs, preferences, context })\`
+- \`player.unlock()\` resumes Web Audio from trusted intent
+- \`player.play(cue, { volume, loop, playbackRate, retrigger, cooldownMs })\` returns \`{ stop, ended }\` or \`null\`
+- \`player.preload(cues?, { signal })\` yields between cues and supports cancellation
 - \`player.setPack(pack)\`, \`player.getPack()\`
-- \`player.setVolume(value)\`, \`player.setEnabled(value)\`
+- \`player.setVolume(value)\`, \`player.getVolume()\`, \`player.setEnabled(value)\`, \`player.isEnabled()\`
 - \`player.stopAll()\`, \`player.destroy()\`
 - \`bindUISFX(root?, options?)\` for simple declarative DOM interactions
 - \`CUES\`, \`PACKS\`, \`CATEGORIES\`, \`cueNames\`, \`packNames\`, \`getCue\`, \`getPack\`, and \`getPlaybackMode\`
@@ -208,10 +211,11 @@ UI SFX separates interaction semantics from sound style. Application logic calls
 
 ## Runtime API
 
-- \`createUISFX(options)\` creates a player with a pack, volume, enabled state, or custom AudioContext.
+- \`createUISFX(options)\` creates a bounded player with optional persisted preferences or a custom AudioContext.
+- \`unlock()\` resumes Web Audio from a trusted pointer or keyboard action.
 - \`play(cue, options)\` plays a typed semantic cue and returns a stoppable handle.
-- \`preload(cues?)\` renders and caches selected cues.
-- \`setPack\`, \`setVolume\`, and \`setEnabled\` update the shared player.
+- \`preload(cues?, { signal })\` cooperatively renders and caches selected cues.
+- \`setPack\` migrates active loops; volume and enabled state can persist through a storage adapter.
 - \`stopAll\` stops active audio; \`destroy\` releases the player.
 - \`bindUISFX\` wires simple DOM data attributes; imperative playback is preferred for async outcomes and loops.
 

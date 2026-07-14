@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "license": {
     "code": "MIT",
     "audio": "CC0-1.0"
@@ -10,8 +10,8 @@
     "packs": 12,
     "cues": 78,
     "assets": 936,
-    "mp3Bytes": 5437708,
-    "oggBytes": 4014593
+    "mp3Bytes": 5433737,
+    "oggBytes": 4010712
   },
   "categories": [
     {
@@ -5355,7 +5355,7 @@
       "pack": "glass",
       "cue": "achievement",
       "category": "reward",
-      "duration": 1.582,
+      "duration": 1.5,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -5363,11 +5363,11 @@
       "files": {
         "mp3": {
           "path": "sounds/glass/achievement.mp3",
-          "bytes": 13208
+          "bytes": 12581
         },
         "ogg": {
           "path": "sounds/glass/achievement.ogg",
-          "bytes": 16253
+          "bytes": 15540
         }
       }
     },
@@ -11595,7 +11595,7 @@
       "pack": "dreamy",
       "cue": "achievement",
       "category": "reward",
-      "duration": 1.711,
+      "duration": 1.5,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -11603,11 +11603,11 @@
       "files": {
         "mp3": {
           "path": "sounds/dreamy/achievement.mp3",
-          "bytes": 14253
+          "bytes": 12581
         },
         "ogg": {
           "path": "sounds/dreamy/achievement.ogg",
-          "bytes": 14854
+          "bytes": 12890
         }
       }
     },
@@ -16275,7 +16275,7 @@
       "pack": "cinematic",
       "cue": "achievement",
       "category": "reward",
-      "duration": 1.719,
+      "duration": 1.5,
       "channels": 1,
       "loop": false,
       "playback": "one-shot",
@@ -16283,11 +16283,11 @@
       "files": {
         "mp3": {
           "path": "sounds/cinematic/achievement.mp3",
-          "bytes": 14253
+          "bytes": 12581
         },
         "ogg": {
           "path": "sounds/cinematic/achievement.ogg",
-          "bytes": 12963
+          "bytes": 11759
         }
       }
     },

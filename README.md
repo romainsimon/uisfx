@@ -20,12 +20,12 @@ UI SFX is a tiny semantic sound system for web apps, mobile apps, SaaS, educatio
 [Preview every sound, cue, and sonic personality at uisfx.com →](https://uisfx.com)
 
 - 78 semantic cues across 13 interaction categories
-- 11 complete sound packs
+- 12 complete sound packs
 - 936 original sounds in both MP3 and Ogg
 - 72 brief one-shots and 6 seamless state loops
-- 4.76 MB for every MP3 or 3.71 MB for every higher-fidelity Ogg
+- 5.18 MB for every MP3 or 3.82 MB for every higher-fidelity Ogg
 - Dry event-bound textures, clean silent tails, and automated similarity checks
-- 10.2 kB compressed Web Audio runtime with zero dependencies
+- 12.0 kB compressed Web Audio runtime with zero dependencies
 - MIT code, CC0 audio, and CC0 sound-pack art
 
 ## Install
@@ -39,7 +39,10 @@ Want a coding agent to wire the whole product? Copy the [production-ready implem
 ```ts
 import { createUISFX } from 'uisfx'
 
-const ui = createUISFX({ pack: 'minimal' })
+const ui = createUISFX({ pack: 'minimal', preferences: {} })
+
+// Call from the first trusted pointer or keyboard action.
+await ui.unlock()
 
 saveButton.addEventListener('click', () => {
   ui.play('success')
@@ -53,7 +56,9 @@ processing?.stop()
 ui.setPack('arcade')
 ```
 
-UI SFX creates its `AudioContext` after the first interaction, synthesizes from the same recipes as the portable library, and caches rendered buffers. It fetches no audio files at runtime.
+The player defaults to eight voices, deduplicates loops, restarts repeated outcomes, rate-limits high-frequency cues, and moves active loops into a newly selected pack without invalidating their handles.
+
+UI SFX creates its `AudioContext` lazily. Call `unlock()` from the first trusted interaction, then it synthesizes deterministic recipes locally and caches rendered buffers without fetching audio files.
 
 ## Twelve sonic personalities
 
@@ -134,6 +139,8 @@ ui.setVolume(0.5)
 ui.stopAll()
 ```
 
+`preferences: {}` stores pack, volume, and enabled state in localStorage. A custom storage adapter supports native shells and application preference stores. `preload()` yields between cues and accepts an `AbortSignal`, so preparing sounds does not monopolize one browser task.
+
 ## Build from source
 
 The checked-in sound files are reproducible from deterministic synthesis recipes.
@@ -144,7 +151,7 @@ npm run generate
 npm run check
 ```
 
-Node 22.20 or later and `ffmpeg` are required. The full quality gate regenerates every file, typechecks, tests, builds the package and showcase, and validates audio size, decoded peaks, tail silence, loop timing, seam continuity, and pairwise similarity.
+Node 22.20 or later, Chrome or Chromium, and `ffmpeg` are required. The full quality gate regenerates every file, typechecks, tests, builds the package and showcase, and validates audio size, decoded peaks, tail silence, loop timing, seam continuity, pairwise similarity, runtime size, browser unlocking, cooperative preload, and preference restoration. Recipe changes also follow the [listening conformance protocol](docs/listening-protocol.md).
 
 ## Why semantic cues?
 
