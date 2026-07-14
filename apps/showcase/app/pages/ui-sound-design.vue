@@ -21,7 +21,7 @@ import { VOLUME_PREVIEW_PLAY_OPTIONS } from '../lib/volume-preview'
 const runtimeConfig = useRuntimeConfig()
 const siteUrl = String(runtimeConfig.public.siteUrl || 'https://uisfx.com').replace(/\/$/, '')
 const canonicalUrl = `${siteUrl}/ui-sound-design`
-const socialImage = `${siteUrl}/og-ui-sound-effects-v2.jpg`
+const socialImage = `${siteUrl}/og-ui-sound-effects-v3.jpg`
 const pageTitle = 'UI Sound Design Guide: Interface Sound Effects | UI SFX'
 const pageDescription = 'Learn UI sound design from first principles. Plan, create, test, and implement accessible interface sound effects for web, mobile, SaaS, and games.'
 

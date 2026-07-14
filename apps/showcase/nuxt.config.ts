@@ -47,6 +47,13 @@ export default defineNuxtConfig({
         'Cross-Origin-Resource-Policy': 'cross-origin',
       },
     },
+    '/og-ui-sound-effects-v3.jpg': {
+      headers: {
+        'Cache-Control': 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000',
+        'Access-Control-Allow-Origin': '*',
+        'Cross-Origin-Resource-Policy': 'cross-origin',
+      },
+    },
   },
   vite: {
     plugins: [tailwindcss()],
