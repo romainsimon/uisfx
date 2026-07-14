@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useHead, useRuntimeConfig, useSeoMeta } from '#imports'
-import { BookOpen, Check, Copy as CopyIcon, Volume1, Volume2, VolumeX } from '@lucide/vue'
+import { BookOpen, Check, Copy as CopyIcon, Heart, Volume1, Volume2, VolumeX } from '@lucide/vue'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 import { buildAgentImplementationPrompt } from '../lib/agent-prompt'
 import { LEGACY_HOME_RECOVERY_PARAMETER } from '../lib/legacy-home-redirect'
@@ -1151,12 +1151,24 @@ onBeforeUnmount(() => {
         </div>
       </section>
 
-      <section class="spec-strip" aria-label="Library specifications" data-reveal data-reveal-group>
+      <section id="specifications" class="spec-strip" aria-label="Library specifications" data-reveal data-reveal-group>
         <p data-reveal-item><strong>{{ CUES.length }}</strong><span>semantic UI cues</span></p>
         <p data-reveal-item><strong>{{ PACKS.length }}</strong><span>distinct feels</span></p>
-        <p data-reveal-item><strong>72</strong><span>brief one-shots</span></p>
-        <p data-reveal-item><strong>6</strong><span>seamless loops</span></p>
+        <p data-reveal-item><strong>{{ oneShotCount }}</strong><span>brief one-shots</span></p>
+        <p data-reveal-item><strong>{{ loopCount }}</strong><span>seamless loops</span></p>
         <p data-reveal-item><strong>CC0</strong><span>audio license</span></p>
+        <a
+          class="spec-strip__sponsor"
+          href="https://github.com/sponsors/romainsimon"
+          target="_blank"
+          rel="sponsored noopener"
+          data-sfx="reward"
+          data-reveal-item
+          aria-label="Sponsor UI SFX on GitHub and place your logo here (opens in a new tab)"
+        >
+          <Heart :size="22" :stroke-width="2" aria-hidden="true" />
+          <span><strong>Your logo</strong><small>Sponsor UI SFX</small></span>
+        </a>
       </section>
 
       <section id="compare" class="compare-section" aria-labelledby="compare-title">
