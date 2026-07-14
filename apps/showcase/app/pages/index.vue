@@ -214,8 +214,8 @@ const agentPromptCopyFailed = ref(false)
 const audioUnlocked = ref(false)
 const reducedMotion = ref(false)
 const motionReady = ref(false)
-const selectorControlOwner = ref<'source' | 'dock' | 'none'>('source')
-const selectorSurface = ref<'source' | 'handoff' | 'dock'>('source')
+const dockVisible = ref(false)
+const selectorControlOwner = ref<'source' | 'dock'>('source')
 const loopingCue = ref<CueName | null>(null)
 const loopingPack = ref<PackName | null>(null)
 const player = shallowRef<UISFXPlayer>()
@@ -223,8 +223,6 @@ const siteShell = ref<HTMLElement>()
 const topbar = ref<HTMLElement>()
 const soundConsole = ref<HTMLElement>()
 const packDock = ref<HTMLElement>()
-const packHandoffShell = ref<HTMLElement>()
-const selectorFocusParking = ref<HTMLElement>()
 const volumeControl = ref<HTMLElement>()
 const volumeTrigger = ref<HTMLButtonElement>()
 let loopingSound: PlayingSFX | null = null
@@ -233,7 +231,7 @@ let activeTimer: ReturnType<typeof setTimeout> | undefined
 let motionPreference: MediaQueryList | undefined
 let syncMotionPreference: (() => void) | undefined
 let revealObserver: IntersectionObserver | undefined
-let selectorResizeObserver: ResizeObserver | undefined
+let selectorVisibilityObserver: IntersectionObserver | undefined
 let scrollFrame: number | undefined
 let headerStyleState = ''
 let installCopyTimer: number | undefined
@@ -241,14 +239,6 @@ let agentPromptCopyTimer: number | undefined
 let searchSoundTimer: ReturnType<typeof setTimeout> | undefined
 let previousQuery = ''
 let lastHoverSoundAt = 0
-let parkedSelectorFocus = false
-let selectorGeometry: {
-  sourceWidth: number
-  sourceHeight: number
-  dockWidth: number
-  dockHeight: number
-  dockBottom: number
-} | undefined
 
 const selectedPackData = computed(() => PACKS.find((pack) => pack.name === selectedPack.value) ?? PACKS[0])
 const selectedPackTheme = computed(() => PACK_THEMES[selectedPack.value])
@@ -491,30 +481,6 @@ function smoothstep(value: number) {
   return clamped * clamped * (3 - 2 * clamped)
 }
 
-function progressBetween(value: number, start: number, end: number) {
-  return smoothstep((value - start) / (end - start))
-}
-
-function measureSelectorGeometry() {
-  const source = soundConsole.value
-  const dock = packDock.value
-  if (!source || !dock) return undefined
-
-  const dockStyle = window.getComputedStyle(dock)
-  selectorGeometry = {
-    sourceWidth: source.offsetWidth || 1,
-    sourceHeight: source.offsetHeight || 1,
-    dockWidth: dock.offsetWidth || 1,
-    dockHeight: dock.offsetHeight || 1,
-    dockBottom: Number.parseFloat(dockStyle.bottom) || 16,
-  }
-
-  const shell = packHandoffShell.value
-  shell?.style.setProperty('--handoff-width', `${selectorGeometry.sourceWidth}px`)
-  shell?.style.setProperty('--handoff-height', `${selectorGeometry.sourceHeight}px`)
-  return selectorGeometry
-}
-
 function selectorFocusTarget(container: HTMLElement | undefined, docked: boolean) {
   if (!container) return undefined
   if (!docked) return container.querySelector<HTMLElement>('.pack-keys button.active') ?? undefined
@@ -524,7 +490,7 @@ function selectorFocusTarget(container: HTMLElement | undefined, docked: boolean
   return container.querySelector<HTMLElement>('.pack-dock__keys button.active') ?? undefined
 }
 
-function setSelectorControlOwner(nextOwner: 'source' | 'dock' | 'none') {
+function setSelectorControlOwner(nextOwner: 'source' | 'dock') {
   const currentOwner = selectorControlOwner.value
   if (currentOwner === nextOwner) return
 
@@ -533,23 +499,8 @@ function setSelectorControlOwner(nextOwner: 'source' | 'dock' | 'none') {
   const activeElement = document.activeElement
   const focusWasInOutgoing = activeElement instanceof HTMLElement && outgoing?.contains(activeElement)
   selectorControlOwner.value = nextOwner
-
-  if (nextOwner === 'none') {
-    if (!focusWasInOutgoing) return
-    parkedSelectorFocus = true
-    void nextTick(() => selectorFocusParking.value?.focus({ preventScroll: true }))
-    return
-  }
-
-  const parkingControl = selectorFocusParking.value
-  const shouldRestoreParkedFocus = parkedSelectorFocus && document.activeElement === parkingControl
-  parkedSelectorFocus = false
-  if (!focusWasInOutgoing && !shouldRestoreParkedFocus) return
+  if (!focusWasInOutgoing) return
   void nextTick(() => selectorFocusTarget(incoming, nextOwner === 'dock')?.focus({ preventScroll: true }))
-}
-
-function cancelSelectorFocusRestore() {
-  parkedSelectorFocus = false
 }
 
 function updateScrollProgress() {
@@ -557,9 +508,6 @@ function updateScrollProgress() {
   scrollFrame = window.requestAnimationFrame(() => {
     const scrollable = document.documentElement.scrollHeight - window.innerHeight
     const progress = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0
-    const source = soundConsole.value
-    const dock = packDock.value
-    const handoffShell = packHandoffShell.value
     const shell = siteShell.value
     const header = topbar.value
     const headerRawProgress = Math.min(1, Math.max(0, window.scrollY / 112))
@@ -570,12 +518,6 @@ function updateScrollProgress() {
     const headerScale = 1 - (1 - compactHeaderScale) * headerProgress
     const headerShiftY = reducedMotion.value ? 0 : headerProgress * 2
     const nextHeaderStyleState = `${headerProgress.toFixed(4)}:${headerScale.toFixed(4)}:${headerShiftY.toFixed(2)}`
-    // Read selector geometry before writing CSS variables so the scroll frame avoids a second layout pass.
-    const geometry = selectorGeometry ?? measureSelectorGeometry()
-    const sourceRect = source && dock && handoffShell && shell && geometry
-      ? source.getBoundingClientRect()
-      : undefined
-
     if (header && nextHeaderStyleState !== headerStyleState) {
       header.style.setProperty('--header-progress', headerProgress.toFixed(4))
       header.style.setProperty('--header-scale', headerScale.toFixed(4))
@@ -583,87 +525,9 @@ function updateScrollProgress() {
       headerStyleState = nextHeaderStyleState
     }
 
-    if (source && dock && handoffShell && shell && geometry && sourceRect) {
-      const viewportHeight = window.innerHeight
-      const handoffEnd = Math.max(80, Math.min(112, viewportHeight * 0.15))
-      const handoffStart = Math.max(handoffEnd + 220, Math.min(680, viewportHeight * 0.72))
-      const rawHandoff = Math.min(1, Math.max(0, (handoffStart - sourceRect.bottom) / (handoffStart - handoffEnd)))
-      const handoff = smoothstep(rawHandoff)
-      const sourceCenterX = sourceRect.left + sourceRect.width / 2
-      const sourceCenterY = sourceRect.top + sourceRect.height / 2
-      const dockCenterX = window.innerWidth / 2
-      const dockCenterY = viewportHeight - geometry.dockBottom - geometry.dockHeight / 2
-      const remainingTravel = 1 - handoff
-      const sourceRotation = Number.parseFloat(source.style.getPropertyValue('--console-rotate')) || 1.1
-      const currentCenterX = reducedMotion.value
-        ? dockCenterX
-        : sourceCenterX * remainingTravel + dockCenterX * handoff
-      const currentCenterY = reducedMotion.value
-        ? dockCenterY
-        : sourceCenterY * remainingTravel + dockCenterY * handoff
-      const dockStartScaleX = geometry.sourceWidth / geometry.dockWidth
-      const dockStartScaleY = geometry.sourceHeight / geometry.dockHeight
-      const dockScaleX = reducedMotion.value ? 1 : dockStartScaleX + (1 - dockStartScaleX) * handoff
-      const dockScaleY = reducedMotion.value ? 1 : dockStartScaleY + (1 - dockStartScaleY) * handoff
-      const shellScaleX = reducedMotion.value ? 1 : 1 + (geometry.dockWidth / geometry.sourceWidth - 1) * handoff
-      const shellScaleY = reducedMotion.value ? 1 : 1 + (geometry.dockHeight / geometry.sourceHeight - 1) * handoff
-      const rotation = reducedMotion.value ? 0 : sourceRotation * remainingTravel
-
-      const sourceFade = reducedMotion.value ? handoff : progressBetween(handoff, 0, 0.1)
-      const dockFade = reducedMotion.value ? handoff : progressBetween(handoff, 0.84, 1)
-      const compactOpacity = reducedMotion.value ? handoff : progressBetween(handoff, 0.82, 1)
-      const sourceOpacity = reducedMotion.value ? 1 - sourceFade : sourceFade < 1 ? 1 : 0
-      const handoffShellOpacity = reducedMotion.value
-        ? 0
-        : sourceFade < 1
-          ? sourceFade
-          : dockFade < 1 ? 1 : 0
-
-      shell.style.setProperty('--scroll-progress', String(progress))
-      shell.style.setProperty('--selector-source-opacity', sourceOpacity.toFixed(4))
-      dock.style.setProperty('--dock-travel-x', `${currentCenterX - dockCenterX}px`)
-      dock.style.setProperty('--dock-travel-y', `${currentCenterY - dockCenterY}px`)
-      dock.style.setProperty('--dock-scale-x', dockScaleX.toFixed(4))
-      dock.style.setProperty('--dock-scale-y', dockScaleY.toFixed(4))
-      dock.style.setProperty('--dock-rotation', `${rotation}deg`)
-      dock.style.setProperty('--dock-opacity', dockFade.toFixed(4))
-      dock.style.setProperty('--dock-content-opacity', compactOpacity.toFixed(4))
-      dock.style.setProperty('--dock-content-scale-x', (1 / dockScaleX).toFixed(4))
-      dock.style.setProperty('--dock-content-scale-y', (1 / dockScaleY).toFixed(4))
-
-      handoffShell.style.setProperty('--handoff-x', `${currentCenterX - geometry.sourceWidth / 2}px`)
-      handoffShell.style.setProperty('--handoff-y', `${currentCenterY - geometry.sourceHeight / 2}px`)
-      handoffShell.style.setProperty('--handoff-scale-x', shellScaleX.toFixed(4))
-      handoffShell.style.setProperty('--handoff-scale-y', shellScaleY.toFixed(4))
-      handoffShell.style.setProperty('--handoff-rotation', `${rotation}deg`)
-      handoffShell.style.setProperty('--handoff-opacity', handoffShellOpacity.toFixed(4))
-
-      const nextSurface = reducedMotion.value
-        ? dockFade >= 0.5 ? 'dock' : 'source'
-        : sourceFade < 0.5 ? 'source' : dockFade < 0.5 ? 'handoff' : 'dock'
-      if (selectorSurface.value !== nextSurface) selectorSurface.value = nextSurface
-
-      const currentOwner = selectorControlOwner.value
-      let nextOwner: 'source' | 'dock' | 'none' = 'none'
-      if (reducedMotion.value) {
-        if ((currentOwner === 'source' && handoff <= 0.45) || handoff <= 0.4) nextOwner = 'source'
-        if ((currentOwner === 'dock' && handoff >= 0.55) || handoff >= 0.6) nextOwner = 'dock'
-      } else {
-        if ((currentOwner === 'source' && handoff <= 0.05) || handoff <= 0.04) nextOwner = 'source'
-        if ((currentOwner === 'dock' && handoff >= 0.92) || handoff >= 0.94) nextOwner = 'dock'
-      }
-      setSelectorControlOwner(nextOwner)
-    } else if (shell) {
-      shell.style.setProperty('--scroll-progress', String(progress))
-    }
+    shell?.style.setProperty('--scroll-progress', String(progress))
     scrollFrame = undefined
   })
-}
-
-function onViewportResize() {
-  selectorGeometry = undefined
-  measureSelectorGeometry()
-  updateScrollProgress()
 }
 
 function onConsolePointerMove(event: PointerEvent) {
@@ -889,7 +753,6 @@ onMounted(() => {
   window.addEventListener('blur', stopLogoLoop)
   window.addEventListener('keydown', onKeydown)
   window.addEventListener('scroll', updateScrollProgress, { passive: true })
-  window.addEventListener('resize', onViewportResize, { passive: true })
   document.addEventListener('pointerdown', onDocumentPointerDown)
   document.addEventListener('visibilitychange', onVisibilityChange)
   updateScrollProgress()
@@ -907,13 +770,15 @@ onMounted(() => {
   }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' })
   document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((element) => revealObserver?.observe(element))
 
-  selectorResizeObserver = new ResizeObserver(() => {
-    selectorGeometry = undefined
-    measureSelectorGeometry()
-    updateScrollProgress()
-  })
-  if (soundConsole.value) selectorResizeObserver.observe(soundConsole.value)
-  if (packDock.value) selectorResizeObserver.observe(packDock.value)
+  selectorVisibilityObserver = new IntersectionObserver(([entry]) => {
+    if (!entry) return
+    const topBoundary = entry.rootBounds?.top ?? 0
+    const nextDockVisible = !entry.isIntersecting && entry.boundingClientRect.bottom <= topBoundary
+    if (dockVisible.value === nextDockVisible) return
+    dockVisible.value = nextDockVisible
+    setSelectorControlOwner(nextDockVisible ? 'dock' : 'source')
+  }, { threshold: 0, rootMargin: '-76px 0px 0px 0px' })
+  if (soundConsole.value) selectorVisibilityObserver.observe(soundConsole.value)
 
   window.requestAnimationFrame(() => {
     motionReady.value = true
@@ -935,11 +800,10 @@ onBeforeUnmount(() => {
   window.removeEventListener('keydown', onKeydown)
   if (syncMotionPreference) motionPreference?.removeEventListener('change', syncMotionPreference)
   window.removeEventListener('scroll', updateScrollProgress)
-  window.removeEventListener('resize', onViewportResize)
   document.removeEventListener('pointerdown', onDocumentPointerDown)
   document.removeEventListener('visibilitychange', onVisibilityChange)
   revealObserver?.disconnect()
-  selectorResizeObserver?.disconnect()
+  selectorVisibilityObserver?.disconnect()
   if (scrollFrame !== undefined) window.cancelAnimationFrame(scrollFrame)
   stopLogoLoop()
   stopLoop()
@@ -1018,15 +882,12 @@ onBeforeUnmount(() => {
           @keydown.esc.stop.prevent="closeVolumePanel(true)"
         >
           <button
-            ref="selectorFocusParking"
             class="volume-control__mute"
             type="button"
             data-sfx-managed
             :aria-label="muted ? `Unmute sound previews at ${lastAudibleVolume} percent` : 'Mute sound previews'"
             :aria-pressed="muted"
             @click="toggleMute"
-            @keydown="cancelSelectorFocusRestore"
-            @pointerdown="cancelSelectorFocusRestore"
           >
             <VolumeX v-if="muted" class="volume-control__icon" aria-hidden="true" />
             <Volume1 v-else-if="volumePercent < 50" class="volume-control__icon" aria-hidden="true" />
@@ -1041,8 +902,6 @@ onBeforeUnmount(() => {
             :aria-expanded="volumeOpen"
             :aria-label="muted ? 'Adjust preview volume, currently muted' : `Adjust preview volume, ${volumePercent} percent`"
             @click="toggleVolumePanel"
-            @keydown="cancelSelectorFocusRestore"
-            @pointerdown="cancelSelectorFocusRestore"
           >
             <span>{{ muted ? 'Off' : `${volumePercent}%` }}</span>
           </button>
@@ -1081,31 +940,14 @@ onBeforeUnmount(() => {
       </div>
     </header>
 
-    <div
-      ref="packHandoffShell"
-      class="pack-handoff-shell"
-      :style="{ 'view-transition-name': selectorSurface === 'handoff' ? 'sound-console' : 'none' }"
-      aria-hidden="true"
-    >
-      <img
-        class="pack-handoff-shell__artwork"
-        :src="selectedPackTheme.image"
-        alt=""
-        width="1200"
-        height="800"
-      >
-      <span class="pack-handoff-shell__veil" />
-    </div>
-
     <aside
       ref="packDock"
       class="pack-dock"
-      :class="{ 'is-interactive': packDockInteractive }"
+      :class="{ 'is-visible': dockVisible, 'is-interactive': packDockInteractive }"
       :style="{
         '--dock-accent': selectedPackTheme.accent,
         '--dock-bg': selectedPackTheme.background,
         '--dock-ink': selectedPackTheme.ink,
-        'view-transition-name': selectorSurface === 'dock' ? 'sound-console' : 'none',
       }"
       :aria-hidden="!packDockInteractive"
       :inert="!packDockInteractive"
@@ -1249,7 +1091,6 @@ onBeforeUnmount(() => {
           class="sound-console"
           :style="{
             '--pack-color': selectedPackData.color,
-            'view-transition-name': selectorSurface === 'source' ? 'sound-console' : 'none',
           }"
           :aria-hidden="!sourceSelectorInteractive"
           :inert="!sourceSelectorInteractive"
@@ -1268,7 +1109,7 @@ onBeforeUnmount(() => {
           <span class="sound-console__veil" aria-hidden="true" />
           <div class="console-head">
             <span>UI SFX / FEEL SELECTOR</span>
-            <span>01–{{ PACKS.length }}</span>
+            <span>01-{{ PACKS.length }}</span>
           </div>
           <button class="main-pad" type="button" data-sfx-managed :aria-label="`Play ${selectedPackData.label} success preview`" @click="play('success')">
             <span class="main-pad__art" aria-hidden="true">
@@ -1295,7 +1136,7 @@ onBeforeUnmount(() => {
               {{ pack.label }}
             </button>
           </div>
-          <p class="console-note">Press keys 1–9, 0, − or + to switch feel</p>
+          <p class="console-note">Press keys 1-9, 0, − or + to switch feel</p>
         </div>
       </section>
 
