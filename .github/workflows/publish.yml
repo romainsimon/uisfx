@@ -51,8 +51,6 @@ jobs:
         run: |
           set -o pipefail
           npm publish --workspace=uisfx --access public --provenance 2>&1 | tee /tmp/npm-publish.log
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Record verified release
         if: always() && github.ref == 'refs/heads/release/npm'
         env:
