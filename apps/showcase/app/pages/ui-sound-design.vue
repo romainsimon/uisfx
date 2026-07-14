@@ -252,6 +252,11 @@ function handlePreviewHover(event: PointerEvent) {
   if (interactive && !interactive.closest('[data-sfx-no-hover]') && interactive !== previous) player.value.play('hover')
 }
 
+function handleTocClick(sectionId: TocSectionId) {
+  activeTocSection.value = sectionId
+  playCue('forward')
+}
+
 function updateActiveTocSection() {
   tocScrollFrame = undefined
   const sections = tocItems.flatMap((item) => {
@@ -366,7 +371,7 @@ onBeforeUnmount(() => {
                 :href="`#${item.id}`"
                 :class="{ 'is-active': activeTocSection === item.id }"
                 :aria-current="activeTocSection === item.id ? 'location' : undefined"
-                @click="activeTocSection = item.id"
+                @click="handleTocClick(item.id)"
               >{{ item.label }}</a>
             </li>
           </ol>
