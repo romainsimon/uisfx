@@ -4,6 +4,7 @@ import { BookOpen, Check, Copy as CopyIcon, Heart, Volume1, Volume2, VolumeX } f
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 import { buildAgentImplementationPrompt } from '../lib/agent-prompt'
 import { LEGACY_HOME_RECOVERY_PARAMETER } from '../lib/legacy-home-redirect'
+import { resolvePackShortcut } from '../lib/pack-shortcut'
 import { planPackSwitch } from '../lib/pack-switch'
 import {
   CATEGORIES,
@@ -238,6 +239,8 @@ let headerStyleState = ''
 let installCopyTimer: number | undefined
 let agentPromptCopyTimer: number | undefined
 let searchSoundTimer: ReturnType<typeof setTimeout> | undefined
+let packShortcutTimer: ReturnType<typeof setTimeout> | undefined
+let pendingPackOne = false
 let previousQuery = ''
 let lastHoverSoundAt = 0
 
@@ -718,17 +721,29 @@ function onDocumentPointerDown(event: PointerEvent) {
 
 function onKeydown(event: KeyboardEvent) {
   unlockAudioFromGesture()
-  if (event.metaKey || event.ctrlKey || event.altKey || event.isComposing) return
+  if (event.metaKey || event.ctrlKey || event.altKey || event.isComposing || event.repeat) return
   if (event.target instanceof HTMLElement && (event.target.matches('input, select, textarea') || event.target.isContentEditable)) return
-  const index = event.key === '+' || event.key === '='
-    ? 11
-    : event.key === '-'
-      ? 10
-      : event.key === '0'
-        ? 9
-        : Number(event.key) - 1
-  const pack = PACKS[index]
-  if (pack) choosePack(pack.name)
+  const resolution = resolvePackShortcut(pendingPackOne, event.key)
+  if (resolution.pendingOne === pendingPackOne && resolution.indices.length === 0) return
+
+  if (packShortcutTimer) clearTimeout(packShortcutTimer)
+  packShortcutTimer = undefined
+  pendingPackOne = resolution.pendingOne
+
+  if (pendingPackOne) {
+    packShortcutTimer = setTimeout(() => {
+      pendingPackOne = false
+      packShortcutTimer = undefined
+      const firstPack = PACKS[0]
+      if (firstPack) choosePack(firstPack.name)
+    }, 360)
+    return
+  }
+
+  resolution.indices.forEach((index) => {
+    const pack = PACKS[index]
+    if (pack) choosePack(pack.name)
+  })
 }
 
 function onVisibilityChange() {
@@ -822,6 +837,7 @@ onBeforeUnmount(() => {
   if (installCopyTimer) clearTimeout(installCopyTimer)
   if (agentPromptCopyTimer) clearTimeout(agentPromptCopyTimer)
   if (searchSoundTimer) clearTimeout(searchSoundTimer)
+  if (packShortcutTimer) clearTimeout(packShortcutTimer)
   void player.value?.destroy()
 })
 </script>
@@ -1147,7 +1163,7 @@ onBeforeUnmount(() => {
               {{ pack.label }}
             </button>
           </div>
-          <p class="console-note">Press keys 1-9, 0, − or + to switch feel</p>
+          <p class="console-note">Type 1-12 to switch feel · 0, − and + still work</p>
         </div>
       </section>
 
