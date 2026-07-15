@@ -1,15 +1,20 @@
 import type { PackName } from 'uisfx'
 
-export function buildAgentImplementationPrompt(pack: PackName = 'minimal') {
-  return `Implement UI SFX throughout this product using the \`uisfx\` npm package and the "${pack}" sound pack.
+export function buildAgentImplementationPrompt(pack?: PackName) {
+  const packReference = pack ?? '<selected-pack>'
+  const packDirection = pack
+    ? `Use the "${pack}" sound pack.`
+    : `Choose the sound pack yourself after inspecting the product. Review every available pack in https://uisfx.com/uisfx-catalog.json and preview the strongest candidates when possible. Base the decision on the product's purpose, audience, brand tone, visual and motion language, interaction density, and existing audio. Pick one coherent pack instead of defaulting to the first option, briefly explain why it fits, and replace every \`<selected-pack>\` placeholder below with its exact catalog name. Do not ask the user to choose unless the product context is genuinely insufficient.`
+
+  return `Implement UI SFX throughout this product using the \`uisfx\` npm package. ${packDirection}
 
 Do the implementation, not just an example. First inspect the framework, shared UI primitives, state management, async workflows, accessibility patterns, existing settings, and tests. Then add sound only where it gives meaningful feedback. Do not sonify every click.
 
 1. Install and centralize the player
 
-Run \`npm install uisfx\`. For a browser app, create one shared, client-only player with \`createUISFX({ pack: '${pack}', volume: 0.7, enabled: savedSoundPreference })\`. Do not instantiate or play audio during SSR. Avoid duplicate players during remounts or React Strict Mode. Unlock Web Audio from a genuine user gesture: either call the first \`ui.play()\` synchronously inside a pointer or keyboard handler, before any \`await\`, or create, retain, and resume an \`AudioContext\` in that handler and pass it to \`createUISFX\`. If the app creates that context, close it with \`await context.close()\` after \`await ui.destroy()\` during final app teardown. Never autoplay on page load. Until audio is unlocked, suppress background and asynchronous cues instead of queueing stale feedback. Handle \`ui.play()\` returning \`null\`.
+Run \`npm install uisfx\`. For a browser app, create one shared, client-only player with \`createUISFX({ pack: '${packReference}', volume: 0.7, enabled: savedSoundPreference })\`. Do not instantiate or play audio during SSR. Avoid duplicate players during remounts or React Strict Mode. Unlock Web Audio from a genuine user gesture: either call the first \`ui.play()\` synchronously inside a pointer or keyboard handler, before any \`await\`, or create, retain, and resume an \`AudioContext\` in that handler and pass it to \`createUISFX\`. If the app creates that context, close it with \`await context.close()\` after \`await ui.destroy()\` during final app teardown. Never autoplay on page load. Until audio is unlocked, suppress background and asynchronous cues instead of queueing stale feedback. Handle \`ui.play()\` returning \`null\`.
 
-For native mobile, React Native, game engines, or environments without Web Audio, use the packaged assets at \`uisfx/sounds/${pack}/{cue}.mp3\` or \`.ogg\` while preserving the same semantic and lifecycle rules.
+For native mobile, React Native, game engines, or environments without Web Audio, use the packaged assets at \`uisfx/sounds/${packReference}/{cue}.mp3\` or \`.ogg\` while preserving the same semantic and lifecycle rules.
 
 2. Map real product events to semantic cues
 
@@ -27,7 +32,7 @@ Use \`ui.stopAll()\` for global transitions such as logout. Call \`await ui.dest
 
 4. Add an accessible sound preference
 
-Add or reuse a clearly labeled sound toggle. Persist enabled state and volume in the product's preference system, falling back to local storage only if necessary. Before \`ui.setEnabled(false)\`, stop active loops, clear their retained handles, and call \`ui.stopAll()\` so mute is immediate. Apply changes with \`ui.setEnabled()\`, \`ui.setVolume()\`, and \`ui.setPack('${pack}')\`. Keep visual, textual, motion, haptic, and ARIA feedback intact: sound reinforces meaning and is never the only signal. Do not treat \`prefers-reduced-motion\` as an audio preference.
+Add or reuse a clearly labeled sound toggle. Persist enabled state and volume in the product's preference system, falling back to local storage only if necessary. Before \`ui.setEnabled(false)\`, stop active loops, clear their retained handles, and call \`ui.stopAll()\` so mute is immediate. Apply changes with \`ui.setEnabled()\`, \`ui.setVolume()\`, and \`ui.setPack('${packReference}')\`. Keep visual, textual, motion, haptic, and ARIA feedback intact: sound reinforces meaning and is never the only signal. Do not treat \`prefers-reduced-motion\` as an audio preference.
 
 5. Preserve interaction quality
 
@@ -38,7 +43,7 @@ Support mouse, touch, and keyboard activation without duplicate playback. For as
 Add or update tests for semantic cue mapping, real success/error timing, loop cleanup on every exit, mute persistence, keyboard/pointer deduplication, SSR safety, and remount cleanup. Run the formatter, typecheck, tests, and production build. Finish with a concise action-to-cue map, files changed, selected pack, sound-preference behavior, loop cleanup, and verification performed.
 
 Canonical documentation:
-- https://uisfx.com/docs/agent-guide.md?pack=${pack}
+- https://uisfx.com/docs/agent-guide.md?pack=${packReference}
 - https://uisfx.com/llms.txt
 - https://uisfx.com/uisfx-catalog.json
 - https://www.npmjs.com/package/uisfx

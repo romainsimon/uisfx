@@ -249,7 +249,7 @@ let lastHoverSoundAt = 0
 
 const selectedPackData = computed(() => PACKS.find((pack) => pack.name === selectedPack.value) ?? PACKS[0])
 const selectedPackTheme = computed(() => PACK_THEMES[selectedPack.value])
-const agentPromptUrl = computed(() => `/agent-prompt.txt?pack=${selectedPack.value}`)
+const agentPromptUrl = '/agent-prompt.txt'
 const packDockInteractive = computed(() => selectorControlOwner.value === 'dock')
 const sourceSelectorInteractive = computed(() => selectorControlOwner.value === 'source')
 const demoOneShotGroups = CATEGORIES.map((item) => ({
@@ -607,7 +607,7 @@ async function copyAgentPrompt() {
   if (agentPromptCopyTimer) clearTimeout(agentPromptCopyTimer)
   agentPromptCopied.value = false
   agentPromptCopyFailed.value = false
-  const didCopy = await writeClipboard(buildAgentImplementationPrompt(selectedPack.value))
+  const didCopy = await writeClipboard(buildAgentImplementationPrompt())
   if (!didCopy) {
     agentPromptCopyFailed.value = true
     announcement.value = 'Could not copy the implementation prompt'
@@ -616,7 +616,7 @@ async function copyAgentPrompt() {
     return
   }
   agentPromptCopied.value = true
-  announcement.value = `${selectedPackData.value.label} implementation prompt copied`
+  announcement.value = 'Pack-selecting implementation prompt copied'
   play('copy')
   agentPromptCopyTimer = window.setTimeout(() => {
     agentPromptCopied.value = false
@@ -1074,12 +1074,12 @@ onBeforeUnmount(() => {
               </div>
 
               <div class="hero-agent-block">
-                <p class="hero-tool-label"><span>02</span> Hand to your coding agent <small>{{ selectedPackData.label }} feel</small></p>
+                <p class="hero-tool-label"><span>02</span> Hand to your coding agent <small>Agent selects the feel</small></p>
                 <div class="hero-agent-handoff">
                   <div class="hero-agent-handoff__mark" aria-hidden="true"><i /><i /><i /></div>
                   <div class="hero-agent-handoff__copy">
                     <strong>Instrument the whole product, tastefully.</strong>
-                    <span>Copies a production-ready {{ selectedPackData.label }} prompt for every meaningful interaction and state.</span>
+                    <span>Copies a production-ready prompt that asks the agent to choose the best feel for your product.</span>
                   </div>
                   <div class="hero-agent-handoff__actions">
                     <button
@@ -1087,7 +1087,7 @@ onBeforeUnmount(() => {
                       :class="{ copied: agentPromptCopied, failed: agentPromptCopyFailed }"
                       type="button"
                       data-sfx-managed
-                      :aria-label="agentPromptCopyFailed ? 'Copy failed. Try again.' : agentPromptCopied ? 'Implementation prompt copied' : `Copy UI SFX implementation prompt using the ${selectedPackData.label} feel`"
+                      :aria-label="agentPromptCopyFailed ? 'Copy failed. Try again.' : agentPromptCopied ? 'Implementation prompt copied' : 'Copy UI SFX implementation prompt with agent-selected feel'"
                       @click="copyAgentPrompt"
                     >
                       <span v-if="agentPromptCopyFailed" class="copy-status-icon" aria-hidden="true">!</span>

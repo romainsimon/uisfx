@@ -4,7 +4,8 @@ import { resolvePack } from '../utils/agent-docs'
 import { setMachineReadableHeaders } from '../utils/machine-response'
 
 export default defineEventHandler((event) => {
-  const pack = resolvePack(getQuery(event).pack)
+  const requestedPack = getQuery(event).pack
+  const pack = requestedPack === undefined ? undefined : resolvePack(requestedPack)
   setMachineReadableHeaders(event, 'text/plain', { indexable: false })
   return buildAgentImplementationPrompt(pack)
 })
