@@ -67,7 +67,7 @@ const siteUrl = String(runtimeConfig.public.siteUrl || 'https://uisfx.com').repl
 const canonicalUrl = siteUrl
 // Use an opaque, versioned JPEG because X's image proxy can retain a failed
 // fetch independently of the page-card cache. A new filename invalidates both.
-const socialImage = `${siteUrl}/og-ui-sound-effects-v3.jpg`
+const socialImage = `${siteUrl}/og-ui-sound-effects-v4.jpg`
 const organizationId = `${siteUrl}/#organization`
 const websiteId = `${siteUrl}/#website`
 const softwareId = `${canonicalUrl}#software`
