@@ -10,10 +10,11 @@ describe('UI SFX catalog', () => {
     }
   })
 
-  it('creates all 858 pack and cue combinations', () => {
+  it('creates every pack and cue combination', () => {
     const recipes = PACKS.flatMap((pack) => CUES.map((cue) => createRecipe(pack.name, cue.name)))
-    expect(recipes).toHaveLength(858)
-    expect(new Set(recipes.map((recipe) => `${recipe.pack}:${recipe.cue}`)).size).toBe(858)
+    const expectedCount = PACKS.length * CUES.length
+    expect(recipes).toHaveLength(expectedCount)
+    expect(new Set(recipes.map((recipe) => `${recipe.pack}:${recipe.cue}`)).size).toBe(expectedCount)
   })
 
   it('distinguishes brief one-shots from explicit continuous loops', () => {
@@ -56,6 +57,31 @@ describe('deterministic renderer', () => {
     expect(new Set(signatures).size).toBe(PACKS.length)
     expect(createRecipe('glass', 'achievement').notes.length).toBeGreaterThan(createRecipe('minimal', 'achievement').notes.length)
     expect(createRecipe('mechanical', 'achievement').notes.length).toBeGreaterThan(createRecipe('minimal', 'achievement').notes.length)
+  })
+
+  it('gives Zen cues event-bound paper, brush, wood, and chime materials', () => {
+    const paper = createRecipe('zen', 'open')
+    const brush = createRecipe('zen', 'scanning')
+    const wood = createRecipe('zen', 'press')
+    const chime = createRecipe('zen', 'success')
+
+    expect(paper.paper).toBeGreaterThan(0)
+    expect(brush.brush).toBeGreaterThan(0)
+    expect(wood.wood).toBeGreaterThan(0)
+    expect(chime.chime).toBeGreaterThan(0)
+    expect(createRecipe('minimal', 'open').paper).toBeUndefined()
+  })
+
+  it('masters Zen one-shots and loops below the more assertive packs', () => {
+    const hover = renderRecipe(createRecipe('zen', 'hover'), 16_000)
+    const success = renderRecipe(createRecipe('zen', 'success'), 16_000)
+    const loading = renderRecipe(createRecipe('zen', 'loading'), 16_000)
+    const minimalSuccess = renderRecipe(createRecipe('minimal', 'success'), 16_000)
+
+    expect(hover.peak).toBeLessThanOrEqual(0.221)
+    expect(success.peak).toBeLessThanOrEqual(0.341)
+    expect(loading.peak).toBeLessThanOrEqual(0.231)
+    expect(success.peak).toBeLessThan(minimalSuccess.peak)
   })
 
   it('renders loop buffers with quiet, click-free seams', () => {

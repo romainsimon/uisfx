@@ -13,13 +13,13 @@
 
 Open-source interface sound effects for every product state.
 
-UI SFX is a tiny semantic sound system for web apps, mobile apps, SaaS, education, media, and games. Call `success`, `drop`, or `level-up` once, then switch the whole product between eleven coherent sonic personalities without changing interaction code.
+UI SFX is a tiny semantic sound system for web apps, mobile apps, SaaS, education, media, and games. Call `success`, `drop`, or `level-up` once, then switch the whole product between twelve coherent sonic personalities without changing interaction code.
 
 - 78 semantic cues across 13 interaction categories
-- 11 complete sound packs
-- 858 original sounds in both MP3 and Ogg
+- 12 complete sound packs
+- 936 original sounds in both MP3 and Ogg
 - 72 brief one-shots and 6 seamless state loops
-- 4.33 MB for every MP3 or 1.86 MB for every Ogg
+- 4.63 MB for every MP3 or 1.99 MB for every Ogg
 - 8.9 kB compressed Web Audio runtime with zero dependencies
 - MIT code, CC0 audio, and CC0 category art
 
@@ -48,7 +48,7 @@ ui.setPack('arcade')
 
 UI SFX creates its `AudioContext` after the first interaction, synthesizes from the same recipes as the portable library, and caches rendered buffers. It fetches no audio files at runtime.
 
-## Eleven sonic personalities
+## Twelve sonic personalities
 
 | Pack | Character | Good fit |
 | --- | --- | --- |
@@ -63,6 +63,7 @@ UI SFX creates its `AudioContext` after the first interaction, synthesizes from 
 | `rubber` | Elastic pops and friendly squish | Kids, playful mobile, casual games |
 | `cinematic` | Deep impacts and polished tails | Premium media and dramatic moments |
 | `studio` | Tactile editing precision with warm restraint | Film, audio, and AI creative tools |
+| `zen` | Washi folds, soft brush, and quiet wooden detail | Mindfulness, reading, writing, calm productivity |
 
 Every pack implements every cue. The complete semantic contract lives in [the taxonomy](docs/taxonomy.md).
 
@@ -150,9 +151,24 @@ lesson done        complete          arcade          complete.ogg
 
 The product event stays stable while the sound system evolves independently.
 
+## Give UI SFX to a coding agent
+
+The [copyable implementation prompt](https://uisfx.com/agent-prompt.txt) asks an agent to inspect your product, audition the available feels, and choose a restrained semantic mapping instead of assuming a framework or sound personality.
+
+- [Agent implementation guide](https://uisfx.com/agent-guide.md)
+- [Semantic catalog](https://uisfx.com/catalog.md)
+- [Full LLM reference](https://uisfx.com/llms-full.txt)
+- [Machine-readable manifest](https://uisfx.com/manifest.json)
+
 ## Contributing
 
-Issues and focused pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before changing the taxonomy or synthesis recipes; a new cue must work in all eleven packs and keep a visible or haptic counterpart.
+Issues and focused pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before changing the taxonomy or synthesis recipes; a new cue must work in all twelve packs and keep a visible or haptic counterpart.
+
+## Sponsors
+
+Sponsorship keeps the library independent, carefully maintained, and free under MIT and CC0. [Sponsor UI SFX on GitHub](https://github.com/sponsors/romainsimon), or see the [live sponsor board](https://uisfx.com/#sponsors).
+
+<p align="center"><!-- uisfx-sponsors --><sub>Become the first <a href="https://github.com/sponsors/romainsimon">UI SFX sponsor</a>.</sub><!-- uisfx-sponsors --></p>
 
 ## License
 

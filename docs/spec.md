@@ -4,9 +4,9 @@ This document captures the originating product request for the initial open-sour
 
 ## Product
 
-- Create a new standalone project under `/Users/romainsimon/dev` with a memorable name.
+- Create a standalone open-source project with a memorable name.
 - Improve on CueLume's small web-only interaction sound demo.
-- Make the result useful internally across OpenEducation, win.sh, and VibeFilm, while preparing it for public open-source use.
+- Make the result reusable across education, productivity, creative, and media products.
 - Keep the library tiny and dependency-light.
 
 ## Sound library
@@ -27,7 +27,7 @@ This document captures the originating product request for the initial open-sour
 
 ## Showcase
 
-- Build a polished preview experience that can later move into `/dev/yuki` or `/dev/blog`.
+- Build a polished public preview experience alongside the library.
 - Let visitors hear individual cues and compare the same cue across feels.
 - Make the complete library searchable and filterable by interaction category.
 - Include install and usage examples.

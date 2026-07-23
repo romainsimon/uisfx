@@ -20,16 +20,16 @@ The figures above come from the Ahrefs screenshot supplied on July 12, 2026. The
 ## On-page target
 
 - URL: `/ui-sound-design`
-- Title: `UI Sound Design: 858 Interface Sound Effects | UI SFX`
-- Description: `Preview 858 open-source UI sound effects for web, mobile, SaaS, and games. Compare 11 sonic styles, one-shots, and seamless loops.`
+- Title: `UI Sound Design: 936 Interface Sound Effects | UI SFX`
+- Description: `Preview 936 open-source UI sound effects for web, mobile, SaaS, and games. Compare 12 sonic styles, one-shots, and seamless loops.`
 - H1: `UI sound design, ready to ship.`
-- Search promise: preview 858 original interface sounds, understand when to use them, and install or download an open-source library.
+- Search promise: preview 936 original interface sounds, understand when to use them, and install or download an open-source library.
 
 ## Competitor notes
 
 The search results inspected in July 2026 mix design guidance with stock sound directories. Material Design and specialist articles serve the educational intent, while Pixabay and similar libraries serve the download intent. UI SFX combines a practical guide with an interactive, product-oriented catalog.
 
-SoundCN was reviewed as a product reference. Its useful patterns include fast preview, visible duration and size metadata, filters, and explicit loop support. UI SFX keeps those strengths while differentiating through a semantic vocabulary, eleven coherent feel packs, deterministic source recipes, typed APIs, and a single clear audio license. SoundCN's much larger catalog includes mixed third-party licensing, so its assets are not copied into UI SFX.
+SoundCN was reviewed as a product reference. Its useful patterns include fast preview, visible duration and size metadata, filters, and explicit loop support. UI SFX keeps those strengths while differentiating through a semantic vocabulary, twelve coherent feel packs, deterministic source recipes, typed APIs, and a single clear audio license. SoundCN's much larger catalog includes mixed third-party licensing, so its assets are not copied into UI SFX.
 
 ## Content and technical decisions
 

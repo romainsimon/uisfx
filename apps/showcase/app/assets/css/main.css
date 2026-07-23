@@ -265,6 +265,7 @@ select:focus-visible {
   box-shadow: 0.38rem 0.38rem 0 var(--dock-accent, var(--accent));
   isolation: isolate;
   transform: translateX(-50%);
+  view-transition-name: feel-selector;
 }
 
 .pack-dock__artwork,
@@ -339,7 +340,7 @@ select:focus-visible {
   cursor: pointer;
   font-size: 0.62rem;
   font-variant-numeric: tabular-nums;
-  transition: background-color 180ms var(--ease-out-quart), color 180ms var(--ease-out-quart), transform 120ms ease-out;
+  transition: background-color 180ms var(--ease-out-quart), color 180ms var(--ease-out-quart), box-shadow 180ms var(--ease-out-quart), transform 120ms ease-out;
 }
 
 .pack-dock__keys button::after {
@@ -363,13 +364,26 @@ select:focus-visible {
   transform: translateY(1px);
 }
 
+.pack-dock__keys button:focus-visible {
+  z-index: 1;
+  outline: 2px solid var(--dock-key);
+  outline-offset: -4px;
+}
+
 .pack-dock__keys button.active {
-  background: var(--dock-key-bg);
-  color: var(--dock-key-ink);
+  background: var(--dock-key-ink);
+  color: var(--dock-key-bg);
+  box-shadow: inset 0 -0.24rem 0 var(--dock-key);
+  font-weight: 900;
+}
+
+.pack-dock__keys button.active:hover {
+  background: color-mix(in oklch, var(--dock-key-ink), var(--dock-key) 10%);
 }
 
 .pack-dock__keys button.active::after {
-  transform: translateX(50%) scale(1);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--dock-key), transparent 72%);
+  transform: translateX(50%) scale(1.15);
 }
 
 .pack-dock__select {
@@ -412,6 +426,28 @@ select:focus-visible {
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--accent);
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .uisfx-mark:hover .uisfx-mark__dots i {
+    transform-origin: center bottom;
+    animation: uisfx-mark-dot-beat var(--mark-loop-beat, 300ms) var(--ease-out-quart) infinite;
+    will-change: transform;
+  }
+
+  .uisfx-mark:hover .uisfx-mark__dots i:nth-child(2) {
+    animation-delay: var(--mark-dot-delay-2, 100ms);
+  }
+
+  .uisfx-mark:hover .uisfx-mark__dots i:nth-child(3) {
+    animation-delay: var(--mark-dot-delay-3, 200ms);
+  }
+}
+
+@keyframes uisfx-mark-dot-beat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  42% { transform: translateY(-0.34em) scale(1.22); }
+  72% { transform: translateY(0.05em) scale(0.92); }
 }
 
 .eyebrow {
@@ -460,8 +496,9 @@ select:focus-visible {
 }
 
 .hero h1 em {
-  color: var(--accent);
+  color: var(--active-pack, var(--accent));
   font-style: normal;
+  transition: color 300ms var(--ease-out-quart);
 }
 
 .hero-intro {
@@ -477,6 +514,128 @@ select:focus-visible {
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-lg);
+}
+
+.hero-actions .sponsor-button {
+  min-height: 3.35rem;
+}
+
+.hero-copy-tools {
+  width: min(100%, 42rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.hero-copy-tool {
+  min-width: 0;
+  min-height: 5.7rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-md);
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--ink);
+  background: var(--paper-light);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 180ms var(--ease-out-quart), box-shadow 180ms var(--ease-out-quart), background-color 180ms ease-out, color 180ms ease-out;
+}
+
+.hero-copy-tool--agent {
+  background: color-mix(in oklch, var(--active-bg, var(--paper-deep)), var(--paper-light) 46%);
+}
+
+.hero-copy-tool > span {
+  min-width: 0;
+  display: grid;
+  gap: 0.32rem;
+}
+
+.hero-copy-tool small {
+  color: var(--ink-soft);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.hero-copy-tool code {
+  min-width: 0;
+  overflow: hidden;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: clamp(0.69rem, 0.9vw, 0.78rem);
+  font-weight: 600;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+}
+
+.hero-copy-tool code i {
+  color: var(--active-accent, var(--accent));
+  font-style: normal;
+}
+
+.hero-copy-tool strong {
+  color: var(--accent-dark);
+  font-size: 0.61rem;
+  letter-spacing: 0.06em;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.hero-copy-tool.copied {
+  background: var(--ink);
+  color: var(--paper-light);
+}
+
+.hero-copy-tool.copied small,
+.hero-copy-tool.copied strong {
+  color: var(--active-accent, var(--accent));
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-copy-tool:hover {
+    box-shadow: 0.28rem 0.28rem 0 var(--active-accent, var(--accent));
+    transform: translate(-0.1rem, -0.1rem);
+  }
+}
+
+.hero-copy-tool:active {
+  box-shadow: none;
+  transform: translate(0.12rem, 0.12rem);
+}
+
+.hero-resource-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.2rem;
+  margin-top: -0.75rem;
+  color: var(--ink-soft);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+
+.hero-resource-links a {
+  display: inline-flex;
+  gap: 0.25rem;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, currentColor, transparent 62%);
+  text-underline-offset: 0.28rem;
+}
+
+.hero-resource-links span {
+  transition: transform 180ms var(--ease-out-quart);
+}
+
+.hero-resource-links a:hover {
+  color: var(--ink);
+}
+
+.hero-resource-links a:hover span {
+  transform: translate(0.1rem, -0.1rem);
 }
 
 .primary-link {
@@ -533,9 +692,17 @@ select:focus-visible {
   box-shadow: 0.65rem 0.65rem 0 var(--paper-deep), 0.65rem 0.65rem 0 1px var(--ink);
   transform: translate3d(var(--console-x, 0), var(--console-y, 0), 0) rotate(var(--console-rotate, 1.1deg));
   transform-origin: center;
-  transition: transform 360ms var(--ease-out-quart), background-color 360ms var(--ease-out-quart), color 360ms var(--ease-out-quart);
+  transition: transform 360ms var(--ease-out-quart), background-color 360ms var(--ease-out-quart), color 360ms var(--ease-out-quart), opacity 180ms var(--ease-out-quart), visibility 0s linear 0s;
   will-change: transform;
-  view-transition-name: sound-console;
+  view-transition-name: feel-selector;
+}
+
+.sound-console--docked {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 360ms var(--ease-out-quart), background-color 360ms var(--ease-out-quart), color 360ms var(--ease-out-quart), opacity 180ms var(--ease-out-quart), visibility 0s linear 180ms;
+  view-transition-name: none;
 }
 
 .sound-console__backdrop,
@@ -556,12 +723,7 @@ select:focus-visible {
 
 .sound-console__veil {
   z-index: 1;
-  background: linear-gradient(
-    180deg,
-    color-mix(in oklch, var(--active-ink, var(--ink)), transparent 28%) 0%,
-    color-mix(in oklch, var(--active-ink, var(--ink)), transparent 48%) 52%,
-    color-mix(in oklch, var(--active-ink, var(--ink)), transparent 20%) 100%
-  );
+  background: color-mix(in oklch, var(--active-ink, var(--ink)), transparent 38%);
 }
 
 .sound-console > :not(.sound-console__backdrop, .sound-console__veil) {
@@ -574,12 +736,25 @@ select:focus-visible {
   animation: none;
 }
 
-::view-transition-old(sound-console) {
+html[data-uisfx-transition='theme']::view-transition-old(feel-selector) {
   animation: theme-leave 190ms ease-in both;
 }
 
-::view-transition-new(sound-console) {
+html[data-uisfx-transition='theme']::view-transition-new(feel-selector) {
   animation: theme-enter 420ms var(--ease-out-expo) both;
+}
+
+html[data-uisfx-transition='dock']::view-transition-group(feel-selector) {
+  animation-duration: 280ms;
+  animation-timing-function: var(--ease-out-expo);
+}
+
+html[data-uisfx-transition='dock']::view-transition-old(feel-selector) {
+  animation: selector-handoff-old 170ms var(--ease-out-quart) both;
+}
+
+html[data-uisfx-transition='dock']::view-transition-new(feel-selector) {
+  animation: selector-handoff-new 280ms var(--ease-out-expo) both;
 }
 
 @keyframes theme-leave {
@@ -588,6 +763,14 @@ select:focus-visible {
 
 @keyframes theme-enter {
   from { opacity: 0; transform: scale(0.96) rotate(1deg); }
+}
+
+@keyframes selector-handoff-old {
+  to { opacity: 0.2; }
+}
+
+@keyframes selector-handoff-new {
+  from { opacity: 0.38; }
 }
 
 .sound-console::before,
@@ -1099,7 +1282,7 @@ select:focus-visible {
 }
 
 .voice-card.looping .waveform i {
-  animation: pip-loop-meter 720ms ease-in-out infinite alternate;
+  animation: uisfx-loop-meter 720ms ease-in-out infinite alternate;
   animation-delay: calc(var(--bar) * -420ms);
 }
 
@@ -1166,6 +1349,15 @@ select:focus-visible {
   margin: 0.55rem;
   border: 1px solid var(--theme-accent);
   border-radius: 0.35rem 2.4rem 0.35rem 2.4rem;
+}
+
+.voice-card[data-pack='zen'] {
+  box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--theme-accent), transparent 68%);
+}
+
+.voice-card[data-pack='zen'] .voice-card__visual {
+  margin: clamp(0.85rem, 2.5vw, 1.65rem);
+  clip-path: polygon(4% 8%, 73% 0, 100% 27%, 94% 92%, 28% 100%, 0 72%);
 }
 
 .comparison-track {
@@ -1303,11 +1495,11 @@ select:focus-visible {
   gap: var(--space-lg);
   padding: var(--space-md);
   overflow: hidden;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--active-ink, var(--ink));
   background-color: var(--paper-deep);
   background-position: center;
   background-size: 104%;
-  color: var(--paper-light);
+  color: var(--active-bg, var(--paper-light));
   cursor: pointer;
   isolation: isolate;
   scroll-snap-align: start;
@@ -1320,13 +1512,13 @@ select:focus-visible {
   position: absolute;
   z-index: -1;
   inset: 0;
-  background: linear-gradient(180deg, color-mix(in oklch, var(--ink), transparent 76%), color-mix(in oklch, var(--ink), transparent 4%));
+  background: color-mix(in oklch, var(--active-ink, var(--ink)), transparent 38%);
 }
 
 .category-card:hover,
 .category-card.active {
   translate: 0 -0.25rem;
-  box-shadow: 0 0.35rem 0 var(--accent);
+  box-shadow: 0 0.35rem 0 var(--active-accent, var(--accent));
   background-size: 111%;
 }
 
@@ -1346,8 +1538,8 @@ select:focus-visible {
 .category-card__number {
   justify-self: start;
   padding: 0.25rem 0.4rem;
-  background: var(--paper-light);
-  color: var(--ink);
+  background: var(--active-bg, var(--paper-light));
+  color: var(--active-ink, var(--ink));
 }
 
 .category-card__copy {
@@ -1364,7 +1556,7 @@ select:focus-visible {
 
 .category-card__copy small {
   max-width: 24ch;
-  color: color-mix(in oklch, var(--paper-light), transparent 22%);
+  color: color-mix(in oklch, var(--active-bg, var(--paper-light)), transparent 22%);
   font-size: 0.65rem;
   line-height: 1.45;
 }
@@ -1511,8 +1703,9 @@ select:focus-visible {
 .cue-row::after {
   content: '';
   position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, color-mix(in oklch, var(--pack-color), transparent 72%), transparent);
+  inset: 0 auto 0 0;
+  width: 35%;
+  background: color-mix(in oklch, var(--pack-color), transparent 78%);
   opacity: 0;
   transform: translateX(-100%);
   pointer-events: none;
@@ -1523,9 +1716,9 @@ select:focus-visible {
 }
 
 @keyframes cue-scan {
-  0% { opacity: 0; transform: translateX(-100%); }
+  0% { opacity: 0; transform: translateX(-120%); }
   24% { opacity: 1; }
-  100% { opacity: 0; transform: translateX(100%); }
+  100% { opacity: 0; transform: translateX(320%); }
 }
 
 .cue-row__index,
@@ -1602,11 +1795,11 @@ select:focus-visible {
 
 .cue-row.looping .waveform i,
 .comparison-track.looping .waveform i {
-  animation: pip-loop-meter 720ms ease-in-out infinite alternate;
+  animation: uisfx-loop-meter 720ms ease-in-out infinite alternate;
   animation-delay: calc(var(--bar) * -420ms);
 }
 
-@keyframes pip-loop-meter {
+@keyframes uisfx-loop-meter {
   from { scale: 1 0.45; }
   to { scale: 1 1.18; }
 }
@@ -1716,6 +1909,24 @@ select:focus-visible {
   background: var(--paper-deep);
   color: var(--ink);
   font-size: 0.83em;
+}
+
+.site-shell[data-pack='zen'] .guide-principles {
+  border-color: var(--active-ink);
+  background: color-mix(in oklch, var(--active-bg), var(--paper-light) 50%);
+}
+
+.site-shell[data-pack='zen'] .guide-principles article {
+  border-color: var(--active-ink);
+}
+
+.site-shell[data-pack='zen'] .guide-principles article > span {
+  color: var(--active-accent);
+}
+
+.site-shell[data-pack='zen'] .guide-principles code {
+  background: color-mix(in oklch, var(--active-bg), var(--paper-light) 24%);
+  color: var(--active-ink);
 }
 
 .use-cases {
@@ -1983,6 +2194,8 @@ footer p {
   .motion-ready .hero-copy > :nth-child(2) { animation-delay: 120ms; }
   .motion-ready .hero-copy > :nth-child(3) { animation-delay: 200ms; }
   .motion-ready .hero-copy > :nth-child(4) { animation-delay: 280ms; }
+  .motion-ready .hero-copy > :nth-child(5) { animation-delay: 340ms; }
+  .motion-ready .hero-copy > :nth-child(6) { animation-delay: 390ms; }
 
   .motion-ready .sound-console {
     animation-name: console-arrive;
@@ -2023,6 +2236,59 @@ footer p {
 @keyframes console-arrive {
   from { opacity: 0; scale: 0.94; }
   to { opacity: 1; scale: 1; }
+}
+
+@media (min-width: 80rem) {
+  .comparison-board {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: clamp(0.65rem, 1vw, 1rem);
+  }
+
+  .voice-card:hover,
+  .voice-card.playing,
+  .voice-card.selected {
+    translate: 0 -0.2rem;
+    box-shadow: 0 0.24rem 0 var(--theme-accent);
+  }
+
+  .comparison-board .voice-card[data-pack] .voice-card__visual {
+    margin: 0.55rem;
+  }
+
+  .voice-card__number,
+  .voice-card__loaded {
+    top: 0.55rem;
+    padding: 0.18rem 0.28rem;
+    font-size: 0.46rem;
+  }
+
+  .voice-card__number {
+    left: 0.55rem;
+  }
+
+  .voice-card__loaded {
+    right: 0.55rem;
+  }
+
+  .voice-card__body {
+    gap: 0.5rem;
+    padding: 0.35rem 0.75rem 0.8rem;
+  }
+
+  .voice-card__top strong {
+    font-size: clamp(0.9rem, 1.1vw, 1.1rem);
+    letter-spacing: -0.025em;
+  }
+
+  .voice-card__top small,
+  .voice-card__description,
+  .voice-card__foot {
+    display: none;
+  }
+
+  .voice-card .waveform {
+    height: 1.5rem;
+  }
 }
 
 @media (max-width: 68rem) {
@@ -2175,6 +2441,10 @@ footer p {
 }
 
 @media (max-width: 42rem) {
+  .hero-copy-tools {
+    grid-template-columns: 1fr;
+  }
+
   .pack-dock {
     width: min(calc(100% - 2rem), 24rem);
     min-height: 3.5rem;
@@ -2235,6 +2505,10 @@ footer p {
   }
 
   .primary-link {
+    width: 100%;
+  }
+
+  .hero-actions .sponsor-button {
     width: 100%;
   }
 

@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": {
     "code": "MIT",
     "audio": "CC0-1.0"
   },
   "source": "Deterministic UI SFX synthesis recipes",
   "summary": {
-    "packs": 11,
+    "packs": 12,
     "cues": 78,
-    "assets": 858,
-    "mp3Bytes": 4541404,
-    "oggBytes": 1954646
+    "assets": 936,
+    "mp3Bytes": 4858048,
+    "oggBytes": 2084953
   },
   "categories": [
     {
@@ -157,6 +157,13 @@
       "description": "Tactile editing precision with warm cinematic restraint.",
       "bestFor": "Film, audio, and AI creative tools",
       "color": "#6261a8"
+    },
+    {
+      "name": "zen",
+      "label": "Zen",
+      "description": "Washi folds, soft brush, and quiet wooden detail.",
+      "bestFor": "Mindfulness, reading, writing, calm productivity",
+      "color": "#7d8f77"
     }
   ],
   "cues": [
@@ -17163,6 +17170,1488 @@
         "ogg": {
           "path": "sounds/studio/refund.ogg",
           "bytes": 2114
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "hover",
+      "category": "input",
+      "duration": 0.122,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.12,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/hover.mp3",
+          "bytes": 1819
+        },
+        "ogg": {
+          "path": "sounds/zen/hover.ogg",
+          "bytes": 621
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "press",
+      "category": "input",
+      "duration": 0.163,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/press.mp3",
+          "bytes": 1976
+        },
+        "ogg": {
+          "path": "sounds/zen/press.ogg",
+          "bytes": 693
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "release",
+      "category": "input",
+      "duration": 0.184,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/release.mp3",
+          "bytes": 2133
+        },
+        "ogg": {
+          "path": "sounds/zen/release.ogg",
+          "bytes": 789
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "double-click",
+      "category": "input",
+      "duration": 0.245,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/double-click.mp3",
+          "bytes": 2446
+        },
+        "ogg": {
+          "path": "sounds/zen/double-click.ogg",
+          "bytes": 931
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "focus",
+      "category": "input",
+      "duration": 0.204,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.12,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/focus.mp3",
+          "bytes": 2289
+        },
+        "ogg": {
+          "path": "sounds/zen/focus.ogg",
+          "bytes": 822
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "long-press",
+      "category": "input",
+      "duration": 0.469,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/long-press.mp3",
+          "bytes": 3857
+        },
+        "ogg": {
+          "path": "sounds/zen/long-press.ogg",
+          "bytes": 1612
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "select",
+      "category": "selection",
+      "duration": 0.286,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/select.mp3",
+          "bytes": 2760
+        },
+        "ogg": {
+          "path": "sounds/zen/select.ogg",
+          "bytes": 1055
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "deselect",
+      "category": "selection",
+      "duration": 0.255,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/deselect.mp3",
+          "bytes": 2603
+        },
+        "ogg": {
+          "path": "sounds/zen/deselect.ogg",
+          "bytes": 938
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "toggle-on",
+      "category": "selection",
+      "duration": 0.326,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/toggle-on.mp3",
+          "bytes": 2916
+        },
+        "ogg": {
+          "path": "sounds/zen/toggle-on.ogg",
+          "bytes": 1169
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "toggle-off",
+      "category": "selection",
+      "duration": 0.306,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/toggle-off.mp3",
+          "bytes": 2916
+        },
+        "ogg": {
+          "path": "sounds/zen/toggle-off.ogg",
+          "bytes": 1122
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "check",
+      "category": "selection",
+      "duration": 0.316,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/check.mp3",
+          "bytes": 2916
+        },
+        "ogg": {
+          "path": "sounds/zen/check.ogg",
+          "bytes": 1123
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "uncheck",
+      "category": "selection",
+      "duration": 0.286,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.15,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/uncheck.mp3",
+          "bytes": 2760
+        },
+        "ogg": {
+          "path": "sounds/zen/uncheck.ogg",
+          "bytes": 1035
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "delete",
+      "category": "editing",
+      "duration": 0.49,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.22,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/delete.mp3",
+          "bytes": 4013
+        },
+        "ogg": {
+          "path": "sounds/zen/delete.ogg",
+          "bytes": 1356
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "cancel",
+      "category": "editing",
+      "duration": 0.347,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/cancel.mp3",
+          "bytes": 3073
+        },
+        "ogg": {
+          "path": "sounds/zen/cancel.ogg",
+          "bytes": 1154
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "undo",
+      "category": "editing",
+      "duration": 0.449,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/undo.mp3",
+          "bytes": 3700
+        },
+        "ogg": {
+          "path": "sounds/zen/undo.ogg",
+          "bytes": 1462
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "redo",
+      "category": "editing",
+      "duration": 0.449,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/redo.mp3",
+          "bytes": 3700
+        },
+        "ogg": {
+          "path": "sounds/zen/redo.ogg",
+          "bytes": 1445
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "copy",
+      "category": "editing",
+      "duration": 0.306,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.15,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/copy.mp3",
+          "bytes": 2916
+        },
+        "ogg": {
+          "path": "sounds/zen/copy.ogg",
+          "bytes": 1084
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "paste",
+      "category": "editing",
+      "duration": 0.347,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/paste.mp3",
+          "bytes": 3073
+        },
+        "ogg": {
+          "path": "sounds/zen/paste.ogg",
+          "bytes": 1146
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "open",
+      "category": "navigation",
+      "duration": 0.367,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/open.mp3",
+          "bytes": 3230
+        },
+        "ogg": {
+          "path": "sounds/zen/open.ogg",
+          "bytes": 1230
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "close",
+      "category": "navigation",
+      "duration": 0.337,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/close.mp3",
+          "bytes": 3073
+        },
+        "ogg": {
+          "path": "sounds/zen/close.ogg",
+          "bytes": 1148
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "back",
+      "category": "navigation",
+      "duration": 0.306,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/back.mp3",
+          "bytes": 2916
+        },
+        "ogg": {
+          "path": "sounds/zen/back.ogg",
+          "bytes": 1098
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "forward",
+      "category": "navigation",
+      "duration": 0.306,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/forward.mp3",
+          "bytes": 2916
+        },
+        "ogg": {
+          "path": "sounds/zen/forward.ogg",
+          "bytes": 1091
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "expand",
+      "category": "navigation",
+      "duration": 0.367,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.16,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/expand.mp3",
+          "bytes": 3230
+        },
+        "ogg": {
+          "path": "sounds/zen/expand.ogg",
+          "bytes": 1229
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "collapse",
+      "category": "navigation",
+      "duration": 0.347,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.15,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/collapse.mp3",
+          "bytes": 3073
+        },
+        "ogg": {
+          "path": "sounds/zen/collapse.ogg",
+          "bytes": 1181
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "drag-start",
+      "category": "movement",
+      "duration": 0.286,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/drag-start.mp3",
+          "bytes": 2760
+        },
+        "ogg": {
+          "path": "sounds/zen/drag-start.ogg",
+          "bytes": 1011
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "drop",
+      "category": "movement",
+      "duration": 0.286,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.22,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/drop.mp3",
+          "bytes": 2760
+        },
+        "ogg": {
+          "path": "sounds/zen/drop.ogg",
+          "bytes": 978
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "snap",
+      "category": "movement",
+      "duration": 0.163,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/snap.mp3",
+          "bytes": 1976
+        },
+        "ogg": {
+          "path": "sounds/zen/snap.ogg",
+          "bytes": 721
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "swipe",
+      "category": "movement",
+      "duration": 0.388,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.14,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/swipe.mp3",
+          "bytes": 3386
+        },
+        "ogg": {
+          "path": "sounds/zen/swipe.ogg",
+          "bytes": 1291
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "reorder",
+      "category": "movement",
+      "duration": 0.326,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/reorder.mp3",
+          "bytes": 2916
+        },
+        "ogg": {
+          "path": "sounds/zen/reorder.ogg",
+          "bytes": 1117
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "invalid-drop",
+      "category": "movement",
+      "duration": 0.398,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.19,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/invalid-drop.mp3",
+          "bytes": 3386
+        },
+        "ogg": {
+          "path": "sounds/zen/invalid-drop.ogg",
+          "bytes": 1236
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "send",
+      "category": "communication",
+      "duration": 0.428,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/send.mp3",
+          "bytes": 3543
+        },
+        "ogg": {
+          "path": "sounds/zen/send.ogg",
+          "bytes": 1486
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "receive",
+      "category": "communication",
+      "duration": 0.469,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/receive.mp3",
+          "bytes": 3857
+        },
+        "ogg": {
+          "path": "sounds/zen/receive.ogg",
+          "bytes": 1615
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "notification",
+      "category": "communication",
+      "duration": 0.592,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/notification.mp3",
+          "bytes": 4640
+        },
+        "ogg": {
+          "path": "sounds/zen/notification.ogg",
+          "bytes": 2018
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "mention",
+      "category": "communication",
+      "duration": 0.653,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.22,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/mention.mp3",
+          "bytes": 4954
+        },
+        "ogg": {
+          "path": "sounds/zen/mention.ogg",
+          "bytes": 2264
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "typing",
+      "category": "communication",
+      "duration": 0.326,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.1,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/typing.mp3",
+          "bytes": 2916
+        },
+        "ogg": {
+          "path": "sounds/zen/typing.ogg",
+          "bytes": 1167
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "reaction",
+      "category": "communication",
+      "duration": 0.388,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/reaction.mp3",
+          "bytes": 3386
+        },
+        "ogg": {
+          "path": "sounds/zen/reaction.ogg",
+          "bytes": 1570
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "success",
+      "category": "feedback",
+      "duration": 0.734,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.23,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/success.mp3",
+          "bytes": 5424
+        },
+        "ogg": {
+          "path": "sounds/zen/success.ogg",
+          "bytes": 2677
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "error",
+      "category": "feedback",
+      "duration": 0.632,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.22,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/error.mp3",
+          "bytes": 4797
+        },
+        "ogg": {
+          "path": "sounds/zen/error.ogg",
+          "bytes": 2139
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "warning",
+      "category": "feedback",
+      "duration": 0.694,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.22,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/warning.mp3",
+          "bytes": 5111
+        },
+        "ogg": {
+          "path": "sounds/zen/warning.ogg",
+          "bytes": 2352
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "info",
+      "category": "feedback",
+      "duration": 0.428,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.16,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/info.mp3",
+          "bytes": 3543
+        },
+        "ogg": {
+          "path": "sounds/zen/info.ogg",
+          "bytes": 1628
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "blocked",
+      "category": "feedback",
+      "duration": 0.439,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/blocked.mp3",
+          "bytes": 3700
+        },
+        "ogg": {
+          "path": "sounds/zen/blocked.ogg",
+          "bytes": 1447
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "retry",
+      "category": "feedback",
+      "duration": 0.428,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/retry.mp3",
+          "bytes": 3543
+        },
+        "ogg": {
+          "path": "sounds/zen/retry.ogg",
+          "bytes": 1688
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "start",
+      "category": "progress",
+      "duration": 0.459,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.19,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/start.mp3",
+          "bytes": 3857
+        },
+        "ogg": {
+          "path": "sounds/zen/start.ogg",
+          "bytes": 1397
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "stop",
+      "category": "progress",
+      "duration": 0.388,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.19,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/stop.mp3",
+          "bytes": 3386
+        },
+        "ogg": {
+          "path": "sounds/zen/stop.ogg",
+          "bytes": 1255
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "progress-step",
+      "category": "progress",
+      "duration": 0.245,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.12,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/progress-step.mp3",
+          "bytes": 2446
+        },
+        "ogg": {
+          "path": "sounds/zen/progress-step.ogg",
+          "bytes": 875
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "complete",
+      "category": "progress",
+      "duration": 0.898,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.24,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/complete.mp3",
+          "bytes": 6364
+        },
+        "ogg": {
+          "path": "sounds/zen/complete.ogg",
+          "bytes": 3135
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "queued",
+      "category": "progress",
+      "duration": 0.367,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.14,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/queued.mp3",
+          "bytes": 3230
+        },
+        "ogg": {
+          "path": "sounds/zen/queued.ogg",
+          "bytes": 1147
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "checkpoint",
+      "category": "progress",
+      "duration": 0.51,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/checkpoint.mp3",
+          "bytes": 4013
+        },
+        "ogg": {
+          "path": "sounds/zen/checkpoint.ogg",
+          "bytes": 2097
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "loading",
+      "category": "loops",
+      "duration": 1.2,
+      "loop": true,
+      "playback": "loop",
+      "defaultVolume": 0.1,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/loading.mp3",
+          "bytes": 7618
+        },
+        "ogg": {
+          "path": "sounds/zen/loading.ogg",
+          "bytes": 3333
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "processing",
+      "category": "loops",
+      "duration": 1.6,
+      "loop": true,
+      "playback": "loop",
+      "defaultVolume": 0.08,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/processing.mp3",
+          "bytes": 10126
+        },
+        "ogg": {
+          "path": "sounds/zen/processing.ogg",
+          "bytes": 3972
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "recording",
+      "category": "loops",
+      "duration": 1,
+      "loop": true,
+      "playback": "loop",
+      "defaultVolume": 0.09,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/recording.mp3",
+          "bytes": 6521
+        },
+        "ogg": {
+          "path": "sounds/zen/recording.ogg",
+          "bytes": 2240
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "connecting",
+      "category": "loops",
+      "duration": 1.5,
+      "loop": true,
+      "playback": "loop",
+      "defaultVolume": 0.09,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/connecting.mp3",
+          "bytes": 9499
+        },
+        "ogg": {
+          "path": "sounds/zen/connecting.ogg",
+          "bytes": 3842
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "scanning",
+      "category": "loops",
+      "duration": 1.4,
+      "loop": true,
+      "playback": "loop",
+      "defaultVolume": 0.075,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/scanning.mp3",
+          "bytes": 8872
+        },
+        "ogg": {
+          "path": "sounds/zen/scanning.ogg",
+          "bytes": 3049
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "streaming",
+      "category": "loops",
+      "duration": 1.2,
+      "loop": true,
+      "playback": "loop",
+      "defaultVolume": 0.07,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/streaming.mp3",
+          "bytes": 7618
+        },
+        "ogg": {
+          "path": "sounds/zen/streaming.ogg",
+          "bytes": 3283
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "play",
+      "category": "media",
+      "duration": 0.347,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/play.mp3",
+          "bytes": 3073
+        },
+        "ogg": {
+          "path": "sounds/zen/play.ogg",
+          "bytes": 1186
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "pause",
+      "category": "media",
+      "duration": 0.326,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/pause.mp3",
+          "bytes": 2916
+        },
+        "ogg": {
+          "path": "sounds/zen/pause.ogg",
+          "bytes": 1143
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "seek",
+      "category": "media",
+      "duration": 0.306,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.13,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/seek.mp3",
+          "bytes": 2916
+        },
+        "ogg": {
+          "path": "sounds/zen/seek.ogg",
+          "bytes": 1041
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "volume-change",
+      "category": "media",
+      "duration": 0.204,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.11,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/volume-change.mp3",
+          "bytes": 2289
+        },
+        "ogg": {
+          "path": "sounds/zen/volume-change.ogg",
+          "bytes": 885
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "skip-next",
+      "category": "media",
+      "duration": 0.306,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.16,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/skip-next.mp3",
+          "bytes": 2916
+        },
+        "ogg": {
+          "path": "sounds/zen/skip-next.ogg",
+          "bytes": 1175
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "skip-previous",
+      "category": "media",
+      "duration": 0.306,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.16,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/skip-previous.mp3",
+          "bytes": 2916
+        },
+        "ogg": {
+          "path": "sounds/zen/skip-previous.ogg",
+          "bytes": 1151
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "connect",
+      "category": "system",
+      "duration": 0.632,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/connect.mp3",
+          "bytes": 4797
+        },
+        "ogg": {
+          "path": "sounds/zen/connect.ogg",
+          "bytes": 2396
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "disconnect",
+      "category": "system",
+      "duration": 0.592,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.19,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/disconnect.mp3",
+          "bytes": 4640
+        },
+        "ogg": {
+          "path": "sounds/zen/disconnect.ogg",
+          "bytes": 2135
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "lock",
+      "category": "system",
+      "duration": 0.347,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/lock.mp3",
+          "bytes": 3073
+        },
+        "ogg": {
+          "path": "sounds/zen/lock.ogg",
+          "bytes": 1091
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "unlock",
+      "category": "system",
+      "duration": 0.428,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/unlock.mp3",
+          "bytes": 3543
+        },
+        "ogg": {
+          "path": "sounds/zen/unlock.ogg",
+          "bytes": 1340
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "wake",
+      "category": "system",
+      "duration": 0.469,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/wake.mp3",
+          "bytes": 3857
+        },
+        "ogg": {
+          "path": "sounds/zen/wake.ogg",
+          "bytes": 1604
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "sleep",
+      "category": "system",
+      "duration": 0.49,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.15,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/sleep.mp3",
+          "bytes": 4013
+        },
+        "ogg": {
+          "path": "sounds/zen/sleep.ogg",
+          "bytes": 1535
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "reward",
+      "category": "reward",
+      "duration": 0.653,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.22,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/reward.mp3",
+          "bytes": 4954
+        },
+        "ogg": {
+          "path": "sounds/zen/reward.ogg",
+          "bytes": 2306
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "level-up",
+      "category": "reward",
+      "duration": 0.938,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.25,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/level-up.mp3",
+          "bytes": 6678
+        },
+        "ogg": {
+          "path": "sounds/zen/level-up.ogg",
+          "bytes": 3312
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "achievement",
+      "category": "reward",
+      "duration": 1.183,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.26,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/achievement.mp3",
+          "bytes": 8088
+        },
+        "ogg": {
+          "path": "sounds/zen/achievement.ogg",
+          "bytes": 3946
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "streak",
+      "category": "reward",
+      "duration": 0.734,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.21,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/streak.mp3",
+          "bytes": 5424
+        },
+        "ogg": {
+          "path": "sounds/zen/streak.ogg",
+          "bytes": 2589
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "badge",
+      "category": "reward",
+      "duration": 0.796,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.22,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/badge.mp3",
+          "bytes": 5737
+        },
+        "ogg": {
+          "path": "sounds/zen/badge.ogg",
+          "bytes": 2548
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "bonus",
+      "category": "reward",
+      "duration": 0.877,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.24,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/bonus.mp3",
+          "bytes": 6364
+        },
+        "ogg": {
+          "path": "sounds/zen/bonus.ogg",
+          "bytes": 3044
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "add-to-cart",
+      "category": "commerce",
+      "duration": 0.49,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.19,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/add-to-cart.mp3",
+          "bytes": 4013
+        },
+        "ogg": {
+          "path": "sounds/zen/add-to-cart.ogg",
+          "bytes": 1372
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "remove-from-cart",
+      "category": "commerce",
+      "duration": 0.439,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.17,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/remove-from-cart.mp3",
+          "bytes": 3700
+        },
+        "ogg": {
+          "path": "sounds/zen/remove-from-cart.ogg",
+          "bytes": 1289
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "checkout",
+      "category": "commerce",
+      "duration": 0.673,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/checkout.mp3",
+          "bytes": 5111
+        },
+        "ogg": {
+          "path": "sounds/zen/checkout.ogg",
+          "bytes": 2200
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "purchase",
+      "category": "commerce",
+      "duration": 0.775,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.22,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/purchase.mp3",
+          "bytes": 5737
+        },
+        "ogg": {
+          "path": "sounds/zen/purchase.ogg",
+          "bytes": 2257
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "coupon",
+      "category": "commerce",
+      "duration": 0.53,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.18,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/coupon.mp3",
+          "bytes": 4170
+        },
+        "ogg": {
+          "path": "sounds/zen/coupon.ogg",
+          "bytes": 1888
+        }
+      }
+    },
+    {
+      "pack": "zen",
+      "cue": "refund",
+      "category": "commerce",
+      "duration": 0.714,
+      "loop": false,
+      "playback": "one-shot",
+      "defaultVolume": 0.2,
+      "files": {
+        "mp3": {
+          "path": "sounds/zen/refund.mp3",
+          "bytes": 5267
+        },
+        "ogg": {
+          "path": "sounds/zen/refund.ogg",
+          "bytes": 2310
         }
       }
     }

@@ -2,6 +2,7 @@ import { execFile } from 'node:child_process'
 import { readFile, stat } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { promisify } from 'node:util'
+import { CUES, PACKS } from '../packages/uisfx/src/catalog.ts'
 
 interface ManifestAsset {
   duration: number
@@ -16,11 +17,16 @@ interface Manifest {
 const root = resolve(import.meta.dirname, '..')
 const packageRoot = resolve(root, 'packages/uisfx')
 const manifest = JSON.parse(await readFile(resolve(packageRoot, 'manifest.json'), 'utf8')) as Manifest
-const expectedAssets = manifest.summary.packs * manifest.summary.cues
+const expectedAssets = PACKS.length * CUES.length
 const execFileAsync = promisify(execFile)
 
-if (manifest.assets.length !== expectedAssets || expectedAssets !== 858) {
-  throw new Error(`Expected 858 rendered assets, found ${manifest.assets.length}`)
+if (
+  manifest.assets.length !== expectedAssets
+  || manifest.summary.packs !== PACKS.length
+  || manifest.summary.cues !== CUES.length
+  || manifest.summary.assets !== expectedAssets
+) {
+  throw new Error(`Expected ${expectedAssets} rendered assets, found ${manifest.assets.length}`)
 }
 
 for (const asset of manifest.assets) {
@@ -75,6 +81,7 @@ console.table({
   loudestDecodedMP3: `${loudest.db.toFixed(1)} dBFS`,
 })
 
-if (manifest.summary.oggBytes > 2 * 1024 * 1024) {
-  throw new Error(`Ogg library exceeds the 2 MB budget: ${mb(manifest.summary.oggBytes)}`)
+const oggBudget = 2 * 1024 * 1024
+if (manifest.summary.oggBytes > oggBudget) {
+  throw new Error(`Ogg library exceeds the ${mb(oggBudget)} budget: ${mb(manifest.summary.oggBytes)}`)
 }

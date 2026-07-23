@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { definePageMeta, useHead, useRuntimeConfig, useSeoMeta } from '#imports'
-import { computed, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
+import { buildAgentImplementationPrompt } from '#shared/agent-docs'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 import {
   CATEGORIES,
   CUES,
@@ -19,12 +20,30 @@ import {
 type CategoryFilter = CategoryName | 'all'
 type PlaybackFilter = PlaybackMode | 'all'
 
+const PACK_DOCK_ENTER_TOP = 80
+const PACK_DOCK_EXIT_TOP = 128
+const PACK_DOCK_THRESHOLDS = Array.from({ length: 21 }, (_, index) => index / 20)
+const MARK_LOOP_CUE = 'loading' satisfies CueName
+const MARK_LOOP_BEAT_COUNT = 4
+const MARK_LOOP_DURATION = createRecipe('minimal', MARK_LOOP_CUE).duration
+const MARK_LOOP_BEAT = MARK_LOOP_DURATION / MARK_LOOP_BEAT_COUNT
+const MARK_DOT_STEP = MARK_LOOP_BEAT / 3
+
 interface PackTheme {
   image: string
   color: string
   background: string
   ink: string
   accent: string
+}
+
+interface ViewTransitionHandle {
+  finished: Promise<void>
+  skipTransition?: () => void
+}
+
+type ViewTransitionDocument = Document & {
+  startViewTransition?: (callback: () => void | Promise<void>) => ViewTransitionHandle
 }
 
 const PACK_THEMES = {
@@ -39,16 +58,20 @@ const PACK_THEMES = {
   rubber: { image: '/packs/rubber.webp', color: '#d99a24', background: '#ffd765', ink: '#19367a', accent: '#ed4a2f' },
   cinematic: { image: '/packs/cinematic.webp', color: '#3f5873', background: '#081521', ink: '#f4e5c5', accent: '#c99b45' },
   studio: { image: '/packs/studio.webp', color: '#6261a8', background: '#161724', ink: '#f2eadb', accent: '#9c91e6' },
+  zen: { image: '/packs/zen.webp', color: '#7d8f77', background: '#eee5d2', ink: '#26302b', accent: '#a75a42' },
 } as const satisfies Record<PackName, PackTheme>
 
 definePageMeta({ alias: ['/ui-sound-design'] })
 
-const pageTitle = 'UI Sound Design: 858 Interface Sound Effects | UI SFX'
-const pageDescription = 'Preview 858 open-source UI sound effects for web, mobile, SaaS, and games. Compare 11 sonic styles, one-shots, and seamless loops.'
+const soundCount = CUES.length * PACKS.length
+const oneShotCount = CUES.filter((cue) => getPlaybackMode(cue.name) === 'one-shot').length
+const loopCount = CUES.filter((cue) => getPlaybackMode(cue.name) === 'loop').length
+const pageTitle = `UI Sound Design: ${soundCount} Interface Sound Effects | UI SFX`
+const pageDescription = `Preview ${soundCount} open-source UI sound effects for web, mobile, SaaS, and games. Compare ${PACKS.length} sonic styles, one-shots, and seamless loops.`
 const runtimeConfig = useRuntimeConfig()
 const siteUrl = String(runtimeConfig.public.siteUrl || 'https://uisfx.com').replace(/\/$/, '')
 const canonicalUrl = `${siteUrl}/ui-sound-design`
-const socialImage = `${siteUrl}/og-ui-sound-design.png`
+const socialImage = `${siteUrl}/og-ui-sound-design.png?v=936-zen-20260713`
 const organizationId = `${siteUrl}/#organization`
 const websiteId = `${siteUrl}/#website`
 const softwareId = `${canonicalUrl}#software`
@@ -69,7 +92,7 @@ useSeoMeta({
   ogImageType: 'image/png',
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: 'UI SFX sound design library with eleven sound styles and waveform previews',
+  ogImageAlt: `UI SFX sound design library with ${PACKS.length} sound styles and waveform previews`,
   twitterCard: 'summary_large_image',
   twitterTitle: pageTitle,
   twitterDescription: pageDescription,
@@ -78,7 +101,11 @@ useSeoMeta({
 })
 
 useHead({
-  link: [{ rel: 'canonical', href: canonicalUrl }],
+  link: [
+    { rel: 'canonical', href: canonicalUrl },
+    { rel: 'alternate', type: 'text/plain', href: `${siteUrl}/llms.txt`, title: 'UI SFX agent documentation' },
+    { rel: 'alternate', type: 'application/json', href: `${siteUrl}/manifest.json`, title: 'UI SFX asset manifest' },
+  ],
   meta: [
     { name: 'googlebot', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
   ],
@@ -113,18 +140,18 @@ useHead({
           applicationCategory: 'DeveloperApplication',
           applicationSubCategory: 'UI sound design library',
           operatingSystem: 'Web, iOS, Android, desktop, and game engines',
-          softwareVersion: '0.2.0',
+          softwareVersion: '0.3.0',
           downloadUrl: 'https://www.npmjs.com/package/uisfx',
           sameAs: [
             'https://github.com/romainsimon/uisfx',
             'https://www.npmjs.com/package/uisfx',
           ],
-          releaseNotes: '858 interface sound effects across 11 interchangeable sound personalities.',
+          releaseNotes: `${soundCount} interface sound effects across ${PACKS.length} interchangeable sound personalities.`,
           featureList: [
             '78 semantic UI sound cues',
-            '11 interchangeable sound styles',
-            '72 one-shot interface sounds',
-            '6 seamless UI sound loops',
+            `${PACKS.length} interchangeable sound styles`,
+            `${oneShotCount} one-shot interface sounds`,
+            `${loopCount} seamless UI sound loops`,
             'MP3 and Ogg assets',
             'Web Audio API runtime synthesis',
           ],
@@ -204,15 +231,18 @@ const activeCue = ref<CueName | null>(null)
 const activePack = ref<PackName | null>(null)
 const announcement = ref('Sound previews are ready')
 const copied = ref(false)
+const copiedAgentPrompt = ref(false)
 const reducedMotion = ref(false)
 const motionReady = ref(false)
 const showPackDock = ref(false)
+const nativeViewTransitions = ref(false)
 const loopingCue = ref<CueName | null>(null)
 const loopingPack = ref<PackName | null>(null)
 const player = shallowRef<UISFXPlayer>()
 const siteShell = ref<HTMLElement>()
 const soundConsole = ref<HTMLElement>()
 let loopingSound: PlayingSFX | null = null
+let markLoopingSound: PlayingSFX | null = null
 let activeTimer: ReturnType<typeof setTimeout> | undefined
 let motionPreference: MediaQueryList | undefined
 let syncMotionPreference: (() => void) | undefined
@@ -222,6 +252,13 @@ let scrollFrame: number | undefined
 let searchSoundTimer: ReturnType<typeof setTimeout> | undefined
 let previousQuery = ''
 let muteTransition = 0
+let viewTransitionSequence = 0
+let activeViewTransition: ViewTransitionHandle | undefined
+let dockVisibilityTarget = false
+let lastHoverSoundAt = -Infinity
+
+const HOVER_SOUND_THROTTLE_MS = 90
+const HOVERABLE_CONTROL_SELECTOR = 'button, a[href], [role="button"]'
 
 const selectedPackData = computed(() => PACKS.find((pack) => pack.name === selectedPack.value) ?? PACKS[0])
 const selectedPackTheme = computed(() => PACK_THEMES[selectedPack.value])
@@ -285,21 +322,51 @@ function play(cue: CueName, pack: PackName = selectedPack.value) {
   }
 }
 
-function setPackWithTransition(pack: PackName) {
-  const update = () => { selectedPack.value = pack }
-  const transitionDocument = document as Document & {
-    startViewTransition?: (callback: () => void) => { finished: Promise<void> }
-  }
-  if (!reducedMotion.value && transitionDocument.startViewTransition) {
-    void transitionDocument.startViewTransition(update).finished
-  } else {
+function runViewTransition(kind: 'theme' | 'dock', update: () => void) {
+  const transitionDocument = document as ViewTransitionDocument
+  if (reducedMotion.value || !transitionDocument.startViewTransition) {
     update()
+    return
   }
+
+  const sequence = ++viewTransitionSequence
+  activeViewTransition?.skipTransition?.()
+  document.documentElement.dataset.uisfxTransition = kind
+  let transition: ViewTransitionHandle
+  try {
+    transition = transitionDocument.startViewTransition(async () => {
+      update()
+      await nextTick()
+    })
+  } catch {
+    delete document.documentElement.dataset.uisfxTransition
+    update()
+    return
+  }
+  activeViewTransition = transition
+  void transition.finished
+    .catch(() => undefined)
+    .finally(() => {
+      if (sequence !== viewTransitionSequence) return
+      delete document.documentElement.dataset.uisfxTransition
+      activeViewTransition = undefined
+    })
+}
+
+function setPackWithTransition(pack: PackName) {
+  runViewTransition('theme', () => { selectedPack.value = pack })
+}
+
+function setPackDockVisibility(visible: boolean) {
+  if (dockVisibilityTarget === visible) return
+  dockVisibilityTarget = visible
+  runViewTransition('dock', () => { showPackDock.value = visible })
 }
 
 function choosePack(pack: PackName) {
+  const loopWillContinue = loopingCue.value !== null
   setPackWithTransition(pack)
-  play('select', pack)
+  if (!loopWillContinue) play('select', pack)
 }
 
 function choosePackFromSelect(event: Event) {
@@ -329,6 +396,37 @@ function onShellClick(event: MouseEvent) {
         ? 'forward'
         : 'press'
   play(cue)
+}
+
+function onShellPointerOver(event: PointerEvent) {
+  if (muted.value || !player.value || event.pointerType === 'touch') return
+  const target = event.target
+  if (!(target instanceof Element)) return
+  if (target.closest('.uisfx-mark')) return
+
+  const control = target.closest<HTMLElement>(HOVERABLE_CONTROL_SELECTOR)
+  if (!control || !siteShell.value?.contains(control)) return
+  if (control.matches(':disabled') || control.getAttribute('aria-disabled') === 'true') return
+
+  const relatedTarget = event.relatedTarget
+  if (relatedTarget instanceof Node && control.contains(relatedTarget)) return
+
+  const now = performance.now()
+  if (now - lastHoverSoundAt < HOVER_SOUND_THROTTLE_MS) return
+  lastHoverSoundAt = now
+
+  // Keep an active loop running while the hover one-shot plays over it.
+  player.value.play('hover')
+}
+
+function stopMarkLoop() {
+  markLoopingSound?.stop()
+  markLoopingSound = null
+}
+
+function startMarkLoop(event: PointerEvent) {
+  if (event.pointerType === 'touch' || muted.value || !player.value || markLoopingSound) return
+  markLoopingSound = player.value.play(MARK_LOOP_CUE)
 }
 
 function onComparisonCueChange() {
@@ -378,14 +476,13 @@ function resetConsoleTilt(event: PointerEvent) {
   element.style.setProperty('--console-rotate', '1.1deg')
 }
 
-async function copyInstall() {
-  const command = 'npm install uisfx'
+async function copyText(value: string) {
   try {
     if (!navigator.clipboard?.writeText) throw new Error('Clipboard API unavailable')
-    await navigator.clipboard.writeText(command)
+    await navigator.clipboard.writeText(value)
   } catch {
     const textarea = document.createElement('textarea')
-    textarea.value = command
+    textarea.value = value
     textarea.setAttribute('readonly', '')
     textarea.style.position = 'fixed'
     textarea.style.opacity = '0'
@@ -394,14 +491,36 @@ async function copyInstall() {
     document.execCommand('copy')
     textarea.remove()
   }
+}
+
+async function copyInstall() {
+  await copyText('npm install uisfx')
   copied.value = true
   play('success')
+  announcement.value = 'npm install command copied'
   window.setTimeout(() => { copied.value = false }, 1_800)
+}
+
+async function copyAgentPrompt() {
+  await copyText(buildAgentImplementationPrompt())
+  copiedAgentPrompt.value = true
+  play('copy')
+  announcement.value = 'Project analysis prompt copied for your coding agent'
+  window.setTimeout(() => { copiedAgentPrompt.value = false }, 1_800)
+}
+
+function playSponsorCue(cue: 'open' | 'reward') {
+  if (!player.value || muted.value) return
+  player.value.play(cue)
+  announcement.value = cue === 'reward'
+    ? 'Opening GitHub Sponsors'
+    : 'Opening sponsor website'
 }
 
 function toggleMute() {
   const transition = ++muteTransition
   if (!muted.value) {
+    stopMarkLoop()
     stopLoop()
     const confirmation = player.value?.play('toggle-off')
     muted.value = true
@@ -425,18 +544,26 @@ function toggleMute() {
 function onKeydown(event: KeyboardEvent) {
   if (event.metaKey || event.ctrlKey || event.altKey || event.isComposing) return
   if (event.target instanceof HTMLElement && (event.target.matches('input, select, textarea') || event.target.isContentEditable)) return
-  const index = event.key === '-' ? 10 : event.key === '0' ? 9 : Number(event.key) - 1
+  const index = event.key === '=' || event.key === '+'
+    ? 11
+    : event.key === '-'
+      ? 10
+      : event.key === '0'
+        ? 9
+        : Number(event.key) - 1
   const pack = PACKS[index]
   if (pack) choosePack(pack.name)
 }
 
 onMounted(() => {
   player.value = createUISFX({ pack: selectedPack.value })
+  nativeViewTransitions.value = typeof (document as ViewTransitionDocument).startViewTransition === 'function'
   motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
   syncMotionPreference = () => { reducedMotion.value = motionPreference?.matches ?? false }
   syncMotionPreference()
   motionPreference.addEventListener('change', syncMotionPreference)
   window.addEventListener('keydown', onKeydown)
+  window.addEventListener('blur', stopMarkLoop)
   window.addEventListener('scroll', updateScrollProgress, { passive: true })
   updateScrollProgress()
 
@@ -455,21 +582,53 @@ onMounted(() => {
 
   consoleObserver = new IntersectionObserver(([entry]) => {
     if (!entry) return
-    showPackDock.value = !entry.isIntersecting && entry.boundingClientRect.bottom <= 96
-  }, { threshold: 0, rootMargin: '-96px 0px 0px 0px' })
+    const shouldDock = dockVisibilityTarget
+      ? entry.boundingClientRect.top < PACK_DOCK_EXIT_TOP
+      : entry.boundingClientRect.top <= PACK_DOCK_ENTER_TOP
+    setPackDockVisibility(shouldDock)
+  }, {
+    threshold: PACK_DOCK_THRESHOLDS,
+    rootMargin: '-64px 0px 0px 0px',
+  })
   if (soundConsole.value) consoleObserver.observe(soundConsole.value)
   window.requestAnimationFrame(() => { motionReady.value = true })
 })
 
-watch(selectedPack, (pack) => player.value?.setPack(pack))
+watch(selectedPack, (pack) => {
+  player.value?.setPack(pack)
+  if (markLoopingSound && !muted.value) {
+    markLoopingSound.stop()
+    markLoopingSound = player.value?.play(MARK_LOOP_CUE) ?? null
+  }
+  const cue = loopingCue.value
+  if (!cue || !loopingSound || loopingPack.value === pack || muted.value) return
+
+  loopingSound.stop()
+  loopingSound = player.value?.play(cue) ?? null
+  if (!loopingSound) {
+    loopingCue.value = null
+    loopingPack.value = null
+    activeCue.value = null
+    activePack.value = null
+    return
+  }
+
+  loopingPack.value = pack
+  activeCue.value = cue
+  activePack.value = pack
+  announcement.value = `Continuing ${cue} loop in the ${pack} feel`
+})
 
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', onKeydown)
+  window.removeEventListener('blur', stopMarkLoop)
   if (syncMotionPreference) motionPreference?.removeEventListener('change', syncMotionPreference)
   window.removeEventListener('scroll', updateScrollProgress)
   revealObserver?.disconnect()
   consoleObserver?.disconnect()
   if (scrollFrame) window.cancelAnimationFrame(scrollFrame)
+  activeViewTransition?.skipTransition?.()
+  stopMarkLoop()
   stopLoop()
   if (activeTimer) clearTimeout(activeTimer)
   if (searchSoundTimer) clearTimeout(searchSoundTimer)
@@ -488,14 +647,20 @@ onBeforeUnmount(() => {
       '--active-bg': selectedPackTheme.background,
       '--active-ink': selectedPackTheme.ink,
       '--active-accent': selectedPackTheme.accent,
+      '--mark-loop-beat': `${MARK_LOOP_BEAT}s`,
+      '--mark-dot-delay-2': `${MARK_DOT_STEP}s`,
+      '--mark-dot-delay-3': `${MARK_DOT_STEP * 2}s`,
     }"
     @click="onShellClick"
+    @pointerover="onShellPointerOver"
   >
     <div class="scroll-progress" aria-hidden="true"><i /></div>
     <a class="skip-link" href="#sound-library" data-sfx="forward">Skip to sound library</a>
 
     <header class="topbar">
-      <a class="brand-link" href="#top" data-sfx="back" aria-label="UI SFX home"><UISFXMark compact /></a>
+      <a class="brand-link" href="#top" data-sfx="back" aria-label="UI SFX home">
+        <UISFXMark compact @pointerenter="startMarkLoop" @pointerleave="stopMarkLoop" />
+      </a>
       <nav aria-label="Primary navigation">
         <a href="#compare">Compare</a>
         <a href="#patterns">Examples</a>
@@ -525,7 +690,7 @@ onBeforeUnmount(() => {
       </div>
     </header>
 
-    <Transition name="pack-dock">
+    <Transition name="pack-dock" :css="!nativeViewTransitions || reducedMotion">
       <aside
         v-if="showPackDock"
         class="pack-dock"
@@ -582,16 +747,38 @@ onBeforeUnmount(() => {
         <div class="hero-copy">
           <p class="eyebrow">Open-source UI sound design library</p>
           <h1 id="hero-title">UI sound design,<br><em>ready to ship.</em></h1>
-          <p class="hero-intro">A tiny, complete library of interface sound effects for web apps, mobile apps, SaaS, education, media, and games. Preview every UI sound in eleven distinct sonic personalities.</p>
+          <p class="hero-intro">A tiny, complete library of interface sound effects for web apps, mobile apps, SaaS, education, media, and games. Preview every UI sound in {{ PACKS.length }} distinct sonic personalities.</p>
           <div class="hero-actions">
             <a class="primary-link" href="#sound-library">Explore all {{ CUES.length * PACKS.length }} sounds</a>
-            <a class="text-link" href="#install">npm install uisfx <span aria-hidden="true">↘</span></a>
+            <SponsorButton @activate="playSponsorCue('reward')" />
+          </div>
+          <div class="hero-copy-tools" aria-label="Install UI SFX or copy the coding agent prompt">
+            <button class="hero-copy-tool" :class="{ copied }" type="button" data-sfx-managed @click="copyInstall">
+              <span>
+                <small>Install package</small>
+                <code><i aria-hidden="true">$</i> npm install uisfx</code>
+              </span>
+              <strong>{{ copied ? 'Copied' : 'Copy' }}</strong>
+            </button>
+            <button class="hero-copy-tool hero-copy-tool--agent" :class="{ copied: copiedAgentPrompt }" type="button" data-sfx-managed @click="copyAgentPrompt">
+              <span>
+                <small>Give to your coding agent</small>
+                <code>Analyze this project, then choose its sound.</code>
+              </span>
+              <strong>{{ copiedAgentPrompt ? 'Copied' : 'Copy prompt' }}</strong>
+            </button>
+          </div>
+          <div class="hero-resource-links" aria-label="Package and source links">
+            <a href="https://www.npmjs.com/package/uisfx" target="_blank" rel="noopener noreferrer">View on npm <span aria-hidden="true">↗</span></a>
+            <a href="https://github.com/romainsimon/uisfx" target="_blank" rel="noopener noreferrer">View on GitHub <span aria-hidden="true">↗</span></a>
+            <a href="/agent-prompt.txt" target="_blank" rel="noopener">Open prompt <span aria-hidden="true">↗</span></a>
           </div>
         </div>
 
         <div
           ref="soundConsole"
           class="sound-console"
+          :class="{ 'sound-console--docked': showPackDock }"
           :style="{ '--pack-color': selectedPackData.color }"
           @pointermove="onConsolePointerMove"
           @pointerleave="resetConsoleTilt"
@@ -608,7 +795,7 @@ onBeforeUnmount(() => {
           <span class="sound-console__veil" aria-hidden="true" />
           <div class="console-head">
             <span>UI SFX / FEEL SELECTOR</span>
-            <span>01–11</span>
+            <span>01-{{ String(PACKS.length).padStart(2, '0') }}</span>
           </div>
           <button class="main-pad" type="button" data-sfx-managed :aria-label="`Play ${selectedPackData.label} success preview`" @click="play('success')">
             <span class="main-pad__art" aria-hidden="true">
@@ -635,15 +822,15 @@ onBeforeUnmount(() => {
               {{ pack.label }}
             </button>
           </div>
-          <p class="console-note">Press keys 1–9, 0 or − to switch feel</p>
+          <p class="console-note">Press 1 through 9, 0, - or + to switch feel</p>
         </div>
       </section>
 
       <section class="spec-strip" aria-label="Library specifications" data-reveal data-reveal-group>
         <p data-reveal-item><strong>{{ CUES.length }}</strong><span>semantic UI cues</span></p>
         <p data-reveal-item><strong>{{ PACKS.length }}</strong><span>distinct feels</span></p>
-        <p data-reveal-item><strong>72</strong><span>brief one-shots</span></p>
-        <p data-reveal-item><strong>6</strong><span>seamless loops</span></p>
+        <p data-reveal-item><strong>{{ oneShotCount }}</strong><span>brief one-shots</span></p>
+        <p data-reveal-item><strong>{{ loopCount }}</strong><span>seamless loops</span></p>
         <p data-reveal-item><strong>CC0</strong><span>audio license</span></p>
       </section>
 
@@ -651,7 +838,7 @@ onBeforeUnmount(() => {
         <div class="section-heading" data-reveal>
           <div>
             <p class="eyebrow">A/B the personality</p>
-            <h2 id="compare-title">Eleven voices. Eleven visual worlds.</h2>
+            <h2 id="compare-title">{{ PACKS.length }} feels. One shared vocabulary.</h2>
             <p class="section-deck">Every sound pack has its own artwork, palette, shape language, and sonic character. The semantic cue stays the same.</p>
           </div>
           <label class="cue-select">
@@ -662,7 +849,7 @@ onBeforeUnmount(() => {
           </label>
         </div>
 
-        <div class="comparison-board" aria-label="Eleven sound personalities" data-reveal data-reveal-group>
+        <div class="comparison-board" :aria-label="`${PACKS.length} sound personalities`" data-reveal data-reveal-group>
           <button
             v-for="(pack, index) in PACKS"
             :key="pack.name"
@@ -716,7 +903,7 @@ onBeforeUnmount(() => {
       <section id="sound-library" class="library-section" aria-labelledby="library-title">
         <div class="library-heading" data-reveal>
           <div>
-            <p class="eyebrow">858 open-source sounds</p>
+            <p class="eyebrow">{{ soundCount }} open-source sounds</p>
             <h2 id="library-title">Interface sound effects for every product state.</h2>
           </div>
           <p>{{ selectedPackData.description }} <strong>{{ selectedPackData.bestFor }}.</strong></p>
@@ -810,7 +997,7 @@ onBeforeUnmount(() => {
           <article data-reveal-item>
             <span>02</span>
             <h3>Use one-shots for outcomes</h3>
-            <p>Brief interface sound effects work best for discrete outcomes: a button activates, a file drops, a payment succeeds, or an action fails. Keep them short enough to preserve momentum. UI SFX includes 72 one-shots, each rendered in eleven styles, so product feedback can stay coherent across an entire flow.</p>
+            <p>Brief interface sound effects work best for discrete outcomes: a button activates, a file drops, a payment succeeds, or an action fails. Keep them short enough to preserve momentum. UI SFX includes {{ oneShotCount }} one-shots, each rendered in {{ PACKS.length }} styles, so product feedback can stay coherent across an entire flow.</p>
           </article>
           <article data-reveal-item>
             <span>03</span>
@@ -826,7 +1013,7 @@ onBeforeUnmount(() => {
           </div>
           <div class="use-cases__copy">
             <p>Web and SaaS interfaces benefit from restrained confirmation, navigation, upload, notification, and collaboration sounds. Mobile apps need the same semantic clarity in a smaller attention window, with extra care around silent mode and interruption. Games can use the arcade or organic packs to add reward and personality while keeping menus and system feedback distinct from the soundtrack.</p>
-            <p>UI SFX separates meaning from feel. Your code calls the same cue name everywhere, while a pack controls the sonic character. Minimal stays restrained, Soft feels reassuring, Glass adds polish, Arcade rewards play, Mechanical feels tactile, Organic adds warmth, Dreamy floats, Sci-fi scans, Rubber bounces, and Cinematic gives important moments scale.</p>
+            <p>UI SFX separates meaning from feel. Your code calls the same cue name everywhere, while a pack controls the sonic character. Choose from restrained, reassuring, tactile, playful, cinematic, and contemplative sound languages, including Zen's washi folds, soft brush, and quiet wooden detail.</p>
           </div>
         </div>
 
@@ -858,11 +1045,13 @@ onBeforeUnmount(() => {
         <p class="review-note">Designed and tested in Yuki Capital products. Library updated July 2026.</p>
       </section>
 
+      <SponsorsSection @sound="playSponsorCue" />
+
       <section id="install" class="install-section" aria-labelledby="install-title" data-reveal>
         <div class="install-copy">
           <p class="eyebrow">Zero dependencies</p>
           <h2 id="install-title">Give your product<br>a sound language.</h2>
-          <p>Use live synthesis on the web or copy all 858 tiny MP3 and Ogg files into any native, game, or media project. One-shots end automatically. Loops return a control you stop when the interface state resolves.</p>
+          <p>Use live synthesis on the web or copy all {{ soundCount }} tiny MP3 and Ogg files into any native, game, or media project. One-shots end automatically. Loops return a control you stop when the interface state resolves.</p>
           <button class="install-command" :class="{ copied }" type="button" data-sfx-managed @click="copyInstall">
             <span aria-hidden="true">$</span>
             <code>npm install uisfx</code>
@@ -886,7 +1075,7 @@ task?.stop()</pre>
     </main>
 
     <footer>
-      <UISFXMark />
+      <UISFXMark @pointerenter="startMarkLoop" @pointerleave="stopMarkLoop" />
       <p>Sound should reinforce visible feedback, never replace it.</p>
       <div class="footer-links">
         <a
@@ -901,9 +1090,17 @@ task?.stop()</pre>
           rel="noopener noreferrer"
           aria-label="UI SFX package on npm (opens in a new tab)"
         >npm <span aria-hidden="true">↗</span></a>
+        <a
+          href="https://github.com/sponsors/romainsimon"
+          target="_blank"
+          rel="sponsored noopener"
+          data-sfx-managed
+          aria-label="Sponsor UI SFX on GitHub (opens in a new tab)"
+          @click="playSponsorCue('reward')"
+        >Sponsor <span aria-hidden="true">↗</span></a>
+        <a href="https://yukicapital.com" target="_blank" rel="noopener noreferrer">Yuki Capital <span aria-hidden="true">↗</span></a>
         <span>MIT code</span>
         <span>CC0 audio</span>
-        <span>Made by Yuki Capital</span>
       </div>
     </footer>
 

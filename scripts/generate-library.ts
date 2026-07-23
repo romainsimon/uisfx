@@ -83,10 +83,15 @@ async function main() {
     await mkdir(dirname(mp3Path), { recursive: true })
     await writeFile(wavPath, wavBuffer(sound))
 
+    const mp3Bitrate = pack.name === 'zen' ? '48k' : '64k'
+    const oggBitrate = pack.name === 'zen' ? '20k' : '28k'
+    const oggVbr = pack.name === 'zen' ? 'constrained' : 'on'
+
     await Promise.all([
-      run('ffmpeg', ['-y', '-v', 'error', '-i', wavPath, '-map_metadata', '-1', '-c:a', 'libmp3lame', '-b:a', '64k', '-ar', '44100', mp3Path]),
-      run('ffmpeg', ['-y', '-v', 'error', '-i', wavPath, '-map_metadata', '-1', '-c:a', 'libopus', '-b:a', '28k', '-vbr', 'on', '-application', 'audio', oggPath]),
+      run('ffmpeg', ['-y', '-v', 'error', '-i', wavPath, '-map_metadata', '-1', '-c:a', 'libmp3lame', '-b:a', mp3Bitrate, '-ar', '44100', mp3Path]),
+      run('ffmpeg', ['-y', '-v', 'error', '-i', wavPath, '-map_metadata', '-1', '-c:a', 'libopus', '-b:a', oggBitrate, '-vbr', oggVbr, '-application', 'audio', oggPath]),
     ])
+    await rm(wavPath, { force: true })
 
     renderedCount += 1
     if (renderedCount % 32 === 0) process.stdout.write(`rendered ${renderedCount}/${jobs.length}\n`)

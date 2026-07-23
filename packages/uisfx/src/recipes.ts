@@ -23,6 +23,10 @@ export interface SoundRecipe {
   panTo: number
   loop: boolean
   defaultVolume: number
+  paper?: number
+  brush?: number
+  wood?: number
+  chime?: number
 }
 
 function midiToFrequency(midi: number) {
@@ -41,6 +45,54 @@ const STUDIO_DETENT_CUES = new Set<CueName>([
 const STUDIO_MILESTONE_CUES = new Set<CueName>([
   'success', 'complete', 'checkpoint', 'reward', 'level-up', 'achievement', 'bonus',
 ])
+
+const ZEN_PAPER_CUES = new Set<CueName>([
+  'hover', 'press', 'release', 'double-click', 'focus', 'long-press',
+  'select', 'deselect', 'toggle-on', 'toggle-off', 'check', 'uncheck',
+  'delete', 'cancel', 'copy', 'paste', 'open', 'close', 'back', 'forward', 'expand', 'collapse',
+  'drag-start', 'drop', 'snap', 'swipe', 'reorder', 'invalid-drop',
+  'start', 'stop', 'progress-step', 'queued', 'play', 'pause', 'seek',
+  'lock', 'unlock', 'add-to-cart', 'remove-from-cart', 'checkout', 'purchase', 'coupon', 'refund',
+])
+
+const ZEN_BRUSH_CUES = new Set<CueName>([
+  'hover', 'focus', 'cancel', 'undo', 'redo', 'open', 'close', 'back', 'forward', 'expand', 'collapse',
+  'drag-start', 'swipe', 'reorder', 'send', 'receive', 'typing',
+  'start', 'stop', 'loading', 'processing', 'recording', 'connecting', 'scanning', 'streaming',
+  'play', 'pause', 'seek', 'volume-change', 'skip-next', 'skip-previous', 'wake', 'sleep', 'refund',
+])
+
+const ZEN_WOOD_CUES = new Set<CueName>([
+  'press', 'release', 'double-click', 'long-press', 'select', 'deselect', 'toggle-on', 'toggle-off', 'check', 'uncheck',
+  'delete', 'paste', 'drop', 'snap', 'invalid-drop', 'notification', 'mention',
+  'success', 'error', 'warning', 'blocked', 'retry', 'checkpoint',
+  'connect', 'disconnect', 'lock', 'unlock', 'reward', 'badge',
+  'add-to-cart', 'remove-from-cart', 'checkout', 'purchase',
+])
+
+const ZEN_CHIME_CUES = new Set<CueName>([
+  'send', 'receive', 'notification', 'mention', 'reaction',
+  'success', 'error', 'warning', 'info', 'retry', 'complete', 'checkpoint',
+  'connect', 'disconnect', 'wake', 'reward', 'level-up', 'achievement', 'streak', 'badge', 'bonus',
+  'checkout', 'purchase', 'coupon', 'refund',
+])
+
+function zenVariation(cue: CueName, channel: number) {
+  let hash = 2166136261 ^ channel
+  for (let index = 0; index < cue.length; index += 1) {
+    hash ^= cue.charCodeAt(index)
+    hash = Math.imul(hash, 16777619)
+  }
+  return (hash >>> 0) / 4294967295
+}
+
+function zenMaterialMix(cue: CueName) {
+  const paper = ZEN_PAPER_CUES.has(cue) ? 0.72 + zenVariation(cue, 1) * 0.28 : 0
+  const brush = ZEN_BRUSH_CUES.has(cue) ? 0.68 + zenVariation(cue, 2) * 0.32 : 0
+  const wood = ZEN_WOOD_CUES.has(cue) ? 0.7 + zenVariation(cue, 3) * 0.3 : 0
+  const chime = ZEN_CHIME_CUES.has(cue) ? 0.64 + zenVariation(cue, 4) * 0.36 : 0
+  return { paper, brush, wood, chime }
+}
 
 function arrangeNotes(pack: PackName, cue: CueName, source: readonly PatternNote[], loop: boolean): PatternNote[] {
   const notes = source.map((note) => ({ ...note }))
@@ -140,6 +192,17 @@ function arrangeNotes(pack: PackName, cue: CueName, source: readonly PatternNote
       }
       return body
     }
+    case 'zen': {
+      const variation = zenVariation(cue, 0)
+      return notes.map((note, index) => ({
+        ...note,
+        at: note.at * (0.97 + variation * 0.025) + index * 0.004,
+        length: note.length * (0.9 + variation * 0.08),
+        semitone: note.semitone + (variation - 0.5) * 0.42 + (index % 2 === 0 ? -0.08 : 0.06),
+        glide: note.glide === undefined ? undefined : note.glide * 0.42,
+        gain: (note.gain ?? 1) * (loop ? 0.42 : 0.57),
+      }))
+    }
     default:
       return notes
   }
@@ -150,6 +213,7 @@ export function createRecipe(packName: PackName, cueName: CueName): SoundRecipe 
   const pack = getPack(packName)
   const durationScale = cue.loop ? 1 : pack.duration
   const arrangedNotes = arrangeNotes(packName, cueName, cue.notes, cue.loop ?? false)
+  const zenMaterials = packName === 'zen' ? zenMaterialMix(cueName) : undefined
   const notes = arrangedNotes.map((note) => {
     const startMidi = cue.baseMidi + note.semitone + 12 * Math.log2(pack.pitch)
     const endMidi = startMidi + (note.glide ?? 0)
@@ -173,8 +237,10 @@ export function createRecipe(packName: PackName, cueName: CueName): SoundRecipe 
     harmonics: pack.harmonics,
     attack: pack.attack,
     decay: pack.decay,
-    noise: Math.min(0.58, (cue.noise ?? 0) + pack.noise),
-    transient: Math.min(1, (cue.transient ?? 0) + pack.transient),
+    noise: packName === 'zen' ? 0 : Math.min(0.58, (cue.noise ?? 0) + pack.noise),
+    transient: packName === 'zen'
+      ? Math.min(0.2, pack.transient + (cue.transient ?? 0) * 0.18)
+      : Math.min(1, (cue.transient ?? 0) + pack.transient),
     brightness: pack.brightness,
     echo: pack.echo,
     bitDepth: pack.bitDepth,
@@ -182,5 +248,9 @@ export function createRecipe(packName: PackName, cueName: CueName): SoundRecipe 
     panTo: cue.panTo ?? cue.panFrom ?? 0,
     loop: cue.loop ?? false,
     defaultVolume: cue.defaultVolume,
+    paper: zenMaterials ? (pack.paper ?? 0) * zenMaterials.paper : undefined,
+    brush: zenMaterials ? (pack.brush ?? 0) * zenMaterials.brush : undefined,
+    wood: zenMaterials ? (pack.wood ?? 0) * zenMaterials.wood : undefined,
+    chime: zenMaterials ? (pack.chime ?? 0) * zenMaterials.chime : undefined,
   }
 }

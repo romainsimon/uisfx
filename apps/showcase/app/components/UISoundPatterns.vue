@@ -155,7 +155,7 @@ onBeforeUnmount(() => {
         <p class="eyebrow">Sound in context</p>
         <h2 id="patterns-title">Hear what the interface means.</h2>
       </div>
-      <p>Real shadcn-vue controls wired to semantic cues. Change the sound pack above, then run the same product flows with a completely different personality.</p>
+      <p>Interactive product controls wired to semantic cues. Change the sound pack above, then run the same flows with a completely different personality.</p>
     </header>
 
     <div class="patterns-lab">
@@ -244,7 +244,7 @@ onBeforeUnmount(() => {
                 <p class="product-kicker">Open-back reference</p>
                 <h3>Studio One</h3>
                 <p>Balanced sound for long sessions. Aluminum frame, replaceable pads, and a two-year repair promise.</p>
-                <div class="product-price"><strong>€249</strong><span>Free delivery · 2–3 days</span></div>
+                <div class="product-price"><strong>€249</strong><span>Free delivery in 2-3 days</span></div>
                 <div class="product-actions">
                   <Button variant="accent" size="lg" @click="addToCart"><ShoppingCart /> Add to cart</Button>
                   <Button variant="outline" size="lg" @click="setCheckoutOpen(true)">Buy now</Button>

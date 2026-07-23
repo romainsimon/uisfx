@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0
+
+- Add the Zen feel with washi folds, soft brush detail, quiet wood, and clean calm loops.
+- Expand the portable library to 936 CC0 sounds across 12 complete feels.
+- Add agent-readable guides, catalog endpoints, `llms.txt`, and a product-analysis-first copy prompt.
+- Add GitHub Sponsors funding, an automatically refreshed README logo wall, and a live sponsor board for the showcase.
+
 ## 0.2.0
 
 - Add the Studio feel for film, audio, and AI creative tools.
