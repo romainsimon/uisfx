@@ -566,33 +566,33 @@ onBeforeUnmount(() => {
             <h2>Implement UI audio as a product system</h2>
             <p class="lead">Centralize sound behind semantic functions. Components should request meaning, while one audio layer handles packs, playback, volume, concurrency, and user preferences.</p>
 
-            <pre class="code-block"><code><span>import</span> { createUISFX } <span>from</span> 'uisfx'
+            <pre class="code-block"><code><span class="code-token--keyword">import</span> { <span class="code-token--function">createUISFX</span> } <span class="code-token--keyword">from</span> <span class="code-token--string">'uisfx'</span>
 
-const ui = createUISFX({
-  pack: 'minimal',
-  volume: 0.35,
+<span class="code-token--keyword">const</span> ui = <span class="code-token--function">createUISFX</span>({
+  pack: <span class="code-token--string">'minimal'</span>,
+  volume: <span class="code-token--number">0.35</span>,
 })
 
-saveButton.addEventListener('click', async () =&gt; {
-  const result = await saveDocument()
-  ui.play(result.ok ? 'success' : 'error')
+saveButton.<span class="code-token--function">addEventListener</span>(<span class="code-token--string">'click'</span>, <span class="code-token--keyword">async</span> () =&gt; {
+  <span class="code-token--keyword">const</span> result = <span class="code-token--keyword">await</span> <span class="code-token--function">saveDocument</span>()
+  ui.<span class="code-token--function">play</span>(result.ok ? <span class="code-token--string">'success'</span> : <span class="code-token--string">'error'</span>)
 })
 
-const task = ui.play('processing')
-await renderProject()
-task?.stop()
-ui.play('complete')</code></pre>
+<span class="code-token--keyword">const</span> task = ui.<span class="code-token--function">play</span>(<span class="code-token--string">'processing'</span>)
+<span class="code-token--keyword">await</span> <span class="code-token--function">renderProject</span>()
+task?.<span class="code-token--function">stop</span>()
+ui.<span class="code-token--function">play</span>(<span class="code-token--string">'complete'</span>)</code></pre>
 
             <h3>Let the volume control preview itself</h3>
             <p>Apply the new level before playing the cue. Restart the same short cue with a tiny cooldown so rapid pointer input stays responsive without stacking sounds.</p>
-            <pre class="code-block"><code>const volumeInput = document.querySelector('#sound-volume')
+            <pre class="code-block"><code><span class="code-token--keyword">const</span> volumeInput = document.<span class="code-token--function">querySelector</span>(<span class="code-token--string">'#sound-volume'</span>)
 
-volumeInput.addEventListener('input', () =&gt; {
-  const volume = Number(volumeInput.value) / 100
-  ui.setVolume(volume)
-  ui.play('volume-change', {
-    retrigger: 'restart',
-    cooldownMs: 45,
+volumeInput.<span class="code-token--function">addEventListener</span>(<span class="code-token--string">'input'</span>, () =&gt; {
+  <span class="code-token--keyword">const</span> volume = <span class="code-token--function">Number</span>(volumeInput.value) / <span class="code-token--number">100</span>
+  ui.<span class="code-token--function">setVolume</span>(volume)
+  ui.<span class="code-token--function">play</span>(<span class="code-token--string">'volume-change'</span>, {
+    retrigger: <span class="code-token--string">'restart'</span>,
+    cooldownMs: <span class="code-token--number">45</span>,
   })
 })</code></pre>
 
@@ -917,7 +917,10 @@ blockquote p { max-width: 25ch; margin: 0; font-size: clamp(1.55rem, 3vw, 2.4rem
   text-underline-offset: .18em;
   text-shadow: none;
 }
-.code-block span { color: #f68562; }
+.code-token--keyword { color: #f68562; }
+.code-token--string { color: #f2c879; }
+.code-token--function { color: #9dd6cf; }
+.code-token--number { color: #c4a7e7; }
 .implementation-list { margin: 1rem 0 3rem; padding: 0; list-style: none; }
 .implementation-list li { padding: 1rem 0; border-bottom: 1px solid var(--rule); color: var(--ink-soft); line-height: 1.6; }
 .implementation-list strong { color: var(--ink); }
