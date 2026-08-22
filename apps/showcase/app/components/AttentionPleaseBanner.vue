@@ -10,8 +10,19 @@
       <span class="attention-banner__viewport" aria-hidden="true">
         <span class="attention-banner__track">
           <span v-for="group in 2" :key="group" class="attention-banner__group">
-            <span v-for="message in messages" :key="message" class="attention-banner__item">
-              <span class="attention-banner__wordmark">{{ message }}</span>
+            <span
+              v-for="(message, messageIndex) in messages"
+              :key="messageIndex"
+              class="attention-banner__item"
+            >
+              <span class="attention-banner__wordmark">
+                <span
+                  v-for="(part, partIndex) in message"
+                  :key="partIndex"
+                  :class="{ 'attention-banner__accent': part.accent }"
+                  >{{ part.text }}</span
+                >
+              </span>
               <span class="attention-banner__divider">//</span>
             </span>
           </span>
@@ -22,14 +33,19 @@
 </template>
 
 <script setup lang="ts">
-const messages = [
-  'ATTENTION, PLEASE.',
-  'DO YOU NEED ATTENTION?',
-  'ATTENTION IS ALL YOU NEED.',
-  'MAY WE HAVE YOUR ATTENTION?',
-  'WHAT DESERVES YOUR ATTENTION?',
-  'ATTENTION IS A CREATIVE ACT.',
-]
+type MessagePart = {
+  text: string;
+  accent?: boolean;
+};
+
+const messages: MessagePart[][] = [
+  [{ text: "ATTENTION, PLEASE.", accent: true }],
+  [{ text: "DO YOU NEED " }, { text: "ATTENTION?", accent: true }],
+  [{ text: "ATTENTION", accent: true }, { text: " IS ALL YOU NEED." }],
+  [{ text: "MAY WE HAVE YOUR " }, { text: "ATTENTION?", accent: true }],
+  [{ text: "WHAT DESERVES YOUR " }, { text: "ATTENTION?", accent: true }],
+  [{ text: "ATTENTION", accent: true }, { text: " IS A CREATIVE ACT." }],
+];
 </script>
 
 <style scoped>
@@ -47,7 +63,9 @@ const messages = [
   display: block;
   color: inherit;
   text-decoration: none;
-  transition: background-color 180ms ease-out, color 180ms ease-out;
+  transition:
+    background-color 180ms ease-out,
+    color 180ms ease-out;
 }
 
 .attention-banner__viewport {
@@ -88,6 +106,11 @@ const messages = [
   letter-spacing: 0.065em;
 }
 
+.attention-banner__accent {
+  color: #ffd100;
+  animation: attention-banner-accent 80s steps(1, end) infinite;
+}
+
 .attention-banner__divider {
   color: #ffd100;
   font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
@@ -114,6 +137,12 @@ const messages = [
   color: #ff3217;
 }
 
+.attention-banner__link:hover .attention-banner__accent,
+.attention-banner__link:focus-visible .attention-banner__accent {
+  color: #080808;
+  animation: none;
+}
+
 .attention-banner__link:focus-visible {
   outline: 2px solid #ffd100;
   outline-offset: -2px;
@@ -135,10 +164,33 @@ const messages = [
   }
 }
 
+@keyframes attention-banner-accent {
+  0% {
+    color: #ffd100;
+  }
+
+  25% {
+    color: #ff3217;
+  }
+
+  50% {
+    color: #5f7cff;
+  }
+
+  75% {
+    color: #009f52;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .attention-banner__track {
     animation: none;
     will-change: auto;
+  }
+
+  .attention-banner__accent {
+    color: #ffd100;
+    animation: none;
   }
 }
 </style>
