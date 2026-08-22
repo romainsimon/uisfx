@@ -4,6 +4,7 @@ import { Toaster } from '@/components/ui/sonner'
 </script>
 
 <template>
+  <AttentionPleaseBanner />
   <NuxtPage />
   <Toaster position="bottom-right" :duration="3600" close-button rich-colors />
 </template>
