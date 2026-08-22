@@ -10,8 +10,8 @@
       <span class="attention-banner__viewport" aria-hidden="true">
         <span class="attention-banner__track">
           <span v-for="group in 2" :key="group" class="attention-banner__group">
-            <span v-for="item in 8" :key="item" class="attention-banner__item">
-              <span class="attention-banner__wordmark">ATTENTION, PLEASE.</span>
+            <span v-for="message in messages" :key="message" class="attention-banner__item">
+              <span class="attention-banner__wordmark">{{ message }}</span>
               <span class="attention-banner__divider">//</span>
             </span>
           </span>
@@ -20,6 +20,17 @@
     </a>
   </aside>
 </template>
+
+<script setup lang="ts">
+const messages = [
+  'ATTENTION, PLEASE.',
+  'DO YOU NEED ATTENTION?',
+  'ATTENTION IS ALL YOU NEED.',
+  'MAY WE HAVE YOUR ATTENTION?',
+  'WHAT DESERVES YOUR ATTENTION?',
+  'ATTENTION IS A CREATIVE ACT.',
+]
+</script>
 
 <style scoped>
 .attention-banner {
@@ -40,17 +51,18 @@
 }
 
 .attention-banner__viewport {
-  display: flex;
-  min-height: 2.625rem;
+  display: grid;
+  grid-template-rows: 2.25rem;
   align-items: center;
   overflow: hidden;
+  transition: grid-template-rows 240ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .attention-banner__track {
   display: flex;
   width: max-content;
   will-change: transform;
-  animation: attention-banner-scroll 22s linear infinite;
+  animation: attention-banner-scroll 48s linear infinite;
 }
 
 .attention-banner__group {
@@ -70,7 +82,7 @@
 .attention-banner__wordmark {
   white-space: nowrap;
   font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 900;
   line-height: 1;
   letter-spacing: 0.065em;
@@ -79,7 +91,7 @@
 .attention-banner__divider {
   color: #ffd100;
   font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 900;
   line-height: 1;
   letter-spacing: 0;
@@ -107,6 +119,16 @@
   outline-offset: -2px;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .attention-banner__link:hover .attention-banner__viewport {
+    grid-template-rows: 2.75rem;
+  }
+}
+
+.attention-banner__link:focus-visible .attention-banner__viewport {
+  grid-template-rows: 2.75rem;
+}
+
 @keyframes attention-banner-scroll {
   to {
     transform: translateX(-50%);
@@ -120,4 +142,3 @@
   }
 }
 </style>
-
